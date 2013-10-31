@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <title> 
+    AS-0.3302 - project plan
+  </title> 
+  <style>
+    td:first-child {
+        font-weight:    bold;
+        padding-right:   10px;
+    }
+  </style>
+</head> 
+<body> 
+  <h1> 
+    Subject 2 - Minebombers clone
+  </h1> 
+  <h3> 
+    Authors:
+  </h3> 
+  <ul> 
+    <li> 
+      84745F Miro Nurmela
+      <a href='mail:miro.nurmela@aalto.fi'> 
+        miro.nurmela@aalto.fi
+      </a> 
+    </li> 
+    <li> 
+      290658 Henri Niva
+      <a href='mail:henri.niva@aalto.fi'> 
+        henri.niva@aalto.fi
+      </a> 
+    </li> 
+    <li> 
+      84312L Joonas Lipping
+      <a href='mail:lippinj1@cc.hut.fi'> 
+         lippinj1@cc.hut.fi
+      </a> 
+    </li>  
+    <li> 
+      78740E Roope Savolainen
+      <a href='mail:roope.savolainen@aalto.fi'> 
+         roope.savolainen@aalto.fi
+      </a> 
+    </li> 
+  </ul> 
+  <h3> 
+    Last update:
+  </h3> 
+  <p> 
+    2013-31-10
+  </p> 
+  <h2> 
+    Specification of requirements
+  </h2>
+  <p>
+    We plan to implement all the minimun requirements - so we will implement both single player and hotseat
+    multiplayer, fog of war on the map, store, collectible treasures, several game rounds, few different terrain
+    types (we pitched at leas tar, ice and several thicknes of walls), a random map generator (and possibly
+    some kind of procedural map generation in some kind of infinite/survival game mode). Single player game
+    naturally comes with some simple AI enemies. Not much special here -
+    the game will not be much of anything without these basic features. Fun to play is the main goal and hopefully
+    achieved by enough testing and polish.
+  </p>
+  <p>
+    As for the optional requirements we were planning the following. Configurable keys and audio should be easy
+    to implement - audio should be supplied by SFML (more on external libraries in the end of the documentation),
+    and configurable keys should not be impossible to implement with simple menu selections and the like. More
+    intelligent AI is somewhat of an abstract requirement, but we do plan to implement more refined AI than just
+    homing towards the player, for example. I can see no reason why AI players could not be supported in multiplayer,
+    once some more refined AI is implemented. More weapons and terrain types should be simple to add once a good
+    basic implementation of both is done - more on this on the program arcitehcture section. Campaign and map editors
+    are in the planning and should not be hard to implement (and making maps by say, writing text files sounds like
+    a terrible idea). We do hope that our final map generator fulfills the criteria of beinf "super cool".
+  </p>
+  <p>
+    We discussed the possibility of incorporating netplay or some other type of multiplayer form of play to the game
+    but decided that that kind of behaviour should be added once the basic things are in place. We strongly believe
+    that by making robust and clean implementations on the basic and more spectacular features we can extend the
+    game for multiplayer, for example.
+  </p>
+  <p> 
+    These are, at the moment, the things we have discussed. There is a plenty of work to refine all the mentioned
+    features to be excellent, and who knows, maybe we come up with something more exciting in the process.
+  </p> 
+  <h2> 
+    Program architecture
+  </h2> 
+  <p>
+    The following diagram contains the high level architecure view of the program.
+    <img src="Architecture.svg" alt="High level arcitecture" width="100%"/>
+  </p>
+  <p>
+    The structure is pretty straightforward - the main class Game maintain the state of the game, Actors represent
+    the moving and sentinent things in the game, Map describes the maps games are played in, Items are items to
+    be collected and used and so forth.
+  </p>
+  <p>
+    The architectural design is supposed to divide the the program into three quite distinct parts - the
+    map and its generation, the actors and the items and the remaining game logic (settings, store and such).
+    This makes implementaion on separate parts of the program easy, and on the other hand divides logically
+    separate things into their own sets.
+  </p>
+  <p>
+    In the design phase most of the problems we faced and discussed revolved around where the data is stored and
+    how it's accessed - for example, when an AI player wants to know what's in the block in front of him, should
+    that information be retrieved from the map or the block he is currently at? Should the map contain, for example,
+    quick access to player locations or should it just find them once somebody requests them? We ended up storing
+    most of the data for players and such in the maps (since map blocks don't necessarily contain references to
+    other blocks or objects), so in order to get the location of for example the block in front of a player, we
+    would supply the map the location and the facing of the player and receive the thing in the block he's looking
+    at.
+  </p>
+  <h2> 
+    Task sharing
+  </h2> 
+  <p>
+    The division of work follows roughly what was drafted in the section above. The following diagram shows the
+    larger blocks of the project.
+    <img src="TaskSharing.svg" alt="Sweet task sharing blocks" width="100%"/>
+  </p>
+  <p> 
+    Co-operation will be handled by our established IRC-channel and weekly meet ups. Interfaces should be pretty
+    clear between the shared tasks - maps have functions to get things in the map, actors have methods to move
+    them around, items have methods to use and to be picked up and the game logic will use all these methods
+    to keep the game running.
+  </p> 
+  <h2> 
+    Testing
+  </h2> 
+  <p>
+    A test suite will be written and maintained alongside the program code, consisting of a set of unit tests
+    for the nontrivial aspects of each component, as well as some tests that involve the central interactions
+    between components. These tests will be run for each new iteration to ensure that new code does not break
+    existing code. In addition, game mechanics will be aggressively play-tested for enjoyability &mdash; fun
+    is serious business.
+  </p>
+  <!--<p> 
+    Non-trivial aspects of the game will be unit tested (everyone's responsibility to make sure their parts)
+    work correctly. Hopefully we will implement a nice test suite to be executed upon build. Of course the
+    fun aspect of the requirements will be achieved by testing the game by playing.
+  </p> -->
+  <h2> 
+    Schedule
+  </h2> 
+  <p>
+    Development will start with the production of a rough-but-functional prototype,
+    which will then be iterated on to arrive at the finished game.
+    We expect this to be achievable within about a week.
+    From then on, an agile-like process will be used: weekly meetings will set targets for each week,
+    progressing from essential components towards nice-to-have features and optional extras.
+    The following table provides a rough roadmap for the project.
+    The schedule is tight, but good results require hard work.
+  </p>
+  <table>
+  <tr>
+      <!--<td>Week 1</td>-->
+      <td>01.11 - 08.11</td>
+      <td>First working prototype (some maps, items, weapons and moving players)</td>
+  </tr>
+  <tr>
+      <!--<td>Week 2</td>-->
+      <td>09.11 - 15.11</td>
+      <td>random map generator, monsters with AI, item store, more weapon types</td>
+  </tr>
+  <tr>
+      <!--<td>Week 3</td>-->
+      <td>16.11 - 22.11</td>
+      <td>Minimum requirements fulfilled. Work started on some optional extras</td>
+  </tr>  
+  <tr> 
+      <!--<td>Week 4</td>-->
+      <td>23.11 - 29.11</td>
+      <td>Sweet graphics and audio</td>
+  </tr> 
+  <tr>
+      <!--<td>Week 5+</td>-->
+      <td>30.11 - 08.11</td>
+      <td>Bug fixes and finalization, documentation</td>
+  </tr>
+  </table>
+  <h2> 
+    External libraries
+  </h2> 
+  <p> 
+    SFML will be used for graphics, input handling, and other tasks.
+    At present, we foresee no need for any other external libraries.
+  </p> 
+</body>
+
