@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="29cm" height="19cm" viewBox="520 211 567 361" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="822" y="223" width="234" height="124"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="822" y="223" width="234" height="124"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="939" y="264.9">
+      <tspan x="939" y="264.9">Maps</tspan>
+      <tspan x="939" y="280.9">-map implementation and</tspan>
+      <tspan x="939" y="296.9">map creation methods</tspan>
+      <tspan x="939" y="312.9">(generation, editor)</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="523" y="212" width="205" height="136"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="523" y="212" width="205" height="136"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="625.5" y="259.9">
+      <tspan x="625.5" y="259.9">Actors</tspan>
+      <tspan x="625.5" y="275.9">-player and AI interaction,</tspan>
+      <tspan x="625.5" y="291.9">including the AI</tspan>
+      <tspan x="625.5" y="307.9">implementaion</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="521" y="405" width="254" height="165"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="521" y="405" width="254" height="165"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="648" y="475.4">
+      <tspan x="648" y="475.4">Items</tspan>
+      <tspan x="648" y="491.4">-weapons, treasures and</tspan>
+      <tspan x="648" y="507.4">the store to buy them from</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="813" y="405" width="272" height="164"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="813" y="405" width="272" height="164"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="949" y="466.9">
+      <tspan x="949" y="466.9">Game Logic</tspan>
+      <tspan x="949" y="482.9">-connecting the different parts</tspan>
+      <tspan x="949" y="498.9">and making sure that the</tspan>
+      <tspan x="949" y="514.9">game works nicely</tspan>
+    </text>
+  </g>
+</svg>

@@ -7,28 +7,34 @@
 </head> 
 <body> 
   <h1> 
-    Subject [number of your subject] - [name of your subject]
+    Subject 2 - Minebombers clone
   </h1> 
   <h3> 
     Authors:
   </h3> 
   <ul> 
     <li> 
-      12345A Matti Meikäläinen
-      <a href='mail:tteekkari@aalto.fi'> 
-        tteekkari@aalto.fi
+      84745F Miro Nurmela
+      <a href='mail:miro.nurmela@aalto.fi'> 
+        miro.nurmela@aalto.fi
       </a> 
     </li> 
     <li> 
-      12345A Matti Meikäläinen
-      <a href='mail:tteekkari@aalto.fi'> 
-        tteekkari@aalto.fi
+      290658 Henri Niva
+      <a href='mail:henri.niva@aalto.fi'> 
+        henri.niva@aalto.fi
       </a> 
     </li> 
     <li> 
-      12345A Matti Meikäläinen
-      <a href='mail:tteekkari@aalto.fi'> 
-        tteekkari@aalto.fi
+      84312L Joonas Lipping
+      <a href='mail:lippinj1@cc.hut.fi'> 
+         lippinj1@cc.hut.fi
+      </a> 
+    </li>  
+    <li> 
+      78740E Roope Savolainen
+      <a href='mail:roope.savolainen@aalto.fi'> 
+         roope.savolainen@aalto.fi
       </a> 
     </li> 
   </ul> 
@@ -36,64 +42,119 @@
     Last update:
   </h3> 
   <p> 
-    2013-22-10
+    2013-31-10
   </p> 
   <h2> 
     Specification of requirements
-  </h2> 
+  </h2>
+  <p>
+    We plan to implement all the minimun requirements - so we will implement both single player and hotseat
+    multiplayer, fog of war on the map, store, collectible treasures, several game rounds, few different terrain
+    types (we pitched at leas tar, ice and several thicknes of walls), a random map generator (and possibly
+    some kind of procedural map generation in some kind of infinite/survival game mode). Single player game
+    naturally comes with some simple AI enemies. Not much special here -
+    the game will not be much of anything without these basic features. Fun to play is the main goal and hopefully
+    achieved by enough testing and polish.
+  </p>
+  <p>
+    As for the optional requirements we were planning the following. Configurable keys and audio should be easy
+    to implement - audio should be supplied by SFML (more on external libraries in the end of the documentation),
+    and configurable keys should not be impossible to implement with simple menu selections and the like. More
+    intelligent AI is somewhat of an abstract requirement, but we do plan to implement more refined AI than just
+    homing towards the player, for example. I can see no reason why AI players could not be supported in multiplayer,
+    once some more refined AI is implemented. More weapons and terrain types should be simple to add once a good
+    basic implementation of both is done - more on this on the program arcitehcture section. Campaign and map editors
+    are in the planning and should not be hard to implement (and making maps by say, writing text files sounds like
+    a terrible idea). We do hope that our final map generator fulfills the criteria of beinf "super cool".
+  </p>
+  <p>
+    We discussed the possibility of incorporating netplay or some other type of multiplayer form of play to the game
+    but decided that that kind of behaviour should be added once the basic things are in place. We strongly believe
+    that by making robust and clean implementations on the basic and more spectacular features we can extend the
+    game for multiplayer, for example.
+  </p>
   <p> 
-    In this section, specify the requirements for your project that you are fulfilling.
-    The requirements that you choose must cover the minimum requirements for your project work topic.
-    Be sure to make a distinction between the mandatory requirements for the project and any additional requirements that you have that are not critical for the project.
-  </p> 
-  <p> 
-    Do not describe the technical details of your project but rather, what functionality and features the project provides for the potential user.
+    These are, at the moment, the things we have discussed. There is a plenty of work to refine all the mentioned
+    features to be excellent, and who knows, maybe we come up with something more exciting in the process.
   </p> 
   <h2> 
     Program architecture
   </h2> 
-  <p> 
-    This section describes how you intend to fulfill the requirements specified in the previous section.
-    The high-level architecture of your program should be described in this section by the use of some form of diagrams.
-    The diagrams need not be in UML, they should clarify and summarise the structure of your project.
-    Depending on your topic, you might want to describe the structure and operation of your project separately.
-  </p> 
-  <p> 
-    Do not write source code here.
-    If absolutely necessary, you can include some parts of your interfaces or the core classes here, but the amount of source code should be kept to a minimum.
-  </p> 
-  <p> 
-    Include a short rationale or a discussion concerning the architectural decisions that you had to make.
-    Especially alternative solutions to the key problems and possible compromises that had to be made in the design phase.
-  </p> 
+  <p>
+    The following diagram contains the high level architecure view of the program.
+    <img src="Architecture.svg" alt="High level arcitecture" width="100%"/>
+  </p>
+  <p>
+    The structure is pretty straightforward - the main class Game maintain the state of the game, Actors represent
+    the moving and sentinent things in the game, Map describes the maps games are played in, Items are items to
+    be collected and used and so forth.
+  </p>
+  <p>
+    The architectural design is supposed to divide the the program into three quite distinct parts - the
+    map and its generation, the actors and the items and the remaining game logic (settings, store and such).
+    This makes implementaion on separate parts of the program easy, and on the other hand divides logically
+    separate things into their own sets.
+  </p>
+  <p>
+    In the design phase most of the problems we faced and discussed revolved around where the data is stored and
+    how it's accessed - for example, when an AI player wants to know what's in the block in front of him, should
+    that information be retrieved from the map or the block he is currently at? Should the map contain, for example,
+    quick access to player locations or should it just find them once somebody requests them? We ended up storing
+    most of the data for players and such in the maps (since map blocks don't necessarily contain references to
+    other blocks or objects), so in order to get the location of for example the block in front of a player, we
+    would supply the map the location and the facing of the player and receive the thing in the block he's looking
+    at.
+  </p>
   <h2> 
     Task sharing
   </h2> 
+  <p>
+    The division of work follows roughly what was drafted in the section above. The following diagram shows the
+    larger blocks of the project.
+    <img src="TaskSharing.svg" alt="Sweet task sharing blocks" width="100%"/>
+  </p>
   <p> 
-    Describe, in this section, how all the tasks necessary for the implementation of the project are to be shared.
-    All members of your group should have a roughly equal share in programming.
-  </p> 
-  <p> 
-    Additionally describe the methods of co-operation and the specification of interfaces necessary for the the implementation of the various parts of the project by each group member.
+    Co-operation will be handled by our established IRC-channel and weekly meet ups. Interfaces should be pretty
+    clear between the shared tasks - maps have functions to get things in the map, actors have methods to move
+    them around, items have methods to use and to be picked up and the game logic will use all these methods
+    to keep the game running.
   </p> 
   <h2> 
     Testing
   </h2> 
   <p> 
-    Describe how the individual parts of the program and how the complete project will eventually be tested.
+    Non-trivial aspects of the game will be unit tested (everyone's responsibility to make sure their parts)
+    work correctly. Hopefully we will implement a nice test suite to be executed upon build. Of course the
+    fun aspect of the requirements will be achieved by testing the game by playing.
   </p> 
   <h2> 
     Schedule
   </h2> 
+  <ul> 
+    <li> 
+      First working prototype (some maps, items, weapons and moving players): 8.11
+    </li> 
+    <li> 
+      More refined version (map generation, monster AI, store, more weapon types): 15.11
+    </li> 
+    <li> 
+      Minimum requirements fulfilled: 22.11
+    </li>  
+    <li> 
+      Sweet graphics and audio: 29.11
+    </li> 
+    <li>
+      5.12-8.12 - Bug fixes and finalization, documentation
+    </li>
+  </ul> 
   <p> 
-    Include a rough schedule for your project.
-    Do not go into excessive detail but construct clear milestones and deadlines for your work.
+    This is a rough, weekly schedule. It's kinda tight, but good results require hard work.
   </p> 
   <h2> 
     External libraries
   </h2> 
   <p> 
-    This is essentially a list of all external libraries that you intend to use.
+    At the moment we plan to use SFML.
   </p> 
 </body>
 
