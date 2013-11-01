@@ -13,11 +13,11 @@
 </head> 
 <body> 
   <h1> 
-    Subject 2 - Minebombers clone
+    Revenge of the Moon - The Gathering Storm
   </h1>
   <p>
-    Revenge of the Moon - The Gathering Storm
-  </p> 
+    Subject 2 - Minebombers clone
+  </p>
   <h3> 
     Authors:
   </h3> 
@@ -57,76 +57,110 @@
     Specification of requirements
   </h2>
   <p>
-    We plan to implement all the minimun requirements - so we will implement both single player and hotseat
-    multiplayer, fog of war on the map, store, collectible treasures, several game rounds, few different terrain
-    types (we pitched at leas tar, ice and several thicknes of walls), a random map generator (and possibly
-    some kind of procedural map generation in some kind of infinite/survival game mode). Single player game
-    naturally comes with some simple AI enemies. Not much special here -
-    the game will not be much of anything without these basic features. Fun to play is the main goal and hopefully
-    achieved by enough testing and polish.
+    All minimum requirements will be implemented.
+    The game will feature single player and hotseat multiplayer,
+    fog of war on the map, a store, collectible treasures, several game rounds,
+    a few different terrain types (such as tar, ice, and walls of varying strength),
+    a random map generator,
+    and possibly some kind of procedural map generation and a continuous "survival" mode.
+    The single player mode naturally comes with some simple AI enemies.
+    Nothing special here &mdash; the game will not amount to much without these basic features.
+    The most important goal is for the game to be fun to play,
+    which can hopefully be achieved by enough testing and polish.
   </p>
   <p>
     As for the optional requirements we were planning the following. Configurable keys and audio should be easy
-    to implement - audio should be supplied by SFML (more on external libraries in the end of the documentation),
-    and configurable keys should not be impossible to implement with simple menu selections and the like. More
-    intelligent AI is somewhat of an abstract requirement, but we do plan to implement more refined AI than just
-    homing towards the player, for example. I can see no reason why AI players could not be supported in multiplayer,
-    once some more refined AI is implemented. More weapons and terrain types should be simple to add once a good
-    basic implementation of both is done - more on this on the program arcitehcture section. Campaign and map editors
-    are in the planning and should not be hard to implement (and making maps by say, writing text files sounds like
-    a terrible idea). We do hope that our final map generator fulfills the criteria of beinf "super cool".
+    to implement - audio can be supplied through SFML (more on external libraries in the end of the documentation),
+    and configurable keys can be implemented with simple menu selections and the like.
+    "More intelligent AI" is somewhat vague as a requirement,
+    but we do plan to implement more refined AI than just homing towards the player, for example.
+    Sophisticated AI also allows us to provide AI players in multiplayer mode.
+    Basic implementations of weapons and terrain are designed to be flexible,
+    making it easy to add new ones.
+    Campaign and map editors are in the planning and should not be hard to implement
+    (not to mention that making maps by say, writing text files sounds like a terrible idea).
+    We hope that our final map generator fulfills the criterion of being "super cool".
   </p>
   <p>
-    We discussed the possibility of incorporating netplay or some other type of multiplayer form of play to the game
-    but decided that that kind of behaviour should be added once the basic things are in place. We strongly believe
-    that by making robust and clean implementations on the basic and more spectacular features we can extend the
-    game for multiplayer, for example.
+    We discussed the possibility of netplay or some other type of multiplayer mode,
+    but decided that such features should only be considered once a solid foundation is in place.
+    We strongly believe that a well-built set of basic features makes for good extensibility,
+    including netplay and other large-scale improvements.
   </p>
   <p> 
-    These are, at the moment, the things we have discussed. There is a plenty of work to refine all the mentioned
-    features to be excellent, and who knows, maybe we come up with something more exciting in the process.
+    The features outlined above are the ones that have been discussed so far,
+    and they form our starting plan.
+    Plenty of work will be needed to refine them to excellence, though,
+    and experience may bring to light unforeseen difficulties or
+    new opportunities for exciting features.
+    We recognize this and acknowledge that the specification will evolve along with the implementation.
   </p> 
   <h2> 
     Program architecture
   </h2> 
   <p>
-    The following diagram contains the high level architecure view of the program.
-    <img src="Architecture2.svg" alt="High level arcitecture" width="100%"/>
-  </p>
-  <p>
-    The structure is pretty straightforward - the main class Game maintain the state of the game, Actors represent
+    The diagram below describes the general architecture of the program.
+    The structure is pretty straightforward - the main class Game maintains the state of the game, Actors represent
     the moving and sentinent things in the game, Map describes the maps games are played in, Items are items to
     be collected and used and so forth.
+    <img src="Architecture2.svg" alt="High level arcitecture" width="100%" style="padding-top: 10px;"/>
   </p>
   <p>
-    The architectural design is supposed to divide the the program into three quite distinct parts - the
-    map and its generation, the actors and the items and the remaining game logic (settings, store and such).
-    This makes implementaion on separate parts of the program easy, and on the other hand divides logically
-    separate things into their own sets.
+    The architectural design divides the the program into four quite distinct parts -
+    the map and its generation, the actors, weapons and other items, and the overall game logic.
+    This makes implementaion on separate parts of the program easy,
+    and on the other hand divides logically separate things into their own sets.
   </p>
   <p>
     In the design phase most of the problems we faced and discussed revolved around where the data is stored and
-    how it's accessed - for example, when an AI player wants to know what's in the block in front of him, should
-    that information be retrieved from the map or the block he is currently at? Should the map contain, for example,
-    quick access to player locations or should it just find them once somebody requests them? We ended up storing
-    most of the data for players and such in the maps (since map blocks don't necessarily contain references to
-    other blocks or objects), so in order to get the location of for example the block in front of a player, we
-    would supply the map the location and the facing of the player and receive the thing in the block he's looking
-    at.
+    how it's accessed,
+    specifically around the way that objects in the game can request information
+    about the map's geography &mdash; for example,
+    when an AI player wants to know what's in the block in front of him,
+    should that information be retrieved from the map or the block he is currently at?
+    Should the map contain, for example, quick access to player locations
+    or should it just find them once somebody requests them?
+    We ended up storing most of the data for players and such in the Map object,
+    so that map blocks don't need to contain references to other blocks or objects.
+    Say, for instance, that an actor wants to know what the block he's facing contains.
+    In order to get the location of that block, he would call a member function of the Map object,
+    supplying his own location and the direction he's facing as parameters.
+    Other possible queries include "first blocked (non-walkable) block in the given direction",
+    "the set of blocks within distance X of the given block", and so on.
   </p>
   <h2> 
     Task sharing
   </h2> 
   <p>
-    The division of work follows roughly what was drafted in the section above. The following diagram shows the
-    larger blocks of the project.
-    <img src="TaskSharing.svg" alt="Sweet task sharing blocks" width="100%"/>
+    Areas of responsibility are divided among the developers, roughly speaking,
+    into the ones outlined by the architectural diagram.
+    In addition to these tasks, graphical resources need to be prepared.
+    The division is as follows:
   </p>
+  <table>
+    <tr><td>Miro</td><td>Maps and Generators</td></tr>
+    <tr><td>Henri</td><td>Items and Store</td></tr>
+    <tr><td>Joonas</td><td>Actors and AI</td></tr>
+    <tr><td>Roope</td><td>Game logic and graphics</td></tr>
+  </table>
+
+  <p>
+    Towards the end of the development process,
+    some areas will probably prove more labor-intensive than others,
+    and development tasks will overlap.
+    The primary areas of responsibility will nevertheless continue to be the ones described above.
+  </p>
+
+    <!--The division of work follows roughly what was drafted in the section above. The following diagram shows the
+    larger blocks of the project.
+    <img src="TaskSharing.svg" alt="Sweet task sharing blocks" width="100%"/>-->
   <p> 
-    Co-operation will be handled by our established IRC-channel and weekly meet ups. Interfaces should be pretty
-    clear between the shared tasks - maps have functions to get things in the map, actors have methods to move
-    them around, items have methods to use and to be picked up and the game logic will use all these methods
-    to keep the game running.
+    Efforts will be coordinated in weekly meetings and via IRC.
+    To make things go smoothly, interfaces will be made as clear as possible.
+    Maps provide access to different aspects of level geometry,
+    Actors have member functions to govern their movements,
+    Items can be picked up from the map,
+    and the Game contains logic to make it all tick.
   </p> 
   <h2> 
     Testing
@@ -135,8 +169,9 @@
     A test suite will be written and maintained alongside the program code, consisting of a set of unit tests
     for the nontrivial aspects of each component, as well as some tests that involve the central interactions
     between components. These tests will be run for each new iteration to ensure that new code does not break
-    existing code. In addition, game mechanics will be aggressively play-tested for enjoyability &mdash; fun
-    is serious business.
+    existing functionality.
+    In addition, game mechanics will be aggressively play-tested for enjoyability
+    &mdash; fun and games are serious business.
   </p>
   <!--<p> 
     Non-trivial aspects of the game will be unit tested (everyone's responsibility to make sure their parts)
@@ -149,7 +184,7 @@
   <p>
     Development will start with the production of a rough-but-functional prototype,
     which will then be iterated on to arrive at the finished game.
-    We expect this to be achievable within about a week.
+    We expect to produce this first prototype within about a week.
     From then on, an agile-like process will be used: weekly meetings will set targets for each week,
     progressing from essential components towards nice-to-have features and optional extras.
     The following table provides a rough roadmap for the project.

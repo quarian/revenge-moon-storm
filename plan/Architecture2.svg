@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
-<svg width="37cm" height="30cm" viewBox="-615 -157 731 596" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="39cm" height="30cm" viewBox="-661 -157 778 596" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke-linejoin: round; stroke-dasharray: 4; stroke: #000000" x="-613.096" y="-121.067" width="334.5" height="243" rx="8" ry="8"/>
   <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke-linejoin: round; stroke-dasharray: 4; stroke: #000000" x="-611.776" y="207.732" width="339" height="226.058" rx="8" ry="8"/>
   <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke-linejoin: round; stroke-dasharray: 4; stroke: #000000" x="-221.5" y="-155.567" width="337" height="300" rx="8" ry="8"/>
@@ -148,5 +148,10 @@
     <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="-361.381" y1="108.42" x2="-165.399" y2="209.879"/>
     <polygon style="fill: #000000" points="-158.738,213.327 -169.917,213.17 -165.399,209.879 -165.32,204.29 "/>
     <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-158.738,213.327 -169.917,213.17 -165.399,209.879 -165.32,204.29 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M -603.591,101.414 A 168.862,168.862 0 0 0 -606.576,350.408"/>
+    <polygon style="fill: #000000" points="-601.013,355.422 -611.892,352.846 -606.768,350.613 -605.48,345.173 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-601.013,355.422 -611.892,352.846 -606.768,350.613 -605.48,345.173 "/>
   </g>
 </svg>
