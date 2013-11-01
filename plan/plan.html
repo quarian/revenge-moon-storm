@@ -234,6 +234,25 @@
     It is different from monster Actors in that it persists between game rounds
     and carries its state (inventory) over from one to the next.
   </p>
+  <h3>
+  The game loop and object management
+  </h3>
+  <p>
+  We will use a general Game object to store the game state. The object will at first handle loading resources and initializing the required components for a game session. The object will then present the current scene (main menu, actual game play) to the user, react to user inputs within a game loop and finally take care of releasing any resources.
+  </p>
+  <p>
+  We will use a straightforward game loop that is divided into three major parts:
+	<ol>
+	<li>Event loop</li>
+	<li>Object updates</li>
+	<li>Drawing</li>
+	</ol>
+  The event loop will pump events from SFML and handle them. This mostly includes reacting to user input and window events such as a sudden exit event of the window. The events are pumped at the beginning of the frame to keep the object states, drawing and input all in sync.
+  
+  In the object update phase, critical game logic is handled. This includes changing the state of the game by updating each game object individually in a specific order and handling the most outward layer of game rules, such as a win/lose condition.
+  
+  The drawing phase draws the objects of the current frame onto the window and thus completes one full game loop cycle. The loop will add some padding time (pause) to synchronise with a pre-defined framerate if the game is intended to run in constant frame intervals. A general use 'dt' variable will be used such that any motion on the screen will as fluent as possible, while maintaining constant simulation across different systems running the game so that the game experience stays the same.
+  </p>
   <h2> 
     Task sharing
   </h2> 
