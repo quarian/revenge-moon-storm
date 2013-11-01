@@ -132,6 +132,11 @@
     About maps and map generators
   </h3>
   <p>
+    The maps will be made of blocks, which will be represented by their own class. The blocks will contain
+    the relevant information regarding the location, such as the rendered image, terrain type and whether it
+    has a player or a bomb in it.
+  </p>
+  <p>
     Currently it feels like that there is no need to implement different map classes for single and multi
     player, they should work just fine on the same maps. If we end up implementing the procedural or "on the
     go" generated maps it seems likely that the basic map structure should be extended to handle the growing
@@ -140,11 +145,6 @@
     and elements residing within the map should be accessed with the same methods as in the case of the static
     map). The map public interface will contain all the relevant methods to access all interesting data about
     the map - the terrain types, player locations and everything else.
-  </p>
-  <p>
-    The maps will be made of blocks, which will be represented by their own class. The blocks will contain
-    the relevant information regarding the location, such as the rendered image, terrain type and whether it
-    has a player or a bomb in it.
   </p>
   <p>
     There will be two kinds of map generators, random generators and an editor that the player can use to
