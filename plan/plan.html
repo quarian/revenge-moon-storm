@@ -251,7 +251,7 @@
   
   In the object update phase, critical game logic is handled. This includes changing the state of the game by updating each game object individually in a specific order and handling the most outward layer of game rules, such as a win/lose condition.
   
-  The drawing phase draws the objects of the current frame onto the window and thus completes one full game loop cycle. The loop will add some padding time (pause) to synchronise with a pre-defined framerate if the game is intended to run in constant frame intervals. A general use 'dt' variable will be used such that any motion on the screen will as fluent as possible, while maintaining constant simulation across different systems running the game so that the game experience stays the same.
+  The drawing phase draws the objects of the current frame onto the window and thus completes one full game loop cycle. The loop will add some padding time (pause) to synchronise with a pre-defined framerate if the game is intended to run in constant frame intervals. A general use 'dt' variable will be used such that any motion on the screen will be as fluent as possible, while maintaining constant simulation across different systems running the game so that the game experience stays the same.
   </p>
   <h2> 
     Task sharing
