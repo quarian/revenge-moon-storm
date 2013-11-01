@@ -211,6 +211,12 @@
   <p>
     AI decisions can be understood as a series of "thoughts",
     each of which involves one or more decisions that dictate what the given Actor will do next.
+    The goal of all AI thoughts is to make a plan that effectively brings
+    the actor closer to completing some objective,
+    such as (in the case of a simple, "player-seeking missile" type monster)
+    to enter the map block that the player is currently in.
+  </p>
+  <p>
     Thoughts can be computationally intensive,
     and if every AI monster tries to have a thought on every update,
     the framerate  will plummet.
