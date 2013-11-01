@@ -177,6 +177,18 @@
     features are needed. There's a plenty of material, as stated earlier. Ading the procedural generation
     should be nothing moer than to continue the generation from step 3 and adding more area to the map.
   </p>
+  <h3>
+  About items, store and inventory
+  </h3>
+  <p>
+  Items will be implemented as an inherited class hierarchy. The items themselves are considered as "already placed" or used items, such as a ticking bomb, lootable treasures, teleporters etc. It will be easier to handle the logic behind these items this way. There will be a mapping from an item identifier(a string perhaps) to an amount, describing the player's inventory. The items work with the map to, for instance, create explosions or shoot bullets and track them. Most item collisions will also cause an effect, such as a player's gold amount increasing or hit points decreasing (e.g. from a trap).
+  </p>
+  <p>
+  The store will be an independent part of the game, which will be invoked between rounds in a multi player game and between levels of the single player campaign. In the store the player can spend their gold from treasures on items such as bombs, weapons, health packs and so on much like in the original game. The store will change the state of the accessing player's inventory. The store's user interface will be more sophisticated than in the original game, but serves the same purpose. On a hot seat multi player game, the players take turns to purchase items.
+  </p>
+  <p>
+  The inventory will be a simple structure holding the players current gold and item quantities in a dictionary of string keys and integer values. The actual implementations of the items will be inherited from the Item base class and they will be added to an updater loop of all items within the game loop. Items serve a significant role in the game and define the major game strategies and mechanics. The pricing of items should make the player face difficult decisions in the store and form the main balancing of the game.
+  </p>
   <h2> 
     Task sharing
   </h2> 
