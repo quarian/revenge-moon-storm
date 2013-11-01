@@ -128,6 +128,55 @@
     Other possible queries include "first blocked (non-walkable) block in the given direction",
     "the set of blocks within distance X of the given block", and so on.
   </p>
+  <h3>
+    About maps and map generators
+  </h3>
+  <p>
+    Currently it feels like that there is no need to implement different map classes for single and multi
+    player, they should work just fine on the same maps. If we end up implementing the procedural or "on the
+    go" generated maps it seems likely that the basic map structure should be extended to handle the growing
+    map, even though the interface will remain the same (for example some coordinates may be shuffled around
+    when the procedural map is extended and the map has to update the corresponding elements, but the locations
+    and elements residing within the map should be accessed with the same methods as in the case of the static
+    map). The map public interface will contain all the relevant methods to access all interesting data about
+    the map - the terrain types, player locations and everything else.
+  </p>
+  <p>
+    The maps will be made of blocks, which will be represented by their own class. The blocks will contain
+    the relevant information regarding the location, such as the rendered image, terrain type and whether it
+    has a player or a bomb in it.
+  </p>
+  <p>
+    There will be two kinds of map generators, random generators and an editor that the player can use to
+    create own maps. The editor will naturally have its own GUI.
+    The possible procedural map generator will inherit the random generator, since they
+    should share a good amount of code. The map generation and handling will also include a class for handling
+    map I/O that is responsible for handling things like reading pregenerated maps from files and writing user
+    generated maps into files. The maps will be stored in simple text files for easy reading and prototyping
+    in the early stages of the project.
+  </p>
+  <p>
+    The maps should be covered with the classes drafted above. Next a few words about the map generation.
+  </p>
+  <p>
+    The Interweb is full of proposed algorithms on dungeon/map generation (see, for example,
+    http://pcg.wikidot.com/pcg-algorithm:dungeon-generation for a list of links). The algorithm
+    that we will initially implement will follow the general idea of all those found online:
+    <ol>
+        <li>Fill the map with solid blocks</li>
+        <li>Create a single room on the map</li>
+        <li>Pick a wall from any room</li>
+        <li>Randomly decide a new feture to add</li>
+        <li>Try adding the feature</li>
+        <li>If adding failed, go to step 3</li>
+        <li>Otherwise, add feature</li>
+        <li>Go to step 3 if the stoppping condition has not been met</li>
+        <li>Throw in some items and terrain features according to some heuristics or randomly</li>
+    </ol>
+    This basic set of random things should not be too hard to implement and extend once more sweet
+    features are needed. There's a plenty of material, as stated earlier. Ading the procedural generation
+    should be nothing moer than to continue the generation from step 3 and adding more area to the map.
+  </p>
   <h2> 
     Task sharing
   </h2> 
