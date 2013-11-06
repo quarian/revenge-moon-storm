@@ -7,9 +7,8 @@
  * block-to-block movement).
  */
 
-#include "dummy_Map.hh"
-#include "dummy_MapBlock.hh"
-#include "dummy_Direction.hh"
+#include "Map.hh"
+#include "MapBlock.hh"
 
 class Walker {
 public:
@@ -46,10 +45,10 @@ public:
 private:
     Map& map_;
     MapBlock* location_;
-    Direction dir_ = Direction::NORTH;
+    Direction dir_;
 
-    bool entering_ = false; // Is this Walker entering or leaving the square?
-    bool walking_ = false; // Is this Walker in continuous-walking mode?
+    bool entering_; // Is this Walker entering or leaving the square?
+    bool walking_; // Is this Walker in continuous-walking mode?
     float speed_;
     float dx_, dy_;
 };
