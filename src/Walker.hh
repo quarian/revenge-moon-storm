@@ -15,7 +15,7 @@ public:
     /* Constructor: Takes as parameters the Map that it'll be placed on, the
      * specific MapBlock, and the speed at which it will move (units of
      * MapBlocks per second). */
-    Walker(Map const&, MapBlock*, float);
+    Walker(Map&, MapBlock*, float);
     ~Walker();
 
     /* Returns a pointer to the MapBlock that the Walker is currenly
@@ -113,8 +113,8 @@ private:
 
     Map& map_;
     MapBlock* location_;
-    MapBlock* target_;
     Direction dir_;
+    MapBlock* target_;
 
     bool entering_; // Is this Walker entering or leaving the square?
     bool walking_; // Is this Walker in continuous-walking mode?
