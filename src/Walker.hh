@@ -43,7 +43,7 @@ public:
 
 
 private:
-    Map& map_;
+    const Map& map_;
     MapBlock* location_;
     Direction dir_;
 

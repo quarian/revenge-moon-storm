@@ -7,7 +7,7 @@ Walker::Walker(Map const& map, MapBlock* location, float speed) : map_(map),
                                                                   entering_(false),
                                                                   walking_(false),
                                                                   speed_(speed),
-                                                                  dx_(0.0f,),
+                                                                  dx_(0.0f),
                                                                   dy_(0.0f)
 {
 }
