@@ -1,3 +1,6 @@
+#ifndef MB2_MAPBLOCK_HH
+#define MB2_MAPBLOCK_HH
+
 #include <string>
 
 class MapBlock {
@@ -7,3 +10,5 @@ class MapBlock {
         int y_;
         std::string content_;
 };
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef MB2_MAP_HH
+#define MB2_MAP_HH
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -19,6 +22,10 @@ class Map {
         Map();
         void loadFromFile(std::string filename);
         void printMap();
+        MapBlock getBlock(int x, int y);
+        MapBlock getBlock(int x, int y, Direction direction);
     private:
         std::vector<std::vector<MapBlock>> grid_;
 };
+
+#endif

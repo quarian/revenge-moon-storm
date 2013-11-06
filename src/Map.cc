@@ -37,3 +37,22 @@ void Map::printMap() {
         std::cout << std::endl;
     }
 }
+
+MapBlock Map::getBlock(int x, int y) {
+    return grid_[y][x];
+}
+
+MapBlock Map::getBlock(int x, int y, Direction direction) {
+    switch (direction) {
+        case NORTH:
+            return grid_[y - 1][x];
+        case SOUTH:
+            return grid_[y + 1][x];
+        case WEST:
+            return grid_[y][x - 1];
+        case EAST:
+            return grid_[y][x + 1];
+        default:
+            return grid_[y][x];
+    }
+}
