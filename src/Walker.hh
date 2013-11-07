@@ -16,20 +16,15 @@ public:
      * specific MapBlock, and the speed at which it will move (units of
      * MapBlocks per second). */
     Walker(Map&, MapBlock*, float);
-    ~Walker();
+    ~Walker() {}
 
     /* Returns a pointer to the MapBlock that the Walker is currenly
      * occupying, or null if it is not on the Map. */
     MapBlock* getLocation() const { return location_; }
 
-    /* This is the update function that *only* deals with the Walker's movement
-     * from one square to the next. The inheriting class must call this
-     * function from its own update() function. */
-     void updateLocation(float);
-
     /* This is the "full" update function that each inheriting class must
      * implement. It takes the time since the last frame as a parameter. */
-    virtual void update(float) = 0;
+    virtual void update(float dt) { updateLocation(dt); }
 
      /* Changes the direction that the Walker is facing to the given value. */
      void setDirection(Direction);
@@ -39,7 +34,17 @@ public:
 
      /* Controls whether the Walker is moving or not. */
      void walk() { walking_ = true; }
-     void stop() { walking_ = false; }
+     void stop() {
+        walking_ = false;
+        if (!entering_) center();
+    }
+
+     /* Functions to return the dx and dy coordinates and whether the Walker 
+      * is currently moving. */
+     float getdX() const { return dx_; }
+     float getdY() const { return dy_; }
+     bool isWalking() const { return walking_; }
+     bool isCentered() const { return dx_ == 0 && dy_ == 0; }
 
 
 private:
@@ -85,6 +90,12 @@ private:
      * the next MapBlock. 
      */
 
+    /* This is the update function that *only* deals with the Walker's movement
+     * from one square to the next. The inheriting class must call this
+     * function from its own update() function. */
+     void updateLocation(float);
+
+
     /* Moves towards the center of the current block, according to the given
      * delta-time. This function assumes that the dt given is less than or
      * equal to the time required to get to the center of the block, that is,
@@ -107,9 +118,6 @@ private:
     /* Starts mowing into the next square in the currently facing direction.
      * Inheriting classes that can dig etc. should override this! */
     virtual void knock(float);
-
-    /* Returns true if the Walker is currently at the center of its block. */
-    bool centered() const { return dx_ == 0 && dy_ == 0; }
 
     Map& map_;
     MapBlock* location_;

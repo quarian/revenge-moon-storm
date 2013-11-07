@@ -1,5 +1,6 @@
 #include "Walker.hh"
 #include <cmath>
+#include <iostream>
 
 Walker::Walker(Map& map, MapBlock* location, float speed) :
         map_(map),
@@ -17,7 +18,7 @@ void Walker::setDirection(Direction dir) {
 }
 
 void Walker::updateLocation(float dt) {
-    if (centered()) {
+    if (isCentered()) {
         if (!walking_) return;
         if (target_ == nullptr) knock(dt);
         else depart(dt);
@@ -59,6 +60,11 @@ void Walker::depart(float dt) {
         else if (dx_ < 0) dx_ = fmax(-0.5, dx_ - distanceTraveled);
         else if (dy_ > 0) dy_ = fmin(0.5, dy_ + distanceTraveled);
         else if (dy_ < 0) dy_ = fmax(-0.5, dy_ - distanceTraveled);
+
+        else if (dir_ == Direction::EAST) dx_ = fmin(0.5, dx_ + distanceTraveled);
+        else if (dir_ == Direction::WEST) dx_ = fmax(-0.5, dx_ - distanceTraveled);
+        else if (dir_ == Direction::SOUTH) dy_ = fmin(0.5, dy_ + distanceTraveled);
+        else /* dir_ == Direction::NORTH */ dy_ = fmax(-0.5, dy_ - distanceTraveled);
     }
 }
 
@@ -77,14 +83,14 @@ void Walker::proceed() {
         map.moveTo(self, target_);
         location_ = target_;
         target_ = nullptr;
+    }
+*/
 
         entering_ = true;
         if (dx_ < 0) dx_ = 0.5;
         else if (dx_ > 0) dx_ = -0.5;
         else if (dy_ < 0) dy_ = 0.5;
         else if (dy_ > 0) dy_ = -0.5;
-    }
-*/
 }
 
 void Walker::knock(float dt=0.0) {
@@ -92,6 +98,7 @@ void Walker::knock(float dt=0.0) {
     target_ = map.getBlock(location_, dir_);
     if (target_ == nullptr) return;
     if (target_.isBlocked()) return;
-    else update(dt);
 */
+    target_ = location_; // NOTE: dummy implementation!
+    update(dt);
 }
