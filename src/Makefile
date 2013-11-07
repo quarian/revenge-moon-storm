@@ -2,8 +2,11 @@ CC=g++
 CFLAGS=-c -std=c++0x -pedantic -Wall -Wextra -D_GLIBCXX_DEBUG -g
 LDFLAGS=
 SOURCES=MapBlock.cc Map.cc Walker.cc main.cc
+TEST_SOURCES=MapBlock.cc Map.cc Walker.cc WalkerTest.cc testMain.cc
 OBJECTS=$(SOURCES:.cc=.o)
+TEST_OBJECTS=$(TEST_SOURCES:.cc=.o)
 EXECUTABLE=minebombers
+TEST_EXECUTABLE=test
 
 all: $(SOURCES) $(EXECUTABLE)
 
@@ -14,4 +17,9 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm -f $(OBJECTS) $(EXECUTABLE)
+	rm -f $(OBJECTS) $(EXECUTABLE) tests
+
+tests: $(TEST_SOURCES) $(TEST_EXECUTABLE)
+
+$(TEST_EXECUTABLE): $(TEST_OBJECTS)
+	$(CC) $(TEST_OBJECTS) $(LDFLAGS) -o $@

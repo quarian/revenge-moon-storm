@@ -8,5 +8,6 @@
 #include "Map.hh"
 
 bool WalkerTest1(std::ostream& os=std::cout);
+bool DirectionTest();
 
 #endif
