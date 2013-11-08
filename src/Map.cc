@@ -1,5 +1,10 @@
 #include "Map.hh"
 
+const Direction Direction::NORTH = Direction(0, -1);
+const Direction Direction::EAST = Direction(1, 0);
+const Direction Direction::SOUTH = Direction(0, 1);
+const Direction Direction::WEST = Direction(-1, 0);
+
 Map::Map() {}
 
 void Map::loadFromFile(std::string filename) {
@@ -43,16 +48,14 @@ MapBlock Map::getBlock(int x, int y) {
 }
 
 MapBlock Map::getBlock(int x, int y, Direction direction) {
-    switch (direction) {
-        case NORTH:
-            return grid_[y - 1][x];
-        case SOUTH:
-            return grid_[y + 1][x];
-        case WEST:
-            return grid_[y][x - 1];
-        case EAST:
-            return grid_[y][x + 1];
-        default:
-            return grid_[y][x];
-    }
+    if (direction == Direction::NORTH)
+        return grid_[y - 1][x];
+    else if (direction == Direction::SOUTH)
+        return grid_[y + 1][x];
+    else if (direction == Direction::WEST)
+        return grid_[y][x - 1];
+    else if (direction == Direction::EAST)
+        return grid_[y][x + 1];
+    else
+        return grid_[y][x];
 }

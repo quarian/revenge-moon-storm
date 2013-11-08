@@ -3,7 +3,7 @@
 
 class Direction {
 public:
-    const float x, y;
+    float x, y;
 
     Direction(float x, float y) : x(x), y(y) {}
 
@@ -17,9 +17,5 @@ public:
     static const Direction WEST;
 };
 
-const Direction Direction::NORTH = Direction(0, -1);
-const Direction Direction::EAST = Direction(1, 0);
-const Direction Direction::SOUTH = Direction(0, 1);
-const Direction Direction::WEST = Direction(-1, 0);
 
 #endif

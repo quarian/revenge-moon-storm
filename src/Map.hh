@@ -7,12 +7,7 @@
 #include <vector>
 #include <string>
 #include "MapBlock.hh"
-
-enum Direction {
-    NORTH,
-    EAST,
-    SOUTH,
-    WEST };
+#include "Direction.hh"
 
 // Note that Map coordinates (0,0) are at the upper left hand corner.
 

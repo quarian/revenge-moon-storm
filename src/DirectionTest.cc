@@ -23,6 +23,6 @@ bool DirectionTest() {
     assert (-Direction::EAST == Direction::WEST);
     assert (-Direction::SOUTH == Direction::NORTH);
     assert (-Direction::WEST == Direction::EAST);
-
+    std::cout << "Direction test passed" << std::endl;
     return true;
 }

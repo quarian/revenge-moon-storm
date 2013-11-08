@@ -2,5 +2,6 @@
 
 int main() {
     WalkerTest1();
+    DirectionTest();
 }
 
