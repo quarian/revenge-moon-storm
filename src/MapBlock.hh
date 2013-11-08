@@ -11,9 +11,17 @@
 class Walker;
 class Map;
 
+enum BlockToughness {
+    NONE,
+    WEAK,
+    MEDIUM,
+    STRONG,
+    INDESTRUCTIBLE
+};
+
 class MapBlock {
     public:
-        MapBlock(int x, int y, std::string content, Map& map);
+        MapBlock(int x, int y, std::string content, Map& map, BlockToughness toughness = NONE);
         ~MapBlock() {};
         MapBlock(const MapBlock& other);
         MapBlock operator=(const MapBlock& other);
@@ -26,10 +34,14 @@ class MapBlock {
         void exit(const Walker* w);
         void enter(Walker* w);
         
+        void weaken();
+        
     private:
         std::vector<Walker*> walkers_;
         //std::vector<Item*> items_;
         Map& map_;
+        BlockToughness toughness_;
+
 };
 
 #endif
