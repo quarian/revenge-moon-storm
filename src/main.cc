@@ -3,7 +3,7 @@
 
 int main() {
     Map map;
-    MapBlock mb(1,1, "#");
+    MapBlock mb(1,1, "#", map);
     map.loadFromFile("map.txt");
     map.printMap();
 }

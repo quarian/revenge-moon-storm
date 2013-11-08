@@ -5,7 +5,7 @@
 bool WalkerTest1(std::ostream& os) {
     float EPSILON = 0.00001f;
     Map map;
-    MapBlock mb(1, 1, "#");
+    MapBlock mb(1, 1, "#", map);
     Walker w(map, &mb, 2.0f);
 
     /* SECTION 0 */

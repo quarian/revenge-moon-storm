@@ -11,14 +11,16 @@
 
 // Note that Map coordinates (0,0) are at the upper left hand corner.
 
+class MapBlock;
+
 class Map {
 
     public:
         Map();
         void loadFromFile(std::string filename);
         void printMap();
-        MapBlock getBlock(int x, int y);
-        MapBlock getBlock(int x, int y, Direction direction);
+        MapBlock* getBlock(int x, int y);
+        MapBlock* getBlock(int x, int y, Direction direction);
     private:
         std::vector<std::vector<MapBlock>> grid_;
 };

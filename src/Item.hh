@@ -3,10 +3,12 @@
 
 #include <vector>
 #include <string>
+
+#include "Map.hh"
+
 /*
  * Contains the asbtract base class for items and other varying properties of items
 */
-//class Map {}; //DUMMY for compiling
 
 class Item {
 	/*

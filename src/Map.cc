@@ -22,7 +22,7 @@ void Map::loadFromFile(std::string filename) {
         grid_.push_back(new_row);
         for (auto iter = line_as_string.begin(); iter != line_as_string.end(); iter++) {
             std::string content(1, *iter);
-            MapBlock mb(row, column, content);
+            MapBlock mb(row, column, content, *this);
             column++;
             grid_[row].push_back(mb);
         }
@@ -43,19 +43,19 @@ void Map::printMap() {
     }
 }
 
-MapBlock Map::getBlock(int x, int y) {
-    return grid_[y][x];
+MapBlock* Map::getBlock(int x, int y) {
+    return &grid_[y][x];
 }
 
-MapBlock Map::getBlock(int x, int y, Direction direction) {
+MapBlock* Map::getBlock(int x, int y, Direction direction) {
     if (direction == Direction::NORTH)
-        return grid_[y - 1][x];
+        return &grid_[y - 1][x];
     else if (direction == Direction::SOUTH)
-        return grid_[y + 1][x];
+        return &grid_[y + 1][x];
     else if (direction == Direction::WEST)
-        return grid_[y][x - 1];
+        return &grid_[y][x - 1];
     else if (direction == Direction::EAST)
-        return grid_[y][x + 1];
+        return &grid_[y][x + 1];
     else
-        return grid_[y][x];
+        return &grid_[y][x];
 }
