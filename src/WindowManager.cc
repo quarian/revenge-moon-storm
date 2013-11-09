@@ -20,4 +20,3 @@ void WindowManager::launchWindow() {
  void WindowManager::setMenuMode() {
  this->setMouseCursorVisible(true);
  }
-

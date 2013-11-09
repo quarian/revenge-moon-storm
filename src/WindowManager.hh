@@ -2,7 +2,6 @@
 #define __Minebombers__WindowManager__
 #include <SFML/Graphics.hpp>
 
-
 /**********************************************************************
  WindowManager includes some game specific window management functions
  to sf::RenderWindow class
@@ -15,6 +14,10 @@ public:
     void setSize(unsigned width,unsigned height);
     void setPlayMode();
     void setMenuMode(); //this&);
+     
+     void drawSprite();
+     void drawAnimated();
+     void drawText();
 private:
     
         //void setDesktopRes(unsigned& , unsigned&);
