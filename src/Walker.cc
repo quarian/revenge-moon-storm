@@ -75,8 +75,7 @@ void Walker::proceed() {
 void Walker::knock(Direction dir) {
     facing_ = dir;
 
-    MapBlock* target = location_->getBlock(facing_);
-    if (target == nullptr) return;
-    else if (!target->isPassable()) return;
-    else target_ = target;
+    target_ = location_->getBlock(facing_);
+    if (target_ == nullptr) return;
+    else if (!target_->isPassable()) target_ = nullptr;
 }

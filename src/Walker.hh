@@ -17,9 +17,14 @@ class Walker {
 friend bool WalkerTest1(std::ostream&);
 
 public:
-    /* Constructor: Takes as parameters the Map that it'll be placed on, the
-     * specific MapBlock, and the speed at which it will move (units of
-     * MapBlocks per second). */
+    /* Constructor
+     *
+     * PARAMETERS
+     * ==========
+     *  Map const&          map that the Actor is placed on
+     *  MapBlock*           initial position on the map
+     *  float               movement speed (blocks per second)
+     */
     Walker(Map&, MapBlock*, float);
     ~Walker() {}
 
@@ -51,6 +56,9 @@ protected:
      * This function should only be called when the Walker is already in the
      * center of the current square, otherwise behavior can be strange. */
     virtual void knock(Direction);
+
+    /* Returns true if we are at the center of the square. */
+    bool centered() const { return dPos_ == Direction::NULLDIR; }
 
 
 private:
