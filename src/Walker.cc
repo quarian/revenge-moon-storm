@@ -4,101 +4,79 @@
 
 Walker::Walker(Map& map, MapBlock* location, float speed) :
         map_(map),
-        location_(location), dir_(Direction::NORTH),
+        location_(location),
         target_(nullptr),
-        entering_(false),
-        walking_(false),
-        speed_(speed),
-        dx_(0.0f), dy_(0.0f) {}
-
-void Walker::setDirection(Direction dir) {
-    if (dir == dir_) return; // If already going in given direction, ignore
-    if (!entering_) center(); // If exiting but changing direction, center
-    dir_ = dir;
+        facing_(Direction::NORTH),
+        dPos_(Direction::NULLDIR),
+        speed_(speed) {
+    location_->enter(this);
 }
 
+
 void Walker::updateLocation(float dt) {
-    if (isCentered()) {
-        if (!walking_) return;
-        if (target_ == nullptr) knock(dt);
-        else depart(dt);
-    }
-    else if (entering_) approach(dt);
+    if (!target_) return;
+    else if (target_ == location_) approach(dt);
     else depart(dt);
 }
 
+
 void Walker::approach(float dt) {
-    float timeToCenter = (abs(dx_) + abs(dy_)) / speed_;
+    float timeToCenter = dPos_.length() / speed_;
 
     if (dt >= timeToCenter) {
         center();
         update(dt - timeToCenter);
     } else {
-        float distanceTraveled = dt * speed_;
-
-        /* The fmin and fmax are here to prevent overshooting due to rounding
-         * errors in the calling function. */
-        if (dx_ < 0) dx_ = fmin(0.0, dx_ + distanceTraveled);
-        else if (dx_ > 0) dx_ = fmax(0.0, dx_ - distanceTraveled);
-        else if (dy_ < 0) dy_ = fmin(0.0, dy_ + distanceTraveled);
-        else if (dy_ > 0) dy_ = fmax(0.0, dy_ - distanceTraveled);
+        float distance = dt * speed_;
+        dPos_ = dPos_.in(distance);
     }
 }
 
+
 void Walker::depart(float dt) {
-    float timeToEdge = fdim(0.5, abs(dx_) + abs(dy_)) / speed_;
+    float timeToEdge = (0.5 - dPos_.length()) / speed_;
 
     if (dt >= timeToEdge) {
         proceed();
         update(dt - timeToEdge);
     } else {
-        float distanceTraveled = dt * speed_;
-
-        /* The fmin and fmax are here to prevent overshooting due to rounding
-         * errors in the calling function. */
-        if (dx_ > 0) dx_ = fmin(0.5, dx_ + distanceTraveled);
-        else if (dx_ < 0) dx_ = fmax(-0.5, dx_ - distanceTraveled);
-        else if (dy_ > 0) dy_ = fmin(0.5, dy_ + distanceTraveled);
-        else if (dy_ < 0) dy_ = fmax(-0.5, dy_ - distanceTraveled);
-
-        else if (dir_ == Direction::EAST) dx_ = fmin(0.5, dx_ + distanceTraveled);
-        else if (dir_ == Direction::WEST) dx_ = fmax(-0.5, dx_ - distanceTraveled);
-        else if (dir_ == Direction::SOUTH) dy_ = fmin(0.5, dy_ + distanceTraveled);
-        else /* dir_ == Direction::NORTH */ dy_ = fmax(-0.5, dy_ - distanceTraveled);
+        float distance = dt * speed_;
+        dPos_ = dPos_.out(distance, facing_);
     }
 }
+
+
+void Walker::reverse() {
+    if (!target_) return; // Already standing still.
+    facing_ = -facing_;
+    target_ = target_->getBlock(facing_);
+}
+
 
 void Walker::center() {
-    dx_ = 0.0;
-    dy_ = 0.0;
-    entering_ = false;
+    dPos_ = Direction::NULLDIR;
+    target_ = nullptr;
 }
+
 
 void Walker::proceed() {
-/*
-    if (target_.isBlocked()) {
+    if (!target_->isPassable()) {
         center();
-        knock();
-    } else {
-        map.moveTo(self, target_);
-        location_ = target_;
         target_ = nullptr;
+    } else {
+        target_->enter(this);
+        location_->exit(this);
+        location_ = target_;
+        dPos_ = -facing_ * 0.5;
     }
-*/
-
-        entering_ = true;
-        if (dx_ < 0) dx_ = 0.5;
-        else if (dx_ > 0) dx_ = -0.5;
-        else if (dy_ < 0) dy_ = 0.5;
-        else if (dy_ > 0) dy_ = -0.5;
 }
 
-void Walker::knock(float dt=0.0) {
-/*
-    target_ = map.getBlock(location_, dir_);
-    if (target_ == nullptr) return;
-    if (target_.isBlocked()) return;
-*/
-    target_ = location_; // NOTE: dummy implementation!
-    update(dt);
+
+void Walker::knock(Direction dir) {
+    facing_ = dir;
+
+    MapBlock* target = location_->getBlock(facing_);
+    if (target == nullptr) return;
+    else if (!target->isPassable()) return;
+    else target_ = target;
 }

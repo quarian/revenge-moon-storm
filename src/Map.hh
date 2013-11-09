@@ -6,6 +6,7 @@
 #include <sstream>
 #include <vector>
 #include <string>
+
 #include "MapBlock.hh"
 #include "Direction.hh"
 

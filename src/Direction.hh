@@ -1,24 +1,55 @@
 #ifndef MB2_DIRECTION_HH
 #define MB2_DIRECTION_HH
 
-#include <utility>
+#include <cmath>
+#include <cassert>
 
+/* Direction
+ *
+ * Objects of this class essentially specify points on the x-axis or y-axis
+ * (which can be used to signify an offset from the center of a MapBlock).
+ * Unit Directions are provided for the four main directions.
+ */
 class Direction {
-public:
+protected:
     float x_, y_;
 
-    Direction(float x, float y) : x_(x), y_(y) {}
+public:
+    /* Constructor. */
+    Direction(float x, float y) : x_(x), y_(y) { }
+
+    float x() const { return x_; }
+    float y() const { return y_; }
+
+        
+
+    /* Returns how far this is from 0.0 */
+    float length() const { return fabs(x_) + fabs(y_); }
 
     bool operator==(Direction const& other) const { return (other.x_ == x_) && (other.y_ == y_); }
     bool operator!=(Direction const& other) const { return !(*this == other); }
     Direction operator-() const { return Direction(-x_, -y_); }
-    std::pair<int, int> toXY() { return std::make_pair(x_, y_); }
+    Direction operator*(float mul) const { return Direction(mul*x_, mul*y_); }
 
+    /* Moves the direction vector closer to the center.
+     * Never overshoots the origin 0.0. */
+    Direction in(float) const;
+        
+    /* Moves the direction vector closer to the edge in the given direction.
+     * Never overshoots +/- 0.5 on any edge. */
+    Direction out(float, Direction) const;
+
+    /* Returns whether the given Direction is "approximately" equal to this
+     * one, that is whether it is within some EPSILON of it. */
+    bool eq(float, float) const;
+        
+
+    static const Direction NULLDIR;
+    
     static const Direction NORTH;
     static const Direction EAST;
     static const Direction SOUTH;
     static const Direction WEST;
 };
-
 
 #endif

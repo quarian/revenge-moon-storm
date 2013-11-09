@@ -1,93 +1,157 @@
 #include "tests.hh"
+#include "Direction.hh"
 
 #include <cmath>
+#include <cassert>
 
 bool WalkerTest1(std::ostream& os) {
-    float EPSILON = 0.00001f;
+    os << "UNIT TEST: class Walker" << std::endl;
+
     Map map;
-    MapBlock mb(1, 1, "#", map);
-    Walker w(map, &mb, 2.0f);
+    map.loadFromFile("map.txt");
+    Walker w(map, map.getBlock(1,1), 2.0f);
 
     /* SECTION 0 */
-    os << "SECTION 0...";
+    os << "TEST 0: Initialization...";
     /* Initialization */
-    if (w.getdX() != 0.0f) {
-        os << "\nWalker initialization error: dx_ should be 0" << std::endl;
-        return false;
-    }
-    if (w.getdY() != 0.0f) {
-        os << "\nWalker initialization error: dy_ should be 0" << std::endl;
-        return false;
-    }
-    if (!w.isCentered()) {
-        os << "\nWalker initialization error: should be centered" << std::endl;
-        return false;
-    }
-    if (w.isWalking()) {
-        os << "\nWalker initialization error: should not be walking right away" << std::endl;
-        return false;
-    }
+
+    assert (w.dPos_ == Direction::NULLDIR);
+    assert (w.location_ == map.getBlock(1,1));
+    assert (w.target_ == nullptr);
+
     os << " OK" << std::endl;
 
     /* SECTION 1 */
-    os << "SECTION 1...";
-    /* Updating when not in motion should not do anything */
+    os << "TEST 1: Updating at standstill...";
     w.update(0.1);
 
-    if (w.getdX() != 0.0f) {
-        os << "\nWalker should not be moving when walking_ is false" << std::endl;
-        return false;
-    }
-    if (w.getdY() != 0.0f) {
-        os << "\nWalker should not be moving when walking_ is false" << std::endl;
-        return false;
-    }
+    assert (w.dPos_ == Direction::NULLDIR);
+    assert (w.location_ == map.getBlock(1,1));
+    assert (w.target_ == nullptr);
+
     os << " OK" << std::endl;
 
     /* SECTION 2 */
-    os << "SECTION 2...";
-    /* Walking and stopping without changing direction */
-    w.walk();
+    os << "TEST 2: Moving around in one square...";
+    w.knock(Direction::EAST);
+
+    assert (w.dPos_ == Direction::NULLDIR);
+    assert (w.facing_ == Direction::EAST);
+    assert (w.location_ == map.getBlock(1,1));
+    assert (w.target_ == map.getBlock(2,1));
+
     w.update(0.1);
-    if (w.getdX() != 0.0) {
-        os << "\nAfter 0.1 seconds the walker's dx_ should be 0.0 (but it's " << w.getdY() << ")" << std::endl;
-        return false;
-    }
-    if (fdim(w.getdY(), -0.2) > EPSILON) {
-        os << "\nAfter 0.1 seconds the walker's dy_ should be -0.2 (but it's " << w.getdY() << ")" << std::endl;
-        return false;
-    }
-    w.stop();
-    if (!w.isCentered()) {
-        os << "\nWalker should be centered after stopping" << std::endl;
-        return false;
-    }
+
+    assert (w.dPos_.eq(0.2, 0.0));
+    assert (w.location_ == map.getBlock(1,1));
+    assert (w.target_ == map.getBlock(2,1));
+
     w.update(0.1);
-    if (!w.isCentered()) {
-        os << "\nWalker should not move when walking_ is false" << std::endl;
-        return false;
-    }
-    w.walk();
-    w.update(0.05);
-    if (fdim(w.getdY(), -0.1) > EPSILON) {
-        os << "\nAfter 0.05 seconds the walker's dy_ should be -0.1 (but it's " << w.getdY() << ")" << std::endl;
-        return false;
-    }
-    if (w.getdX() != 0.0) {
-        os << "\nAfter 0.05 seconds the walker's dx_ should be 0.0 (but it's " << w.getdY() << ")" << std::endl;
-        return false;
-    }
-    w.update(0.12);
-    if (fdim(w.getdY(), -0.34) > EPSILON) {
-        os << "\nAfter 0.17 seconds the walker's dy_ should be -0.34 (but it's " << w.getdY() << ")" << std::endl;
-        return false;
-    }
-    if (w.getdX() != 0.0) {
-        os << "\nAfter 0.17 seconds the walker's dx_ should be 0.0 (but it's " << w.getdY() << ")" << std::endl;
-        return false;
-    }
+
+    assert (w.dPos_.eq(0.4, 0.0));
+    assert (w.location_ == map.getBlock(1,1));
+    assert (w.target_ == map.getBlock(2,1));
+
     os << " OK" << std::endl;
 
+    /* SECTION 3 */
+    os << "TEST 3: Moving to another square...";
+
+    w.update(0.1);
+
+    assert (w.location_ == map.getBlock(2,1));
+    assert (w.target_ == map.getBlock(2,1));
+    assert (w.dPos_.eq(-0.4, 0.0));
+
+    w.update(0.3);
+    assert (w.dPos_ == Direction::NULLDIR);
+    assert (w.location_ == map.getBlock(2,1));
+    assert (w.facing_ == Direction::EAST);
+    assert (w.target_ == nullptr);
+
+    w.update(0.3);
+
+    assert (w.dPos_ == Direction::NULLDIR);
+    assert (w.location_ == map.getBlock(2,1));
+    assert (w.facing_ == Direction::EAST);
+    assert (w.target_ == nullptr);
+
+    os << " OK" << std::endl;
+
+    /* SECTION 4 */
+    os << "TEST 4: Moving several squares...";
+
+    w.knock(Direction::SOUTH);
+
+    assert (w.location_ == map.getBlock(2,1));
+    assert (w.facing_ == Direction::SOUTH);
+    assert (w.target_ == map.getBlock(2,2));
+    assert (w.dPos_ == Direction::NULLDIR);
+
+    w.update(0.2);
+
+    assert (w.location_ == map.getBlock(2,1));
+    assert (w.target_ == map.getBlock(2,2));
+    assert (w.facing_ == Direction::SOUTH);
+    assert (w.dPos_.eq(0.0, 0.4));
+
+    w.update(1.3);
+
+    assert (w.location_ == map.getBlock(2,2));
+    assert (w.target_ == nullptr);
+    assert (w.facing_ == Direction::SOUTH);
+    assert (w.dPos_ == Direction::NULLDIR);
+
+    w.knock(Direction::SOUTH);
+    w.update(0.6);
+    w.knock(Direction::EAST);
+    w.update(0.6);
+    w.knock(Direction::EAST);
+    w.update(0.6);
+    w.knock(Direction::EAST);
+    w.update(0.6);
+    w.knock(Direction::EAST);
+    w.update(0.6);
+
+    assert (w.dPos_ == Direction::NULLDIR);
+    assert (w.location_ == map.getBlock(6,3));
+    assert (w.facing_ == Direction::EAST);
+    assert (w.target_ == nullptr);
+
+    os << " OK" << std::endl;
+
+    /* SECTION 5
+    os << "TEST 5: Knocking on walls...";
+
+    w.knock(Direction::EAST);
+
+    assert (w.location_ == map.getBlock(6,3));
+    assert (w.target_ == nullptr);
+    assert (w.facing_ == Direction::EAST);
+    assert (w.dPos_ == Direction::NULLDIR);
+    
+    w.update(0.1);
+
+    assert (w.location_ == map.getBlock(6,3));
+    assert (w.target_ == nullptr);
+    assert (w.facing_ == Direction::EAST);
+    assert (w.dPos_ == Direction::NULLDIR);
+
+    w.knock(Direction::SOUTH);
+
+    assert (w.location_ == map.getBlock(6,3));
+    assert (w.target_ == nullptr);
+    assert (w.facing_ == Direction::SOUTH);
+    assert (w.dPos_ == Direction::NULLDIR);
+    
+    w.update(0.1);
+
+    assert (w.location_ == map.getBlock(6,3));
+    assert (w.target_ == nullptr);
+    assert (w.facing_ == Direction::SOUTH);
+    assert (w.dPos_ == Direction::NULLDIR);
+
+    os << " OK" << std::endl; */
 
     return true;
 }

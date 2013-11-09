@@ -9,8 +9,13 @@
 
 #include "Map.hh"
 #include "MapBlock.hh"
+#include "Direction.hh"
+
+#include <iostream>
 
 class Walker {
+friend bool WalkerTest1(std::ostream&);
+
 public:
     /* Constructor: Takes as parameters the Map that it'll be placed on, the
      * specific MapBlock, and the speed at which it will move (units of
@@ -18,63 +23,61 @@ public:
     Walker(Map&, MapBlock*, float);
     ~Walker() {}
 
+    /* This is the "full" update function that each inheriting class must
+     * implement. It takes the time since the last frame as a parameter.
+     * It is called at each game loop cycle AND whenever the Walker reaches
+     * its target. */
+    virtual void update(float dt) { updateLocation(dt); }
+
+     /* Returns the Walker's "facing" Direction to the given value. */
+     Direction getDirection() const { return facing_; }
+
     /* Returns a pointer to the MapBlock that the Walker is currenly
      * occupying, or null if it is not on the Map. */
     MapBlock* getLocation() const { return location_; }
 
-    /* This is the "full" update function that each inheriting class must
-     * implement. It takes the time since the last frame as a parameter. */
-    virtual void update(float dt) { updateLocation(dt); }
+    /* Returns whether the Walker is "going somewhere". */
+    bool isMoving() const { return (target_ != nullptr); }
 
-     /* Changes the direction that the Walker is facing to the given value. */
-     void setDirection(Direction);
 
-    /* Returns the direction in which the Walker is facing. */
-     Direction getDirection() const { return dir_; }
+protected:
+    /* This is the update function that *only* deals with the Walker's movement
+     * from one square to the next. The inheriting class must call this
+     * function from its own update() function. */
+     void updateLocation(float);
 
-     /* Controls whether the Walker is moving or not. */
-     void walk() { walking_ = true; }
-     void stop() {
-        walking_ = false;
-        if (!entering_) center();
-    }
-
-     /* Functions to return the dx and dy coordinates and whether the Walker 
-      * is currently moving. */
-     float getdX() const { return dx_; }
-     float getdY() const { return dy_; }
-     bool isWalking() const { return walking_; }
-     bool isCentered() const { return dx_ == 0 && dy_ == 0; }
+    /* Tries to target the next square in the currently facing direction.
+     * Inheriting classes that can dig etc. should override this!
+     * This function should only be called when the Walker is already in the
+     * center of the current square, otherwise behavior can be strange. */
+    virtual void knock(Direction);
 
 
 private:
     /* Movement "in-between" two blocks is understood to happen in such a way
      * that, when the Walker is NOT centered (standing still at the center of
      * its current MapBlock) it will have a distance-from-center in EITHER
-     * the x OR the y direction, represented by dx_ and dy_:
+     * the x OR the y direction, represented by dPos_;
+     *
      *
      *  (-0.5, -0.5)                   (0.5, -0.5)
-     *      #################################     -
-     *      #               |               #      |
-     *      #               |               #      |  negative
-     *      #               |               #      |    dy_
-     *      #               |               #      |
-     *      #               |               #      |
-     *      #         (0, 0)|      -->      #      |
-     *      #---------------+------W--------#     -
-     *      #               |               #      |
-     *      #               |               #      |
-     *      #               |               #      |  positive
-     *      #               |               #      |    dy_
-     *      #               |               #      |
-     *      #               |               #      |
-     *      #################################     -
+     *      ################################# 
+     *      #               |               # 
+     *      #               |               #
+     *      #               |               #
+     *      #               |               # 
+     *      #               |               # 
+     *      #         (0, 0)|      -->      # 
+     *      #---------------+------W--------# 
+     *      #               |               # 
+     *      #               |               # 
+     *      #               |               #
+     *      #               |               #
+     *      #               |               # 
+     *      #               |               # 
+     *      ################################# 
      *  (-0.5, 0.5)                    (0.5, 0.5)
      *
-     *      '_______________'_______________'
-     *
-     *          negative        positive
-     *            dx_             dx_
      *
      * In the figure above, the Walker W is moving towards the right ("EAST"),
      * incrementing its dx_ by an appropriate amount each turn. The Walker
@@ -90,12 +93,6 @@ private:
      * the next MapBlock. 
      */
 
-    /* This is the update function that *only* deals with the Walker's movement
-     * from one square to the next. The inheriting class must call this
-     * function from its own update() function. */
-     void updateLocation(float);
-
-
     /* Moves towards the center of the current block, according to the given
      * delta-time. This function assumes that the dt given is less than or
      * equal to the time required to get to the center of the block, that is,
@@ -108,26 +105,25 @@ private:
      * to actually leave the square. */
     void depart(float);
 
-    /* Moves to the center of the block. */
+    /* Reverses direction. */
+    void reverse();
+
+    /* Moves the Walker the center of the block. */
     void center();
 
     /* Tries to place the Walker at the appropriate edge of the "next"
-     * MapBlock. */
+     * MapBlock. If this fails (which could happen if the target MapBlock has
+     * become blocked while the Walker was in-transit), recenters. */
     void proceed();
 
-    /* Starts mowing into the next square in the currently facing direction.
-     * Inheriting classes that can dig etc. should override this! */
-    virtual void knock(float);
-
     Map& map_;
-    MapBlock* location_;
-    Direction dir_;
-    MapBlock* target_;
 
-    bool entering_; // Is this Walker entering or leaving the square?
-    bool walking_; // Is this Walker in continuous-walking mode?
+    MapBlock* location_; // Where am I?
+    MapBlock* target_; // Where am I going?
+    Direction facing_;
+    Direction dPos_;
+
     float speed_;
-    float dx_, dy_;
 };
 
 #endif

@@ -1,10 +1,5 @@
 #include "Map.hh"
 
-const Direction Direction::NORTH = Direction(0, -1);
-const Direction Direction::EAST = Direction(1, 0);
-const Direction Direction::SOUTH = Direction(0, 1);
-const Direction Direction::WEST = Direction(-1, 0);
-
 Map::Map() {}
 
 void Map::loadFromFile(std::string filename) {
@@ -22,7 +17,7 @@ void Map::loadFromFile(std::string filename) {
         grid_.push_back(new_row);
         for (auto iter = line_as_string.begin(); iter != line_as_string.end(); iter++) {
             std::string content(1, *iter);
-            MapBlock mb(row, column, content, *this);
+            MapBlock mb(column, row, content, *this);
             column++;
             grid_[row].push_back(mb);
         }
