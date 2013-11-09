@@ -24,6 +24,7 @@
 #include "Actor.hh"
 #include "MapBlock.hh"
 #include "Map.hh"
+#include "WindowManager.hh"
 
 #include "dummy_KeySettings.hh"
 #include "dummy_Player.hh"
@@ -39,7 +40,9 @@ Game: Initializes a new game, updates and draws the game situation
 
 class Game {
 public:
-    Game(sf::RenderWindow& win) : isRunning_(true), isPaused_(false), window_(win), map_() { }
+    Game() : window_(), isRunning_(true), isPaused_(false), map_() {
+            //sf::RenderWindow window_(sf::VideoMode(800,600),"GameWindow");
+    }
     
     void Run() {
         Initialize(2,map_, textures_);
@@ -66,9 +69,10 @@ private:
     bool isRunning_;
     bool isPaused_;
     
-    sf::RenderWindow& window_;
+        //sf::RenderWindow
+    WindowManager window_;
     sf::Clock clock_;
-    CommonKeys commonkeys_;
+    MenuKeys commonkeys_;
     std::list<dummyPlayer> actors_;
         //std::vector<*Walker>
     std::vector<Walker> players;

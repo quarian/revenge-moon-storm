@@ -4,7 +4,8 @@
 
 
 void Game::Initialize(int playerCount, Map& map_, std::map<std::string,sf::Texture>& textures_) {
-    commonkeys_ = CommonKeys(); //used in menu
+    window_.launchWindow();
+    commonkeys_ = MenuKeys(); //used in menu
     actors_.push_back(dummyPlayer());
     dummyPlayer pl = dummyPlayer();
     actors_.push_back(pl);
@@ -23,6 +24,7 @@ void Game::Initialize(int playerCount, Map& map_, std::map<std::string,sf::Textu
     
     window_.clear(sf::Color::White);
     
+    //
     if (!font_.loadFromFile("/Users/roopesavolainen/Documents/C++/mb/minebombers2/src/roope/Minebombers/Minebombers/sansation.ttf")) {
         std::cout << "font load failed";
         return;
@@ -48,11 +50,11 @@ void Game::Update() {
             isRunning_=false;
             break;
         }
-        if (event.type == sf::Event::KeyPressed && event.key.code == commonkeys_.menu) {
+        if (event.type == sf::Event::KeyPressed && event.key.code == commonkeys_.menu_) {
             isRunning_=false;    //TODO: for now just closing the window
             break;
         }
-        if (event.type == sf::Event::KeyPressed && event.key.code == commonkeys_.pause) {
+        if (event.type == sf::Event::KeyPressed && event.key.code == commonkeys_.pause_) {
             if (!isPaused_) isPaused_ = true;
             else isPaused_ = false;
         }
@@ -77,28 +79,28 @@ void Game::Update() {
 
 void Game::UpdateActors(sf::Event event) {
     for (auto& player : actors_) {
-        if (event.type == sf::Event::KeyPressed && event.key.code == player.getKeys().north) {
+        if (event.type == sf::Event::KeyPressed && event.key.code == player.getKeys().north_) {
             player.setDirection(Direction::NORTH);
                 //Walker::setDirection(Direction::NORTH);
         }
-        if (event.type == sf::Event::KeyPressed && event.key.code == player.getKeys().south) {
+        if (event.type == sf::Event::KeyPressed && event.key.code == player.getKeys().south_) {
             player.setDirection(Direction::SOUTH);
                 //Walker::setDirection(Direction::SOUTH);
         }
-        if (event.type == sf::Event::KeyPressed && event.key.code == player.getKeys().west) {
+        if (event.type == sf::Event::KeyPressed && event.key.code == player.getKeys().west_) {
             player.setDirection(Direction::WEST);
                 //Walker::setDirection(Direction::WEST);
 
         }
-        if (event.type == sf::Event::KeyPressed && event.key.code == player.getKeys().east) {
+        if (event.type == sf::Event::KeyPressed && event.key.code == player.getKeys().east_) {
             player.setDirection(Direction::EAST);
                 //Walker::setDirection(Direction::EAST);
 
         }
-        if (event.type == sf::Event::KeyPressed && event.key.code == player.getKeys().useSelection) {
+        if (event.type == sf::Event::KeyPressed && event.key.code == player.getKeys().useSelection_) {
             
         }
-        if (event.type == sf::Event::KeyPressed && event.key.code == player.getKeys().changeWeapon) {
+        if (event.type == sf::Event::KeyPressed && event.key.code == player.getKeys().changeWeapon_) {
             
         }
     }
