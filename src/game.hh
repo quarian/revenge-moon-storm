@@ -15,17 +15,21 @@
 
 #include <iostream>
 #include <list>
+#include <vector>
 #include <map>
     //#include <time.h>
 
 
 #include "Walker.hh"
 #include "Actor.hh"
-#include "dummy_KeySettings.hh"
-#include "dummy_Map.hh"
-    //#include "dummy_MapBlock.hh"
+#include "MapBlock.hh"
+#include "Map.hh"
 
+#include "dummy_KeySettings.hh"
 #include "dummy_Player.hh"
+
+#include "MapBlock.hh"
+
 
 
 
@@ -35,10 +39,10 @@ Game: Initializes a new game, updates and draws the game situation
 
 class Game {
 public:
-    Game(sf::RenderWindow& win) : isRunning_(true), isPaused_(false), window_(win) { }
+    Game(sf::RenderWindow& win) : isRunning_(true), isPaused_(false), window_(win), map_() { }
     
     void Run() {
-        Initialize();
+        Initialize(2,map_, textures_);
         while (window_.isOpen() && isRunning_) {
             Update();
             Draw();
@@ -48,10 +52,10 @@ public:
     sf::RenderWindow& getWindow() { return window_; }
     
 private:
-    void Initialize();      // Initialize
+    void Initialize(int playerCount, Map&, std::map<std::string,sf::Texture>& textures_);      // Initialize
     
     void Update();          // Update game situation, the highest level update function
-    void UpdateActors(sf::Event);
+    void UpdateActors(sf::Event);   //Subfunction for Update()
     
     void Draw();            // Draw game
     
@@ -66,9 +70,14 @@ private:
     sf::Clock clock_;
     CommonKeys commonkeys_;
     std::list<dummyPlayer> actors_;
+        //std::vector<*Walker>
+    std::vector<Walker> players;
+    
     
     std::map<std::string, sf::Texture > textures_;
     std::map<std::string, std::list<sf::Text> > texts_;
+    
+    Map map_;
     
     sf::Font font_;
 
