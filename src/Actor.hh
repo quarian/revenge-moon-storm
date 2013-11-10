@@ -20,7 +20,7 @@ public:
      *  int                 maximum health (also starting health)
      *  float               damage resistance; 0.0 - 1.0
      */
-    Actor(Map const&, MapBlock*, float, float, int, float);
+    Actor(Map&, MapBlock*, float, float, int, float);
     ~Actor();
 
     /* Deals the given "raw" damage to this Actor, then return true if it
@@ -41,8 +41,6 @@ protected:
     virtual void findTarget(float dt) {}
     void dig(float);
 
-
-private:
     bool digging_;
     float digPower_;
     int health_;

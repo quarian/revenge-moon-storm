@@ -60,8 +60,6 @@ protected:
     /* Returns true if we are at the center of the square. */
     bool centered() const { return dPos_ == Direction::NULLDIR; }
 
-
-private:
     /* Movement "in-between" two blocks is understood to happen in such a way
      * that, when the Walker is NOT centered (standing still at the center of
      * its current MapBlock) it will have a distance-from-center in EITHER
