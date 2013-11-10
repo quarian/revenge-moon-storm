@@ -1,5 +1,7 @@
 #include "Actor.hh"
 
+#include <cmath>
+
 Actor::Actor(Map& map, MapBlock* block, float speed, float digPower, int health=100, float resistance=0.0) :
     Walker(map, block, speed),
     digging_(false),
@@ -10,8 +12,15 @@ Actor::Actor(Map& map, MapBlock* block, float speed, float digPower, int health=
 
 
 bool Actor::takeDamage(int dmg) {
-    health_ -= dmg * vulnerability_;
+    health_ -= round(dmg * vulnerability_);
     return health_ > 0;
+}
+
+
+bool Actor::heal(int amount) {
+    if (!isAlive()) return false;
+    health_ = fmin(health_ + amount, maxHealth_);
+    return true;
 }
 
 

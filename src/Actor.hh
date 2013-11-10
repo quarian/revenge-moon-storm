@@ -8,6 +8,8 @@
 #include "Walker.hh"
 
 class Actor : public Walker {
+friend bool ActorTest1(std::ostream&);
+
 public:
     /* Constructor
      *
@@ -21,11 +23,12 @@ public:
      *  float               damage resistance; 0.0 - 1.0
      */
     Actor(Map&, MapBlock*, float, float, int, float);
-    ~Actor();
+    ~Actor() {}
 
-    /* Deals the given "raw" damage to this Actor, then return true if it
-     * survives. */
+    /* Deals/heals damage. takeDamage() returns true if the Actor is still
+     * alive after the damage is dealt. */
     virtual bool takeDamage(int);
+    virtual bool heal(int);
 
     /* Returns whether this Actor is still alive. */
     bool isAlive() const { return health_ > 0; }

@@ -1,7 +1,9 @@
 #include "tests.hh"
 
 int main() {
-    WalkerTest1();
     DirectionTest();
+    WalkerTest1();
+    ActorTest1();
+    ControlledActorTest1();
 }
 
