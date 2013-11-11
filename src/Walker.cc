@@ -21,6 +21,7 @@ void Walker::updateLocation(float dt) {
 
 
 void Walker::approach(float dt) {
+    // std::cout << "approach()" << std::endl;
     float timeToCenter = dPos_.length() / speed_;
 
     if (dt >= timeToCenter) {
@@ -34,6 +35,7 @@ void Walker::approach(float dt) {
 
 
 void Walker::depart(float dt) {
+    // std::cout << "depart()" << std::endl;
     float timeToEdge = (0.5 - dPos_.length()) / speed_;
 
     if (dt >= timeToEdge) {
@@ -60,6 +62,7 @@ void Walker::center() {
 
 
 void Walker::proceed() {
+    // std::cout << "proceed()" << std::endl;
     if (!target_->isPassable()) {
         center();
         target_ = nullptr;

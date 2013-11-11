@@ -2,7 +2,7 @@ CC=g++
 CFLAGS=-c -std=c++0x -pedantic -Wall -Wextra -D_GLIBCXX_DEBUG -g
 LDFLAGS=
 SOURCES=Direction.cc MapBlock.cc Map.cc Walker.cc main.cc
-TEST_SOURCES=Direction.cc MapBlock.cc Map.cc Walker.cc Actor.cc ControlledActor.cc WalkerTest.cc DirectionTest.cc ActorTest.cc ControlledActorTest.cc testMain.cc
+TEST_SOURCES=Direction.cc MapBlock.cc Map.cc Walker.cc Actor.cc ControlledActor.cc WalkerTest.cc DirectionTest.cc ActorTest.cc ControlledActorTest.cc MapTest.cc testMain.cc
 OBJECTS=$(SOURCES:.cc=.o)
 TEST_OBJECTS=$(TEST_SOURCES:.cc=.o)
 EXECUTABLE=minebombers

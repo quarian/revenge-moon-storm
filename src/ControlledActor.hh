@@ -2,6 +2,8 @@
 
 
 class ControlledActor : public Actor {
+friend bool ControlledActorTest1(std::ostream&);
+
 public:
     /* Constructor
      *
@@ -15,7 +17,7 @@ public:
      *  float               damage resistance; 0.0 - 1.0
      */
     ControlledActor(Map&, MapBlock*, float, float, int, float);
-    ~ControlledActor();
+    ~ControlledActor() {}
 
 
     /* Tells the Actor when orders to move in some direction start/stop. */

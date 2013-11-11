@@ -3,6 +3,7 @@
 
 #include <iostream>
 
+#include "Direction.hh"
 #include "Walker.hh"
 #include "Actor.hh"
 #include "ControlledActor.hh"
@@ -13,5 +14,6 @@ bool WalkerTest1(std::ostream& os=std::cout);
 bool ActorTest1(std::ostream& os=std::cout);
 bool ControlledActorTest1(std::ostream& os=std::cout);
 bool DirectionTest();
+bool MapTest1(std::ostream& os=std::cout);
 
 #endif

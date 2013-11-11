@@ -11,8 +11,6 @@
 #include "MapBlock.hh"
 #include "Direction.hh"
 
-#include <iostream>
-
 class Walker {
 friend bool WalkerTest1(std::ostream&);
 

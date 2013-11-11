@@ -27,10 +27,10 @@ bool Actor::heal(int amount) {
 void Actor::update(float dt) {
     if (!target_)
         findTarget(dt);
-    else if (!centered())
-        updateLocation(dt);
-    else if (digging_)
+    else if (centered() && digging_)
         dig(dt);
+    else
+        updateLocation(dt);
 }
 
 

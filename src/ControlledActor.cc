@@ -1,5 +1,7 @@
 #include "ControlledActor.hh"
 
+#include <iostream>
+
 ControlledActor::ControlledActor(
     Map& map,
     MapBlock* block,
