@@ -3,11 +3,14 @@
 
 void GraphicsManager::InitializeGraphics() {
     
+    // TODO
+    
     if (!font_.loadFromFile("/Users/roopesavolainen/Documents/C++/mb/minebombers2/src/roope/Minebombers/Minebombers/sansation.ttf")) {
         std::cout << "font load failed";
         return;
     }
     
+    /*
     sf::Texture smiletex;
     if (!smiletex.loadFromFile("/Users/roopesavolainen/Documents/C++/mb/minebombers2/src/roope/Minebombers/Minebombers/smile.png")) {
         std::cout << "player image load failed";
@@ -19,7 +22,7 @@ void GraphicsManager::InitializeGraphics() {
     smile.setTexture(smiletex);
     smile.setScale(10, 10);
     sprites_["smile"]=smile;
-        
+    */
     sf::Text paused("Paused",font_,50);
     paused.setColor(sf::Color::Yellow);
     texts_["paused"]=paused;
