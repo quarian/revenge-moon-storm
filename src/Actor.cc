@@ -2,13 +2,21 @@
 
 #include <cmath>
 
-Actor::Actor(Map& map, MapBlock* block, float speed, float digPower, int health=100, float resistance=0.0) :
-    Walker(map, block, speed),
-    digging_(false),
-    digPower_(digPower),
-    health_(health),
-    maxHealth_(health),
-    vulnerability_(1.0 - resistance) { }
+Actor::Actor(
+    Map& map,
+    MapBlock* block,
+    float speed,
+    float digPower,
+    int health,
+    float resistance,
+    Inventory* inv) :
+        Walker(map, block, speed),
+        digging_(false),
+        digPower_(digPower),
+        health_(health),
+        maxHealth_(health),
+        vulnerability_(1.0 - resistance),
+        inventory_(inv) { }
 
 
 bool Actor::takeDamage(int dmg) {
@@ -47,6 +55,7 @@ void Actor::dig(float dt) {
         if (target_->isPassable()) digging_ = false;
     }
 */
+    if (dt == 0) dt = 0; // noop to avoid g++ warning...
     target_->weaken(); // DUMMY
 }
 
@@ -60,4 +69,26 @@ void Actor::knock(Direction dir) {
         if (isDigger()) digging_ = true;
         else target_ = nullptr;
     }
+}
+
+
+void Actor::proceed() {
+    if (!target_->isPassable()) {
+        center();
+        target_ = nullptr;
+    } else {
+        target_->enter(this);
+        location_->exit(this);
+        /*
+        if (inventory_)
+            location_->collect(inventory_);
+        */
+        location_ = target_;
+        dPos_ = -facing_ * 0.5;
+    }
+}
+
+
+void Actor::findTarget(float dt) {
+    if (dt == 0) dt = 0; // noop to avoid g++ warning...
 }

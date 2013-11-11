@@ -121,6 +121,51 @@ bool ControlledActorTest1(std::ostream& os) {
     assert (a.location_ == map.getBlock(1,6));
     assert (a.target_ == map.getBlock(1,6));
 
+    a.keyUp(Direction::SOUTH);
+    a.update(0.3);
+    assert (a.dPos_ == Direction::NULLDIR);
+    assert (a.location_ == map.getBlock(1,6));
+    assert (a.target_ == nullptr);
+
+    os << " OK" << std::endl;
+
+    /* SECTION 3 */
+    os << "TEST 3: Handling different directions and many-keys-pressed...";
+
+    a.keyDown(Direction::NORTH);
+    a.update(0.1);
+    assert (a.dPos_.eq(0.0, -0.2));
+    assert (a.location_ == map.getBlock(1,6));
+    assert (a.target_ == map.getBlock(1,5));
+
+    a.keyDown(Direction::EAST);
+    a.update(0.1);
+    assert (a.dPos_.eq(0.2, 0.0));
+    assert (a.location_ == map.getBlock(1,6));
+    assert (a.target_ == map.getBlock(2,6));
+
+    a.update(3.3);
+    assert (a.dPos_.eq(-0.2, 0.0));
+    assert (a.location_ == map.getBlock(8,6));
+    assert (a.target_ == map.getBlock(8,6));
+
+    a.keyUp(Direction::EAST);
+    a.update(0.2);
+    assert (a.dPos_.eq(0.0, -0.2));
+    assert (a.location_ == map.getBlock(8,6));
+    assert (a.target_ == map.getBlock(8,5));
+
+    a.update(0.8);
+    assert (a.dPos_.eq(0.0, 0.2));
+    assert (a.location_ == map.getBlock(8,4));
+    assert (a.target_ == map.getBlock(8,4));
+
+    a.keyUp(Direction::NORTH);
+    a.update(0.4);
+    assert (a.dPos_ == Direction::NULLDIR);
+    assert (a.location_ == map.getBlock(8,4));
+    assert (a.target_ == nullptr);
+
     os << " OK" << std::endl;
 
     return true;

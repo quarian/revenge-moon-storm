@@ -4,16 +4,22 @@
 #include <iostream>
 
 #include "Direction.hh"
+
 #include "Walker.hh"
 #include "Actor.hh"
 #include "ControlledActor.hh"
+#include "Player.hh"
+
 #include "MapBlock.hh"
 #include "Map.hh"
+
+bool DirectionTest();
 
 bool WalkerTest1(std::ostream& os=std::cout);
 bool ActorTest1(std::ostream& os=std::cout);
 bool ControlledActorTest1(std::ostream& os=std::cout);
-bool DirectionTest();
+bool PlayerTest1(std::ostream& os=std::cout);
+
 bool MapTest1(std::ostream& os=std::cout);
 
 #endif

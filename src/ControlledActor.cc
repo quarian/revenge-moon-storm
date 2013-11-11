@@ -7,9 +7,10 @@ ControlledActor::ControlledActor(
     MapBlock* block,
     float speed,
     float digPower,
-    int health=100,
-    float resistance=0.0) :
-        Actor(map, block, speed, digPower, health, resistance),
+    int health,
+    float resistance,
+    Inventory* inv) :
+        Actor(map, block, speed, digPower, health, resistance, inv),
         northKeyDown_(false),
         eastKeyDown_(false),
         southKeyDown_(false),
@@ -28,6 +29,10 @@ void ControlledActor::findTarget(float dt) {
 void ControlledActor::keyDown(Direction dir) {
     setKey(dir, true);
     if (dir == -orders_) reverse();
+    else if (location_ != target_) {
+        center();
+        knock(dir);
+    }
     orders_ = dir;
 }
 

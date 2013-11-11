@@ -17,6 +17,9 @@ int main() {
     ControlledActorTest1();
     std::cout << std::endl;
 
+    PlayerTest1();
+    std::cout << std::endl;
+
     MapTest1();
 }
 

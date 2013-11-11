@@ -24,7 +24,7 @@ public:
      *  float               movement speed (blocks per second)
      */
     Walker(Map&, MapBlock*, float);
-    ~Walker() {}
+    virtual ~Walker() {}
 
     /* This is the "full" update function that each inheriting class must
      * implement. It takes the time since the last frame as a parameter.
@@ -32,12 +32,16 @@ public:
      * its target. */
     virtual void update(float dt) { updateLocation(dt); }
 
-     /* Returns the Walker's "facing" Direction to the given value. */
-     Direction getDirection() const { return facing_; }
-
-    /* Returns a pointer to the MapBlock that the Walker is currenly
-     * occupying, or null if it is not on the Map. */
+    /* Getters:
+     *
+     * Which way is the Walker facing?
+     * Where is the Walker, in relation to the center of the block?
+     * What block is the Walker in?
+     */
+    Direction getDirection() const { return facing_; }
+    Direction getPosition() const { return dPos_; }
     MapBlock* getLocation() const { return location_; }
+
 
     /* Returns whether the Walker is "going somewhere". */
     bool isMoving() const { return (target_ != nullptr); }
@@ -118,7 +122,8 @@ protected:
     /* Tries to place the Walker at the appropriate edge of the "next"
      * MapBlock. If this fails (which could happen if the target MapBlock has
      * become blocked while the Walker was in-transit), recenters. */
-    void proceed();
+    virtual void proceed();
+
 
     Map& map_;
 

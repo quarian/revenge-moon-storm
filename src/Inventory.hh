@@ -3,7 +3,7 @@
 
 #include <map>
 #include <string>
-#include "item.hh"
+#include "Item.hh"
 
 /*
  * A simple class that handles the player's items and gold
