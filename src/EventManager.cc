@@ -1,4 +1,18 @@
 #include "EventManager.hh"
+#include "triple.hh"
+
+
+void EventManager::Initialize(std::vector<Player&> players /*Player specific keyconfs in a vector*/) {
+    
+    std::vector<bool> activeInput(7,false);
+    PlayerKeys keys = PlayerKeys();     //TODO
+    for (int i=0; i<players_.size(); i++) {
+        triple<Player&, PlayerKeys&, std::vector<bool>> trip(players[i], keys, activeInput)
+        players_.push_back(trip);
+);
+    }
+    
+}
 
 void EventManager::EventLoop() {
     sf::Event event;
@@ -26,9 +40,9 @@ void EventManager::EventLoop() {
 void EventManager::PlayerEvents(sf::Event& event) {
     for (int i = 0; i<players_.size(); i++) {
         
-        ControlledActor/*Player*/ player = getActor(i);
-        PlayerKeys keys = getKeys(i);
-        std::vector<bool> ActiveInput = getActiveInput(i);
+        Player player = players_[i].first();
+        PlayerKeys keys = players_[i].second();
+        std::vector<bool> ActiveInput = players_[i].third();
         
         // NORTH
         if (event.type == sf::Event::KeyPressed && event.key.code == keys.north_ && !ActiveInput[0]) {
