@@ -5,6 +5,7 @@
 #include <string>
 
 #include "Map.hh"
+#include "MapBlock.hh"
 
 /*
  * Contains the asbtract base class for items and other varying properties of items
@@ -22,17 +23,20 @@ class Item {
 public:
 	//the item needs information from the game, which is given as a reference to the map.
 	//Now the items can check whether 
-	Item(Map& map, std::string name, bool passable) : mapref_(map), name_(name), passable_(passable) {}
+	Item(Map& map, MapBlock* location, std::string name, bool passable) : mapref_(map), location_(location), name_(name), passable_(passable), alive_(true) {}
 	virtual ~Item() {}
 
 	virtual void update(float) = 0;
 	virtual bool takeDamage(int) = 0;
 
 	static std::vector<std::string> names(); //use this to access all the names of the items in the game
+	static std::vector<std::string> treasureNames();
 protected:
 	Map& mapref_; //Reference to the map
+	MapBlock* location_; //Location of the item
 	std::string name_; //A name identifier for each item type
 	bool passable_; //Whether the player can walk into the square this item is in.
+	bool alive_;
 };
 
 //Create treasures with
@@ -40,7 +44,7 @@ protected:
 class Treasure : public Item {
 public:
 	//Takes the name of the treasure and it's worth
-	Treasure(Map&, std::string, int);
+	Treasure(Map&, MapBlock*, std::string, int);
 
 	void update(float);
 	bool takeDamage(int) { return false; } //treasure cannot be destroyed
@@ -51,7 +55,7 @@ private:
 //Abstract base class for weapons
 class Weapon : public Item {
 public:
-	Weapon(Map& map, std::string name, bool passable) : Item(map, name, passable) {}; //each weapon has to initialize their radius, power, fusetime etc.
+	Weapon(Map& map, MapBlock* location, std::string name, bool passable) : Item(map, location, name, passable) {}; //each weapon has to initialize their radius, power, fusetime etc.
 
 	virtual void update(float) = 0;
 	//all weapons get instantly destroyed as a consequence of an explosion or other source of damage
@@ -68,7 +72,7 @@ protected:
  * Item declarations
 */
 class SmallBomb : public Weapon {
-	SmallBomb(Map&);
+	SmallBomb(Map&, MapBlock*);
 	void update(float);
 };
 

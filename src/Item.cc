@@ -8,7 +8,11 @@
 
 std::vector<std::string> Item::names() {
 	return std::vector<std::string> {
-		"Small Bomb",
+		"Small Bomb"
+	};
+}
+std::vector<std::string> Item::treasureNames() {
+	return std::vector<std::string> {
 		"Gold Bar"
 	};
 }
@@ -16,25 +20,30 @@ std::vector<std::string> Item::names() {
 //Class declarations here or in Items.hh?
 /*class SmallBomb : public Weapon {
 public:*/
-	SmallBomb::SmallBomb(Map& map) : Weapon(map, "Small Bomb", false) {
+	SmallBomb::SmallBomb(Map& map, MapBlock* location) : Weapon(map, location, "Small Bomb", false) {
 		radius_ = 3;
 		power_ = 1;
-		fusetime_ = 2;
+		fusetime_ = 2.0f;
 	}
 
 	void SmallBomb::update(float dt) {
 		fusetime_ -= dt;
 
-		if (fusetime_ <= 0) {
+		if (fusetime_ <= 0 && alive_) {
 			//Explode with radius_ and power_
 			//Make surrounding map blocks take damage. 
+
+			//map_.blast(location_, radius_, power_);
+			//The map could also tell the game to draw explosion animations at each mapblock.
+
+			alive_ = false;
 		}
 
 	}
 /*private:
 };*/
 
-Treasure::Treasure(Map& map, std::string name, int worth) : Item(map, name, true), worth_(worth) {
+Treasure::Treasure(Map& map, MapBlock* location, std::string name, int worth) : Item(map, location, name, true), worth_(worth) {
 	//possibly some texture loading etc.
 }
 void Treasure::update(float) {

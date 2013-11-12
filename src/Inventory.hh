@@ -22,46 +22,31 @@ public:
 	 * at least one of them, and decreases the quantity. 
 	 *
 	 * Other relevant functions:
+	 * getNonzeroItems()
 	 * getItemCount(string)
 	 * increaseGold(int)
 	 *
 	 * Other functions are used mainly within the Store.
 	 */
 
-	Inventory() {
-		//Initializes the inventory map to 0 for each item string
-		for (auto i : Item::names()) {
-			items_[i] = 0;
-		}
-	}
-	~Inventory() {}
+	Inventory();
+	~Inventory();
 
 	/* Accessors for the gold and quantity of items */
 	int getGold() const { return gold_; }
-	size_t getItemCount(std::string item) { return items_[item]; }
+	size_t getItemCount(std::string);
+
+	/* Returns all non-zero items in the inventory */
+	std::map<std::string, size_t> getNonzeroItems();
 
 	/* Decreases the gold by the amount given, if possible, and returns a boolean */
-	bool decreaseGold(int amount) {
-		if (gold_ < amount) return false;
-		gold_ -= amount;
-		return true;
-	}
+	bool decreaseGold(int);
 	/* Increases the gold by the given amount */
-	void increaseGold(int amount) {
-		gold_ += amount;
-	}
+	void increaseGold(int);
 	/* Adds +1 to the given item's quantity */
-	void addItem(std::string item) {
-		items_[item] += 1;
-	}
+	void addItem(std::string);
 	/* Decreases the item count in the inventory, if possible, and returns a boolean */
-	bool useItem(std::string item) {
-		if (items_[item] > 0) {
-			items_[item] -= 1;
-			return true;
-		}
-		return false;
-	}
+	bool useItem(std::string);
 
 private:
 	std::map<std::string, size_t> items_;
