@@ -1,13 +1,11 @@
 #include "EventManager.hh"
-#include "triple.hh"
 
 
-void EventManager::Initialize(std::vector<Player&> players /*Player specific keyconfs in a vector*/) {
+void EventManager::Initialize(std::vector<Player&> players, std::vector<PlayerKeys>& keys) {
     
     std::vector<bool> activeInput(7,false);
-    PlayerKeys keys = PlayerKeys();     //TODO
-    for (int i=0; i<players_.size(); i++) {
-        triple<Player&, PlayerKeys&, std::vector<bool>> trip(players[i], keys, activeInput)
+    for (int i=0; i<players.size(); i++) {
+        triple<Player&, PlayerKeys&, std::vector<bool>> trip(players[i], keys[i], activeInput);
         players_.push_back(trip);
 );
     }
@@ -38,53 +36,55 @@ void EventManager::EventLoop() {
 }
 
 void EventManager::PlayerEvents(sf::Event& event) {
-    for (int i = 0; i<players_.size(); i++) {
+    for (size_t i = 0; i<players_.size(); i++) {
         
         Player player = players_[i].first();
         PlayerKeys keys = players_[i].second();
         std::vector<bool> ActiveInput = players_[i].third();
         
+        size_t inputNum=0;
+        
         // NORTH
-        if (event.type == sf::Event::KeyPressed && event.key.code == keys.north_ && !ActiveInput[0]) {
+        if (event.type == sf::Event::KeyPressed && event.key.code == keys.north_ && !ActiveInput[inputNum]) {
             player.keyDown(Direction::NORTH);
-            ActiveInput[0]=true;
+            ActiveInput[inputNum]=true;
         }
-        if (event.type == sf::Event::KeyReleased && event.key.code == keys.north_  && ActiveInput[0]) {
+        if (event.type == sf::Event::KeyReleased && event.key.code == keys.north_  && ActiveInput[inputNum]) {
             player.keyUp(Direction::NORTH);
-            ActiveInput[0]=false;
+            ActiveInput[inputNum]=false;
         }
+        inputNum++;
         // SOUTH
-        if (event.type == sf::Event::KeyPressed && event.key.code == keys.south_  && !ActiveInput[1]) {
+        if (event.type == sf::Event::KeyPressed && event.key.code == keys.south_  && !ActiveInput[inputNum]) {
             player.keyDown(Direction::SOUTH);
-            ActiveInput[1]=true;
+            ActiveInput[inputNum]=true;
         }
-        if (event.type == sf::Event::KeyReleased && event.key.code == keys.south_  && ActiveInput[1]) {
+        if (event.type == sf::Event::KeyReleased && event.key.code == keys.south_  && ActiveInput[inputNum]) {
             player.keyUp(Direction::SOUTH);
-            ActiveInput[1]=false;
-
+            ActiveInput[inputNum]=false;
         }
+        inputNum++;
         // WEST
-        if (event.type == sf::Event::KeyPressed && event.key.code == keys.west_  && !ActiveInput[2]) {
+        if (event.type == sf::Event::KeyPressed && event.key.code == keys.west_  && !ActiveInput[inputNum]) {
             player.keyDown(Direction::WEST);
-            ActiveInput[2]=true;
-
+            ActiveInput[inputNum]=true;
         }
-        if (event.type == sf::Event::KeyReleased && event.key.code == keys.west_  && ActiveInput[2]) {
+        if (event.type == sf::Event::KeyReleased && event.key.code == keys.west_  && ActiveInput[inputNum]) {
             player.keyUp(Direction::WEST);
-            ActiveInput[2]=false;
-
+            ActiveInput[inputNum]=false;
         }
+        inputNum++;
         // EAST
-        if (event.type == sf::Event::KeyPressed && event.key.code == keys.east_  && !ActiveInput[3]) {
+        if (event.type == sf::Event::KeyPressed && event.key.code == keys.east_  && !ActiveInput[inputNum]) {
             player.keyDown(Direction::EAST);
-            ActiveInput[3]=true;
-
-
+            ActiveInput[inputNum]=true;
         }
-        if (event.type == sf::Event::KeyReleased && event.key.code == keys.west_  && ActiveInput[3]) {
+        if (event.type == sf::Event::KeyReleased && event.key.code == keys.west_  && ActiveInput[inputNum]) {
             player.keyUp(Direction::EAST);
-            ActiveInput[3]=false;
+            ActiveInput[inputNum]=false;
         }
+        inputNum++;
+
         // Other player control handling, use, nextWeapon etc.
     }
 }
