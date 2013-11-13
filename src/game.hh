@@ -7,29 +7,22 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Font.hpp>
 
-#include <SFML/Window/Mouse.hpp>
-#include <SFML/Window/Keyboard.hpp>
-
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/String.hpp>
 
 #include <iostream>
-#include <list>
 #include <vector>
 #include <map>
 
 
 #include "WindowManager.hh"
-#include "Walker.hh"
-#include "Actor.hh"
-#include "ControlledActor.hh"
-#include "MapBlock.hh"
+#include "Player.hh"
 #include "Map.hh"
-#include "Drawable.hh"
 #include "GraphicsManager.hh"
 #include "EventManager.hh"
 
 #include "dummy_KeySettings.hh"
+    //#include "Drawable.hh"
     //#include "dummy_Player.hh"
 
 

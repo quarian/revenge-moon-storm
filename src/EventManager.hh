@@ -27,7 +27,7 @@ public:
 private:
     void PlayerEvents(sf::Event&);
     
-    void BuyingEvents(sf::Event&, bool&);
+    void BuyingEvents(sf::Event&, std::vector<bool>&);
     
     WindowManager& window_;
     std::vector<triple<Player, PlayerKeys, std::vector<bool>>> players_;

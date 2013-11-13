@@ -1,11 +1,9 @@
 #include "game.hh"
-#include <iostream>
-#include <string>
 
 void Game::Launch() {
     window_.launchWindow();
-    std::vector<size_t> play = Menu();
-    Initialize(map_, play[0], play[1]);
+    std::vector<size_t> gameSelections = Menu();
+    Initialize(map_, gameSelections[0], gameSelections[1]);
     isRunning_=true;
     Run();
 }
@@ -21,6 +19,7 @@ std::vector<size_t> Game::Menu() {
 void Game::Initialize(Map& map_, size_t playerCount, size_t playerLives) {
     window_.setPlayMode();
     graphicsManager_.InitializeGraphics();
+    
     //Initialize players
     for (int i=0; i!=playerCount; i++) {
         players_.push_back(Player(playerLives));

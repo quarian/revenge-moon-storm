@@ -102,7 +102,7 @@ bool EventManager::StoreEventLoop() {
         if (event.type == sf::Event::KeyPressed && event.key.code == menuKeys_.menu_) {
             return false; // Jump back to mainmenu
         }
-        BuyingEvents(event,AllPlayersReady);
+        BuyingEvents(event,playerReady);
         
         // Check if all the players are ready
         size_t readyCount = 0;
@@ -116,13 +116,16 @@ bool EventManager::StoreEventLoop() {
     return true;
 }
 
-void EventManager::BuyingEvents(sf::Event& event, bool& AllPlayersReady) {
+void EventManager::BuyingEvents(sf::Event& event, std::vector<bool>& playerReady) {
     for (size_t i = 0; i<players_.size(); i++) {
         
         Player& player = players_[i].first;
         PlayerKeys& keys = players_[i].second;
         
         //Buying input handling
+        
+            //TODO
+        
         
     }
     
