@@ -4,12 +4,11 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Event.hpp>
 #include <vector>
-
 #include "WindowManager.hh"
-#include "ControlledActor.hh"
-#include "dummy_KeySettings.hh"
 #include "Player.hh"
 #include "Triple.hh"
+#include "dummy_KeySettings.hh"
+
 
 
 
@@ -21,11 +20,15 @@ public:
     
     void EventLoop();
     
+    void StoreEventLoop();
+    
 private:
     void PlayerEvents(sf::Event&);
     
+    void BuyingEvents(sf::Event&, bool&);
+    
     WindowManager& window_;
-        //std::vector<triple<Player&, PlayerKeys&, std::vector<bool>>> players_;
+    std::vector<triple<Player&, PlayerKeys&, std::vector<bool>>> players_;
     MenuKeys menuKeys_;
     bool& isRunning_;
     bool isPaused_;

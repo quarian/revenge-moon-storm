@@ -5,9 +5,8 @@ void EventManager::Initialize(std::vector<Player&> players, std::vector<PlayerKe
     
     std::vector<bool> activeInput(7,false);
     for (int i=0; i<players.size(); i++) {
-        triple<Player&, PlayerKeys&, std::vector<bool>> trip(players[i], keys[i], activeInput);
+        triple<Player&, PlayerKeys&, std::vector<bool>> trip(players[i],keys[i],activeInput);
         players_.push_back(trip);
-);
     }
     
 }
@@ -87,4 +86,24 @@ void EventManager::PlayerEvents(sf::Event& event) {
 
         // Other player control handling, use, nextWeapon etc.
     }
+}
+
+void StoreEventLoop() {
+    sf::Event event;
+    bool PlayersReady=false;
+    while (window_.pollEvent(event) && !PlayersReady) {
+        if (event.type == sf::Event::Closed) {
+            isRunning_=false;
+            break;
+        }
+        if (event.type == sf::Event::KeyPressed && event.key.code == menuKeys_.menu_) {
+            isRunning_=false;//TODO: Jump back to mainmenu
+            break;
+        }
+        void BuyingEvents(event,PlayersReady);
+    }
+}
+
+void BuyingEvents(sf::Event& event, bool& PlayersReady) {
+        //Buying input handling
 }
