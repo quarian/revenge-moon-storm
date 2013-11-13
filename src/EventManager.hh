@@ -14,13 +14,15 @@
 
 class EventManager {
 public:
+    
     EventManager(WindowManager& w, bool& isRunning) : window_(w), menuKeys_(MenuKeys()), isRunning_(isRunning) {}
     
-    void Initialize(std::vector<Player&> players, std::vector<PlayerKeys>& keys);
+    void Initialize(std::vector<Player>& players, std::vector<PlayerKeys>& keys);
     
     void EventLoop();
     
-    void StoreEventLoop();
+    // If returning false return main menu, else start the gameplay
+    bool StoreEventLoop();
     
 private:
     void PlayerEvents(sf::Event&);
@@ -28,9 +30,9 @@ private:
     void BuyingEvents(sf::Event&, bool&);
     
     WindowManager& window_;
-    std::vector<triple<Player&, PlayerKeys&, std::vector<bool>>> players_;
+    std::vector<triple<Player, PlayerKeys, std::vector<bool>>> players_;
     MenuKeys menuKeys_;
-    bool& isRunning_;
+    bool isRunning_;
     bool isPaused_;
 
 };

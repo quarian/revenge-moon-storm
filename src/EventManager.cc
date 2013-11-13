@@ -1,11 +1,11 @@
 #include "EventManager.hh"
 
 
-void EventManager::Initialize(std::vector<Player&> players, std::vector<PlayerKeys>& keys) {
+void EventManager::Initialize(std::vector<Player>& players, std::vector<PlayerKeys>& keys) {
     
-    std::vector<bool> activeInput(7,false);
     for (int i=0; i<players.size(); i++) {
-        triple<Player&, PlayerKeys&, std::vector<bool>> trip(players[i],keys[i],activeInput);
+        triple<Player, PlayerKeys, std::vector<bool>>
+            trip(players[i],keys[i], std::vector<bool>(7,false));
         players_.push_back(trip);
     }
     
@@ -13,6 +13,7 @@ void EventManager::Initialize(std::vector<Player&> players, std::vector<PlayerKe
 
 void EventManager::EventLoop() {
     sf::Event event;
+    // In game event handling
     while (window_.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             isRunning_=false;
@@ -37,9 +38,9 @@ void EventManager::EventLoop() {
 void EventManager::PlayerEvents(sf::Event& event) {
     for (size_t i = 0; i<players_.size(); i++) {
         
-        Player player = players_[i].first();
-        PlayerKeys keys = players_[i].second();
-        std::vector<bool> ActiveInput = players_[i].third();
+        Player& player = players_[i].first;
+        PlayerKeys& keys = players_[i].second;
+        std::vector<bool>& ActiveInput = players_[i].third;
         
         size_t inputNum=0;
         
@@ -88,22 +89,42 @@ void EventManager::PlayerEvents(sf::Event& event) {
     }
 }
 
-void StoreEventLoop() {
+bool EventManager::StoreEventLoop() {
     sf::Event event;
-    bool PlayersReady=false;
-    while (window_.pollEvent(event) && !PlayersReady) {
+    bool AllPlayersReady=false;
+    std::vector<bool> playerReady(players_.size(),false);
+    
+    while (window_.pollEvent(event) && !AllPlayersReady) {
         if (event.type == sf::Event::Closed) {
             isRunning_=false;
-            break;
+            return false;
         }
         if (event.type == sf::Event::KeyPressed && event.key.code == menuKeys_.menu_) {
-            isRunning_=false;//TODO: Jump back to mainmenu
-            break;
+            return false; // Jump back to mainmenu
         }
-        void BuyingEvents(event,PlayersReady);
+        BuyingEvents(event,AllPlayersReady);
+        
+        // Check if all the players are ready
+        size_t readyCount = 0;
+        for (int i = 0; i!=players_.size(); i++) {
+            if (!playerReady[i]) {
+                readyCount++;
+            }
+        }
+        if (readyCount==players_.size()) AllPlayersReady=true;
     }
+    return true;
 }
 
-void BuyingEvents(sf::Event& event, bool& PlayersReady) {
+void EventManager::BuyingEvents(sf::Event& event, bool& AllPlayersReady) {
+    for (size_t i = 0; i<players_.size(); i++) {
+        
+        Player& player = players_[i].first;
+        PlayerKeys& keys = players_[i].second;
+        
         //Buying input handling
+        
+    }
+    
+
 }
