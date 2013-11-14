@@ -78,6 +78,7 @@ bool WalkerTest1(std::ostream& os) {
 
     os << " OK" << std::endl;
 
+
     /* SECTION 4 */
     os << "TEST 4: Moving several squares...";
 
@@ -120,7 +121,7 @@ bool WalkerTest1(std::ostream& os) {
 
     os << " OK" << std::endl;
 
-    /* SECTION 5
+    /* SECTION 5 */
     os << "TEST 5: Knocking on walls...";
 
     w.knock(Direction::EAST);
@@ -151,7 +152,7 @@ bool WalkerTest1(std::ostream& os) {
     assert (w.facing_ == Direction::SOUTH);
     assert (w.dPos_ == Direction::NULLDIR);
 
-    os << " OK" << std::endl; */
+    os << " OK" << std::endl;
 
     return true;
 }

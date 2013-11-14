@@ -59,6 +59,7 @@ bool ControlledActorTest1(std::ostream& os) {
     a.keyUp(Direction::EAST);
     assert (a.orders_ == Direction::NULLDIR);
     a.keyDown(Direction::NORTH);
+
     a.keyDown(Direction::WEST);
     assert (a.orders_ == Direction::WEST);
     a.keyDown(Direction::SOUTH);

@@ -6,6 +6,7 @@
 
 class ControlledActor : public Actor {
 friend bool ControlledActorTest1(std::ostream&);
+friend class Player;
 
 public:
     /* Constructor

@@ -6,11 +6,11 @@
 
 int main() {
     std::cout << "DirectionTest" << std::endl;
-    //DirectionTest();
+    DirectionTest();
     std::cout << std::endl;
 
     std::cout << "WalkerTest1" << std::endl;
-    //WalkerTest1();
+    WalkerTest1();
     std::cout << std::endl;
 
     std::cout << "ActorTest1" << std::endl;
@@ -18,7 +18,7 @@ int main() {
     std::cout << std::endl;
 
     std::cout << "ControlledActorTest1" << std::endl;
-    //ControlledActorTest1();
+    ControlledActorTest1();
     std::cout << std::endl;
 
     std::cout << "PlayerTest1" << std::endl;

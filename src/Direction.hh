@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <cassert>
+#include <iostream>
 
 /* Direction
  *
@@ -51,5 +52,7 @@ public:
     static const Direction SOUTH;
     static const Direction WEST;
 };
+
+std::ostream& operator<<(std::ostream&, Direction const&);
 
 #endif

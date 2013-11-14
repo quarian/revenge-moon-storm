@@ -5,10 +5,12 @@
 #include "Direction.hh"
 #include "Inventory.hh"
 
+#include <string>
+
 class Player {
 public:
     /* Constructor. */
-    Player(size_t=1);
+    Player(std::string, size_t=1);
     ~Player() { clearAvatar(); }
 
     /* Spawns a new Actor onto the given map.
@@ -19,11 +21,21 @@ public:
     /* Kills the avatar. */
     void die();
     
+    /* Passes movement commands to the Actor. */
     void keyUp(Direction);
     void keyDown(Direction);
 
+    /* Other commands:
+     *
+     * useItem      Tries to use the currently held item.
+     */
+    void useItem();
+
     size_t getLives() const { return lives_; }
+    void setLives(size_t lives) { lives_ = lives; }
     ControlledActor* getActor() { return avatar_; }
+
+    const std::string name_;
 
 protected:
     float speed_;

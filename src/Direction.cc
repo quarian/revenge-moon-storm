@@ -36,3 +36,8 @@ const Direction Direction::NORTH = Direction(0, -1);
 const Direction Direction::EAST = Direction(1, 0);
 const Direction Direction::SOUTH = Direction(0, 1);
 const Direction Direction::WEST = Direction(-1, 0);
+
+
+std::ostream& operator<<(std::ostream& os, Direction const& dir) {
+    return os << "Direction(" << dir.x() << ", " << dir.y() << ")";
+}

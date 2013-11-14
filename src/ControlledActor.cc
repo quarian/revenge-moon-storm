@@ -28,10 +28,12 @@ void ControlledActor::findTarget(float dt) {
 
 void ControlledActor::keyDown(Direction dir) {
     setKey(dir, true);
-    if (dir == -orders_) reverse();
-    else if (location_ != target_) {
-        center();
-        knock(dir);
+    if (target_) {
+        if (dir == -orders_) reverse();
+        else if (location_ != target_) {
+            center();
+            knock(dir);
+        }
     }
     orders_ = dir;
 }
