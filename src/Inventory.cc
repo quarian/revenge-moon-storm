@@ -1,4 +1,5 @@
 #include "Inventory.hh"
+#include "Item.hh"
 
 Inventory::Inventory() {
 	//Initializes the inventory map to 0 for each item string
@@ -37,9 +38,18 @@ void Inventory::addItem(std::string item) {
 	items_[item] += 1;
 }
 
-bool Inventory::useItem(std::string item) {
+bool Inventory::useItem(std::string item, Map& map, MapBlock* mb) {
 	if (items_[item] > 0) {
 		items_[item] -= 1;
+
+		Item* new_item = NULL;
+		if (item == "Small Bomb") {
+			new_item = new SmallBomb(map, mb);
+		}
+
+		//map.getGame().pushItem(new_item);
+		//mb->pushItem(new_item);
+
 		return true;
 	}
 	return false;

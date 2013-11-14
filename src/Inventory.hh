@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include "Item.hh"
+#include "Map.hh"
 
 /*
  * A simple class that handles the player's items and gold
@@ -46,7 +47,9 @@ public:
 	/* Adds +1 to the given item's quantity */
 	void addItem(std::string);
 	/* Decreases the item count in the inventory, if possible, and returns a boolean */
-	bool useItem(std::string);
+	bool useItem(std::string, Map&, MapBlock*);
+	//An item is picked up by an actor and given to the inventory to parse
+	void collect(Item*);
 
 private:
 	std::map<std::string, size_t> items_;

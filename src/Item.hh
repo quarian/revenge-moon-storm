@@ -26,7 +26,7 @@ class Item {
 public:
 	//the item needs information from the game, which is given as a reference to the map.
 	//Now the items can check whether 
-	Item(Map& map, MapBlock* location, std::string name, bool passable) : mapref_(map), location_(location), name_(name), passable_(passable), alive_(true) {}
+	Item(Map& map, MapBlock* location, std::string name, bool passable, bool collectible) : mapref_(map), location_(location), name_(name), passable_(passable), collectible_(collectible), alive_(true) {}
 	virtual ~Item() {}
 
 	virtual void update(float) = 0;
@@ -39,6 +39,7 @@ protected:
 	MapBlock* location_; //Location of the item
 	std::string name_; //A name identifier for each item type
 	bool passable_; //Whether the player can walk into the square this item is in.
+	bool collectible_;
 	bool alive_;
 };
 
@@ -58,7 +59,7 @@ private:
 //Abstract base class for weapons
 class Weapon : public Item {
 public:
-	Weapon(Map& map, MapBlock* location, std::string name, bool passable) : Item(map, location, name, passable) {}; //each weapon has to initialize their radius, power, fusetime etc.
+	Weapon(Map& map, MapBlock* location, std::string name, bool passable) : Item(map, location, name, passable, false) {};
 
 	virtual void update(float) = 0;
 	//all weapons get instantly destroyed as a consequence of an explosion or other source of damage
@@ -75,6 +76,7 @@ protected:
  * Item declarations
 */
 class SmallBomb : public Weapon {
+public:
 	SmallBomb(Map&, MapBlock*);
 	void update(float);
 };
