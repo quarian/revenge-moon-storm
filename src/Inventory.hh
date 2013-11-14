@@ -39,7 +39,7 @@ public:
 
 	/* Accessors for the gold and quantity of items */
 	int getGold() const { return gold_; }
-	size_t getItemCount(std::string) const;
+	size_t getItemCount(std::string);
 
 	/* Returns all non-zero items in the inventory */
 	std::map<std::string, size_t> getNonzeroItems();
