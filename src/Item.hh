@@ -26,7 +26,7 @@ public:
 	//the item needs information from the game, which is given as a reference to the map.
 	//Now the items can check whether 
 	Item(Map& map, MapBlock* location, std::string name, bool passable, bool collectible) : mapref_(map), location_(location), name_(name), passable_(passable), collectible_(collectible), alive_(true) {}
-	virtual ~Item() {}
+	virtual ~Item();
 
 	virtual void update(float) = 0;
 	virtual bool takeDamage(int) = 0;
@@ -34,12 +34,12 @@ public:
 	static std::vector<std::string> names(); //use this to access all the names of the items in the game
 	static std::vector<std::string> treasureNames();
 
-	Map& getMapref() { return mapref_; }
-	MapBlock* getLocation() { return location_; }
-	std::string getName() { return name_; }
-	bool getPassable() { return passable_; }
-	bool getCollectible() { return collectible_; }
-	bool getAlive() { return alive_; }
+	Map& getMapref() const { return mapref_; }
+	MapBlock* getLocation() const { return location_; }
+	std::string getName() const { return name_; }
+	bool getPassable() const { return passable_; }
+	bool getCollectible() const { return collectible_; }
+	bool getAlive() const { return alive_; }
 protected:
 	Map& mapref_; //Reference to the map
 	MapBlock* location_; //Location of the item
@@ -58,7 +58,7 @@ public:
 
 	void update(float);
 	bool takeDamage(int) { return false; } //treasure cannot be destroyed
-	int getWorth() { return worth_; }
+	int getWorth() const { return worth_; }
 private:
 	int worth_; //non-zero for treasures, this value is added to the player's gold reserve
 };
@@ -72,9 +72,9 @@ public:
 	//all weapons get instantly destroyed as a consequence of an explosion or other source of damage
 	virtual bool takeDamage(int) { return true; }
 
-	int getRadius() { return radius_; }
-	int getPower() { return power_; }
-	float getFusetime() { return fusetime_; }
+	int getRadius() const { return radius_; }
+	int getPower() const { return power_; }
+	float getFusetime() const { return fusetime_; }
 protected:
 	int radius_;
 	int power_;

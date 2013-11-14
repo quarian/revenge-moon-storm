@@ -6,7 +6,11 @@
  * Contains item implementations
 */
 
-
+Item::~Item() {
+	//tell the game and the mapblock that this item is now deleted
+	//map_.getGame().popItem(this);
+	//location_.popItem(this);X
+}
 
 std::vector<std::string> Item::names() {
 	return std::vector<std::string> {

@@ -20,7 +20,7 @@ std::map<std::string, size_t> Inventory::getNonzeroItems() {
 	return r_items;
 }
 
-size_t Inventory::getItemCount(std::string item) {
+size_t Inventory::getItemCount(std::string item) const {
 	return items_[item];
 }
 
