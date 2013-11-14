@@ -6,6 +6,10 @@
 #include "Item.hh"
 #include "Map.hh"
 
+class Map;
+class MapBlock;
+class Item;
+
 /*
  * A simple class that handles the player's items and gold
 */

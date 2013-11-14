@@ -40,7 +40,7 @@ void SmallBomb::update(float dt) {
 	}
 }
 
-Treasure::Treasure(Map& map, MapBlock* location, std::string name, int worth) : Item(map, location, name, true), worth_(worth) {
+Treasure::Treasure(Map& map, MapBlock* location, std::string name, int worth) : Item(map, location, name, true, true), worth_(worth) {
 	//possibly some texture loading etc.
 }
 void Treasure::update(float) {

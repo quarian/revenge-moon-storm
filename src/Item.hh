@@ -20,8 +20,7 @@ class Item {
 	 * These items are considered "dropped" or used, such that
 	 * player collision with a Treasure Item adds gold for that
 	 * player. Things like bombs are Items too, they are updated each 
-	 * frame with the player's current location, such that collision and
-	 * damage from explosions can be calculated within the items.
+	 * frame.
 	*/
 public:
 	//the item needs information from the game, which is given as a reference to the map.
@@ -34,6 +33,13 @@ public:
 
 	static std::vector<std::string> names(); //use this to access all the names of the items in the game
 	static std::vector<std::string> treasureNames();
+
+	Map& getMapref() { return mapref_; }
+	MapBlock* getLocation() { return location_; }
+	std::string getName() { return name_; }
+	bool getPassable() { return passable_; }
+	bool getCollectible() { return collectible_; }
+	bool getAlive() { return alive_; }
 protected:
 	Map& mapref_; //Reference to the map
 	MapBlock* location_; //Location of the item
@@ -52,6 +58,7 @@ public:
 
 	void update(float);
 	bool takeDamage(int) { return false; } //treasure cannot be destroyed
+	int getWorth() { return worth_; }
 private:
 	int worth_; //non-zero for treasures, this value is added to the player's gold reserve
 };
@@ -64,6 +71,10 @@ public:
 	virtual void update(float) = 0;
 	//all weapons get instantly destroyed as a consequence of an explosion or other source of damage
 	virtual bool takeDamage(int) { return true; }
+
+	int getRadius() { return radius_; }
+	int getPower() { return power_; }
+	float getFusetime() { return fusetime_; }
 protected:
 	int radius_;
 	int power_;
