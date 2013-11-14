@@ -52,7 +52,9 @@ void MapBlock::weaken() {
 
 void MapBlock::collect(Inventory* inventory) {
     for (auto iter = items_.begin(); iter != items_.end(); iter++) {
-        // if item is gettable, put to inventory, remove from block
-        // otherwise don't.
+        if ((*iter)->getCollectible()) {
+            inventory->collect(*iter);
+            iter = items_.erase(iter);
+        }
     }
 }
