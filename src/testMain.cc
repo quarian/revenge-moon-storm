@@ -26,7 +26,7 @@ int main() {
     std::cout << std::endl;
 
     std::cout << "MapTest1" << std::endl;
-    //MapTest1();
+    MapTest1();
     std::cout << std::endl;
 
     std::cout << "InventoryTest1" << std::endl;

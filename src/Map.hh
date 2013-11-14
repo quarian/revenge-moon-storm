@@ -22,6 +22,9 @@ class Map {
         void printMap();
         MapBlock* getBlock(int x, int y);
         MapBlock* getBlock(int x, int y, Direction direction);
+        unsigned getHeight();
+        unsigned getWidth();
+        std::vector<std::vector<MapBlock>>* getGrid();
     private:
         std::vector<std::vector<MapBlock>> grid_;
 };

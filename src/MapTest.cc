@@ -23,7 +23,16 @@ bool MapTest1(std::ostream& os) {
     assert (map.getBlock(9,9)->getBlock(Direction::SOUTH) == map.getBlock(9,10));
     assert (map.getBlock(9,9)->getBlock(Direction::WEST) == map.getBlock(8,9));
 
-    os << " OK" << std::endl;
+    os << " Directions OK, testing passability of a few squares" << std::endl;
+
+    assert (!map.getBlock(0,0)->isPassable());
+    assert (!map.getBlock(1,0)->isPassable());
+    assert (!map.getBlock(2,0)->isPassable());
+    assert (map.getBlock(1,1)->isPassable());
+    assert (map.getBlock(1,3)->isPassable());
+    assert (map.getBlock(1,2)->isPassable());
+
+    os << "Passability OK" << std::endl;
 
     return true;
 }

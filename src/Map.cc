@@ -54,3 +54,14 @@ MapBlock* Map::getBlock(int x, int y, Direction direction) {
     else
         return &grid_[y][x];
 }
+
+unsigned Map::getHeight() {
+    return grid_.size();
+}
+unsigned Map::getWidth() {
+    return grid_[0].size();
+}
+
+std::vector<std::vector<MapBlock>>* Map::getGrid() {
+    return &grid_;
+}

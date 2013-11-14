@@ -1,12 +1,17 @@
 #include "MapBlock.hh"
+const unsigned MapBlock::NONE = 0;
+const unsigned MapBlock::WEAK = 1;
+const unsigned MapBlock::MEDIUM = 2;
+const unsigned MapBlock::STRONG = 3;
+const unsigned MapBlock::INDESTRUCTIBLE = 10;
 
-MapBlock::MapBlock(int x, int y, std::string content, Map& map, BlockToughness toughness) : x_(x), y_(y), content_(content), map_(map), toughness_(toughness)
+MapBlock::MapBlock(int x, int y, std::string content, Map& map, unsigned toughness) : x_(x), y_(y), content_(content), map_(map), toughness_(toughness)
 {
-    if (content.compare("#") == 0)
+    if (content_.compare("#") == 0)
         toughness_ = STRONG;
 }
 
-MapBlock::MapBlock(const MapBlock& other) : x_(other.x_), y_(other.y_), content_(other.content_), map_(other.map_) {}
+MapBlock::MapBlock(const MapBlock& other) : x_(other.x_), y_(other.y_), content_(other.content_), map_(other.map_), toughness_(other.toughness_) {}
 
 MapBlock MapBlock::operator=(const MapBlock& other) {
     if (this == &other) return *this;
@@ -14,6 +19,7 @@ MapBlock MapBlock::operator=(const MapBlock& other) {
     y_ = other.y_;
     content_ = other.content_;
     map_ = other.map_;
+    toughness_ = other.toughness_;
     return *this;
 }
 
@@ -36,20 +42,6 @@ void MapBlock::exit(const Walker* w) {
 }
 
 void MapBlock::weaken() {
-    switch (toughness_) {
-        case INDESTRUCTIBLE:
-            // do nothing, wall is indestuctible
-            break;
-        case STRONG:
-            toughness_ = MEDIUM;
-            break;
-        case MEDIUM:
-            toughness_ = WEAK;
-            break;
-        case WEAK:
-            toughness_ = NONE;
-            break;
-        default: // toughness == NONE
-            break;
-    }
+    if (toughness_ != NONE && toughness_ != INDESTRUCTIBLE)
+        toughness_--;
 }

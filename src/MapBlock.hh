@@ -11,17 +11,9 @@
 class Walker;
 class Map;
 
-enum BlockToughness {
-    NONE,
-    WEAK,
-    MEDIUM,
-    STRONG,
-    INDESTRUCTIBLE
-};
-
 class MapBlock {
     public:
-        MapBlock(int x, int y, std::string content, Map& map, BlockToughness toughness = NONE);
+        MapBlock(int x, int y, std::string content, Map& map, unsigned toughness = 0);
         ~MapBlock() {};
         MapBlock(const MapBlock& other);
         MapBlock operator=(const MapBlock& other);
@@ -35,13 +27,21 @@ class MapBlock {
         void enter(Walker* w);
         
         void weaken();
+
         
+        static const unsigned NONE;
+        static const unsigned WEAK;
+        static const unsigned MEDIUM;
+        static const unsigned STRONG;
+        static const unsigned INDESTRUCTIBLE;
+
     private:
         std::vector<Walker*> walkers_;
         //std::vector<Item*> items_;
         Map& map_;
-        BlockToughness toughness_;
 
+    public:
+        unsigned toughness_;
 };
 
 #endif
