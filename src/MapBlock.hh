@@ -6,10 +6,14 @@
 #include <algorithm> // for find_if
 #include "Map.hh"
 #include "Direction.hh"
+#include "Inventory.hh"
+#include "Item.hh"
 
 // Forward declaration
 class Walker;
 class Map;
+class Item;
+class Inventory;
 
 class MapBlock {
     public:
@@ -22,9 +26,11 @@ class MapBlock {
         int y_;
         std::string content_;
         bool isPassable() const;
+        bool isDiggable() const;
         MapBlock* getBlock(Direction direction);
         void exit(const Walker* w);
         void enter(Walker* w);
+        void collect(Inventory* inventory);
         
         void weaken();
 
@@ -37,7 +43,7 @@ class MapBlock {
 
     private:
         std::vector<Walker*> walkers_;
-        //std::vector<Item*> items_;
+        std::vector<Item*> items_;
         Map& map_;
 
     public:

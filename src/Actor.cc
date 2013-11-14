@@ -79,10 +79,8 @@ void Actor::proceed() {
     } else {
         target_->enter(this);
         location_->exit(this);
-        /*
         if (inventory_)
             location_->collect(inventory_);
-        */
         location_ = target_;
         dPos_ = -facing_ * 0.5;
     }

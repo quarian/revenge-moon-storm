@@ -27,6 +27,10 @@ bool MapBlock::isPassable() const {
     return toughness_ == NONE;
 }
 
+bool MapBlock::isDiggable() const {
+    return !isPassable() && toughness_ != INDESTRUCTIBLE;
+}
+
 MapBlock* MapBlock::getBlock(Direction direction) {
     return map_.getBlock(x_, y_, direction);
 }
@@ -44,4 +48,11 @@ void MapBlock::exit(const Walker* w) {
 void MapBlock::weaken() {
     if (toughness_ != NONE && toughness_ != INDESTRUCTIBLE)
         toughness_--;
+}
+
+void MapBlock::collect(Inventory* inventory) {
+    for (auto iter = items_.begin(); iter != items_.end(); iter++) {
+        // if item is gettable, put to inventory, remove from block
+        // otherwise don't.
+    }
 }

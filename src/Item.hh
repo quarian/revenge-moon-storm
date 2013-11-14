@@ -7,6 +7,9 @@
 #include "Map.hh"
 #include "MapBlock.hh"
 
+class Map;
+class MapBlock;
+
 /*
  * Contains the asbtract base class for items and other varying properties of items
 */
