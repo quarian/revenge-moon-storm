@@ -31,5 +31,9 @@ int main() {
 
     std::cout << "InventoryTest1" << std::endl;
     InventoryTest1();
+    std::cout << std::endl;
+
+    std::cout << "GameTest1" << std::endl;
+    GameTest1();
 }
 
