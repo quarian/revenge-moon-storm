@@ -8,10 +8,12 @@
 #include <string>
 
 class Player {
+friend bool PlayerTest1(std::ostream&);
+
 public:
     /* Constructor. */
     Player(std::string, size_t=1);
-    ~Player() { clearAvatar(); }
+    ~Player();
 
     /* Spawns a new Actor onto the given map.
      *
@@ -32,16 +34,17 @@ public:
     void useItem();
 
     size_t getLives() const { return lives_; }
+    std::string getName() const { return name_; }
     void setLives(size_t lives) { lives_ = lives; }
     ControlledActor* getActor() { return avatar_; }
-
-    const std::string name_;
 
 protected:
     float speed_;
     float digPower_;
     float resistance_;
     size_t lives_;
+
+    std::string name_;
 
     Inventory inventory_;
     ControlledActor* avatar_;

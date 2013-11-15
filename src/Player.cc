@@ -1,7 +1,16 @@
 #include "Player.hh"
 
+#include <iostream>
 
-Player::Player(std::string name, size_t lives) : name_(name), lives_(lives) { }
+
+Player::Player(std::string name, size_t lives) :
+    lives_(lives),
+    name_(name),
+    avatar_(nullptr) { }
+
+Player::~Player() {
+    clearAvatar();
+}
 
 
 ControlledActor* Player::spawn(Map* map, MapBlock* block) {
@@ -37,6 +46,7 @@ void Player::die() {
 bool Player::clearAvatar() {
     if (avatar_) {
         delete avatar_;
+        avatar_ = nullptr;
         return true;
     }
     return false;

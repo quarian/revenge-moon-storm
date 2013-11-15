@@ -17,13 +17,13 @@
 
 bool DirectionTest();
 
-bool WalkerTest1(std::ostream& os=std::cout);
-bool ActorTest1(std::ostream& os=std::cout);
-bool ControlledActorTest1(std::ostream& os=std::cout);
-bool PlayerTest1(std::ostream& os=std::cout);
+bool WalkerTest1(std::ostream& =std::cout);
+bool ActorTest1(std::ostream& =std::cout);
+bool ControlledActorTest1(std::ostream& =std::cout);
+bool PlayerTest1(std::ostream& =std::cout);
 
-bool MapTest1(std::ostream& os=std::cout);
+bool MapTest1(std::ostream& =std::cout);
 
-bool InventoryTest1(std::ostream& os=std::cout);
+bool InventoryTest1(std::ostream& =std::cout);
 
 #endif

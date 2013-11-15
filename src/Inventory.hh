@@ -60,4 +60,5 @@ private:
 	int gold_;
 };
 
+
 #endif

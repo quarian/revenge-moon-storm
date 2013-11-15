@@ -46,8 +46,8 @@ public:
     sf::Keyboard::Key up_;
     sf::Keyboard::Key down_;
     sf::Keyboard::Key sel_;
-    sf::Keyboard::Key menu_;
     sf::Keyboard::Key pause_;
+    sf::Keyboard::Key menu_;
 private:
     
 };

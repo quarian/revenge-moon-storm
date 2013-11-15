@@ -1,25 +1,33 @@
 CC=g++
 CFLAGS=-c -std=c++0x -pedantic -Wall -Wextra -D_GLIBCXX_DEBUG -g
 LDFLAGS=
-SOURCES=Direction.cc MapBlock.cc Map.cc Walker.cc Actor.cc ControlledActor.cc Player.cc Item.cc Inventory.cc main.cc
-TEST_SOURCES=Direction.cc MapBlock.cc Map.cc Item.cc Walker.cc Actor.cc ControlledActor.cc Player.cc Inventory.cc WalkerTest.cc DirectionTest.cc ActorTest.cc ControlledActorTest.cc PlayerTest.cc MapTest.cc InventoryTest.cc testMain.cc
-OBJECTS=$(SOURCES:.cc=.o)
-TEST_OBJECTS=$(TEST_SOURCES:.cc=.o)
+SOURCES=Direction.cc MapBlock.cc Map.cc Walker.cc Actor.cc ControlledActor.cc Player.cc Item.cc Inventory.cc
+MAIN=main.cc
+TESTS=WalkerTest.cc DirectionTest.cc ActorTest.cc ControlledActorTest.cc PlayerTest.cc MapTest.cc InventoryTest.cc testMain.cc
+SOURCES_O=$(SOURCES:.cc=.o)
+MAIN_O=$(MAIN:.cc=.o)
+TESTS_O=$(TESTS:.cc=.o)
 EXECUTABLE=minebombers
 TEST_EXECUTABLE=tests
 
-all: $(SOURCES) $(EXECUTABLE)
+all: $(SOURCES) $(MAIN) $(EXECUTABLE)
 
-$(EXECUTABLE): $(OBJECTS)
-	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
+$(EXECUTABLE): $(SOURCES_O) $(MAIN_O)
+	$(CC) $(SOURCES_O) $(MAIN_O) $(LDFLAGS) -o $@
 
-.cc.o:
+%.o: %.cc
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm -f $(OBJECTS) $(TEST_OBJECTS) $(EXECUTABLE) tests
+	rm -f $(SOURCES_O) $(TESTS_O) $(MAIN_O) $(EXECUTABLE) $(TESTS_EXECUTABLE)
 
-tests: $(TEST_SOURCES) $(TEST_EXECUTABLE)
+$(TEST_EXECUTABLE): $(SOURCES_O) $(TESTS_O)
+	$(CC) $(SOURCES_O) $(TESTS_O) $(LDFLAGS) -o $@
 
-$(TEST_EXECUTABLE): $(TEST_OBJECTS)
-	$(CC) $(TEST_OBJECTS) $(LDFLAGS) -o $@
+redo:
+	make clean
+	make
+
+redo_t:
+	make clean
+	make tests
