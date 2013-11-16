@@ -3,40 +3,35 @@
 
 void GraphicsManager::InitializeGraphics() {
     
-    //blockSize.getBlockScale();
-    blockSize_ = sf::Vector2f(10,10);
-    
-    
-    
-    sf::IntRect blockRect(sf::Vector2i(10,10),sf::Vector2i(10,10));
-    
-    // TODO Linkataan kaikille mapin olioille grafiikat...
-    
     // Load textures
-    if (!font_.loadFromFile("/Users/roopesavolainen/Documents/C++/mb/minebombers2/src/roope/Minebombers/Minebombers/sansation.ttf")) {
+    if (!font_.loadFromFile("/graphics/fonts/sansation.ttf")) {
         std::cout << "font load failed";
         return;
     }
-    
+
+    //blockSize.getBlockScale(); // Window size scaling windowsize/mapsize after texture loading for realtime...
+    blockSize_ = sf::Vector2f(10,10);
+    sf::IntRect blockRect(sf::Vector2i(10,10),sf::Vector2i(10,10));
+
     sf::Texture sand;
-    if (!sand.loadFromFile("/Users/roopesavolainen/Documents/C++/mb/minebombers2/src/roope/Minebombers/Minebombers/graphics/blocks/sand.png",blockRect)) {
+    if (!sand.loadFromFile("graphics/blocks/sand.png",blockRect)) {
         std::cout << "player image load failed";
         return;
     }
     textures_["sand"]=sand;
     
     sf::Texture rock;
-    if (!rock.loadFromFile("/Users/roopesavolainen/Documents/C++/mb/minebombers2/src/roope/Minebombers/Minebombers/graphics/blocks/rock.png",blockRect)) {
+    if (!rock.loadFromFile("/graphics/blocks/rock.png",blockRect)) {
         std::cout << "player image load failed";
         return;
     }
     textures_["rock"]=rock;
-    
-    
-    
-    
 
-
+    sf::Text paused("Paused",font_,50);
+    paused.setColor(sf::Color::Yellow);
+    texts_["paused"]=paused;
+    
+    
     /*Animation blue_player;
     sf::IntRect player_rect;
     player_rect.
@@ -55,9 +50,6 @@ void GraphicsManager::InitializeGraphics() {
     smile.setScale(10, 10);
     sprites_["smile"]=smile;
     */
-    sf::Text paused("Paused",font_,50);
-    paused.setColor(sf::Color::Yellow);
-    texts_["paused"]=paused;
     
 }
 
