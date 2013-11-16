@@ -10,8 +10,8 @@
  class WindowManager : public sf::RenderWindow {
 public:
     void launchWindow();
-    void launchWindow(unsigned width, unsigned height);
-    void setSize(unsigned width,unsigned height);
+    void launchWindow(size_t width, size_t height);
+    void setSize(size_t width,size_t height);
     void setPlayMode();
     void setMenuMode(); //this&);
      

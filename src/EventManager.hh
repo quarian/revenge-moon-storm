@@ -19,10 +19,10 @@ public:
     
     void Initialize(std::vector<Player>& players, std::vector<PlayerKeys>& keys);
     
-    void EventLoop();
+    void EventLoop(sf::Event&);
     
     // If returning false return main menu, else start the gameplay
-    bool StoreEventLoop();
+    bool StoreEventLoop(sf::Event&);
     
 private:
     void PlayerEvents(sf::Event&);
@@ -32,7 +32,7 @@ private:
     WindowManager& window_;
     std::vector<triple<Player, PlayerKeys, std::vector<bool>>> players_;
     MenuKeys menuKeys_;
-    bool isRunning_;
+    bool& isRunning_;
     bool isPaused_;
 
 };

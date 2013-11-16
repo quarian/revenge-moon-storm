@@ -1,8 +1,8 @@
-#include "Map.hh"
+
+#include <iostream>
 #include "game.hh"
 
 int main() {
-    Map map;
-    map.loadFromFile("map.txt");
-    Game game();
+    Game game;
+    game.Launch();
 }

@@ -11,7 +11,7 @@
 
 class GraphicsManager {
 public:
-    GraphicsManager(WindowManager& w) : window_(w) { }
+    GraphicsManager(WindowManager& w, sf::Vector2f& blockSize, std::map<std::string, sf::Texture>& textures, std::map<std::string, Animation>& animations) : window_(w), blockSize_(blockSize), textures_(textures) , animations_(animations) { }
     
     AnimatedSprite& getAnimatedSprite(std::string name) {
         return animatedSprites_[name];
@@ -19,9 +19,12 @@ public:
     sf::Sprite& getSprite(std::string name) {
         return sprites_[name];
     }
-    sf::Text& getText(std::string name) {
+    sf::Text getText(std::string name) {
         return texts_[name];
     }
+    
+    void setTexture(sf::Sprite&, std::string );
+    
     
     void setSpritePosition(std::string name, int x, int y);
     void setAnimatedSpritePosition(std::string name, int x, int y);
@@ -30,10 +33,15 @@ public:
     void InitializeGraphics();
     
 private:
+    std::map<std::string, Animation>& animations_;
+    std::map<std::string, sf::Texture>& textures_;
+    sf::Font font_;
+    
+    sf::Vector2f& blockSize_;
+
     std::map<std::string, sf::Sprite> sprites_;
     std::map<std::string, AnimatedSprite> animatedSprites_;
     std::map<std::string, sf::Text> texts_;
-    sf::Font font_;
     
     WindowManager& window_;
 };

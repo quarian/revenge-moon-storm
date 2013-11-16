@@ -5,11 +5,11 @@ void WindowManager::launchWindow() {
  this->create(sf::VideoMode::getDesktopMode(), "GameWindow");
  }
  
- void WindowManager::launchWindow(unsigned width, unsigned height) {
+ void WindowManager::launchWindow(size_t width, size_t height) {
  this->create(sf::VideoMode(width,height), "GameWindow");
  }
  
- void WindowManager::setSize(unsigned width, unsigned height) {
+ void WindowManager::setSize(size_t width, size_t height) {
      this->setSize(width,height);
  }
  
@@ -20,3 +20,5 @@ void WindowManager::launchWindow() {
  void WindowManager::setMenuMode() {
  this->setMouseCursorVisible(true);
  }
+
+// Skaalausjuttuja...?
