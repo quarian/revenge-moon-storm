@@ -38,7 +38,7 @@ private:
     void DrawMap();
     
     void InitializeWalkers(size_t playerCount);
-    void Game::UpdateWalkers()
+    void Game::UpdateWalkers();
     void DrawWalkers();
     
     WindowManager window_;

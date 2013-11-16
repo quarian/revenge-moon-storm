@@ -93,7 +93,7 @@ void Game::InitializeWalkers(size_t playerCount) {
 }
 void Game::UpdateWalkers() {
     for (auto player : players_) {
-        player.getActor()->
+            //player.getActor()->update(float...)
     }
 }
 
