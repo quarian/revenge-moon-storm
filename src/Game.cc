@@ -54,7 +54,7 @@ void Game::Shutdown() {
 ///////////////////////////
 
 void Game::InitializeMap() {
-    map_.loadFromFile("/Users/roopesavolainen/Documents/C++/mb/minebombers2/src/roope/Minebombers/Minebombers/map.txt");
+    map_.loadFromFile(rootPath_+"/map.txt");
     //map_.printMap();
     mapWidth_ = map_.getWidth();
     mapHeight_ = map_.getHeight();
