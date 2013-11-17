@@ -84,18 +84,19 @@ void Game::DrawMap() {
     }
 }
 
-  /////////////////////////////
- /* Walker related functions*/
-/////////////////////////////
+  ///////////////////////////////
+ /* Walker related functions  */
+///////////////////////////////
 
 void Game::InitializeWalkers(size_t playerCount) {
+    std::vector<std::string> playerNames = {"ukko","nooa","jaakko","kulta"};
     for (int i = 0; i!=playerCount; i++) {
-        players_.push_back(Player());
+        players_.push_back(Player(playerNames[i],2));
     }
 }
 void Game::UpdateWalkers() {
-    for (auto player : players_) {
-            //player.getActor()->update(float...);
+    for (auto& player : players_) {
+            //player.getActor()->Walker::update(1.0); //player.getActor()->update(float...);
     }
 }
 
@@ -104,69 +105,3 @@ void Game::DrawWalkers() {
         
     }
 }
-
-//void Game::Launch() {
-////    std::cout << "launch ";
-////    win_.create(sf::VideoMode(800,600), "GameWindow");
-//    window_.launchWindow(800,600);
-//    window_.display();
-//    sf::sleep(sf::seconds(2));
-//    std::cout<<"window launched"<<std::endl;
-////    std::vector<size_t> gameSelections = Menu();
-//    Initialize(map_, 2, 2);
-//    isRunning_=true;
-////    std::cout << "RUN";
-//    Run();
-//}
-//
-//std::vector<size_t> Game::Menu() {
-//        //window_.setMenuMode();
-//    size_t playerCount = 2;
-//    size_t playerLives = 2;
-//    return {playerCount, playerLives};
-//}
-//
-//
-//void Game::Initialize(Map& map_, size_t playerCount, size_t playerLives) {
-//    //window_.setPlayMode();
-//        //graphicsManager_.InitializeGraphics();
-//    
-//    //Initialize players
-////    for (int i=0; i!=playerCount; i++) {
-////        players_.push_back(Player(playerLives));
-////        playerKeySettings_.push_back(PlayerKeys());//TODO
-////    }
-//        //eventManager_.Initialize(players_, playerKeySettings_);
-//    
-//    // Initialize map
-//        //map_.intitialize(players or playercount, vihujenmäärä/vaikeusaste?, );
-//    map_.loadFromFile("map.txt");
-//    
-//    clock_.restart();
-//}
-//
-//void Game::HandleEvents() {
-////    if (inStore_)
-////        inStore_ = eventManager_.StoreEventLoop();
-////    else
-////        eventManager_.EventLoop();
-//}
-//
-//
-//void Game::Update() {
-//
-//}
-//
-//void Game::Draw() {
-//    // Draw map
-//    window_.clear(sf::Color::White);
-//    window_.display();
-//}
-//
-//void Game::Pause() {
-//        //window_.draw(graphicsManager_.getText("paused"));
-//}
-//
-//void Game::Shutdown() {
-//        //window_.close();
-//}
