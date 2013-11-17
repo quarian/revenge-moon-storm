@@ -9,8 +9,8 @@ public:
     triple(T1& t1, T2& t2, T3 t3) :
     first(t1), second(t2), third(t3) {}
     
-    T1 first;
-    T2 second;
+    T1& first;
+    T2& second;
     T3 third;
 };
 #endif
