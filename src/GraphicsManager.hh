@@ -30,12 +30,14 @@ public:
     void setAnimatedSpritePosition(std::string name, int x, int y);
     void setTextPosition(std::string name, int x, int y);
     
-    void InitializeGraphics();
+    void InitializeGraphics(std::string rootPath);
     
 private:
+    std::string rootPath_;
+    
     std::map<std::string, Animation>& animations_;
     std::map<std::string, sf::Texture>& textures_;
-    sf::Font font_;
+    sf::Font font_; //&
     
     sf::Vector2f& blockSize_;
 

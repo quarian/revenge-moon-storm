@@ -2,10 +2,9 @@
 
 
 void EventManager::Initialize(std::vector<Player>& players, std::vector<PlayerKeys>& keys) {
-    
     for (int i=0; i<players.size(); i++) {
         triple<Player, PlayerKeys, std::vector<bool>>
-            trip(players[i],keys[i], std::vector<bool>(7,false));
+        trip(players[i],keys[i], std::vector<bool>(7,false));
         players_.push_back(trip);
     }
     
