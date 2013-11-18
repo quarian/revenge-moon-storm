@@ -25,6 +25,8 @@ public:
     
     void setTexture(sf::Sprite&, std::string );
     
+    sf::Texture getTexture(std::string filepath);
+    
     
     void setSpritePosition(std::string name, int x, int y);
     void setAnimatedSpritePosition(std::string name, int x, int y);
@@ -40,6 +42,7 @@ private:
     sf::Font font_; //&
     
     sf::Vector2f& blockSize_;
+    sf::IntRect blockRect_;
 
     std::map<std::string, sf::Sprite> sprites_;
     std::map<std::string, AnimatedSprite> animatedSprites_;

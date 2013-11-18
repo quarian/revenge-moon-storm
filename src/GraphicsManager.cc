@@ -8,7 +8,7 @@ void GraphicsManager::InitializeGraphics(std::string rootPath) {
     blockSize_ = sf::Vector2f(10,10);
     
     
-    sf::IntRect blockRect(sf::Vector2i(10,10),sf::Vector2i(10,10));
+    blockRect_ = sf::IntRect(sf::Vector2i(10,10),sf::Vector2i(10,10));
     
     // TODO Linkataan kaikille mapin olioille grafiikat...
 
@@ -19,18 +19,18 @@ void GraphicsManager::InitializeGraphics(std::string rootPath) {
     }
     
     sf::Texture sand;
-    if (!sand.loadFromFile(rootPath_+"/blocks/sand.png",blockRect)) {
+    if (!sand.loadFromFile(rootPath_+"/blocks/sand.png",blockRect_)) {
         std::cout << "player image load failed";
         return;
     }
-    textures_["sand"]=sand;
+    textures_["sand.png"]=sand;
     
     sf::Texture rock;
-    if (!rock.loadFromFile(rootPath_+"/blocks/rock.png",blockRect)) {
+    if (!rock.loadFromFile(rootPath_+"/blocks/rock.png",blockRect_)) {
         std::cout << "player image load failed";
         return;
     }
-    textures_["rock"]=rock;
+    textures_["rock.png"]=rock;
     
     
     
@@ -60,6 +60,19 @@ void GraphicsManager::InitializeGraphics(std::string rootPath) {
     texts_["paused"]=paused;
     
 }
+sf::Texture GraphicsManager::getTexture(std::string filepath) {
+    if (textures_.find(filepath)==textures_.end()) {
+        sf::Texture text;
+        std::string path=rootPath_+filepath;
+        if (!text.loadFromFile(path,blockRect_)) {
+            std::cout << "Texture "+filepath+"load failed";
+            throw;
+        }
+        else return text;
+    }
+    else return textures_[filepath];
+}
+
 
 void GraphicsManager::setTexture(sf::Sprite& sprite, std::string name) {
     sprite.setTexture(textures_[name]);
