@@ -25,7 +25,7 @@ public:
     
     void setTexture(sf::Sprite&, std::string );
     
-    sf::Texture getTexture(std::string filepath);
+    sf::Texture getTexture(std::string filename);
     
     
     void setSpritePosition(std::string name, int x, int y);
@@ -49,6 +49,8 @@ private:
     std::map<std::string, sf::Text> texts_;
     
     WindowManager& window_;
+    
+    void loadTexture(std::string filename);
 };
 
 #endif

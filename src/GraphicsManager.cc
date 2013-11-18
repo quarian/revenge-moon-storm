@@ -2,7 +2,7 @@
 #include <iostream>
 
 void GraphicsManager::InitializeGraphics(std::string rootPath) {
-    rootPath_=rootPath + "/graphics";
+    rootPath_=rootPath + "/graphics/";
 
     //blockSize.getBlockScale();
     blockSize_ = sf::Vector2f(10,10);
@@ -18,24 +18,9 @@ void GraphicsManager::InitializeGraphics(std::string rootPath) {
         return;
     }
     
-    sf::Texture sand;
-    if (!sand.loadFromFile(rootPath_+"/blocks/sand.png",blockRect_)) {
-        std::cout << "player image load failed";
-        return;
-    }
-    textures_["sand.png"]=sand;
-    
-    sf::Texture rock;
-    if (!rock.loadFromFile(rootPath_+"/blocks/rock.png",blockRect_)) {
-        std::cout << "player image load failed";
-        return;
-    }
-    textures_["rock.png"]=rock;
-    
-    
-    
-    
-
+    loadTexture("sand.png");
+    loadTexture("rock.png");
+    loadTexture("sand_.png");
 
     /*Animation blue_player;
     sf::IntRect player_rect;
@@ -60,19 +45,67 @@ void GraphicsManager::InitializeGraphics(std::string rootPath) {
     texts_["paused"]=paused;
     
 }
-sf::Texture GraphicsManager::getTexture(std::string filepath) {
-    if (textures_.find(filepath)==textures_.end()) {
+sf::Texture GraphicsManager::getTexture(std::string filename) {
+    if (textures_.find(filename)==textures_.end()) {
         sf::Texture text;
-        std::string path=rootPath_+filepath;
-        if (!text.loadFromFile(path,blockRect_)) {
-            std::cout << "Texture "+filepath+"load failed";
-            throw;
+        std::string path=rootPath_;
+        std::vector<std::string> pathOptions = {"blocks/","players/","items/","misc/","fonts/"};
+        int i = 0;
+        if (text.loadFromFile(path+filename,blockRect_)) {
+            textures_[filename] = text;
+            return textures_[filename];
         }
-        else return text;
+        else if (text.loadFromFile(path+pathOptions[i]+filename,blockRect_)) {
+            textures_[filename] = text;
+            return textures_[filename];
+        }
+        else if (text.loadFromFile(path+pathOptions[i]+filename,blockRect_)) {
+            textures_[filename] = text;
+            return textures_[filename];
+        }
+        else if (text.loadFromFile(path+pathOptions[i]+filename,blockRect_)) {
+            textures_[filename] = text;
+            return textures_[filename];
+        }
+        else {
+            std::cout << "Texture "+filename+"load failed"<<std::endl;
+            std::cout << "Tried from";
+            for (auto folder : pathOptions) {
+                std::cout <<" "<<folder;
+            }
+            return textures_.begin()->second;
+        }
     }
-    else return textures_[filepath];
+    else return getTexture("smile.png");//textures_[filename];
 }
 
+void GraphicsManager::loadTexture(std::string filename) {
+    if (textures_.find(filename)==textures_.end()) {
+        sf::Texture text;
+        std::string path=rootPath_;
+        std::vector<std::string> pathOptions = {"blocks/","players/","items/","misc/","fonts/"};
+        int i = 0;
+        if (text.loadFromFile(path+filename,blockRect_)) {
+            textures_[filename] = text;
+        }
+        else if (text.loadFromFile(path+pathOptions[i]+filename,blockRect_)) {
+            textures_[filename] = text;
+        }
+        else if (text.loadFromFile(path+pathOptions[i]+filename,blockRect_)) {
+            textures_[filename] = text;
+        }
+        else if (text.loadFromFile(path+pathOptions[i]+filename,blockRect_)) {
+            textures_[filename] = text;
+        }
+        else {
+            std::cout << "Texture "+filename+"load failed"<<std::endl;
+            std::cout << "Tried from";
+            for (auto folder : pathOptions) {
+                std::cout <<" "<<folder;
+            }
+        }
+    }
+}
 
 void GraphicsManager::setTexture(sf::Sprite& sprite, std::string name) {
     sprite.setTexture(textures_[name]);
