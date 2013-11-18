@@ -95,18 +95,28 @@ void Game::InitializeWalkers(size_t playerCount) {
     std::vector<std::string> playerNames = {"ukko","nooa","jaakko","kulta"};
     for (int i = 0; i!=playerCount; i++) {
         players_.push_back(Player(playerNames[i],2));
-        playerKeySettings_.push_back(PlayerKeys()); //TODO: Different key setting for each player 
+        playerKeySettings_.push_back(PlayerKeys()); //TODO: Different key setting for each player
     }
+    for (int i = 0; i!=playerCount; i++) {
+        players_[i].spawn(&map_, map_.getBlock(1, 1));
+    }
+    
     // Other walkers
 }
 void Game::UpdateWalkers() {
+    sf::Texture texture = graphicsManager_.getTexture("sand.png");
     for (auto& player : players_) {
         player.getActor()->Walker::update(1.0); //player.getActor()->update(float...);
+        sf::Sprite playerBlock;
+        playerBlock.setTexture(texture);
+        playerBlock.setPosition(player.getActor()->getLocation()->x_, player.getActor()->getLocation()->y_);
+        playerSprites_.push_back(playerBlock);
     }
 }
 
 void Game::DrawWalkers() {
-    for (int i = 0; i!=players_.size(); i++) {
-        
+    for (auto sprite : playerSprites_) {
+        window_.draw(sprite);
     }
+    playerSprites_.clear();
 }

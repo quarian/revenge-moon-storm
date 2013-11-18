@@ -50,6 +50,7 @@ private:
     
     bool isRunning_;
     std::vector<sf::Sprite> mapSprites_;
+    std::vector<sf::Sprite> playerSprites_;
     std::vector<Player> players_;
     std::vector<PlayerKeys> playerKeySettings_;
     std::vector<Item> items_;
