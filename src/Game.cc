@@ -1,4 +1,4 @@
-#include "game.hh"
+#include "Game.hh"
 
 Game::Game() : eventManager_(window_, isRunning_), graphicsManager_(window_,blockSize_,textures_,animations_) {
     rootPath_ = "/Users/roopesavolainen/Documents/C++/mb/minebombers2/src/roope/Minebombers/Minebombers";
@@ -64,7 +64,6 @@ void Game::InitializeMap() {
 
 void Game::UpdateMap() {
     
-    // TODO: MIETI TEHOKKAAKSI JA ULKOISTA JOS MAHDOLLISTA
     sf::Texture& rock =textures_["rock"];
     for (int x=0; x!=mapWidth_; x++) {
         for (int y=0; y!=mapHeight_; y++) {
@@ -95,9 +94,9 @@ void Game::InitializeWalkers(size_t playerCount) {
     }
 }
 void Game::UpdateWalkers() {
-    for (auto& player : players_) {
+        //for (auto& player : players_) {
             //player.getActor()->Walker::update(1.0); //player.getActor()->update(float...);
-    }
+        //}
 }
 
 void Game::DrawWalkers() {
