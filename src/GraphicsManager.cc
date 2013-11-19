@@ -27,25 +27,13 @@ void GraphicsManager::InitializeGraphics(std::string rootPath) {
     player_rect.
     blue_player.addFrame(player_rect);
     */
-    /*
-    sf::Texture smiletex;
-    if (!smiletex.loadFromFile("/Users/roopesavolainen/Documents/C++/mb/minebombers2/src/roope/Minebombers/Minebombers/smile.png")) {
-        std::cout << "player image load failed";
-        return;
-    }
-    std::cout<<" load done";
-    
-    sf::Sprite smile;
-    smile.setTexture(smiletex);
-    smile.setScale(10, 10);
-    sprites_["smile"]=smile;
-    */
+   
     sf::Text paused("Paused",font_,50);
     paused.setColor(sf::Color::Yellow);
     texts_["paused"]=paused;
     
 }
-sf::Texture GraphicsManager::getTexture(std::string filename) {
+sf::Texture& GraphicsManager::getTexture(std::string filename) {
     if (textures_.find(filename)==textures_.end()) {
         loadTexture(filename);
         return textures_[filename];
@@ -55,28 +43,23 @@ sf::Texture GraphicsManager::getTexture(std::string filename) {
 
 void GraphicsManager::loadTexture(std::string filename) {
     if (textures_.find(filename)==textures_.end()) {
-        sf::Texture text;
-        std::string path=rootPath_;
+        sf::Texture texture;
+        if (texture.loadFromFile(rootPath_+filename,blockRect_)) {
+            textures_[filename] = texture;
+            return;
+        }
         std::vector<std::string> pathOptions = {"blocks/","players/","items/","misc/","fonts/"};
-        int i = 0;
-        if (text.loadFromFile(path+filename,blockRect_)) {
-            textures_[filename] = text;
-        }
-        else if (text.loadFromFile(path+pathOptions[i]+filename,blockRect_)) {
-            textures_[filename] = text;
-        }
-        else if (text.loadFromFile(path+pathOptions[i]+filename,blockRect_)) {
-            textures_[filename] = text;
-        }
-        else if (text.loadFromFile(path+pathOptions[i]+filename,blockRect_)) {
-            textures_[filename] = text;
-        }
-        else {
-            std::cout << "Texture "+filename+"load failed"<<std::endl;
-            std::cout << "Tried from";
-            for (auto folder : pathOptions) {
-                std::cout <<" "<<folder;
+        for (int i = 0; 1!=pathOptions.size(); i++) {
+            std::cout<<rootPath_+pathOptions[i]<<std::endl;
+            if (texture.loadFromFile(rootPath_+pathOptions[i]+filename,blockRect_)) {
+                textures_[filename] = texture;
+                return;
             }
+        }
+        std::cout << "Texture "+filename+"load failed"<<std::endl;
+        std::cout << "Tried from graphics/"<<std::endl;
+        for (auto folder : pathOptions) {
+            std::cout <<" graphics/"<<folder<<std::endl;
         }
     }
 }

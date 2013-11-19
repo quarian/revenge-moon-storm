@@ -34,12 +34,13 @@ void Game::HandleEvents() {
 
 void Game::Update() {
     UpdateMap();
-        //UpdateWalkers();
+    UpdateWalkers();
 }
 
 void Game::Draw() {
     window_.clear(sf::Color::White);
     DrawMap();
+    DrawWalkers();
     window_.display();
     
     
@@ -60,12 +61,13 @@ void Game::InitializeMap() {
     mapWidth_ = map_.getWidth();
     mapHeight_ = map_.getHeight();
     std::cout<<"Current map width "<< mapWidth_ <<", height "<< mapHeight_ <<" blocks."<<std::endl;
+    window_.launchWindow(mapWidth_*10, mapHeight_*10);
     
 }
 
 void Game::UpdateMap() {
     
-    sf::Texture& rock =textures_["rock.png"];
+    sf::Texture& rock =graphicsManager_.getTexture("rock.png");//textures_["rock.png"];
     for (int x=0; x!=mapWidth_; x++) {
         for (int y=0; y!=mapHeight_; y++) {
             std::string blockContent = map_.getBlock(x, y)->content_;
@@ -98,18 +100,19 @@ void Game::InitializeWalkers(size_t playerCount) {
         playerKeySettings_.push_back(PlayerKeys()); //TODO: Different key setting for each player
     }
     for (int i = 0; i!=playerCount; i++) {
-        players_[i].spawn(&map_, map_.getBlock(1, 1));
+        players_[i].spawn(&map_, map_.getBlock(3, 3));
     }
     
     // Other walkers
 }
 void Game::UpdateWalkers() {
-    sf::Texture texture = graphicsManager_.getTexture("sand.png");
+    sf::Texture& texture = graphicsManager_.getTexture("sand_.png");
     for (auto& player : players_) {
         player.getActor()->Walker::update(1.0); //player.getActor()->update(float...);
         sf::Sprite playerBlock;
         playerBlock.setTexture(texture);
-        playerBlock.setPosition(player.getActor()->getLocation()->x_, player.getActor()->getLocation()->y_);
+        playerBlock.setPosition(player.getActor()->getLocation()->x_*blockSize_.x, player.getActor()->getLocation()->y_*blockSize_.y);
+        std::cout <<"x: "<<player.getActor()->getLocation()->x_ <<" y: "<<player.getActor()->getLocation()->y_;
         playerSprites_.push_back(playerBlock);
     }
 }

@@ -25,7 +25,7 @@ public:
     
     void setTexture(sf::Sprite&, std::string );
     
-    sf::Texture getTexture(std::string filename);
+    sf::Texture& getTexture(std::string filename);
     
     
     void setSpritePosition(std::string name, int x, int y);
