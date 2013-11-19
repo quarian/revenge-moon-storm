@@ -47,36 +47,10 @@ void GraphicsManager::InitializeGraphics(std::string rootPath) {
 }
 sf::Texture GraphicsManager::getTexture(std::string filename) {
     if (textures_.find(filename)==textures_.end()) {
-        sf::Texture text;
-        std::string path=rootPath_;
-        std::vector<std::string> pathOptions = {"blocks/","players/","items/","misc/","fonts/"};
-        int i = 0;
-        if (text.loadFromFile(path+filename,blockRect_)) {
-            textures_[filename] = text;
-            return textures_[filename];
-        }
-        else if (text.loadFromFile(path+pathOptions[i]+filename,blockRect_)) {
-            textures_[filename] = text;
-            return textures_[filename];
-        }
-        else if (text.loadFromFile(path+pathOptions[i]+filename,blockRect_)) {
-            textures_[filename] = text;
-            return textures_[filename];
-        }
-        else if (text.loadFromFile(path+pathOptions[i]+filename,blockRect_)) {
-            textures_[filename] = text;
-            return textures_[filename];
-        }
-        else {
-            std::cout << "Texture "+filename+"load failed"<<std::endl;
-            std::cout << "Tried from";
-            for (auto folder : pathOptions) {
-                std::cout <<" "<<folder;
-            }
-            return textures_.begin()->second;
-        }
+        loadTexture(filename);
+        return textures_[filename];
     }
-    else return getTexture("smile.png");//textures_[filename];
+    else return textures_[filename];
 }
 
 void GraphicsManager::loadTexture(std::string filename) {
