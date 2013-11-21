@@ -45,6 +45,9 @@ public:
 	/* Returns all non-zero items in the inventory */
 	std::map<std::string, size_t> getNonzeroItems();
 
+        /* Returns the name of the first nonzero item after the given item */
+        std::string getNextItem(std::string const&) const;
+
 	/* Decreases the gold by the amount given, if possible, and returns a boolean */
 	bool decreaseGold(int);
 	/* Increases the gold by the given amount */

@@ -34,13 +34,13 @@ void Player::keyDown(Direction dir) {
 
 
 void Player::changeWeapon() {
-    // TODO
+    currentItem_ = inventory_.getNextItem(currentItem_);
 }
 
 
 void Player::useItem() {
     if (avatar_)
-        inventory_.useItem( currentItem_, avatar_->getLocation()->getMap(), avatar_->getLocation(), avatar_->getDirection());
+        inventory_.useItem(currentItem_, avatar_->getLocation()->getMap(), avatar_->getLocation(), avatar_->getDirection());
 }
 
 
