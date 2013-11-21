@@ -6,6 +6,7 @@
 Player::Player(std::string name, size_t lives) :
     lives_(lives),
     name_(name),
+    currentItem_(""),
     avatar_(nullptr) { }
 
 Player::~Player() {
@@ -32,9 +33,14 @@ void Player::keyDown(Direction dir) {
 }
 
 
+void Player::changeWeapon() {
+    // TODO
+}
+
+
 void Player::useItem() {
-    //if (avatar_)
-    //    inventory_.useCurrent(avatar_->getLocation(), avatar_->getDirection());
+    if (avatar_)
+        inventory_.useItem( currentItem_, avatar_->getLocation()->getMap(), avatar_->getLocation(), avatar_->getDirection());
 }
 
 

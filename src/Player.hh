@@ -23,18 +23,17 @@ public:
     /* Kills the avatar. */
     void die();
     
-    /* Passes movement commands to the Actor. */
+    /* Passes commands to the Actor. */
     void keyUp(Direction);
     void keyDown(Direction);
-
-    /* Other commands:
-     *
-     * useItem      Tries to use the currently held item.
-     */
+    void changeWeapon();
     void useItem();
 
+    /* Getters */
     size_t getLives() const { return lives_; }
     std::string getName() const { return name_; }
+    std::string getCurrentItem() const { return currentItem_; }
+
     void setLives(size_t lives) { lives_ = lives; }
     ControlledActor* getActor() { return avatar_; }
 
@@ -47,6 +46,7 @@ protected:
     std::string name_;
 
     Inventory inventory_;
+    std::string currentItem_;
     ControlledActor* avatar_;
 
     /* Make sure that no avatar is connected; delete it if it is. */

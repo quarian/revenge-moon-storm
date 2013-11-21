@@ -5,6 +5,7 @@
 #include <string>
 #include "Item.hh"
 #include "Map.hh"
+#include "Direction.hh"
 
 class Map;
 class MapBlock;
@@ -51,7 +52,7 @@ public:
 	/* Adds +1 to the given item's quantity */
 	void addItem(std::string);
 	/* Decreases the item count in the inventory, if possible, and returns a boolean */
-	bool useItem(std::string, Map&, MapBlock*);
+	bool useItem(std::string, Map&, MapBlock*, Direction);
 	//An item is picked up by an actor and given to the inventory to parse
 	void collect(Item*);
 

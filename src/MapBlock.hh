@@ -28,6 +28,7 @@ class MapBlock {
         bool isPassable() const;
         bool isDiggable() const;
         MapBlock* getBlock(Direction direction);
+        Map& getMap() const { return map_; }
         void exit(const Walker* w);
         void enter(Walker* w);
         void collect(Inventory* inventory);
