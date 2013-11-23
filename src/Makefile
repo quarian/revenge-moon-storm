@@ -2,6 +2,7 @@ CC=g++
 CFLAGS=-c -std=c++0x -pedantic -Wall -Wextra -D_GLIBCXX_DEBUG -g
 LDFLAGS= 
 SFML=-L./lib/ -l:libsfml-audio.so.2 -l:libsfml-graphics.so.2 -l:libsfml-window.so.2 -l:libsfml-system.so.2 -l:libsfml-network.so.2
+SFML_ALT=-lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system -lsfml-network
 DIRS=-I .
 SOURCES=Direction.cc MapBlock.cc Map.cc Walker.cc Actor.cc ControlledActor.cc Player.cc Item.cc Inventory.cc Game.cc GraphicsManager.cc EventManager.cc WindowManager.cc AnimatedSprite.cc Animation.cc
 MAIN=main.cc
@@ -17,6 +18,10 @@ all: $(SOURCES) $(MAIN) $(EXECUTABLE)
 $(EXECUTABLE): $(SOURCES_O) $(MAIN_O)
 	$(CC) $(SOURCES_O) $(MAIN_O) $(LDFLAGS) -o $@ $(SFML)
 
+alt: $(SOURCES) $(MAIN) $(EXECUTABLE)alt
+$(EXECUTABLE)alt: $(SOURCES_O) $(MAIN_O)
+	$(CC) $(SOURCES_O) $(MAIN_O) $(LDFLAGS) -o $(EXECUTABLE) $(SFML_ALT)
+
 %.o: %.cc
 	$(CC) $(DIRS) $(CFLAGS) $< -o $@
 
@@ -26,11 +31,22 @@ clean:
 $(TEST_EXECUTABLE): $(SOURCES_O) $(TESTS_O)
 	$(CC) $(SOURCES_O) $(TESTS_O) $(LDFLAGS) -o $@ $(SFML)
 
+alt$(TEST_EXECUTABLE): $(SOURCES_O) $(TESTS_O)
+	$(CC) $(SOURCES_O) $(TESTS_O) $(LDFLAGS) -o $(TEST_EXECUTABLE) $(SFML_ALT)
+
 redo:
 	make clean
 	make
 
+realt:
+	make clean
+	make alt
+
 redo_t:
+	make clean
+	make alttests
+
+realtt:
 	make clean
 	make tests
 
