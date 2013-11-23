@@ -6,6 +6,7 @@
 #include "tests.hh"
 #include "Map.hh"
 #include "MapBlock.hh"
+#include "Direction.hh"
 
 /*
  * Contains item implementations
@@ -15,6 +16,7 @@ bool InventoryTest1(std::ostream& os) {
 	os << "UNIT TEST: class Inventory" << std::endl;
 	Inventory inv;
 	Map map;
+	Direction dir(0,0);
 	MapBlock* mb = new MapBlock(0,0,"", map);
 
 	//SECTION 0
@@ -40,11 +42,11 @@ bool InventoryTest1(std::ostream& os) {
 
 	//SECTION 2
 	os << "TEST 2: Using items and removing gold...";
-	assert(inv.useItem("Small Bomb", map, mb));
+	assert(inv.useItem("Small Bomb", map, mb, dir));
 	assert(inv.getItemCount("Small Bomb") == 1);
-	assert(inv.useItem("Large Bomb", map, mb));
+	assert(inv.useItem("Large Bomb", map, mb, dir));
 	assert(inv.getItemCount("Large Bomb") == 0);
-	assert(inv.useItem("Large Bomb", map, mb) == false);
+	assert(inv.useItem("Large Bomb", map, mb, dir) == false);
 	assert(inv.getItemCount("Large Bomb") == 0);
 
 	assert(inv.decreaseGold(20));
