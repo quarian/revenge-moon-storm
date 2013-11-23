@@ -1,7 +1,7 @@
 #include "Game.hh"
 
 Game::Game() : eventManager_(window_, isRunning_), graphicsManager_(window_,blockSize_,textures_,animations_) {
-    rootPath_ = "/Users/roopesavolainen/Documents/C++/mb/minebombers2/src/roope/Minebombers/Minebombers";
+    rootPath_ = ".";
     isRunning_ = true;
     window_.launchWindow(800, 600);
     eventManager_.Initialize(players_, playerKeySettings_);
