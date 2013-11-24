@@ -27,7 +27,7 @@ class MapBlock {
         std::string content_;
         bool isPassable() const;
         bool isDiggable() const;
-        MapBlock* getBlock(Direction direction);
+        MapBlock* getBlock(Direction direction) const;
         Map& getMap() const { return map_; }
         void exit(const Walker* w);
         void enter(Walker* w);

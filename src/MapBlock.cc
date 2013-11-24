@@ -31,7 +31,7 @@ bool MapBlock::isDiggable() const {
     return !isPassable() && toughness_ != INDESTRUCTIBLE;
 }
 
-MapBlock* MapBlock::getBlock(Direction direction) {
+MapBlock* MapBlock::getBlock(Direction direction) const {
     return map_.getBlock(x_, y_, direction);
 }
 

@@ -89,4 +89,5 @@ void Actor::proceed() {
 
 void Actor::findTarget(float dt) {
     if (dt == 0) dt = 0; // noop to avoid g++ warning...
+                         // This isn't pure virtual to facilitate tests
 }

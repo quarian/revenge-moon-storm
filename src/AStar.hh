@@ -2,13 +2,8 @@
 #define MB2_ASTAR_HH
 
 #include "MapBlock.hh"
-#include "Direction.hh"
 
-#include <vector>
-#include <queue>
 #include <stack>
-#include <cmath>
-#include <set>
 
 /* A* pathfinding algorithm
  *
@@ -16,64 +11,73 @@
  *
  * This class is meant to be instantiated whenever a query gets made.
  */
-class AStar {
-public:
-    /* Constructor
+
+namespace AStar {
+    /* A constant to represent "Infinity" -- just a constant to signify that
+     * some path is not allowed (blocked). */
+    const float INF = 1e12f;
+
+
+    /* A class for function objects that act as cost functions for the search
+     * algorithm.
      *
-     * PARAMETERS
-     * ==========
-     *  MapBlock* const     starting MapBlock
-     *  MapBlock* const     target, or final MapBlock
-     *  bool                include the starting block in the path trace?
-     *  bool                include the target block in the path trace?
-     *  int                 distance limit; search-no-farther-than (-1 if unlimited)
-     */
-    AStar(MapBlock* const, MapBlock* const, bool=true, bool=true, int=-1);
-
-    std::stack<MapBlock*> trace();
-
-private:
-    bool push(std::priority_queue<Node>, MapBlock*, MapBlock*);
-
-    class Node;
-
-    MapBlock const* start_;
-    MapBlock const* finish_;
-
-    const bool front_inclusive_;
-    const bool back_inclusive_;
-    int limit_;
-
-    std::map<MapBlock*, Node> nodes_;
-};
-
-
-class AStar::Node {
-public:
-    MapBlock* previous;  // preceding node
-    MapBlock* current;   // corresponding block
-
-    const int d; // expected total cost
-    const int g; // past path-cost 
-    const int h; // expected future path-cost
-
-    /* Constructor
+     * The base class CostFunction finds a path that minimizes the Manhattan
+     * distance traveled, ignoring passability and everything else.
      *
-     * PARAMETERS
-     * ==========
-     *  std::map<Node>&     a container of Nodes that have been processed
-     *  MapBlock*           the preceding MapBlock
-     *  MapBlock*           the MapBlock that this node corresponds to
-     *  MapBlock*           target, or final MapBlock
+     * The inheriting SimpleCostFunction class is the default cost function,
+     * which simply ranks all passable squares as 1 and non-passable squares
+     * as INF.
      */
-    Node(std::map<Node>&, MapBlock*, MapBlock*, MapBlock*);
+    class CostFunction {
+    public:
+        virtual float operator()(MapBlock const* const) const { return 1; }
+    };
+    class SimpleCostFunction : public CostFunction {
+    public:
+        float operator()(MapBlock const* const) const;
+    };
     
-    bool operator<(Node const&) const;
+    
+    /* The A* search algorithm itself. Parameters:
+     *
+     *  MapBlock const*     start
+     *  MapBlock const*     finish
+     *  CostFunction const  cost function
+     *  bool                include `start` in the returned stack?
+     *  bool                include `finish` in the returned stack?
+     *  float               a maximum cost -- if this is exceeded, aborts
+     *
+     * Return value: stack of MapBlock pointers.
+     */
+    std::stack<MapBlock*> find(
+            MapBlock* const,
+            MapBlock* const,
+            CostFunction const=SimpleCostFunction(),
+            bool=true,
+            bool=true,
+            float=INF);
 
-private:
-    int manhattanDistance(MapBlock*, MapBlock*);
 
-    std::map<Node>& nodes;
-};
+    /* A struct to represent one search node. */
+    struct Node {
+        Node* previous;
+        MapBlock* const block;
+        float pastCost, futureCost, totalCost;
+
+        Node(Node*, MapBlock* const, float, MapBlock* const);
+
+        bool operator< (Node const&);
+    };
+
+
+    /* A function pointer to compare nodes from pointers in the
+     * std::priority_queue. */
+    class cmpNodes {
+    public:
+        bool operator()(Node* const& a, Node* const& b) const {
+            return a->totalCost > b->totalCost;
+        }
+    };
+}
 
 #endif

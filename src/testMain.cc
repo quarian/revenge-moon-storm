@@ -35,5 +35,9 @@ int main() {
 
     std::cout << "GameTest1" << std::endl;
     GameTest1();
+    std::cout << std::endl;
+
+    std::cout << "AStarTest1" << std::endl;
+    AStarTest1();
 }
 
