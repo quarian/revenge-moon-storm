@@ -50,5 +50,68 @@ bool AStarTest1(std::ostream& os) {
 
     os << " OK" << std::endl;
 
+    /* SECTION 2 */
+    os << "TEST 2: straight lines...";
+
+    st = AStar::find(map.getBlock(8,6), map.getBlock(19,6));
+    assert(st.size() == 12);
+    assert(st.top() == map.getBlock(8,6)); st.pop();
+    assert(st.top() == map.getBlock(9,6)); st.pop();
+    assert(st.top() == map.getBlock(10,6)); st.pop();
+    assert(st.top() == map.getBlock(11,6)); st.pop();
+    assert(st.top() == map.getBlock(12,6)); st.pop();
+    assert(st.top() == map.getBlock(13,6)); st.pop();
+    assert(st.top() == map.getBlock(14,6)); st.pop();
+    assert(st.top() == map.getBlock(15,6)); st.pop();
+    assert(st.top() == map.getBlock(16,6)); st.pop();
+    assert(st.top() == map.getBlock(17,6)); st.pop();
+    assert(st.top() == map.getBlock(18,6)); st.pop();
+    assert(st.top() == map.getBlock(19,6)); st.pop();
+
+    st = AStar::find(map.getBlock(28,10), map.getBlock(28,20));
+    assert(st.size() == 11);
+    assert(st.top() == map.getBlock(28,10)); st.pop();
+    assert(st.top() == map.getBlock(28,11)); st.pop();
+    assert(st.top() == map.getBlock(28,12)); st.pop();
+    assert(st.top() == map.getBlock(28,13)); st.pop();
+    assert(st.top() == map.getBlock(28,14)); st.pop();
+    assert(st.top() == map.getBlock(28,15)); st.pop();
+    assert(st.top() == map.getBlock(28,16)); st.pop();
+    assert(st.top() == map.getBlock(28,17)); st.pop();
+    assert(st.top() == map.getBlock(28,18)); st.pop();
+    assert(st.top() == map.getBlock(28,19)); st.pop();
+    assert(st.top() == map.getBlock(28,20)); st.pop();
+
+    os << " OK" << std::endl;
+
+    /* SECTION 3 */
+    os << "TEST 3: an unambiguous solution to a partially-blocked path...";
+
+    st = AStar::find(map.getBlock(21,17), map.getBlock(23,17));
+    assert(st.size() == 5);
+    assert(st.top() == map.getBlock(21,17)); st.pop();
+    assert(st.top() == map.getBlock(21,18)); st.pop();
+    assert(st.top() == map.getBlock(22,18)); st.pop();
+    assert(st.top() == map.getBlock(23,18)); st.pop();
+    assert(st.top() == map.getBlock(23,17)); st.pop();
+
+    st = AStar::find(map.getBlock(43,13), map.getBlock(35,9));
+    assert(st.size() == 13);
+    assert(st.top() == map.getBlock(43,13)); st.pop();
+    assert(st.top() == map.getBlock(43,12)); st.pop();
+    assert(st.top() == map.getBlock(43,11)); st.pop();
+    assert(st.top() == map.getBlock(43,10)); st.pop();
+    assert(st.top() == map.getBlock(43,9)); st.pop();
+    assert(st.top() == map.getBlock(42,9)); st.pop();
+    assert(st.top() == map.getBlock(41,9)); st.pop();
+    assert(st.top() == map.getBlock(40,9)); st.pop();
+    assert(st.top() == map.getBlock(39,9)); st.pop();
+    assert(st.top() == map.getBlock(38,9)); st.pop();
+    assert(st.top() == map.getBlock(37,9)); st.pop();
+    assert(st.top() == map.getBlock(36,9)); st.pop();
+    assert(st.top() == map.getBlock(35,9)); st.pop();
+
+    os << " OK" << std::endl;
+
     return true;
 }

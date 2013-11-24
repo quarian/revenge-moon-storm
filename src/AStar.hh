@@ -4,6 +4,7 @@
 #include "MapBlock.hh"
 
 #include <stack>
+#include <iostream>
 
 /* A* pathfinding algorithm
  *
@@ -28,14 +29,19 @@ namespace AStar {
      * which simply ranks all passable squares as 1 and non-passable squares
      * as INF.
      */
-    class CostFunction {
-    public:
-        virtual float operator()(MapBlock const* const) const { return 1; }
-    };
-    class SimpleCostFunction : public CostFunction {
-    public:
-        float operator()(MapBlock const* const) const;
-    };
+    //class CostFunction {
+    //public:
+    //    virtual float operator()(MapBlock const* const) const {
+    //        std::cout << "CFop :C" << std::endl;
+    //        return 1;
+    //    }
+    //};
+    //class SimpleCostFunction : public CostFunction {
+    //public:
+    //    float operator()(MapBlock const* const) const;
+    //};
+
+    float passableCost(MapBlock const* const);
     
     
     /* The A* search algorithm itself. Parameters:
@@ -52,7 +58,7 @@ namespace AStar {
     std::stack<MapBlock*> find(
             MapBlock* const,
             MapBlock* const,
-            CostFunction const=SimpleCostFunction(),
+            float(MapBlock const* const)=passableCost,
             bool=true,
             bool=true,
             float=INF);

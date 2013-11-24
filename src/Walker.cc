@@ -2,7 +2,6 @@
 
 #include <SFML/System/Time.hpp>
 #include <cmath>
-#include <iostream>
 
 Walker::Walker(Map& map, MapBlock* location, float speed) :
         map_(map),

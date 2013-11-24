@@ -44,11 +44,11 @@ realt:
 
 redo_t:
 	make clean
-	make alttests
+	make tests
 
 realtt:
 	make clean
-	make tests
+	make alttests
 
 echo:
 	$(SOURCES_O)

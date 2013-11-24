@@ -5,9 +5,17 @@
 #include <queue>
 #include <map>
 #include <vector>
+#include <iostream>
 
 
-float AStar::SimpleCostFunction::operator()(MapBlock const* const mb) const {
+//float AStar::SimpleCostFunction::operator()(MapBlock const* const mb) const {
+//    std::cout << "SCFop!" << std::endl;
+//    if (mb->isPassable()) return 1.0f;
+//    return AStar::INF;
+//}
+
+
+float AStar::passableCost(MapBlock const* const mb) {
     if (mb->isPassable()) return 1.0f;
     return AStar::INF;
 }
@@ -29,7 +37,7 @@ AStar::Node::Node(
 std::stack<MapBlock*> AStar::find(
         MapBlock* const start,
         MapBlock* const finish,
-        CostFunction const costFn,
+        float costFn(MapBlock const* const),
         bool includeStart, // TODO
         bool includeFinish, // TODO
         float maxCost
