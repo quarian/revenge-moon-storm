@@ -1,4 +1,6 @@
 #include "Walker.hh"
+
+#include <SFML/System/Time.hpp>
 #include <cmath>
 #include <iostream>
 
@@ -8,15 +10,41 @@ Walker::Walker(Map& map, MapBlock* location, float speed) :
         target_(nullptr),
         facing_(Direction::NORTH),
         dPos_(Direction::NULLDIR),
-        speed_(speed) {
+        speed_(speed),
+        sprite_(new AnimatedSprite()) {
     location_->enter(this);
 }
 
 
+Walker::~Walker() {
+    delete sprite_;
+}
+
+
+void Walker::initSprite(
+        Animation const& animationI,
+        Animation const& animationN,
+        Animation const& animationE,
+        Animation const& animationS,
+        Animation const& animationW
+    ) {
+    animations_[Direction::NULLDIR] = &animationI;
+    animations_[Direction::NORTH] = &animationN;
+    animations_[Direction::EAST] = &animationE;
+    animations_[Direction::SOUTH] = &animationS;
+    animations_[Direction::WEST] = &animationW;
+
+    alignSprite();
+}
+
+
 void Walker::updateLocation(float dt) {
-    if (!target_) return;
-    else if (target_ == location_) approach(dt);
-    else depart(dt);
+    if (target_) {
+        if (target_ == location_) approach(dt);
+        else depart(dt);
+    }
+
+    updateSprite(dt);
 }
 
 
@@ -78,4 +106,26 @@ void Walker::knock(Direction dir) {
     target_ = location_->getBlock(facing_);
     if (target_ == nullptr) return;
     else if (!target_->isPassable()) target_ = nullptr;
+}
+
+
+void Walker::updateSprite(float dt) {
+    alignSprite();
+    sprite_->update(sf::seconds(dt));
+
+    // float xAbs = location_->x_ + dPos_.x();
+    // float yAbs = location_->y_ + dPos_.y();
+    // TODO: placment
+}
+
+
+void Walker::alignSprite() {
+    if (!animations_.empty()) {
+        Animation const* animation;
+        if (target_) animation = animations_[facing_];
+        else animation = animations_[facing_];
+
+        if (sprite_->getAnimation() != animation)
+            sprite_->setAnimation(*animation);
+    }
 }

@@ -11,6 +11,11 @@
 #include "MapBlock.hh"
 #include "Direction.hh"
 
+#include "Animation.hpp"
+#include "AnimatedSprite.hpp"
+
+#include <map>
+
 class Walker {
 friend bool WalkerTest1(std::ostream&);
 
@@ -24,7 +29,7 @@ public:
      *  float               movement speed (blocks per second)
      */
     Walker(Map&, MapBlock*, float);
-    virtual ~Walker() {}
+    virtual ~Walker();
 
     /* This is the "full" update function that each inheriting class must
      * implement. It takes the time since the last frame as a parameter.
@@ -45,6 +50,20 @@ public:
 
     /* Returns whether the Walker is "going somewhere". */
     bool isMoving() const { return (target_ != nullptr); }
+    
+    /* Initialize the animations for this Walker's sprite:
+     *
+     *  Idle
+     *  Walking north
+     *  Walking east
+     *  Walking south
+     *  Walking west
+     */
+    void initSprite(Animation const&, Animation const&, Animation const&, Animation const&, Animation const&);
+
+    /* Returns this Walker's sprite. */
+    AnimatedSprite* getSprite() const { return sprite_; }
+
 
 
 protected:
@@ -124,7 +143,6 @@ protected:
      * become blocked while the Walker was in-transit), recenters. */
     virtual void proceed();
 
-
     Map& map_;
 
     MapBlock* location_; // Where am I?
@@ -133,6 +151,21 @@ protected:
     Direction dPos_;
 
     float speed_;
+
+
+    /* Animation data.
+     *
+     * The Walker holds four Animation objects (walking north, walking east,
+     * walking south, walking west) and a sprite.
+     */
+    std::map<Direction, Animation const*> animations_;
+    AnimatedSprite* sprite_;
+
+    /* Updates the sprite's position and frame. */
+    void updateSprite(float);
+
+    /* Updates the sprite's animation based on its facing etc. */
+    void alignSprite();
 };
 
 #endif

@@ -1,5 +1,12 @@
 #include "Direction.hh"
 
+bool Direction::operator<(Direction const& other) const {
+    if (x_ < other.x_) return true;
+    else if (y_ < other.y_) return true;
+    else return false;
+}
+
+
 Direction Direction::in(float distance) const {
     float x2 = 0.0;
     float y2 = 0.0;

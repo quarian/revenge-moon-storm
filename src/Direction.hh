@@ -29,6 +29,7 @@ public:
 
     bool operator==(Direction const& other) const { return (other.x_ == x_) && (other.y_ == y_); }
     bool operator!=(Direction const& other) const { return !(*this == other); }
+    bool operator<(Direction const& other) const; // For std::map
     Direction operator-() const { return Direction(-x_, -y_); }
     Direction operator*(float mul) const { return Direction(mul*x_, mul*y_); }
 
