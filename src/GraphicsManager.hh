@@ -35,20 +35,22 @@ public:
     void InitializeGraphics(std::string rootPath);
     
 private:
+	WindowManager& window_;
+	
+	sf::Vector2f& blockSize_;
+    sf::IntRect blockRect_;
+
     std::string rootPath_;
     
+    std::map<std::string, sf::Texture>& textures_;   
     std::map<std::string, Animation>& animations_;
-    std::map<std::string, sf::Texture>& textures_;
-    sf::Font font_; //&
+    sf::Font font_;
     
-    sf::Vector2f& blockSize_;
-    sf::IntRect blockRect_;
+
 
     std::map<std::string, sf::Sprite> sprites_;
     std::map<std::string, AnimatedSprite> animatedSprites_;
     std::map<std::string, sf::Text> texts_;
-    
-    WindowManager& window_;
     
     void loadTexture(std::string filename);
 };

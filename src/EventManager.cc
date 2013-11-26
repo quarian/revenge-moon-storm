@@ -2,10 +2,10 @@
 
 
 void EventManager::Initialize(std::vector<Player>& players, std::vector<PlayerKeys>& keys) {
-    for (int i=0; i<players.size(); i++) {
-        triple<Player, PlayerKeys, std::vector<bool>>
-        trip(players[i],keys[i], std::vector<bool>(7,false));
-        //players_.push_back(trip);
+    for (size_t i=0; i<players.size(); i++) {
+        Triple<Player, PlayerKeys, std::vector<bool>>
+        triple(players[i],keys[i], std::vector<bool>(7,false));
+        players_.push_back(triple);
     }
     
 }
@@ -33,7 +33,6 @@ void EventManager::EventLoop(sf::Event& event) {
 }
 
 void EventManager::PlayerEvents(sf::Event& event) {
-    std::cout<<"EventLoop";
     for (size_t i = 0; i<players_.size(); i++) {
         
         Player& player = players_[i].first;
@@ -87,9 +86,7 @@ void EventManager::PlayerEvents(sf::Event& event) {
     }
 }
 
-bool EventManager::StoreEventLoop(sf::Event& event) {
-    std::cout<<"StoreEventLoop";
-//    sf::Event event;
+//bool EventManager::StoreEventLoop(sf::Event& event) {
 //    bool AllPlayersReady=false;
 //    std::vector<bool> playerReady(players_.size(),false);
 //    
@@ -111,10 +108,10 @@ bool EventManager::StoreEventLoop(sf::Event& event) {
 //        }
 //        if (readyCount==players_.size()) AllPlayersReady=true;
 //    }
-    return true;
-}
+//    return true;
+//}
 
-void EventManager::BuyingEvents(sf::Event& event, std::vector<bool>& playerReady) {
+//void EventManager::BuyingEvents(sf::Event& event, std::vector<bool>& playerReady) {
 //    for (size_t i = 0; i<players_.size(); i++) {
 //        
 //        Player& player = players_[i].first;
@@ -126,6 +123,4 @@ void EventManager::BuyingEvents(sf::Event& event, std::vector<bool>& playerReady
 //        
 //        
 //    }
-    
-
-}
+//}

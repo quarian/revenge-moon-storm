@@ -30,7 +30,7 @@ private:
     void BuyingEvents(sf::Event&, std::vector<bool>&);
     
     WindowManager& window_;
-    std::vector<triple<Player, PlayerKeys, std::vector<bool>>> players_;
+    std::vector<Triple<Player, PlayerKeys, std::vector<bool>>> players_;
     MenuKeys menuKeys_;
     bool& isRunning_;
     bool isPaused_;

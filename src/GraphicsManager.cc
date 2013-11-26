@@ -2,7 +2,7 @@
 #include <iostream>
 
 void GraphicsManager::InitializeGraphics(std::string rootPath) {
-    rootPath_=rootPath + "/graphics/";
+    rootPath_=rootPath + "/graphics";
 
     //blockSize.getBlockScale();
     blockSize_ = sf::Vector2f(10,10);
@@ -18,10 +18,17 @@ void GraphicsManager::InitializeGraphics(std::string rootPath) {
         return;
     }
     
-    loadTexture("sand.png");
-    loadTexture("rock.png");
-    loadTexture("sand_.png");
+    loadTexture("wtf.png");
+    loadTexture("Strong.png");
+    loadTexture("Medium.png");
+    loadTexture("Weak.png");
+    loadTexture("Indestructible.png");
+    loadTexture("Sand.png");
 
+    loadTexture("player_standing.png");
+    loadTexture("player_walking1.png");
+    loadTexture("player_walking2.png");
+	
     /*Animation blue_player;
     sf::IntRect player_rect;
     player_rect.
@@ -36,31 +43,36 @@ void GraphicsManager::InitializeGraphics(std::string rootPath) {
 sf::Texture& GraphicsManager::getTexture(std::string filename) {
     if (textures_.find(filename)==textures_.end()) {
         loadTexture(filename);
-        return textures_[filename];
     }
-    else return textures_[filename];
+    return textures_[filename];
 }
 
 void GraphicsManager::loadTexture(std::string filename) {
     if (textures_.find(filename)==textures_.end()) {
+        filename="/"+filename;
         sf::Texture texture;
-        if (texture.loadFromFile(rootPath_+filename,blockRect_)) {
+        if (texture.loadFromFile(rootPath_+"/"+filename,blockRect_)) {
             textures_[filename] = texture;
             return;
         }
-        std::vector<std::string> pathOptions = {"blocks/","players/","items/","misc/","fonts/"};
-        for (int i = 0; 1!=pathOptions.size(); i++) {
-            std::cout<<rootPath_+pathOptions[i]<<std::endl;
-            if (texture.loadFromFile(rootPath_+pathOptions[i]+filename,blockRect_)) {
+        std::vector<std::string> pathOptions = {"/blocks","/players","/items","/misc"};
+        for (size_t i = 0; i!=pathOptions.size(); i++) {
+            std::string path = rootPath_+pathOptions[i];
+            if (texture.loadFromFile(rootPath_+pathOptions[i]+"/"+filename,blockRect_)) {
+                texture.setSmooth(true);
                 textures_[filename] = texture;
                 return;
             }
         }
         std::cout << "Texture "+filename+"load failed"<<std::endl;
-        std::cout << "Tried from graphics/"<<std::endl;
+        std::cout << "Tried from load images from:"<< std::endl << rootPath_ <<std::endl;
         for (auto folder : pathOptions) {
-            std::cout <<" graphics/"<<folder<<std::endl;
+            std::cout <<rootPath_<<folder<<std::endl;
         }
+        if (texture.loadFromFile(rootPath_+"/misc/wtf.png",blockRect_)) {
+            textures_[filename] = texture;
+        }
+        
     }
 }
 

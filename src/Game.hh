@@ -64,6 +64,7 @@ private:
     std::map<std::string, sf::Texture> textures_;
     
     sf::Clock clock_;
+    sf::Time frameTime_;
 };
 
 #endif

@@ -17,6 +17,7 @@ void Game::Launch() {
 
 void Game::MainLoop() {
     while (window_.isOpen() && isRunning_) {
+    	frameTime_=clock_.getElapsedTime();
         HandleEvents();
         Update();
         Draw();
@@ -67,14 +68,14 @@ void Game::InitializeMap() {
 
 void Game::UpdateMap() {
     
-    sf::Texture& rock =graphicsManager_.getTexture("rock.png");//textures_["rock.png"];
-    for (int x=0; x!=mapWidth_; x++) {
-        for (int y=0; y!=mapHeight_; y++) {
+    sf::Texture& Indestructible =graphicsManager_.getTexture("Indestructible.png");
+    for (size_t x=0; x!=mapWidth_; x++) {
+        for (size_t y=0; y!=mapHeight_; y++) {
             std::string blockContent = map_.getBlock(x, y)->content_;
             if (blockContent=="#") {
                 sf::Sprite block;
                 if (map_.getBlock(x, y)->toughness_) {
-                    block.setTexture(rock);
+                    block.setTexture(Indestructible);
                     block.setPosition(x*blockSize_.x, y*blockSize_.y);
                     mapSprites_.push_back(block);
                 }
@@ -83,7 +84,7 @@ void Game::UpdateMap() {
     }
 }
 void Game::DrawMap() {
-    for (int i=0; i!=mapSprites_.size(); i++) {
+    for (size_t i=0; i!=mapSprites_.size(); i++) {
         window_.draw(mapSprites_[i]);
     }
     mapSprites_.clear();
@@ -95,11 +96,11 @@ void Game::DrawMap() {
 
 void Game::InitializeWalkers(size_t playerCount) {
     std::vector<std::string> playerNames = {"ukko","nooa","jaakko","kulta"};
-    for (int i = 0; i!=playerCount; i++) {
+    for (size_t i = 0; i!=playerCount; i++) {
         players_.push_back(Player(playerNames[i],2));
         playerKeySettings_.push_back(PlayerKeys()); //TODO: Different key setting for each player
     }
-    for (int i = 0; i!=playerCount; i++) {
+    for (size_t i = 0; i!=playerCount; i++) {
         players_[i].spawn(&map_, map_.getBlock(3, 3));
     }
     
