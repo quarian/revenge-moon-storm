@@ -49,7 +49,6 @@ sf::Texture& GraphicsManager::getTexture(std::string filename) {
 
 void GraphicsManager::loadTexture(std::string filename) {
     if (textures_.find(filename)==textures_.end()) {
-        filename="/"+filename;
         sf::Texture texture;
         if (texture.loadFromFile(rootPath_+"/"+filename,blockRect_)) {
             textures_[filename] = texture;
