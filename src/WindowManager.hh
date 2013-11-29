@@ -1,6 +1,7 @@
 #ifndef __Minebombers__WindowManager__
 #define __Minebombers__WindowManager__
 #include <SFML/Graphics.hpp>
+#include "AnimatedSprite.hpp"
 #include <iostream>
 
 /**********************************************************************
