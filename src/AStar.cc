@@ -13,10 +13,11 @@ float AStar::SimpleCostFunction::operator()(MapBlock const* const mb) const {
 }
 
 
-// float AStar::passableCost(MapBlock const* const mb) {
-//     if (mb->isPassable()) return 1.0f;
-//     return AStar::INF;
-// }
+float AStar::WalkingDiggingCostFunction::operator()(MapBlock const* const mb) const {
+    if (mb->isPassable()) return walkCost;
+    else if (mb->isDiggable()) return digCostBase + digCost * mb->toughness_;
+    return AStar::INF;
+}
 
 
 AStar::Node::Node(
@@ -35,7 +36,6 @@ AStar::Node::Node(
 std::stack<MapBlock*> AStar::find(
         MapBlock* const start,
         MapBlock* const finish,
-        // float costFn(MapBlock const* const),
         CostFunction const& costFn,
         bool includeStart, // TODO
         bool includeFinish, // TODO
@@ -80,7 +80,8 @@ std::stack<MapBlock*> AStar::find(
     /* If the search was successful, trace back the path */
     if (current->block == finish) {
         while (current != nullptr) {
-            solution.push(current->block);
+            if ((includeStart || current->block != start) && (includeFinish || current->block != finish))
+                 solution.push(current->block);
             current = current->previous;
         }
     }

@@ -27,6 +27,10 @@ namespace AStar {
      * The inheriting SimpleCostFunction class is the default cost function,
      * which simply ranks all passable squares as 1 and non-passable squares
      * as INF.
+     *
+     * The inheriting WalkingDiggingCostFunction class assigns some fixed cost
+     * to walking into a square if it is passable, or if it is not passable
+     * but is diggable, assigns the cost to digCostBase + digCost * block str.
      */
     class CostFunction {
     public:
@@ -34,15 +38,21 @@ namespace AStar {
             return 1;
         }
     };
+
     class SimpleCostFunction : public CostFunction {
     public:
         float operator()(MapBlock const* const) const;
     };
 
-    //const SimpleCostFunction SCF;
+    class WalkingDiggingCostFunction : public CostFunction {
+    public:
+        const float walkCost, digCostBase, digCost;
+        WalkingDiggingCostFunction(float walkCost, float digCostBase, float digCost)
+                : walkCost(walkCost), digCostBase(digCostBase), digCost(digCost) {}
 
-    // float passableCost(MapBlock const* const);
-    
+        float operator()(MapBlock const* const) const;
+    };
+
     
     /* The A* search algorithm itself. Parameters:
      *
@@ -59,7 +69,6 @@ namespace AStar {
             MapBlock* const,
             MapBlock* const,
             CostFunction const& =SimpleCostFunction(),
-            //float(MapBlock const* const)=passableCost,
             bool=true,
             bool=true,
             float=INF);

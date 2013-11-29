@@ -113,5 +113,41 @@ bool AStarTest1(std::ostream& os) {
 
     os << " OK" << std::endl;
 
+    /* SECTION 4 */
+    os << "TEST 4: not including start or finish...";
+
+    st = AStar::find(map.getBlock(21,17), map.getBlock(23,17), AStar::SimpleCostFunction(), true, false);
+    assert(st.size() == 4);
+    assert(st.top() == map.getBlock(21,17)); st.pop();
+    assert(st.top() == map.getBlock(21,18)); st.pop();
+    assert(st.top() == map.getBlock(22,18)); st.pop();
+    assert(st.top() == map.getBlock(23,18)); st.pop();
+
+    st = AStar::find(map.getBlock(21,17), map.getBlock(23,17), AStar::SimpleCostFunction(), false, true);
+    assert(st.size() == 4);
+    assert(st.top() == map.getBlock(21,18)); st.pop();
+    assert(st.top() == map.getBlock(22,18)); st.pop();
+    assert(st.top() == map.getBlock(23,18)); st.pop();
+    assert(st.top() == map.getBlock(23,17)); st.pop();
+
+    st = AStar::find(map.getBlock(21,17), map.getBlock(23,17), AStar::SimpleCostFunction(), false, false);
+    assert(st.size() == 3);
+    assert(st.top() == map.getBlock(21,18)); st.pop();
+    assert(st.top() == map.getBlock(22,18)); st.pop();
+    assert(st.top() == map.getBlock(23,18)); st.pop();
+
+    os << " OK" << std::endl;
+
+    /* SECTION 5 */
+    os << "TEST 5: edge cases...";
+
+    st = AStar::find(map.getBlock(21,17), map.getBlock(21,17), AStar::SimpleCostFunction(), false, false);
+    assert(st.size() == 0);
+
+    st = AStar::find(map.getBlock(21,17), map.getBlock(21,18), AStar::SimpleCostFunction(), false, false);
+    assert(st.size() == 0);
+
+    os << " OK" << std::endl;
+
     return true;
 }
