@@ -1,6 +1,7 @@
 #ifndef __Minebombers__WindowManager__
 #define __Minebombers__WindowManager__
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 /**********************************************************************
  WindowManager includes some game specific window management functions
@@ -15,8 +16,8 @@ public:
     void setPlayMode();
     void setMenuMode(); //this&);
      
-     void drawSprite();
-     void drawAnimated();
+     void drawOverMap();
+         //void drawAnimated();
      void drawText();
 private:
     
