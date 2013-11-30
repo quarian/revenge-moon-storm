@@ -5,15 +5,14 @@
 #include <vector>
 #include <algorithm> // for find_if
 #include "Map.hh"
-#include "Direction.hh"
 #include "Inventory.hh"
-#include "Item.hh"
 
 // Forward declaration
 class Walker;
 class Map;
 class Item;
 class Inventory;
+class Actor;
 
 class MapBlock {
     public:
@@ -36,6 +35,7 @@ class MapBlock {
         void collect(Inventory* inventory);
         
         void weaken();
+        void takeDamage(int amount);
 
         
         static const unsigned NONE;

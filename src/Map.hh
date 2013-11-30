@@ -7,8 +7,8 @@
 #include <vector>
 #include <string>
 
-#include "MapBlock.hh"
 #include "Direction.hh"
+#include "MapBlock.hh"
 
 // Note that Map coordinates (0,0) are at the upper left hand corner.
 

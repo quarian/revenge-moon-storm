@@ -69,3 +69,17 @@ Item* MapBlock::popItem(Item* item) {
     items_.erase(iter);
     return *iter;
 }
+
+void MapBlock::takeDamage(int amount) {
+    weaken();
+    for (auto iter = items_.begin(); iter != items_.end(); iter++) {
+        bool destoryed = (*iter)->takeDamage(amount);
+        if (destoryed)
+            iter = items_.erase(iter);
+    }
+    for (auto iter = walkers_.begin(); iter != walkers_.end(); iter++) {
+            bool destroyed = false;//Game::damageActor(*iter, amount);
+            if (destroyed)
+                iter = walkers_.erase(iter);
+    }
+}
