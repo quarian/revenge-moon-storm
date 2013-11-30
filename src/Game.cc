@@ -63,8 +63,8 @@ void Game::Shutdown() {
 ///////////////////////////
 
 void Game::InitializeMap() {
-    std::cout << "loading map from: "<< rootPath_<<"/map.txt"<<std::endl;
-    map_.loadFromFile(rootPath_+"/map.txt");
+    std::cout << "loading map from: "<< rootPath_<<"/maps/maze.map"<<std::endl;
+    map_.loadFromFile(rootPath_+"/maps/maze.map");
     //map_.printMap();
     mapWidth_ = map_.getWidth();
     mapHeight_ = map_.getHeight();

@@ -109,6 +109,6 @@ void Walker::updateSprite(float dt) {
 void Walker::alignSprite() {
     if (sprite_.getAnimation()) {
         if (facing_.angle() != Direction::UNDEFINED_ANGLE)
-            sprite_.setRotation(facing_.angle() + 90.0);
+            sprite_.setRotation(facing_.angle());
     }
 }

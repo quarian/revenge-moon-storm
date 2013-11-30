@@ -9,8 +9,8 @@
 
 MapBlock::MapBlock(int x, int y, std::string content, Map& map, float toughness) : x_(x), y_(y), content_(content), map_(map), toughness_(toughness)
 {
-    if (content_.compare("#") == 0)
-        toughness_ = INDESTRUCTIBLE;
+    if (content_.compare("#") == 0) toughness_ = INDESTRUCTIBLE;
+    else if (content.compare("s") == 0) toughness_ = 10;
 }
 
 MapBlock::MapBlock(const MapBlock& other) : x_(other.x_), y_(other.y_), content_(other.content_), map_(other.map_), toughness_(other.toughness_) {}
