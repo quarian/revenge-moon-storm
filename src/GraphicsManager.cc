@@ -23,16 +23,18 @@ void GraphicsManager::InitializeGraphics(std::string rootPath) {
 	//Load from /players
 	frontToEnd();
     loadTexture("player_standing.png");
-    loadTexture("player_walking1.png");
-    loadTexture("player_walking2.png");
+    //loadTexture("player_walking1.png");
+    //loadTexture("player_walking2.png");
     loadTexture("player_spritesheet.png");
     
     //Load from  /items
 	frontToEnd();
     loadTexture("Goldbar.png");
+    loadTexture("explosion_spritesheet.png");
 	//Load from /misc
 	frontToEnd();
 	loadTexture("wtf.png");
+	loadTexture("background_grid.png");
 	
 	// Create animations
     Animation walkingPlayer;
@@ -44,6 +46,18 @@ void GraphicsManager::InitializeGraphics(std::string rootPath) {
     
     animations_["walking_player"] = walkingPlayer;
     
+    frontToEnd();
+    Animation explosion1;
+    explosion1.setSpriteSheet(getTexture("explosion_spritesheet.png"));
+
+    explosion1.addFrame(sf::IntRect(0,0,16,16));
+    explosion1.addFrame(sf::IntRect(16,0,16,16));
+    explosion1.addFrame(sf::IntRect(16*2,0,16,16));
+    explosion1.addFrame(sf::IntRect(16*3,0,16,16));
+    explosion1.addFrame(sf::IntRect(16*4,0,16,16));
+    
+    animations_["explosion_1"] = explosion1;
+    
     
    
     /*sf::Text paused("Paused",font_,50);
@@ -53,9 +67,8 @@ void GraphicsManager::InitializeGraphics(std::string rootPath) {
 }
 
 void GraphicsManager::frontToEnd() {
-	std::string moveBack = pathOptions_.front();
+	pathOptions_.push_back(pathOptions_.front());
     pathOptions_.pop_front();
-    pathOptions_.push_back(moveBack);
 }
 
 //void GraphicsManager::createRotated(sf::Texture orginal) {

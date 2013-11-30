@@ -6,6 +6,7 @@ Game::Game() : eventManager_(window_, isRunning_), graphicsManager_(window_,bloc
     window_.launchWindow();
     eventManager_.Initialize(players_, playerKeySettings_);
     graphicsManager_.InitializeGraphics(rootPath_);
+    background_.setTexture(graphicsManager_.getTexture("background_grid.png"));
 }
 
 Game::~Game() {
@@ -48,6 +49,7 @@ void Game::Update() {
 
 void Game::Draw() {
     window_.clear(sf::Color::White);
+    window_.draw(background_);
     DrawMap();
     DrawWalkers();
     window_.display();
@@ -63,8 +65,8 @@ void Game::Shutdown() {
 ///////////////////////////
 
 void Game::InitializeMap() {
-    std::cout << "loading map from: "<< rootPath_<<"/maps/maze.map"<<std::endl;
-    map_.loadFromFile(rootPath_+"/maps/maze.map");
+    std::cout << "loading map from: "<< rootPath_<<"/map.txt"<<std::endl;
+    map_.loadFromFile(rootPath_+"/map64.txt");
     //map_.printMap();
     mapWidth_ = map_.getWidth();
     mapHeight_ = map_.getHeight();

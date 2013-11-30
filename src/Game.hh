@@ -61,6 +61,7 @@ private:
     size_t mapHeight_;
     sf::Vector2f blockSize_;
     
+    sf::Sprite background_;
     std::map<std::string, Animation> animations_;
     std::map<std::string, sf::Texture> textures_;
     
