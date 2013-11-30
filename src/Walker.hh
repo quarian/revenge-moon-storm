@@ -35,7 +35,7 @@ public:
      * implement. It takes the time since the last frame as a parameter.
      * It is called at each game loop cycle AND whenever the Walker reaches
      * its target. */
-    virtual void update(float dt) { updateLocation(dt); }
+    virtual void update(float);
 
     /* Getters:
      *
@@ -62,7 +62,7 @@ public:
     void initSprite(Animation const&, Animation const&, Animation const&, Animation const&, Animation const&);
 
     /* Returns this Walker's sprite. */
-    AnimatedSprite* getSprite() const { return sprite_; }
+    AnimatedSprite& getSprite() { return sprite_; }
 
 
 
@@ -159,7 +159,7 @@ protected:
      * walking south, walking west) and a sprite.
      */
     std::map<Direction, Animation*> animations_;
-    AnimatedSprite* sprite_;
+    AnimatedSprite sprite_;
 
     /* Updates the sprite's position and frame. */
     void updateSprite(float);

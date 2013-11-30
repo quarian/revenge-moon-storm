@@ -14,9 +14,9 @@ Player::~Player() {
 }
 
 
-ControlledActor* Player::spawn(Map* map, MapBlock* block) {
+ControlledActor* Player::spawn(Map& map, MapBlock* block) {
     clearAvatar();
-    avatar_ = new ControlledActor(*map, block, speed_, digPower_, 100, resistance_, &inventory_);
+    avatar_ = new ControlledActor(map, block, speed_, digPower_, 100, resistance_, &inventory_);
     return avatar_;
 }
 

@@ -18,7 +18,7 @@ public:
     /* Spawns a new Actor onto the given map.
      *
      * This function assumes that the MapBlock can accommodate the Actor. */
-    ControlledActor* spawn(Map*, MapBlock*);
+    ControlledActor* spawn(Map&, MapBlock*);
 
     /* Kills the avatar. */
     void die();

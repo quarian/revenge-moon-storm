@@ -9,15 +9,19 @@ Walker::Walker(Map& map, MapBlock* location, float speed) :
         target_(nullptr),
         facing_(Direction::NORTH),
         dPos_(Direction::NULLDIR),
-        speed_(speed),
-        sprite_(new AnimatedSprite()) {
+        speed_(speed) {
     location_->enter(this);
 }
 
 
 Walker::~Walker() {
     clearAnimations();
-    delete sprite_;
+}
+
+
+void Walker::update(float dt) {
+    updateLocation(dt);
+    updateSprite(dt);
 }
 
 
@@ -45,8 +49,6 @@ void Walker::updateLocation(float dt) {
         if (target_ == location_) approach(dt);
         else depart(dt);
     }
-
-    updateSprite(dt);
 }
 
 
@@ -113,11 +115,11 @@ void Walker::knock(Direction dir) {
 
 void Walker::updateSprite(float dt) {
     alignSprite();
-    sprite_->update(sf::seconds(dt));
+    sprite_.update(sf::seconds(dt));
 
-    // float xAbs = location_->x_ + dPos_.x();
-    // float yAbs = location_->y_ + dPos_.y();
-    // TODO: placment
+    float xAbs = location_->x_ + dPos_.x();
+    float yAbs = location_->y_ + dPos_.y();
+    sprite_.setPosition(xAbs * 16, yAbs * 16);
 }
 
 
@@ -127,8 +129,8 @@ void Walker::alignSprite() {
         if (target_) animation = animations_[facing_];
         else animation = animations_[facing_];
 
-        if (sprite_->getAnimation() != animation)
-            sprite_->setAnimation(*animation);
+        if (sprite_.getAnimation() != animation)
+            sprite_.setAnimation(*animation);
     }
 }
 

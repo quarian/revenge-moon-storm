@@ -44,13 +44,13 @@ void Game::HandleEvents() {
 
 void Game::Update() {
     UpdateMap();
-    //UpdateWalkers();
+    UpdateWalkers();
 }
 
 void Game::Draw() {
     window_.clear(sf::Color::White);
     DrawMap();
-    //DrawWalkers();
+    DrawWalkers();
     window_.display();
     
     
@@ -66,7 +66,7 @@ void Game::Shutdown() {
 ///////////////////////////
 
 void Game::InitializeMap() {
-	std::cout << "loading map from: "<< rootPath_<<"/map.txt"<<std::endl;
+    std::cout << "loading map from: "<< rootPath_<<"/map.txt"<<std::endl;
     map_.loadFromFile(rootPath_+"/map.txt");
     //map_.printMap();
     mapWidth_ = map_.getWidth();
@@ -109,7 +109,7 @@ void Game::InitializeWalkers(size_t playerCount) {
     std::vector<std::string> playerNames = {"ukko","nooa","jaakko","kulta"};
     for (size_t i = 0; i!=playerCount; i++) {
     	Player* newPlayer = new Player(playerNames[i],2);
-    	newPlayer->spawn(&map_, map_.getBlock(1,i))->initSprite(
+    	newPlayer->spawn(map_, map_.getBlock(i+1,i+1))->initSprite(
     		graphicsManager_.getAnimation("walking_player"),
     		graphicsManager_.getAnimation("walking_player"),
     		graphicsManager_.getAnimation("walking_player"),
@@ -119,16 +119,13 @@ void Game::InitializeWalkers(size_t playerCount) {
         players_.push_back(newPlayer);
         playerKeySettings_.push_back(PlayerKeys()); //TODO: Different key setting for each player
     }
-    /*for (size_t i = 0; i!=playerCount; i++) {
-    	
-        players_[i].spawn(&map_, map_.getBlock(3, 3));
-    }*/
-    
     // Other walkers
 }
+
+
 void Game::UpdateWalkers() {
-	for (auto player : players_) {
-		player->getActor()->update(static_cast<float>(elapsedTime_.asMicroseconds()));
+    for (auto player : players_) {
+            player->getActor()->update(static_cast<float>(elapsedTime_.asSeconds()));
 	}
 	
     /*sf::Texture& texture = graphicsManager_.getTexture("sand.png");
@@ -145,11 +142,12 @@ void Game::UpdateWalkers() {
 }
 
 void Game::DrawWalkers() {
-	sf::Sprite sp;
-	sp.setColor(sf::Color::Black);
-	sp.setPosition(1,1);
-	for (auto player : players_) {
-        window_.draw(sp);
-        //*player.getActor()->getSprite());
+    // sf::Sprite sp;
+    // sp.setColor(sf::Color::Black);
+    // sp.setPosition(1,1);
+    for (auto player : players_) {
+        window_.draw(player->getActor()->getSprite());
+        // window_.draw(sp);
+        // *player.getActor()->getSprite());
     }
 }

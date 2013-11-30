@@ -39,6 +39,7 @@ void Actor::update(float dt) {
         dig(dt);
     else
         updateLocation(dt);
+    updateSprite(dt);
 }
 
 
