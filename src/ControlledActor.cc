@@ -30,7 +30,7 @@ void ControlledActor::keyDown(Direction dir) {
     setKey(dir, true);
     if (target_) {
         if (dir == -orders_) reverse();
-        else if (location_ != target_) {
+        else if (location_ != target_ && location_->getBlock(dir) != target_) {
             center();
             knock(dir);
         }

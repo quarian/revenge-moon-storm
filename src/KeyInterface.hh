@@ -32,6 +32,10 @@ public:
      * command onward. */
     void parse(sf::Event&);
 
+    /* Reads the keyboard state, to the extent that this interface is affected.
+     */
+    void readKeyboard();
+
 
     /* Getter and setter for the associated player. */
     Player* getPlayer() { return player_; }
@@ -48,4 +52,7 @@ private:
 
     Key use_;
     Key change_;
+
+    bool useKeyState_;
+    bool changeKeyState_;
 };

@@ -45,6 +45,7 @@ void EventManager::EventLoop(sf::Event& event) {
 void EventManager::PlayerEvents(sf::Event& event) {
     for (auto interface : keyInterfaces_)
         interface.parse(event);
+        //interface.readKeyboard();
 
     //for (size_t i = 0; i<players_.size(); i++) {
     //    
