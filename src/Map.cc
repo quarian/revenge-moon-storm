@@ -1,6 +1,21 @@
 #include "Map.hh"
 
-Map::Map() {}
+//Map::Map() {}
+
+Map::Map(const Game* game) : game_(game)
+{
+}
+
+Map& Map::operator=(const Map& other) {
+    if (this == &other) return *this;
+    grid_ = other.grid_;
+    game_ = other.game_;
+    return *this;
+}
+
+Map::Map(const Map& other) : game_(other.game_)
+{
+}
 
 void Map::loadFromFile(std::string filename) {
     std::cout << "Loading from file: " << filename << std::endl;

@@ -1,6 +1,6 @@
 #include "Game.hh"
 
-Game::Game() : eventManager_(window_, isRunning_), graphicsManager_(window_,blockSize_,textures_,animations_) {
+Game::Game() : eventManager_(window_, isRunning_), graphicsManager_(window_,blockSize_,textures_,animations_), map_(Map(this)) {
     rootPath_ = ".";
     isRunning_ = true;
     window_.launchWindow();
