@@ -42,7 +42,7 @@ void GraphicsManager::InitializeGraphics(std::string rootPath) {
     walkingPlayer.addFrame(sf::IntRect(16,0,16,16));
     walkingPlayer.addFrame(sf::IntRect(16*2,0,16,16));
     
-    animations_["walking_payer"] = walkingPlayer;
+    animations_["walking_player"] = walkingPlayer;
     
     
    

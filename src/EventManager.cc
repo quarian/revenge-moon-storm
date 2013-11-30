@@ -1,10 +1,10 @@
 #include "EventManager.hh"
 
 
-void EventManager::Initialize(std::vector<Player>& players, std::vector<PlayerKeys>& keys) {
+void EventManager::Initialize(std::vector<Player*>& players, std::vector<PlayerKeys>& keys) {
     for (size_t i=0; i<players.size(); i++) {
         Triple<Player, PlayerKeys, std::vector<bool>>
-        triple(players[i],keys[i], std::vector<bool>(7,false));
+        triple(*players[i], keys[i], std::vector<bool>(7,false));
         players_.push_back(triple);
     }
     

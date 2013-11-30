@@ -16,6 +16,7 @@ Walker::Walker(Map& map, MapBlock* location, float speed) :
 
 
 Walker::~Walker() {
+    clearAnimations();
     delete sprite_;
 }
 
@@ -27,11 +28,13 @@ void Walker::initSprite(
         Animation const& animationS,
         Animation const& animationW
     ) {
-    animations_[Direction::NULLDIR] = &animationI;
-    animations_[Direction::NORTH] = &animationN;
-    animations_[Direction::EAST] = &animationE;
-    animations_[Direction::SOUTH] = &animationS;
-    animations_[Direction::WEST] = &animationW;
+    clearAnimations();
+
+    animations_[Direction::NULLDIR] = new Animation(animationI);
+    animations_[Direction::NORTH] = new Animation(animationN);
+    animations_[Direction::EAST] = new Animation(animationE);
+    animations_[Direction::SOUTH] = new Animation(animationS);
+    animations_[Direction::WEST] = new Animation(animationW);
 
     alignSprite();
 }
@@ -127,4 +130,10 @@ void Walker::alignSprite() {
         if (sprite_->getAnimation() != animation)
             sprite_->setAnimation(*animation);
     }
+}
+
+
+void Walker::clearAnimations() {
+    for (auto a : animations_) delete a.second;
+    animations_.clear();
 }

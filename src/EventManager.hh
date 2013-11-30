@@ -17,7 +17,7 @@ public:
     
     EventManager(WindowManager& w, bool& isRunning) : window_(w), menuKeys_(MenuKeys()), isRunning_(isRunning) {}
     
-    void Initialize(std::vector<Player>& players, std::vector<PlayerKeys>& keys);
+    void Initialize(std::vector<Player*>& players, std::vector<PlayerKeys>& keys);
     
     void EventLoop(sf::Event&);
     

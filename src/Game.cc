@@ -8,6 +8,10 @@ Game::Game() : eventManager_(window_, isRunning_), graphicsManager_(window_,bloc
     graphicsManager_.InitializeGraphics(rootPath_);
 }
 
+Game::~Game() {
+    for (auto p : players_) delete p;
+}
+
 void Game::Launch() {
     InitializeMap();
     InitializeWalkers(1);	//TODO
@@ -104,13 +108,13 @@ void Game::InitializeWalkers(size_t playerCount) {
 	//TODO
     std::vector<std::string> playerNames = {"ukko","nooa","jaakko","kulta"};
     for (size_t i = 0; i!=playerCount; i++) {
-    	Player newPlayer = Player(playerNames[i],2);
-    	newPlayer.getActor()->initSprite(
-    		graphicsManager_.getAnimation("walking_payer"),
-    		graphicsManager_.getAnimation("walking_payer"),
-    		graphicsManager_.getAnimation("walking_payer"),
-    		graphicsManager_.getAnimation("walking_payer"),
-    		graphicsManager_.getAnimation("walking_payer"));
+    	Player* newPlayer = new Player(playerNames[i],2);
+    	newPlayer->spawn(&map_, map_.getBlock(1,i))->initSprite(
+    		graphicsManager_.getAnimation("walking_player"),
+    		graphicsManager_.getAnimation("walking_player"),
+    		graphicsManager_.getAnimation("walking_player"),
+    		graphicsManager_.getAnimation("walking_player"),
+    		graphicsManager_.getAnimation("walking_player"));
     		
         players_.push_back(newPlayer);
         playerKeySettings_.push_back(PlayerKeys()); //TODO: Different key setting for each player
@@ -123,8 +127,8 @@ void Game::InitializeWalkers(size_t playerCount) {
     // Other walkers
 }
 void Game::UpdateWalkers() {
-	for (auto& player : players_) {
-		player.getActor()->update(static_cast<float>(elapsedTime_.asMicroseconds()));
+	for (auto player : players_) {
+		player->getActor()->update(static_cast<float>(elapsedTime_.asMicroseconds()));
 	}
 	
     /*sf::Texture& texture = graphicsManager_.getTexture("sand.png");
@@ -144,7 +148,8 @@ void Game::DrawWalkers() {
 	sf::Sprite sp;
 	sp.setColor(sf::Color::Black);
 	sp.setPosition(1,1);
-	for (auto& player : players_) {
-        window_.draw(sp);//*player.getActor()->getSprite());
+	for (auto player : players_) {
+        window_.draw(sp);
+        //*player.getActor()->getSprite());
     }
 }

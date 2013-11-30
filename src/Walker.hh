@@ -158,7 +158,7 @@ protected:
      * The Walker holds four Animation objects (walking north, walking east,
      * walking south, walking west) and a sprite.
      */
-    std::map<Direction, Animation const*> animations_;
+    std::map<Direction, Animation*> animations_;
     AnimatedSprite* sprite_;
 
     /* Updates the sprite's position and frame. */
@@ -166,6 +166,8 @@ protected:
 
     /* Updates the sprite's animation based on its facing etc. */
     void alignSprite();
+
+    void clearAnimations();
 };
 
 #endif
