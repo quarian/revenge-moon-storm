@@ -41,7 +41,7 @@ void MapBlock::enter(Walker* w) {
 
 void MapBlock::exit(const Walker* w) {
     std::vector<Walker*>::iterator iter = std::find_if(walkers_.begin(), walkers_.end(), [&](Walker* t)
-                                                                                            {return t == w; });
+                                                                                            { return t == w; });
     walkers_.erase(iter);
 }
 
@@ -57,4 +57,15 @@ void MapBlock::collect(Inventory* inventory) {
             iter = items_.erase(iter);
         }
     }
+}
+
+void MapBlock::pushItem(Item* item) {
+    items_.push_back(item);
+}
+
+Item* MapBlock::popItem(Item* item) {
+    std::vector<Item*>::iterator iter = std::find_if(items_.begin(), items_.end(), [&](Item* i)
+                                                                                     { return i == item; });
+    items_.erase(iter);
+    return *iter;
 }

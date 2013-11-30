@@ -31,6 +31,8 @@ class MapBlock {
         Map& getMap() const { return map_; }
         void exit(const Walker* w);
         void enter(Walker* w);
+        void pushItem(Item* item);
+        Item* popItem(Item* item);
         void collect(Inventory* inventory);
         
         void weaken();

@@ -8,7 +8,6 @@
  */
 
 #include "Map.hh"
-#include "MapBlock.hh"
 #include "Direction.hh"
 
 #include "Animation.hpp"

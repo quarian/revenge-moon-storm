@@ -7,7 +7,7 @@ DIRS=-I .
 SOURCES=Direction.cc MapBlock.cc Map.cc Walker.cc Actor.cc AIActor.cc ControlledActor.cc Player.cc Item.cc Inventory.cc Game.cc GraphicsManager.cc EventManager.cc WindowManager.cc AnimatedSprite.cc Animation.cc AStar.cc KeyInterface.cc
 MAIN=main.cc
 RPATH=-Wl,-rpath=./lib/
-TESTS=WalkerTest.cc DirectionTest.cc ActorTest.cc ControlledActorTest.cc PlayerTest.cc MapTest.cc InventoryTest.cc GameTest.cc AStarTest.cc testMain.cc
+TESTS=WalkerTest.cc DirectionTest.cc ActorTest.cc ControlledActorTest.cc PlayerTest.cc MapTest.cc InventoryTest.cc AStarTest.cc testMain.cc
 TMP=$(SOURCES:.cc=.o)
 SOURCES_O=$(TMP:.cpp=.o)
 MAIN_O=$(MAIN:.cc=.o)
@@ -27,7 +27,7 @@ $(EXECUTABLE)alt: $(SOURCES_O) $(MAIN_O)
 	$(CC) $(DIRS) $(CFLAGS) $< -o $@
 
 clean:
-	rm -f $(SOURCES_O) $(TESTS_O) $(MAIN_O) $(EXECUTABLE) $(TESTS_EXECUTABLE)
+	rm -f $(SOURCES_O) $(TESTS_O) $(MAIN_O) $(EXECUTABLE) $(TEST_EXECUTABLE)
 
 $(TEST_EXECUTABLE): $(SOURCES_O) $(TESTS_O)
 	$(CC) $(SOURCES_O) $(TESTS_O) $(LDFLAGS) -o $@ $(SFML) $(RPATH)

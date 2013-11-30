@@ -34,7 +34,8 @@ int main() {
     std::cout << std::endl;
 
     std::cout << "GameTest1" << std::endl;
-    GameTest1();
+    //GameTest1();
+    std::cout << "No GameTest implemented" << std::endl;
     std::cout << std::endl;
 
     std::cout << "AStarTest1" << std::endl;

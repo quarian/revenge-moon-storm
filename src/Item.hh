@@ -5,7 +5,6 @@
 #include <string>
 
 #include "Map.hh"
-#include "MapBlock.hh"
 
 class Map;
 class MapBlock;

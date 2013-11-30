@@ -7,6 +7,7 @@ bool PlayerTest1(std::ostream& os) {
     os << "UNIT TEST: class Player" << std::endl;
 
     Map map;
+    Map& map_ref = map;
     map.loadFromFile("map.txt");
 
     /* SECTION 0 */
@@ -24,7 +25,7 @@ bool PlayerTest1(std::ostream& os) {
     os << "TEST 1: Spawning and clearing the avatar...";
 
     assert (deirdre.avatar_ == nullptr);
-    deirdre.spawn(&map, map.getBlock(1,1));
+    deirdre.spawn(map_ref, map.getBlock(1,1));
     assert (deirdre.avatar_ != nullptr);
     deirdre.clearAvatar();
     assert (deirdre.avatar_ == nullptr);

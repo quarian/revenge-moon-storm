@@ -14,11 +14,12 @@
 
 class MapBlock;
 class Game;
+class Weapon;
 
 class Map {
 
     public:
-        //Map();
+        Map();
         Map(const Game* game);
         Map& operator=(const Map& other);
         Map(const Map& other);
@@ -26,6 +27,7 @@ class Map {
         void printMap();
         MapBlock* getBlock(int x, int y);
         MapBlock* getBlock(int x, int y, Direction direction);
+        void blast(Weapon* w);
         unsigned getHeight();
         unsigned getWidth();
         const Game* getGame() const { return game_; }

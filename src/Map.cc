@@ -1,6 +1,6 @@
 #include "Map.hh"
 
-//Map::Map() {}
+Map::Map() : game_(nullptr) {}
 
 Map::Map(const Game* game) : game_(game)
 {
@@ -79,4 +79,8 @@ unsigned Map::getWidth() {
 
 std::vector<std::vector<MapBlock>>* Map::getGrid() {
     return &grid_;
+}
+
+void Map::blast(Weapon* w) {
+
 }
