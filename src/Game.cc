@@ -76,7 +76,10 @@ void Game::InitializeMap() {
 }
 
 void Game::UpdateMap() {
-    sf::Texture& Indestructible =graphicsManager_.getTexture("Indestructible.png");
+    sf::Texture& Indestructible = graphicsManager_.getTexture("Indestructible.png");
+    sf::Texture& Indestructible = graphicsManager_.getTexture("Strong.png");
+    sf::Texture& Indestructible = graphicsManager_.getTexture("Medium.png");
+    sf::Texture& Indestructible = graphicsManager_.getTexture("Weak.png");
     for (size_t x=0; x!=mapWidth_; x++) {
         for (size_t y=0; y!=mapHeight_; y++) {
             std::string blockContent = map_.getBlock(x, y)->content_;
