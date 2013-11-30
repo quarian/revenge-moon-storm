@@ -16,7 +16,7 @@ class Actor;
 
 class MapBlock {
     public:
-        MapBlock(int x, int y, std::string content, Map& map, unsigned toughness = 0);
+        MapBlock(int x, int y, std::string content, Map& map, float toughness = 0);
         ~MapBlock() {};
         MapBlock(const MapBlock& other);
         MapBlock operator=(const MapBlock& other);
@@ -34,15 +34,26 @@ class MapBlock {
         Item* popItem(Item* item);
         void collect(Inventory* inventory);
         
-        void weaken();
+        /* Methods related to digging.
+         *
+         *  clear()             completely clear (dig out) the block, unless indestructable
+         *  weaken(dmg)         weaken (dig) block by the given amount
+         *  takeDamage(dmg)     take damage -- weaken the block and damage items
+         *  getToughness()      return the block's toughness
+         */
+        void clear();
+        void weaken(float);
         void takeDamage(int amount);
+        float getToughness() const { return toughness_; }
 
         
-        static const unsigned NONE;
-        static const unsigned WEAK;
-        static const unsigned MEDIUM;
-        static const unsigned STRONG;
-        static const unsigned INDESTRUCTIBLE;
+        //static const unsigned NONE;
+        //static const unsigned WEAK;
+        //static const unsigned MEDIUM;
+        //static const unsigned STRONG;
+        //static const unsigned INDESTRUCTIBLE;
+        static constexpr float NONE = 0.0;
+        static constexpr float INDESTRUCTIBLE = -100;
 
     private:
         std::vector<Walker*> walkers_;
@@ -50,7 +61,7 @@ class MapBlock {
         Map& map_;
 
     public:
-        unsigned toughness_;
+        float toughness_;
 };
 
 #endif

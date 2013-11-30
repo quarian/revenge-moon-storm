@@ -1,14 +1,16 @@
 #include "MapBlock.hh"
-const unsigned MapBlock::NONE = 0;
-const unsigned MapBlock::WEAK = 1;
-const unsigned MapBlock::MEDIUM = 2;
-const unsigned MapBlock::STRONG = 3;
-const unsigned MapBlock::INDESTRUCTIBLE = 10;
 
-MapBlock::MapBlock(int x, int y, std::string content, Map& map, unsigned toughness) : x_(x), y_(y), content_(content), map_(map), toughness_(toughness)
+#include <cmath>
+//const unsigned MapBlock::NONE = 0;
+//const unsigned MapBlock::WEAK = 1;
+//const unsigned MapBlock::MEDIUM = 2;
+//const unsigned MapBlock::STRONG = 3;
+//const unsigned MapBlock::INDESTRUCTIBLE = 10;
+
+MapBlock::MapBlock(int x, int y, std::string content, Map& map, float toughness) : x_(x), y_(y), content_(content), map_(map), toughness_(toughness)
 {
     if (content_.compare("#") == 0)
-        toughness_ = STRONG;
+        toughness_ = INDESTRUCTIBLE;
 }
 
 MapBlock::MapBlock(const MapBlock& other) : x_(other.x_), y_(other.y_), content_(other.content_), map_(other.map_), toughness_(other.toughness_) {}
@@ -45,9 +47,13 @@ void MapBlock::exit(const Walker* w) {
     walkers_.erase(iter);
 }
 
-void MapBlock::weaken() {
+void MapBlock::clear() {
+    if (toughness_ != INDESTRUCTIBLE) toughness_ = NONE;
+}
+
+void MapBlock::weaken(float dmg) {
     if (toughness_ != NONE && toughness_ != INDESTRUCTIBLE)
-        toughness_--;
+        toughness_ = fmin(toughness_ - dmg, NONE);
 }
 
 void MapBlock::collect(Inventory* inventory) {
@@ -71,7 +77,7 @@ Item* MapBlock::popItem(Item* item) {
 }
 
 void MapBlock::takeDamage(int amount) {
-    weaken();
+    weaken(amount);
     for (auto iter = items_.begin(); iter != items_.end(); iter++) {
         bool destoryed = (*iter)->takeDamage(amount);
         if (destoryed)

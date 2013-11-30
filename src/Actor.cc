@@ -44,10 +44,9 @@ void Actor::update(float dt) {
 
 
 void Actor::dig(float dt) {
-/* TODO: uncomment when methods are available
     float timeToDig = target_->getToughness() / digPower_;
     if (dt > timeToDig) {
-        target_->weakenAll();
+        target_->clear();
         digging_ = false;
         update(dt - timeToDig);
     } else {
@@ -55,9 +54,7 @@ void Actor::dig(float dt) {
         target_->weaken(digAmount);
         if (target_->isPassable()) digging_ = false;
     }
-*/
-    if (dt == 0) dt = 0; // noop to avoid g++ warning...
-    target_->weaken(); // DUMMY
+    // target_->weaken(dt * digPower_); // DUMMY
 }
 
 
@@ -67,7 +64,7 @@ void Actor::knock(Direction dir) {
     target_ = location_->getBlock(facing_);
     if (target_ == nullptr) return;
     else if (!target_->isPassable()) {
-        if (isDigger()) digging_ = true;
+        if (target_->isDiggable() && isDigger()) digging_ = true;
         else target_ = nullptr;
     }
 }
