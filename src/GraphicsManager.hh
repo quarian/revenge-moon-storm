@@ -36,9 +36,9 @@ public:
     void InitializeGraphics(std::string rootPath);
     
 private:
-	WindowManager& window_;
+    WindowManager& window_;
 	
-	sf::Vector2f& blockSize_;
+    sf::Vector2f& blockSize_;
     sf::IntRect blockRect_;
 
     std::string rootPath_;

@@ -14,7 +14,7 @@ Game::~Game() {
 
 void Game::Launch() {
     InitializeMap();
-    InitializeWalkers(1);	//TODO
+    InitializeWalkers(1);
     //eventManager_.Initialize(players_, playerKeySettings_);
     MainLoop();
     
@@ -30,7 +30,6 @@ void Game::MainLoop() {
         HandleEvents();
         Update();
         Draw();
-
     }
     Shutdown();
 }
@@ -52,8 +51,6 @@ void Game::Draw() {
     DrawMap();
     DrawWalkers();
     window_.display();
-    
-    
 }
 
 void Game::Shutdown() {
@@ -124,9 +121,8 @@ void Game::InitializeWalkers(size_t playerCount) {
 
 
 void Game::UpdateWalkers() {
-    for (auto player : players_) {
-            player->getActor()->update(static_cast<float>(elapsedTime_.asSeconds()));
-	}
+    for (auto player : players_)
+        player->getActor()->update(static_cast<float>(elapsedTime_.asSeconds()));
 	
     /*sf::Texture& texture = graphicsManager_.getTexture("sand.png");
     
