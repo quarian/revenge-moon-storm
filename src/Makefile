@@ -6,6 +6,7 @@ SFML_ALT=-lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system -lsfml-network
 DIRS=-I .
 SOURCES=Direction.cc MapBlock.cc Map.cc Walker.cc Actor.cc AIActor.cc ControlledActor.cc Player.cc Item.cc Inventory.cc Game.cc GraphicsManager.cc EventManager.cc WindowManager.cc AnimatedSprite.cc Animation.cc AStar.cc KeyInterface.cc
 MAIN=main.cc
+RPATH=-Wl,-rpath=./lib/
 TESTS=WalkerTest.cc DirectionTest.cc ActorTest.cc ControlledActorTest.cc PlayerTest.cc MapTest.cc InventoryTest.cc GameTest.cc AStarTest.cc testMain.cc
 TMP=$(SOURCES:.cc=.o)
 SOURCES_O=$(TMP:.cpp=.o)
@@ -16,7 +17,7 @@ TEST_EXECUTABLE=tests
 
 all: $(SOURCES) $(MAIN) $(EXECUTABLE)
 $(EXECUTABLE): $(SOURCES_O) $(MAIN_O)
-	$(CC) $(SOURCES_O) $(MAIN_O) $(LDFLAGS) -o $@ $(SFML)
+	$(CC) $(SOURCES_O) $(MAIN_O) $(LDFLAGS) -o $@ $(SFML) $(RPATH)
 
 alt: $(SOURCES) $(MAIN) $(EXECUTABLE)alt
 $(EXECUTABLE)alt: $(SOURCES_O) $(MAIN_O)
@@ -29,7 +30,7 @@ clean:
 	rm -f $(SOURCES_O) $(TESTS_O) $(MAIN_O) $(EXECUTABLE) $(TESTS_EXECUTABLE)
 
 $(TEST_EXECUTABLE): $(SOURCES_O) $(TESTS_O)
-	$(CC) $(SOURCES_O) $(TESTS_O) $(LDFLAGS) -o $@ $(SFML)
+	$(CC) $(SOURCES_O) $(TESTS_O) $(LDFLAGS) -o $@ $(SFML) $(RPATH)
 
 alt$(TEST_EXECUTABLE): $(SOURCES_O) $(TESTS_O)
 	$(CC) $(SOURCES_O) $(TESTS_O) $(LDFLAGS) -o $(TEST_EXECUTABLE) $(SFML_ALT)
