@@ -22,6 +22,12 @@ public:
     float x() const { return x_; }
     float y() const { return y_; }
 
+    /* Returns the angle of this direction in degrees, so that NORTH is 0
+     * degrees, EAST is 90, and so on. If the direction is zero, returns
+     * UNDEFINED_ANGLE.
+     */
+    float angle() const;
+    static constexpr float UNDEFINED_ANGLE = 1000.0f;
         
 
     /* Returns how far this is from 0.0 */

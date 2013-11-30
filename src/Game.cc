@@ -107,14 +107,10 @@ void Game::InitializeWalkers(size_t playerCount) {
     for (size_t i = 0; i!=playerCount; i++) {
     	Player* newPlayer = new Player(playerNames[i],2);
     	newPlayer->spawn(map_, map_.getBlock(i+1,i+1))->initSprite(
-    		graphicsManager_.getAnimation("walking_player"),
-    		graphicsManager_.getAnimation("walking_player"),
-    		graphicsManager_.getAnimation("walking_player"),
-    		graphicsManager_.getAnimation("walking_player"),
-    		graphicsManager_.getAnimation("walking_player"));
-    		
+                graphicsManager_.getAnimation("walking_player"));
         players_.push_back(newPlayer);
-        playerKeySettings_.push_back(PlayerKeys()); //TODO: Different key setting for each player
+        eventManager_.registerInterface(KeyInterface(newPlayer));
+        //playerKeySettings_.push_back(PlayerKeys()); //TODO: Different key setting for each player
     }
     // Other walkers
 }

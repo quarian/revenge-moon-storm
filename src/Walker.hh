@@ -28,7 +28,7 @@ public:
      *  float               movement speed (blocks per second)
      */
     Walker(Map&, MapBlock*, float);
-    virtual ~Walker();
+    virtual ~Walker() {}
 
     /* This is the "full" update function that each inheriting class must
      * implement. It takes the time since the last frame as a parameter.
@@ -58,7 +58,7 @@ public:
      *  Walking south
      *  Walking west
      */
-    void initSprite(Animation const&, Animation const&, Animation const&, Animation const&, Animation const&);
+    void initSprite(Animation const&);
 
     /* Returns this Walker's sprite. */
     AnimatedSprite& getSprite() { return sprite_; }
@@ -157,7 +157,6 @@ protected:
      * The Walker holds four Animation objects (walking north, walking east,
      * walking south, walking west) and a sprite.
      */
-    std::map<Direction, Animation*> animations_;
     AnimatedSprite sprite_;
 
     /* Updates the sprite's position and frame. */
@@ -165,8 +164,6 @@ protected:
 
     /* Updates the sprite's animation based on its facing etc. */
     void alignSprite();
-
-    void clearAnimations();
 };
 
 #endif

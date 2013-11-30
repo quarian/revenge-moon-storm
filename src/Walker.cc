@@ -14,33 +14,16 @@ Walker::Walker(Map& map, MapBlock* location, float speed) :
 }
 
 
-Walker::~Walker() {
-    clearAnimations();
-}
-
-
 void Walker::update(float dt) {
     updateLocation(dt);
     updateSprite(dt);
 }
 
 
-void Walker::initSprite(
-        Animation const& animationI,
-        Animation const& animationN,
-        Animation const& animationE,
-        Animation const& animationS,
-        Animation const& animationW
-    ) {
-    clearAnimations();
-
-    animations_[Direction::NULLDIR] = new Animation(animationI);
-    animations_[Direction::NORTH] = new Animation(animationN);
-    animations_[Direction::EAST] = new Animation(animationE);
-    animations_[Direction::SOUTH] = new Animation(animationS);
-    animations_[Direction::WEST] = new Animation(animationW);
-
-    alignSprite();
+void Walker::initSprite(Animation const& animation) {
+    sprite_.setAnimation(animation);
+    sprite_.setOrigin(8,8);
+    updateSprite(0.0);
 }
 
 
@@ -119,23 +102,13 @@ void Walker::updateSprite(float dt) {
 
     float xAbs = location_->x_ + dPos_.x();
     float yAbs = location_->y_ + dPos_.y();
-    sprite_.setPosition(xAbs * 16, yAbs * 16);
+    sprite_.setPosition(8 + xAbs*16, 8 + yAbs*16);
 }
 
 
 void Walker::alignSprite() {
-    if (!animations_.empty()) {
-        Animation const* animation;
-        if (target_) animation = animations_[facing_];
-        else animation = animations_[facing_];
-
-        if (sprite_.getAnimation() != animation)
-            sprite_.setAnimation(*animation);
+    if (sprite_.getAnimation()) {
+        if (facing_.angle() != Direction::UNDEFINED_ANGLE)
+            sprite_.setRotation(facing_.angle() + 90.0);
     }
-}
-
-
-void Walker::clearAnimations() {
-    for (auto a : animations_) delete a.second;
-    animations_.clear();
 }

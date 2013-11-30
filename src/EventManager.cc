@@ -2,13 +2,23 @@
 
 
 void EventManager::Initialize(std::vector<Player*>& players, std::vector<PlayerKeys>& keys) {
-    for (size_t i=0; i<players.size(); i++) {
-        Triple<Player, PlayerKeys, std::vector<bool>>
-        triple(*players[i], keys[i], std::vector<bool>(7,false));
-        players_.push_back(triple);
-    }
-    
+    //for (size_t i=0; i<players.size(); i++) {
+    //    Triple<Player, PlayerKeys, std::vector<bool>>
+    //    triple(*players[i], keys[i], std::vector<bool>(7,false));
+    //    players_.push_back(triple);
+    //}
 }
+
+
+void EventManager::registerInterface(KeyInterface interface) {
+    keyInterfaces_.push_back(interface);
+}
+
+
+void EventManager::unregisterInterface(KeyInterface interface) {
+    keyInterfaces_.remove(interface);
+}
+
 
 void EventManager::EventLoop(sf::Event& event) {
     // In game event handling
@@ -33,57 +43,60 @@ void EventManager::EventLoop(sf::Event& event) {
 }
 
 void EventManager::PlayerEvents(sf::Event& event) {
-    for (size_t i = 0; i<players_.size(); i++) {
-        
-        Player& player = players_[i].first;
-        PlayerKeys& keys = players_[i].second;
-        std::vector<bool>& ActiveInput = players_[i].third;
-        
-        size_t inputNum=0;
-        
-        // NORTH
-        if (event.type == sf::Event::KeyPressed && event.key.code == keys.north_ && !ActiveInput[inputNum]) {
-            player.keyDown(Direction::NORTH);
-            ActiveInput[inputNum]=true;
-        }
-        if (event.type == sf::Event::KeyReleased && event.key.code == keys.north_  && ActiveInput[inputNum]) {
-            player.keyUp(Direction::NORTH);
-            ActiveInput[inputNum]=false;
-        }
-        inputNum++;
-        // SOUTH
-        if (event.type == sf::Event::KeyPressed && event.key.code == keys.south_  && !ActiveInput[inputNum]) {
-            player.keyDown(Direction::SOUTH);
-            ActiveInput[inputNum]=true;
-        }
-        if (event.type == sf::Event::KeyReleased && event.key.code == keys.south_  && ActiveInput[inputNum]) {
-            player.keyUp(Direction::SOUTH);
-            ActiveInput[inputNum]=false;
-        }
-        inputNum++;
-        // WEST
-        if (event.type == sf::Event::KeyPressed && event.key.code == keys.west_  && !ActiveInput[inputNum]) {
-            player.keyDown(Direction::WEST);
-            ActiveInput[inputNum]=true;
-        }
-        if (event.type == sf::Event::KeyReleased && event.key.code == keys.west_  && ActiveInput[inputNum]) {
-            player.keyUp(Direction::WEST);
-            ActiveInput[inputNum]=false;
-        }
-        inputNum++;
-        // EAST
-        if (event.type == sf::Event::KeyPressed && event.key.code == keys.east_  && !ActiveInput[inputNum]) {
-            player.keyDown(Direction::EAST);
-            ActiveInput[inputNum]=true;
-        }
-        if (event.type == sf::Event::KeyReleased && event.key.code == keys.west_  && ActiveInput[inputNum]) {
-            player.keyUp(Direction::EAST);
-            ActiveInput[inputNum]=false;
-        }
-        inputNum++;
+    for (auto interface : keyInterfaces_)
+        interface.parse(event);
 
-        // Other player control handling, use, nextWeapon etc.
-    }
+    //for (size_t i = 0; i<players_.size(); i++) {
+    //    
+    //    Player& player = players_[i].first;
+    //    PlayerKeys& keys = players_[i].second;
+    //    std::vector<bool>& ActiveInput = players_[i].third;
+    //    
+    //    size_t inputNum=0;
+    //    
+    //    // NORTH
+    //    if (event.type == sf::Event::KeyPressed && event.key.code == keys.north_ && !ActiveInput[inputNum]) {
+    //        player.keyDown(Direction::NORTH);
+    //        ActiveInput[inputNum]=true;
+    //    }
+    //    if (event.type == sf::Event::KeyReleased && event.key.code == keys.north_  && ActiveInput[inputNum]) {
+    //        player.keyUp(Direction::NORTH);
+    //        ActiveInput[inputNum]=false;
+    //    }
+    //    inputNum++;
+    //    // SOUTH
+    //    if (event.type == sf::Event::KeyPressed && event.key.code == keys.south_  && !ActiveInput[inputNum]) {
+    //        player.keyDown(Direction::SOUTH);
+    //        ActiveInput[inputNum]=true;
+    //    }
+    //    if (event.type == sf::Event::KeyReleased && event.key.code == keys.south_  && ActiveInput[inputNum]) {
+    //        player.keyUp(Direction::SOUTH);
+    //        ActiveInput[inputNum]=false;
+    //    }
+    //    inputNum++;
+    //    // WEST
+    //    if (event.type == sf::Event::KeyPressed && event.key.code == keys.west_  && !ActiveInput[inputNum]) {
+    //        player.keyDown(Direction::WEST);
+    //        ActiveInput[inputNum]=true;
+    //    }
+    //    if (event.type == sf::Event::KeyReleased && event.key.code == keys.west_  && ActiveInput[inputNum]) {
+    //        player.keyUp(Direction::WEST);
+    //        ActiveInput[inputNum]=false;
+    //    }
+    //    inputNum++;
+    //    // EAST
+    //    if (event.type == sf::Event::KeyPressed && event.key.code == keys.east_  && !ActiveInput[inputNum]) {
+    //        player.keyDown(Direction::EAST);
+    //        ActiveInput[inputNum]=true;
+    //    }
+    //    if (event.type == sf::Event::KeyReleased && event.key.code == keys.west_  && ActiveInput[inputNum]) {
+    //        player.keyUp(Direction::EAST);
+    //        ActiveInput[inputNum]=false;
+    //    }
+    //    inputNum++;
+
+    //    // Other player control handling, use, nextWeapon etc.
+    //}
 }
 
 //bool EventManager::StoreEventLoop(sf::Event& event) {

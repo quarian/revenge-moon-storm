@@ -23,7 +23,9 @@ public:
      *  Key                 key to USE ITEM
      *  Key                 key to CYCLE ITEM
      */
-    KeyInterface(Player&, Key=KB::Up, Key=KB::Left, Key=KB::Right, Key=KB::Down, Key=KB::L, Key=KB::K);
+    KeyInterface(Player*, Key=KB::Up, Key=KB::Left, Key=KB::Right, Key=KB::Down, Key=KB::L, Key=KB::K);
+    
+    bool operator==(KeyInterface const& other) const { return player_ == other.player_; }
 
 
     /* Parse the event and, if it's relevant to the owning player, pass the
@@ -31,8 +33,13 @@ public:
     void parse(sf::Event&);
 
 
+    /* Getter and setter for the associated player. */
+    Player* getPlayer() { return player_; }
+    void setPlayer(Player* player) { player_ = player; }
+
+    
 private:
-    Player& player_;
+    Player* player_;
 
     Key up_;
     Key left_;

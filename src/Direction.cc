@@ -1,5 +1,15 @@
 #include "Direction.hh"
 
+
+float Direction::angle() const {
+    if (y_ > 0) return 0.0;
+    if (x_ > 0) return 90.0;
+    if (y_ < 0) return 180.0;
+    if (y_ < 0) return 270.0;
+    return UNDEFINED_ANGLE;
+}
+
+
 bool Direction::operator<(Direction const& other) const {
     if (x_ < other.x_) return true;
     else if (y_ < other.y_) return true;
