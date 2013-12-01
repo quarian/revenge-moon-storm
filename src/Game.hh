@@ -50,6 +50,7 @@ private:
     GraphicsManager graphicsManager_;
     
     bool isRunning_;
+    bool isPaused_;
     std::vector<sf::Sprite> mapSprites_;
     std::vector<sf::Sprite> playerSprites_;
     std::vector<Player*> players_;

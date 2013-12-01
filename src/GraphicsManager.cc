@@ -12,6 +12,7 @@ void GraphicsManager::InitializeGraphics(std::string rootPath) {
         std::cout << "Font load from "<<rootPath_+"/fonts/sansation.ttf failed"<<std::endl;
         return;
     }
+
     std::cout<<"Loading textures to textures_[filename.png]"<<std::endl;
     //Load from /blocks
     loadTexture("Strong.png");
@@ -37,6 +38,11 @@ void GraphicsManager::InitializeGraphics(std::string rootPath) {
 	loadTexture("background_grid.png");
 	
 	// Create animations
+	Animation standingPlayer;
+	standingPlayer.setSpriteSheet(getTexture("player_spritesheet.png"));
+    standingPlayer.addFrame(sf::IntRect(0,0,16,16));
+    animations_["standing_player"] = standingPlayer;
+	
     Animation walkingPlayer;
     walkingPlayer.setSpriteSheet(getTexture("player_spritesheet.png"));
 
@@ -68,8 +74,25 @@ void GraphicsManager::InitializeGraphics(std::string rootPath) {
 
 void GraphicsManager::frontToEnd() {
 	pathOptions_.push_back(pathOptions_.front());
-    pathOptions_.pop_front();
+	pathOptions_.pop_front();
 }
+
+sf::Color GraphicsManager::getPlayerColor() {
+	    std::vector<sf::Color> playerColors = {
+	    			sf::Color(154,205,50),
+					sf::Color(238,64,0),
+					sf::Color(154,205,50),
+					sf::Color(79,148,205),
+					sf::Color(180,82,205),
+					sf::Color(0,205,205),
+					sf::Color(205,205,0)};
+		if (playerColorsIndex_+1<playerColors.size()) playerColorsIndex_=0; // Looping through the same colors if more than 
+		sf::Color retColor = playerColors[playerColorsIndex_];
+		playerColorsIndex_++;
+		return retColor;
+}
+
+
 
 //void GraphicsManager::createRotated(sf::Texture orginal) {
 //}

@@ -12,28 +12,30 @@
 
 class GraphicsManager {
 public:
-    GraphicsManager(WindowManager& w, sf::Vector2f& blockSize, std::map<std::string, sf::Texture>& textures, std::map<std::string, Animation>& animations) : window_(w), blockSize_(blockSize), textures_(textures) , animations_(animations) { }
+    GraphicsManager(WindowManager& w, sf::Vector2f& blockSize, std::map<std::string, sf::Texture>& textures,
+    				std::map<std::string, Animation>& animations) :
+						 	window_(w),
+						 	blockSize_(blockSize),
+						 	textures_(textures),
+						 	animations_(animations),
+						 	playerColorsIndex_(0) { }
+
+    // Loads all predefined textures and creates animations
+    void InitializeGraphics(std::string rootPath);
     
-    /*AnimatedSprite& getAnimatedSprite(std::string name) {
-        return animatedSprites_[name];
-    }
-    sf::Sprite& getSprite(std::string name) {
-        return sprites_[name];
-    }
-    sf::Text getText(std::string name) {
-        return texts_[name];
-    }*/
-    
-    void setTexture(sf::Sprite&, std::string );
-    
+    // Returns the texture named with the input parameter filename (e.g. texture.png), 
+    // loads it from the  graphics folder if it isn't yet initialized.
     sf::Texture& getTexture(std::string filename);
+    
+    // Returns the animation with the key name.
     Animation const& getAnimation(std::string name);
     
-    void setSpritePosition(std::string name, int x, int y);
-    void setAnimatedSpritePosition(std::string name, int x, int y);
+    // Returns new color for each player
+    sf::Color getPlayerColor();
+    
     void setTextPosition(std::string name, int x, int y);
     
-    void InitializeGraphics(std::string rootPath);
+
     
 private:
     WindowManager& window_;
@@ -48,6 +50,7 @@ private:
     std::map<std::string, sf::Texture>& textures_;   
     std::map<std::string, Animation>& animations_;
     sf::Font font_;
+    size_t playerColorsIndex_;
     
     //std::map<std::string, sf::Sprite> sprites_;
     //std::map<std::string, AnimatedSprite> animatedSprites_;

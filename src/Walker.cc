@@ -20,8 +20,9 @@ void Walker::update(float dt) {
 }
 
 
-void Walker::initSprite(Animation const& animation) {
+void Walker::initSprite(Animation const& animation, sf::Color color) {
     sprite_.setAnimation(animation);
+    sprite_.setColor(color);
     sprite_.setOrigin(8,8);
     updateSprite(0.0);
 }

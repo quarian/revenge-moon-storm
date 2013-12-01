@@ -16,7 +16,11 @@
 class EventManager {
 public:
     
-    EventManager(WindowManager& w, bool& isRunning) : window_(w), menuKeys_(MenuKeys()), isRunning_(isRunning) {}
+    EventManager(WindowManager& w, bool& isRunning, bool& isPaused) : 
+    	window_(w), 
+    	menuKeys_(MenuKeys()), 
+    	isRunning_(isRunning), 
+    	isPaused_(isPaused) {}
     
     void Initialize(std::vector<Player*>& players, std::vector<PlayerKeys>& keys);
 
@@ -40,7 +44,7 @@ private:
     std::list<KeyInterface> keyInterfaces_;
     MenuKeys menuKeys_;
     bool& isRunning_;
-    bool isPaused_;
+    bool& isPaused_;
 
 };
 

@@ -7,6 +7,7 @@ void EventManager::Initialize(std::vector<Player*>& players, std::vector<PlayerK
     //    triple(*players[i], keys[i], std::vector<bool>(7,false));
     //    players_.push_back(triple);
     //}
+    
 }
 
 

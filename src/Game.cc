@@ -1,8 +1,9 @@
 #include "Game.hh"
 
-Game::Game() : eventManager_(window_, isRunning_), graphicsManager_(window_,blockSize_,textures_,animations_), map_(Map(this)) {
+Game::Game() : eventManager_(window_, isRunning_,isPaused_), graphicsManager_(window_,blockSize_,textures_,animations_), map_(Map(this)) {
     rootPath_ = ".";
     isRunning_ = true;
+    isPaused_= false;
     window_.launchWindow();
     eventManager_.Initialize(players_, playerKeySettings_);
     graphicsManager_.InitializeGraphics(rootPath_);
@@ -29,6 +30,7 @@ void Game::MainLoop() {
     while (window_.isOpen() && isRunning_) {
     	elapsedTime_=clock_.restart();
         HandleEvents();
+        if (isPaused_) continue;
         Update();
         Draw();
     }
@@ -112,11 +114,21 @@ void Game::InitializeWalkers(size_t playerCount) {
     for (size_t i = 0; i!=playerCount; i++) {
     	Player* newPlayer = new Player(playerNames[i],2);
     	newPlayer->spawn(map_, map_.getBlock(i+1,i+1))->initSprite(
-                graphicsManager_.getAnimation("walking_player"));
+                graphicsManager_.getAnimation("walking_player"), graphicsManager_.getPlayerColor());
         players_.push_back(newPlayer);
         eventManager_.registerInterface(KeyInterface(newPlayer));
         //playerKeySettings_.push_back(PlayerKeys()); //TODO: Different key setting for each player
     }
+    /*    
+     float AICount = 3;
+     float AISpeed = 1;
+     float AIDigPower = 1;
+     float AIDamageResistance = 0.5;
+    for (size_t i = 0; i!=AICount; i++) {
+    	 AIActor* newAI = new AIActor(map_, map_.map_.getBlock(i+3,i+3)), AISpeed, AIDigPower, int=100, AIDamageResistance, Inventory* =nullptr);
+    
+    }
+    */
     // Other walkers
 }
 

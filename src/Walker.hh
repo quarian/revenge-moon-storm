@@ -58,7 +58,7 @@ public:
      *  Walking south
      *  Walking west
      */
-    void initSprite(Animation const&);
+    void initSprite(Animation const&, sf::Color);
 
     /* Returns this Walker's sprite. */
     AnimatedSprite& getSprite() { return sprite_; }
