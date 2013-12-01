@@ -50,6 +50,8 @@ void MapBlock::clear() {
 
 void MapBlock::weaken(float dmg) {
     if (dmg > terrain_.toughness)
+        terrain_.raze();
+    else
         terrain_.takeDamage(dmg);
 }
 
