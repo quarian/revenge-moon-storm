@@ -1,12 +1,16 @@
 #include "Game.hh"
 
-Game::Game() : eventManager_(window_, isRunning_,isPaused_), graphicsManager_(window_,blockSize_,textures_,animations_), map_(Map(this)) {
+Game::Game() : eventManager_(window_, isRunning_,isPaused_),
+               graphicsManager_(window_,blockSize_,textures_,animations_),
+               terrainManager_(graphicsManager_),
+               map_(Map(this)) {
     rootPath_ = ".";
     isRunning_ = true;
     isPaused_= false;
     window_.launchWindow();
     eventManager_.Initialize(players_, playerKeySettings_);
     graphicsManager_.InitializeGraphics(rootPath_);
+    terrainManager_.init("terrain.cfg");
     background_.setTexture(graphicsManager_.getTexture("background_grid.png"));
 }
 
@@ -68,7 +72,7 @@ void Game::Shutdown() {
 
 void Game::InitializeMap() {
     std::cout << "loading map from: "<< rootPath_<<"/map.txt"<<std::endl;
-    map_.loadFromFile(rootPath_+"/map64.txt");
+    map_.loadFromFile(rootPath_+"/maps/foo.map", terrainManager_);
     //map_.printMap();
     mapWidth_ = map_.getWidth();
     mapHeight_ = map_.getHeight();
@@ -78,23 +82,32 @@ void Game::InitializeMap() {
 }
 
 void Game::UpdateMap() {
-    sf::Texture& Indestructible = graphicsManager_.getTexture("Indestructible.png");
-    sf::Texture& Strong = graphicsManager_.getTexture("Strong.png");
-    sf::Texture& Medium = graphicsManager_.getTexture("Medium.png");
-    sf::Texture& Weak = graphicsManager_.getTexture("Weak.png");
     for (size_t x=0; x!=mapWidth_; x++) {
         for (size_t y=0; y!=mapHeight_; y++) {
-            std::string blockContent = map_.getBlock(x, y)->content_;
-            if (blockContent=="#") {
-                sf::Sprite block;
-                if (map_.getBlock(x, y)->toughness_) {
-                    block.setTexture(Indestructible);
-                    block.setPosition(x*blockSize_.x, y*blockSize_.y);
-                    mapSprites_.push_back(block);
-                }
-            }
+            sf::Sprite block;
+            block.setTexture(map_.getBlock(x,y)->getTexture());
+            block.setPosition(x*blockSize_.x, y*blockSize_.y);
+            mapSprites_.push_back(block);
         }
     }
+    
+    //sf::Texture& Indestructible = graphicsManager_.getTexture("Indestructible.png");
+    //sf::Texture& Strong = graphicsManager_.getTexture("Strong.png");
+    //sf::Texture& Medium = graphicsManager_.getTexture("Medium.png");
+    //sf::Texture& Weak = graphicsManager_.getTexture("Weak.png");
+    //for (size_t x=0; x!=mapWidth_; x++) {
+    //    for (size_t y=0; y!=mapHeight_; y++) {
+    //        std::string blockContent = map_.getBlock(x, y)->content_;
+    //        if (blockContent=="#") {
+    //            sf::Sprite block;
+    //            if (map_.getBlock(x, y)->toughness_) {
+    //                block.setTexture(Indestructible);
+    //                block.setPosition(x*blockSize_.x, y*blockSize_.y);
+    //                mapSprites_.push_back(block);
+    //            }
+    //        }
+    //    }
+    //}
 }
 void Game::DrawMap() {
     for (size_t i=0; i!=mapSprites_.size(); i++) {

@@ -17,7 +17,7 @@ Map::Map(const Map& other) : game_(other.game_)
 {
 }
 
-void Map::loadFromFile(std::string filename) {
+void Map::loadFromFile(std::string filename, TerrainManager const& tmgr) {
     std::cout << "Loading from file: " << filename << std::endl;
     std::ifstream infile(filename);
     std::string line;
@@ -32,7 +32,8 @@ void Map::loadFromFile(std::string filename) {
         grid_.push_back(new_row);
         for (auto iter = line_as_string.begin(); iter != line_as_string.end(); iter++) {
             std::string content(1, *iter);
-            MapBlock mb(column, row, content, *this);
+            Terrain terrain(tmgr[content[0]]);
+            MapBlock mb(column, row, content, *this, terrain);
             column++;
             grid_[row].push_back(mb);
         }

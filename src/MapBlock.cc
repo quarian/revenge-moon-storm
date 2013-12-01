@@ -7,13 +7,10 @@
 //const unsigned MapBlock::STRONG = 3;
 //const unsigned MapBlock::INDESTRUCTIBLE = 10;
 
-MapBlock::MapBlock(int x, int y, std::string content, Map& map, float toughness) : x_(x), y_(y), content_(content), map_(map), toughness_(toughness)
-{
-    if (content_.compare("#") == 0) toughness_ = INDESTRUCTIBLE;
-    else if (content.compare("s") == 0) toughness_ = 10;
-}
+MapBlock::MapBlock(int x, int y, std::string content, Map& map, Terrain terrain) : x_(x), y_(y), content_(content), map_(map), terrain_(terrain)
+{}
 
-MapBlock::MapBlock(const MapBlock& other) : x_(other.x_), y_(other.y_), content_(other.content_), map_(other.map_), toughness_(other.toughness_) {}
+MapBlock::MapBlock(const MapBlock& other) : x_(other.x_), y_(other.y_), content_(other.content_), map_(other.map_), terrain_(other.terrain_) {}
 
 MapBlock MapBlock::operator=(const MapBlock& other) {
     if (this == &other) return *this;
@@ -21,16 +18,16 @@ MapBlock MapBlock::operator=(const MapBlock& other) {
     y_ = other.y_;
     content_ = other.content_;
     map_ = other.map_;
-    toughness_ = other.toughness_;
+    terrain_ = other.terrain_;
     return *this;
 }
 
 bool MapBlock::isPassable() const {
-    return toughness_ == NONE;
+    return terrain_.type->passable;
 }
 
 bool MapBlock::isDiggable() const {
-    return !isPassable() && toughness_ != INDESTRUCTIBLE;
+    return terrain_.type->diggable;
 }
 
 MapBlock* MapBlock::getBlock(Direction direction) const {
@@ -48,12 +45,12 @@ void MapBlock::exit(const Walker* w) {
 }
 
 void MapBlock::clear() {
-    if (toughness_ != INDESTRUCTIBLE) toughness_ = NONE;
+    terrain_.raze();
 }
 
 void MapBlock::weaken(float dmg) {
-    if (toughness_ != NONE && toughness_ != INDESTRUCTIBLE)
-        toughness_ = fmin(toughness_ - dmg, NONE);
+    if (dmg > terrain_.toughness)
+        terrain_.takeDamage(dmg);
 }
 
 void MapBlock::collect(Inventory* inventory) {

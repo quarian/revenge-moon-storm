@@ -1,20 +1,25 @@
 #include "Terrain.hh"
 
 
-TerrainManager::TerrainManager(std::string const& filename, GraphicsManager* gfxmgr) {
+void TerrainManager::init(std::string const& filename) {
     std::ifstream ifs(filename, std::ios::in);
     if (!ifs) throw InvalidFilenameException(filename);
-    TerrainManager(ifs, gfxmgr);
+    init(ifs);
 }
 
 
-TerrainManager::TerrainManager(std::istream& is, GraphicsManager* gfxmgr) {
-    gfxmgr_ = gfxmgr;
+void TerrainManager::init(std::istream& is) {
     do {
         std::string s;
         std::getline(is, s);
         parse(s);
     } while (!is.eof());
+}
+
+
+TerrainManager::~TerrainManager() {
+    for (auto t : terrains_)
+        delete t.second;
 }
 
 
@@ -66,22 +71,35 @@ void TerrainManager::parse(std::string& s, std::ostream& err) {
             err << "TerrainManager: terrain \"" + signRaw + "\" can't find degeneration target \"" + targetRaw + "\"" << std::endl;
             return;
         }
-        terrains_.emplace(signifier, TerrainType(signifier, gfxmgr_->getTexture(graphic), initStr, degStr, &it->second));
+        terrains_[signifier] = new TerrainType(signifier, gfxmgr_.getTexture(graphic), initStr, degStr, it->second);
     } else {
-        terrains_.emplace(signifier, TerrainType(signifier, gfxmgr_->getTexture(graphic), initStr, degStr, nullptr));
+        terrains_[signifier] = new TerrainType(signifier, gfxmgr_.getTexture(graphic), initStr, degStr, nullptr);
     }
 }
 
 
-float TerrainManager::Terrain::takeDamage(float dmg) {
-    return 0.0;
+TerrainManager::TerrainType const& TerrainManager::operator[] (char c) const {
+    auto it = terrains_.find(c);
+    if (it != terrains_.end()) 
+        return *it->second;
+    else
+        throw NoSuchTerrainException(c);
 }
 
 
-TerrainManager::TerrainType& TerrainManager::operator[] (char c) {
-    auto it = terrains_.find(c);
-    if (it != terrains_.end()) 
-        return it->second;
-    else
-        throw NoSuchTerrainException(c);
+float Terrain::takeDamage(float dmg) {
+    if (type->diggable) {
+        toughness -= dmg;
+        while (toughness < type->degenerationToughness) {
+            type = type->degenerationTarget;
+            if (!type->diggable) break;
+        }
+    }
+    return toughness;
+}
+
+
+void Terrain::raze() {
+    while (type->diggable)
+        type = type->degenerationTarget;
 }

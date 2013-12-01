@@ -48,6 +48,7 @@ private:
     WindowManager window_;
     EventManager eventManager_;
     GraphicsManager graphicsManager_;
+    TerrainManager terrainManager_;
     
     bool isRunning_;
     bool isPaused_;

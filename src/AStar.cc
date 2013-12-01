@@ -15,7 +15,7 @@ float AStar::SimpleCostFunction::operator()(MapBlock const* const mb) const {
 
 float AStar::WalkingDiggingCostFunction::operator()(MapBlock const* const mb) const {
     if (mb->isPassable()) return walkCost;
-    else if (mb->isDiggable()) return digCostBase + digCost * mb->toughness_;
+    else if (mb->isDiggable()) return digCostBase + digCost * mb->getToughness();
     return AStar::INF;
 }
 

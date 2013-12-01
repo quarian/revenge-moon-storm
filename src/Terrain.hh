@@ -1,3 +1,6 @@
+#ifndef MB2_TERRAIN_HH
+#define MB2_TERRAIN_HH
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <fstream>
@@ -14,20 +17,23 @@ public:
     class NoSuchTerrainException;
 
     struct TerrainType;
-    struct Terrain;
 
     /* Constructor: reads terrain data from a file. */
-    TerrainManager(std::string const&, GraphicsManager*);
-    TerrainManager(std::istream&, GraphicsManager*);
+    TerrainManager(GraphicsManager& gfxmgr) : gfxmgr_(gfxmgr) {}
+
+    void init(std::string const&);
+    void init(std::istream&);
+
+    ~TerrainManager();
 
     void parse(std::string&, std::ostream& =std::cerr);
 
     /* indexing operator, for accessing TerrainType data by character */
-    TerrainType& operator[] (char);
+    TerrainType const& operator[] (char) const;
 
 private:
-    std::map<char, TerrainType> terrains_;
-    GraphicsManager* gfxmgr_;
+    std::map<char, TerrainType*> terrains_;
+    GraphicsManager& gfxmgr_;
 };
 
 
@@ -46,28 +52,37 @@ struct TerrainManager::TerrainType {
               texture(texture),
               initialToughness(initStr),
               degenerationToughness(degStr),
-              degenerationTarget(target) {
+              degenerationTarget(target),
+              diggable(degenerationTarget != nullptr),
+              passable(initialToughness == 0) {
 }
 
-    char signifier;
-    sf::Texture& texture;
-    float initialToughness;
-    float degenerationToughness;
+    const char signifier;
+    const sf::Texture& texture;
+    const float initialToughness;
+    const float degenerationToughness;
     TerrainType const* degenerationTarget;
+
+    const bool diggable;
+    const bool passable;
 };
 
 
 /* Every MapBlock will hold one of these structs to keep track of the diggable
  * terrain.
  */
-struct TerrainManager::Terrain {
-    Terrain(TerrainType const& tt) :
-            type(tt), toughness(tt.initialToughness) {}
+struct Terrain {
+    Terrain(TerrainManager::TerrainType const& tt) :
+            type(&tt), toughness(tt.initialToughness) {}
     
-    TerrainType const& type;
+    TerrainManager::TerrainType const* type;
     float toughness;
 
+    /* Take "digging-type" damage. raze() "digs out" the square, that is,
+     * degenerates the terrain type until it can't be degenerated any further.
+     */
     float takeDamage(float);
+    void raze();
 };
 
 
@@ -91,3 +106,5 @@ public:
             : e("attempted to access nonexisting terrain specifier " + c) {}
     std::string e;
 };
+
+#endif

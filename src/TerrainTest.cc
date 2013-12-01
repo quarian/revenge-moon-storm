@@ -37,6 +37,20 @@ bool TerrainTest1(std::ostream& os) {
 
     os << " OK" << std::endl;
 
+    /* SECTION 2 */
+    os << "TEST 2: Testing Terrain class...";
+
+    Terrain t(terramgr[' ']);
+    assert (t.toughness == 0);
+    assert (t.type == &terramgr[' ']);
+    t.raze();
+    assert (t.toughness == 0);
+    assert (t.type == &terramgr[' ']);
+    t.takeDamage(10.0f);
+    assert (t.toughness == 0);
+    assert (t.type == &terramgr[' ']);
+
+    os << " OK" << std::endl;
 
     return true;
 }

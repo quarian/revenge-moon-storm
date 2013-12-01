@@ -9,6 +9,7 @@
 
 #include "Direction.hh"
 #include "MapBlock.hh"
+#include "Terrain.hh"
 
 // Note that Map coordinates (0,0) are at the upper left hand corner.
 
@@ -23,7 +24,7 @@ class Map {
         Map(const Game* game);
         Map& operator=(const Map& other);
         Map(const Map& other);
-        void loadFromFile(std::string filename);
+        void loadFromFile(std::string filename, TerrainManager const&);
         void printMap();
         MapBlock* getBlock(int x, int y);
         MapBlock* getBlock(int x, int y, Direction direction);

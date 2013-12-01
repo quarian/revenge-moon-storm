@@ -4,8 +4,11 @@
 #include <string>
 #include <vector>
 #include <algorithm> // for find_if
+#include <SFML/Graphics.hpp>
+
 #include "Map.hh"
 #include "Inventory.hh"
+#include "Terrain.hh"
 
 // Forward declaration
 class Walker;
@@ -16,7 +19,7 @@ class Actor;
 
 class MapBlock {
     public:
-        MapBlock(int x, int y, std::string content, Map& map, float toughness = 0);
+        MapBlock(int x, int y, std::string content, Map& map, Terrain terrain);
         ~MapBlock() {};
         MapBlock(const MapBlock& other);
         MapBlock operator=(const MapBlock& other);
@@ -44,24 +47,23 @@ class MapBlock {
         void clear();
         void weaken(float);
         void takeDamage(int amount);
-        float getToughness() const { return toughness_; }
+        float getToughness() const { return terrain_.toughness; }
 
+        sf::Texture const& getTexture() const { return terrain_.type->texture; }
         
         //static const unsigned NONE;
         //static const unsigned WEAK;
         //static const unsigned MEDIUM;
         //static const unsigned STRONG;
         //static const unsigned INDESTRUCTIBLE;
-        static constexpr float NONE = 0.0;
-        static constexpr float INDESTRUCTIBLE = -100;
+        //static constexpr float NONE = 0.0;
+        //static constexpr float INDESTRUCTIBLE = -100;
 
     private:
         std::vector<Walker*> walkers_;
         std::vector<Item*> items_;
         Map& map_;
-
-    public:
-        float toughness_;
+        Terrain terrain_;
 };
 
 #endif
