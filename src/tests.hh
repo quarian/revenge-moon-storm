@@ -19,6 +19,8 @@
 
 #include "AStar.hh"
 
+#include "Terrain.hh"
+
 bool DirectionTest();
 
 bool WalkerTest1(std::ostream& =std::cout);
@@ -33,5 +35,6 @@ bool InventoryTest1(std::ostream& =std::cout);
 bool GameTest1(std::ostream& =std::cout);
 
 bool AStarTest1(std::ostream& =std::cout);
+bool TerrainTest1(std::ostream& =std::cout);
 
 #endif

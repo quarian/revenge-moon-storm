@@ -40,5 +40,9 @@ int main() {
 
     std::cout << "AStarTest1" << std::endl;
     AStarTest1();
+    std::cout << std::endl;
+
+    std::cout << "TerrainTest1" << std::endl;
+    TerrainTest1();
 }
 
