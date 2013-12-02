@@ -4,8 +4,11 @@
 #include "ControlledActor.hh"
 #include "Direction.hh"
 #include "Inventory.hh"
+#include "PlayerInterface.hh"
 
 #include <string>
+
+class PlayerInterface;
 
 class Player {
 friend bool PlayerTest1(std::ostream&);
@@ -36,6 +39,11 @@ public:
 
     void setLives(size_t lives) { lives_ = lives; }
     ControlledActor* getActor() { return avatar_; }
+
+    /* Creates and returns a new PlayerInterface to this Player. The callee
+     * assumes ownership of the dynamically created object.
+     */
+    PlayerInterface* getInterface();
 
 protected:
     float speed_;

@@ -16,11 +16,10 @@
 class EventManager {
 public:
     
-    EventManager(WindowManager& w, bool& isRunning, bool& isPaused) : 
+    EventManager(WindowManager& w, bool& isRunning) :
     	window_(w), 
-    	menuKeys_(MenuKeys()), 
-    	isRunning_(isRunning), 
-    	isPaused_(isPaused) {}
+        isRunning_(isRunning),
+    	menuKeys_(MenuKeys()) {}
 
     ~EventManager() { clearInterfaces(); }
     
@@ -52,7 +51,7 @@ private:
 
     MenuKeys menuKeys_;
     bool& isRunning_;
-    bool& isPaused_;
+    // bool& isPaused_;
 };
 
 

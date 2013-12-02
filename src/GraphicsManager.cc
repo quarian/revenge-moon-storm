@@ -1,7 +1,7 @@
 #include "GraphicsManager.hh"
 #include <iostream>
 
-void GraphicsManager::InitializeGraphics(std::string rootPath) {
+void GraphicsManager::initializeGraphics(std::string rootPath) {
     rootPath_=rootPath + "/graphics";
     pathOptions_ = {"/blocks","/players","/items","/misc"};
 

@@ -8,6 +8,8 @@
 #include "Direction.hh"
 #include "Player.hh"
 
+class Player;
+
 class PlayerInterface : public KeyInterface {
 public:
     /* Constructor

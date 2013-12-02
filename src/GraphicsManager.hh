@@ -21,7 +21,7 @@ public:
 						 	playerColorsIndex_(0) { }
 
     // Loads all predefined textures and creates animations
-    void InitializeGraphics(std::string rootPath);
+    void initializeGraphics(std::string rootPath);
     
     // Returns the texture named with the input parameter filename (e.g. texture.png), 
     // loads it from the  graphics folder if it isn't yet initialized.

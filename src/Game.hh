@@ -16,62 +16,67 @@
 #include "Map.hh"
 #include "GraphicsManager.hh"
 #include "EventManager.hh"
+#include "GameState.hh"
 
 #include "dummy_KeySettings.hh"
+
+class GameState;
 
 class Game {
 public:
     Game();
-    ~Game();
-    
-    void Launch();
-    
-    sf::Clock& getClock() { return clock_; }
+    // sf::Clock& getClock() { return clock_; }
 
-    /* Pauses or unpauses the game. Returns true if the game is now paused. */
-    bool togglePause() { return isPaused_ = !isPaused_; }
-    
-private:
-    void MainLoop();
-    void HandleEvents();
-    void Update();
-    void Draw();
-    void Shutdown();
-    
-    void InitializeMap(std::string);
-    void UpdateMap();
-    void DrawMap();
-    
-    void InitializeWalkers(size_t playerCount);
-    void UpdateWalkers();
-    void DrawWalkers();
-    
-    std::string rootPath_;
-    
-    WindowManager window_;
+    // void initialize();
+    void main();
+
     EventManager eventManager_;
     GraphicsManager graphicsManager_;
     TerrainManager terrainManager_;
-    
-    bool isRunning_;
-    bool isPaused_;
-    std::vector<sf::Sprite> mapSprites_;
-    std::vector<sf::Sprite> playerSprites_;
-    std::vector<Player*> players_;
-    std::vector<PlayerKeys> playerKeySettings_;
-    std::vector<Item> items_;
-    
-    Map map_;
-    size_t mapWidth_;
-    size_t mapHeight_;
+
     sf::Vector2f blockSize_;
+
+    void draw(sf::Drawable& sprite) { window_.draw(sprite); }
+
+private:
+    //void MainLoop();
+    void handleEvents();
+    void terminate();
+    // void Update();
+    // void Draw();
+    // void Shutdown();
+    
+    // void InitializeMap(std::string);
+    // void UpdateMap();
+    // void DrawMap();
+    // 
+    // void InitializeWalkers(size_t playerCount);
+    // void UpdateWalkers();
+    // void DrawWalkers();
+
+    GameState* stack_;
+    bool isRunning_;
+    std::string rootPath_;
+    
+    WindowManager window_;
+    
+    // bool isPaused_;
+    // std::vector<sf::Sprite> mapSprites_;
+    // std::vector<sf::Sprite> playerSprites_;
+    // std::vector<Player*> players_;
+    // std::vector<PlayerKeys> playerKeySettings_;
+    // std::vector<Item> items_;
+    
+    // Map map_;
+    // size_t mapWidth_;
+    // size_t mapHeight_;
     
     sf::Sprite background_;
     std::map<std::string, Animation> animations_;
     std::map<std::string, sf::Texture> textures_;
     
     sf::Clock clock_;
-    sf::Time elapsedTime_;
+    // sf::Time elapsedTime_;
 };
 
 #endif

@@ -23,21 +23,21 @@ void EventManager::clearInterfaces() {
 void EventManager::EventLoop(sf::Event& event) {
     // In game event handling
         if (event.type == sf::Event::Closed) {
-            isRunning_=false;
+            isRunning_ = false;
             return;
         }
-        if (event.type == sf::Event::KeyPressed && event.key.code == menuKeys_.menu_) {
-            isRunning_=false;//TODO: for now just closing the window
-            return;
-        }
-        if (event.type == sf::Event::KeyPressed && event.key.code == menuKeys_.pause_) {
-            if (!isPaused_) isPaused_ = true;
-            else isPaused_ = false;
-        }
-        if (!isPaused_) {
+        //if (event.type == sf::Event::KeyPressed && event.key.code == menuKeys_.menu_) {
+        //    isRunning_=false;//TODO: for now just closing the window
+        //    return;
+        //}
+        //if (event.type == sf::Event::KeyPressed && event.key.code == menuKeys_.pause_) {
+        //    if (!isPaused_) isPaused_ = true;
+        //    else isPaused_ = false;
+        //}
+        //if (!isPaused_) {
             PlayerEvents(event);
             // Other in game event handling here...
-        }
+        //}
 
         //}
 }

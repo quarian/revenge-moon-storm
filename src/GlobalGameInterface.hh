@@ -5,7 +5,7 @@
 #include <SFML/Window/Event.hpp>
 
 #include "KeyInterface.hh"
-#include "Game.hh"
+#include "World.hh"
 
 /* KeyInterface
  *
@@ -19,6 +19,8 @@
  * instructing it as required.
  */
 
+class World;
+
 class GlobalGameInterface : public KeyInterface {
 public:
     /* Constructor
@@ -30,7 +32,7 @@ public:
      *  Key                 key to EXIT the game
      *  Key                 key to PAUSE the game
      */
-    GlobalGameInterface(Game*, Key=KB::F10, Key=KB::Pause);
+    GlobalGameInterface(World*, Key=KB::F10, Key=KB::Pause);
 
     bool operator==(KeyInterface const& other) const; // override
 
@@ -41,7 +43,7 @@ public:
     virtual void parse(sf::Event&);
 
 private:
-    Game* game_;
+    World* world_;
 
     Key exitKey_;
     Key pauseKey_;

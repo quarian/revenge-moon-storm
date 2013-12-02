@@ -35,6 +35,8 @@ public:
     virtual void init() = 0;
     virtual void resume() = 0;
 
+    virtual void kill() { terminate(); }
+
 
 protected:
     /* The main game object, used to get access to graphics, terrain, etc.

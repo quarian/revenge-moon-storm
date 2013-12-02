@@ -60,3 +60,8 @@ bool Player::clearAvatar() {
     }
     return false;
 }
+
+
+PlayerInterface* Player::getInterface() {
+    return new PlayerInterface(this);
+}
