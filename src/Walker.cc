@@ -99,17 +99,17 @@ void Walker::knock(Direction dir) {
 
 void Walker::updateSprite(float dt) {
     alignSprite();
-    sprite_.update(sf::seconds(dt));
+    this->getSprite().update(sf::seconds(dt));
 
     float xAbs = location_->x_ + dPos_.x();
     float yAbs = location_->y_ + dPos_.y();
-    sprite_.setPosition(8 + xAbs*16, 8 + yAbs*16);
+    this->getSprite().setPosition(8 + xAbs*16, 8 + yAbs*16);
 }
 
 
 void Walker::alignSprite() {
-    if (sprite_.getAnimation()) {
+    if (this->getSprite().getAnimation()) {
         if (facing_.angle() != Direction::UNDEFINED_ANGLE)
-            sprite_.setRotation(facing_.angle());
+            this->getSprite().setRotation(facing_.angle());
     }
 }

@@ -41,6 +41,10 @@ public:
     bool isDigger() const { return digPower_ > 0; }
 
     virtual void update(float); // Overridden
+    
+    void initSprite(Animation const& walking, Animation const& digging, sf::Color);
+    
+    AnimatedSprite& getSprite();
 
 
 protected:
@@ -55,6 +59,9 @@ protected:
     int maxHealth_;
     float vulnerability_;
     Inventory* inventory_;
+    
+    //								void updateSprite(float dt);
+    AnimatedSprite spriteDigger_;
 };
 
 #endif

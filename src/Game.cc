@@ -115,8 +115,8 @@ void Game::InitializeWalkers(size_t playerCount) {
     std::vector<std::string> playerNames = {"ukko","nooa","jaakko","kulta"};
     for (size_t i = 0; i!=playerCount; i++) {
     	Player* newPlayer = new Player(playerNames[i],2);
-    	newPlayer->spawn(map_, map_.getBlock(i+1,i+1))->initSprite(
-                graphicsManager_.getAnimation("walking_player"), graphicsManager_.getPlayerColor());
+    	newPlayer->spawn(map_, map_.getBlock(i+1,i+1))->initSprite(graphicsManager_.getAnimation("walking_player"),
+                graphicsManager_.getAnimation("digging_player"), graphicsManager_.getPlayerColor());
         players_.push_back(newPlayer);
         eventManager_.registerInterface(new PlayerInterface(newPlayer));
         //playerKeySettings_.push_back(PlayerKeys()); //TODO: Different key setting for each player

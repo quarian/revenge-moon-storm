@@ -27,6 +27,7 @@ void GraphicsManager::InitializeGraphics(std::string rootPath) {
     //loadTexture("player_walking1.png");
     //loadTexture("player_walking2.png");
     loadTexture("player_spritesheet.png");
+    loadTexture("digger_spritesheet.png");
     
     //Load from  /items
 	frontToEnd();
@@ -45,12 +46,20 @@ void GraphicsManager::InitializeGraphics(std::string rootPath) {
 	
     Animation walkingPlayer;
     walkingPlayer.setSpriteSheet(getTexture("player_spritesheet.png"));
-
     walkingPlayer.addFrame(sf::IntRect(0,0,16,16));
     walkingPlayer.addFrame(sf::IntRect(16,0,16,16));
     walkingPlayer.addFrame(sf::IntRect(16*2,0,16,16));
-    
     animations_["walking_player"] = walkingPlayer;
+    
+    Animation diggingPlayer;
+    diggingPlayer.setSpriteSheet(getTexture("digger_spritesheet.png"));
+    diggingPlayer.addFrame(sf::IntRect(0,0,16,16));
+    diggingPlayer.addFrame(sf::IntRect(16,0,16,16));
+    diggingPlayer.addFrame(sf::IntRect(16*2,0,16,16));
+    diggingPlayer.addFrame(sf::IntRect(16*3,0,16,16));
+    diggingPlayer.addFrame(sf::IntRect(16*4,0,16,16));
+    diggingPlayer.addFrame(sf::IntRect(16*5,0,16,16));
+    animations_["digging_player"] = diggingPlayer;
     
     frontToEnd();
     Animation explosion1;

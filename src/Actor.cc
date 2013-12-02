@@ -42,6 +42,25 @@ void Actor::update(float dt) {
     updateSprite(dt);
 }
 
+void Actor::initSprite(Animation const& walking, Animation const& digging, sf::Color color) {
+    sprite_.setAnimation(walking);
+    sprite_.setColor(color);
+    sprite_.setOrigin(8,8);
+    
+    spriteDigger_.setAnimation(digging);
+    spriteDigger_.setColor(color);
+    spriteDigger_.setFrameTime(sf::milliseconds(90));
+    spriteDigger_.setOrigin(8,8);
+    
+    updateSprite(0.0);
+}
+
+AnimatedSprite& Actor::getSprite() {
+	if (digging_) {
+		return spriteDigger_;
+	}
+	return sprite_;
+}
 
 void Actor::dig(float dt) {
     float timeToDig = target_->getToughness() / digPower_;
