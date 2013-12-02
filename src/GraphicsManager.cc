@@ -58,7 +58,6 @@ void GraphicsManager::InitializeGraphics(std::string rootPath) {
     diggingPlayer.addFrame(sf::IntRect(16*2,0,16,16));
     diggingPlayer.addFrame(sf::IntRect(16*3,0,16,16));
     diggingPlayer.addFrame(sf::IntRect(16*4,0,16,16));
-    diggingPlayer.addFrame(sf::IntRect(16*5,0,16,16));
     animations_["digging_player"] = diggingPlayer;
     
     frontToEnd();
