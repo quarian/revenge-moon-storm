@@ -4,8 +4,8 @@
 
 
 Player::Player(std::string name, size_t lives) :
-    speed_(5.0f),
-    digPower_(8.0f),
+    speed_(10.0f),
+    digPower_(15.0f),
     resistance_(0.0f),
     lives_(lives),
     name_(name),

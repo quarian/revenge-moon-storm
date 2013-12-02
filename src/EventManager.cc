@@ -1,23 +1,22 @@
 #include "EventManager.hh"
 
 
-void EventManager::Initialize(std::vector<Player*>& players, std::vector<PlayerKeys>& keys) {
-    //for (size_t i=0; i<players.size(); i++) {
-    //    Triple<Player, PlayerKeys, std::vector<bool>>
-    //    triple(*players[i], keys[i], std::vector<bool>(7,false));
-    //    players_.push_back(triple);
-    //}
-    
-}
-
-
-void EventManager::registerInterface(KeyInterface interface) {
+void EventManager::registerInterface(KeyInterface* interface) {
     keyInterfaces_.push_back(interface);
 }
 
+// void EventManager::unregisterInterface(KeyInterface* interface) {
+//     for (auto ki : keyInterfaces_) {
+//         if (*interface == *ki) {
+//             keyInterfaces_.remove(ki);
+//         }
+//     }
+// }
 
-void EventManager::unregisterInterface(KeyInterface interface) {
-    keyInterfaces_.remove(interface);
+void EventManager::clearInterfaces() {
+    for (auto interface : keyInterfaces_)
+        delete interface;
+    keyInterfaces_.clear();
 }
 
 
@@ -45,8 +44,7 @@ void EventManager::EventLoop(sf::Event& event) {
 
 void EventManager::PlayerEvents(sf::Event& event) {
     for (auto interface : keyInterfaces_)
-        interface.parse(event);
-        //interface.readKeyboard();
+        interface->parse(event);
 
     //for (size_t i = 0; i<players_.size(); i++) {
     //    

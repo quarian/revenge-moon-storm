@@ -26,7 +26,10 @@ public:
     
     void Launch();
     
-    sf::Clock& getClock() {return clock_;}
+    sf::Clock& getClock() { return clock_; }
+
+    /* Pauses or unpauses the game. Returns true if the game is now paused. */
+    bool togglePause() { return isPaused_ = !isPaused_; }
     
 private:
     void MainLoop();
@@ -35,7 +38,7 @@ private:
     void Draw();
     void Shutdown();
     
-    void InitializeMap();
+    void InitializeMap(std::string);
     void UpdateMap();
     void DrawMap();
     

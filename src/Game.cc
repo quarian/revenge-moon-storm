@@ -1,3 +1,5 @@
+#include "PlayerInterface.hh"
+#include "GlobalGameInterface.hh"
 #include "Game.hh"
 
 Game::Game() : eventManager_(window_, isRunning_,isPaused_),
@@ -8,23 +10,24 @@ Game::Game() : eventManager_(window_, isRunning_,isPaused_),
     isRunning_ = true;
     isPaused_= false;
     window_.launchWindow();
-    eventManager_.Initialize(players_, playerKeySettings_);
     graphicsManager_.InitializeGraphics(rootPath_);
     terrainManager_.init("terrain.cfg");
+    eventManager_.registerInterface(new GlobalGameInterface(this));
     background_.setTexture(graphicsManager_.getTexture("background_grid.png"));
 }
+
 
 Game::~Game() {
     for (auto p : players_) delete p;
 }
 
 void Game::Launch() {
-    InitializeMap();
+    InitializeMap("foo2");
     InitializeWalkers(1);
-    //eventManager_.Initialize(players_, playerKeySettings_);
     MainLoop();
     
 }
+
 
   ///////////////////
  /* The Main Loop */
@@ -32,7 +35,7 @@ void Game::Launch() {
 
 void Game::MainLoop() {
     while (window_.isOpen() && isRunning_) {
-    	elapsedTime_=clock_.restart();
+    	elapsedTime_ = clock_.restart();
         HandleEvents();
         if (isPaused_) continue;
         Update();
@@ -70,16 +73,17 @@ void Game::Shutdown() {
  /* Map related functions */
 ///////////////////////////
 
-void Game::InitializeMap() {
-    std::cout << "loading map from: "<< rootPath_<<"/map.txt"<<std::endl;
-    map_.loadFromFile(rootPath_+"/maps/foo.map", terrainManager_);
+void Game::InitializeMap(std::string filename) {
+    std::string mapPath = rootPath_ + "/maps/" + filename + ".map";
+    std::cout << "loading map from: " << mapPath << std::endl;
+    map_.loadFromFile(mapPath, terrainManager_);
     //map_.printMap();
     mapWidth_ = map_.getWidth();
     mapHeight_ = map_.getHeight();
-    std::cout<<"Current map width "<< mapWidth_ <<", height "<< mapHeight_ <<" blocks."<<std::endl;
+    std::cout<<"Current map width " << mapWidth_ << ", height " << mapHeight_ << " blocks." << std::endl;
     //window_.launchWindow(mapWidth_*16, mapHeight_*16);
-    
 }
+
 
 void Game::UpdateMap() {
     for (size_t x=0; x!=mapWidth_; x++) {
@@ -91,24 +95,9 @@ void Game::UpdateMap() {
         }
     }
     
-    //sf::Texture& Indestructible = graphicsManager_.getTexture("Indestructible.png");
-    //sf::Texture& Strong = graphicsManager_.getTexture("Strong.png");
-    //sf::Texture& Medium = graphicsManager_.getTexture("Medium.png");
-    //sf::Texture& Weak = graphicsManager_.getTexture("Weak.png");
-    //for (size_t x=0; x!=mapWidth_; x++) {
-    //    for (size_t y=0; y!=mapHeight_; y++) {
-    //        std::string blockContent = map_.getBlock(x, y)->content_;
-    //        if (blockContent=="#") {
-    //            sf::Sprite block;
-    //            if (map_.getBlock(x, y)->toughness_) {
-    //                block.setTexture(Indestructible);
-    //                block.setPosition(x*blockSize_.x, y*blockSize_.y);
-    //                mapSprites_.push_back(block);
-    //            }
-    //        }
-    //    }
-    //}
 }
+
+
 void Game::DrawMap() {
     for (size_t i=0; i!=mapSprites_.size(); i++) {
         window_.draw(mapSprites_[i]);
@@ -129,7 +118,7 @@ void Game::InitializeWalkers(size_t playerCount) {
     	newPlayer->spawn(map_, map_.getBlock(i+1,i+1))->initSprite(
                 graphicsManager_.getAnimation("walking_player"), graphicsManager_.getPlayerColor());
         players_.push_back(newPlayer);
-        eventManager_.registerInterface(KeyInterface(newPlayer));
+        eventManager_.registerInterface(new PlayerInterface(newPlayer));
         //playerKeySettings_.push_back(PlayerKeys()); //TODO: Different key setting for each player
     }
     /*    

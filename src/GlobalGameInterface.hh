@@ -1,8 +1,11 @@
-#ifndef MB2_KEYINTERFACE_HH
-#define MB2_KEYINTERFACE_HH
+#ifndef MB2_GLOBALGAMEINTERFACE_HH
+#define MB2_GLOBALGAMEINTERFACE_HH
 
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Event.hpp>
+
+#include "KeyInterface.hh"
+#include "Game.hh"
 
 /* KeyInterface
  *
@@ -16,22 +19,32 @@
  * instructing it as required.
  */
 
-class KeyInterface {
-protected:
-    typedef sf::Keyboard KB;
-    typedef sf::Keyboard::Key Key;
-
-
+class GlobalGameInterface : public KeyInterface {
 public:
-    virtual ~KeyInterface() {}
+    /* Constructor
+     *
+     * PARAMETERS
+     * ==========
+     *  Game*               the Game object that this interface is controlling
+     *
+     *  Key                 key to EXIT the game
+     *  Key                 key to PAUSE the game
+     */
+    GlobalGameInterface(Game*, Key=KB::F10, Key=KB::Pause);
 
-    virtual bool operator==(KeyInterface const& other) const = 0;
+    bool operator==(KeyInterface const& other) const override;
 
 
     /* Parse the event and, if it's relevant to the interface, pass the
      * command onward.
      */
-    virtual void parse(sf::Event&) = 0;
+    virtual void parse(sf::Event&);
+
+private:
+    Game* game_;
+
+    Key exitKey_;
+    Key pauseKey_;
 };
 
 #endif

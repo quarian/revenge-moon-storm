@@ -21,13 +21,21 @@ public:
     	menuKeys_(MenuKeys()), 
     	isRunning_(isRunning), 
     	isPaused_(isPaused) {}
-    
-    void Initialize(std::vector<Player*>& players, std::vector<PlayerKeys>& keys);
 
-    /* Register or unregister a KeyInterface (an event listener for commands
-     * that Player objects receive). */
-    void registerInterface(KeyInterface);
-    void unregisterInterface(KeyInterface);
+    ~EventManager() { clearInterfaces(); }
+    
+
+    /* Keyboard interfaces
+     *
+     * Keyboard interfaces are listeners that receive all key press and release
+     * events that this EventManager encounters. The caller dynamically creates
+     * each KeyInterface, and registering transfers ownership to the
+     * EventManager.
+     */
+    void registerInterface(KeyInterface*);
+    // void unregisterInterface(KeyInterface*);
+    void clearInterfaces();
+
     
     void EventLoop(sf::Event&);
     
@@ -40,12 +48,11 @@ private:
     void BuyingEvents(sf::Event&, std::vector<bool>&);
     
     WindowManager& window_;
-    //std::vector<Triple<Player, PlayerKeys, std::vector<bool>>> players_;
-    std::list<KeyInterface> keyInterfaces_;
+    std::list<KeyInterface*> keyInterfaces_;
+
     MenuKeys menuKeys_;
     bool& isRunning_;
     bool& isPaused_;
-
 };
 
 
