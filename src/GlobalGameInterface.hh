@@ -32,7 +32,7 @@ public:
      */
     GlobalGameInterface(Game*, Key=KB::F10, Key=KB::Pause);
 
-    bool operator==(KeyInterface const& other) const override;
+    bool operator==(KeyInterface const& other) const; // override
 
 
     /* Parse the event and, if it's relevant to the interface, pass the
