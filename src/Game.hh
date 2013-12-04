@@ -38,6 +38,9 @@ public:
 
     void draw(sf::Drawable& sprite) { window_.draw(sprite); }
 
+    //static Game* singleton;
+
+
 private:
     //void MainLoop();
     void handleEvents();

@@ -1,8 +1,9 @@
+#include <SFML/Graphics.hpp>
 #include "Map.hh"
 
-Map::Map() : game_(nullptr) {}
+//Map::Map() : game_(nullptr) {}
 
-Map::Map(const Game* game) : game_(game)
+Map::Map(Game* game) : game_(game)
 {
 }
 
@@ -97,4 +98,9 @@ void Map::blast(Weapon* w) {
             }
         }
     }
+}
+
+
+void Map::pushItem(Item* item) {
+    items.push_back(item);
 }

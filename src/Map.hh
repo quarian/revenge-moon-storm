@@ -6,22 +6,25 @@
 #include <sstream>
 #include <vector>
 #include <string>
+#include <set>
 
 #include "Direction.hh"
 #include "MapBlock.hh"
 #include "Terrain.hh"
+#include "Item.hh"
 
 // Note that Map coordinates (0,0) are at the upper left hand corner.
 
 class MapBlock;
 class Game;
 class Weapon;
+class Item;
 
 class Map {
 
     public:
-        Map();
-        Map(const Game* game);
+        //Map();
+        Map(Game* game);
         Map& operator=(const Map& other);
         Map(const Map& other);
         void loadFromFile(std::string filename, TerrainManager const&);
@@ -31,11 +34,15 @@ class Map {
         void blast(Weapon* w);
         unsigned getHeight();
         unsigned getWidth();
-        const Game* getGame() const { return game_; }
+        Game* getGame() const { return game_; }
         std::vector<std::vector<MapBlock>>* getGrid();
+        void pushItem(Item*);
+
+        std::vector <Item*> items;
+
     private:
         std::vector<std::vector<MapBlock>> grid_;
-        const Game* game_;
+        Game* game_;
 };
 
 #endif

@@ -1,10 +1,31 @@
 #include "Item.hh"
+#include "Game.hh"
 #include <vector>
 #include <string>
 
 /*
  * Contains item implementations
 */
+
+Item::Item(Map& map,
+     MapBlock* location,
+     std::string name,
+     bool passable,
+     bool collectible) :
+        mapref_(map),
+        location_(location),
+        name_(name),
+        passable_(passable),
+        collectible_(collectible),
+        alive_(true) {
+    // Register the item with the map and block.
+    // The map object takes care of initializing this item's sprite.
+    map.pushItem(this);
+    location->pushItem(this);
+    sprite_.setPosition(16*location->x_, 16*location->y_);
+    // TODO: implement this properly
+    sprite_.setTexture(map.getGame()->graphicsManager_.getTexture( "Goldbar.png" ));
+}
 
 Item::~Item() {
 	//tell the game and the mapblock that this item is now deleted

@@ -44,7 +44,7 @@ private:
     /* Iteration sets for all updatable objects on the map. */
     std::vector<Player*> players_;
     std::set<Actor*> monsters_;
-    std::set<Item*> items_;
+    //std::set<Item*> items_; // SUPPLANTED BY Map::items
 
     /* List of those MapBlocks that  */
     // std::list<MapBlock*> blockRedraws_;

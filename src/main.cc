@@ -1,9 +1,9 @@
-
 #include <iostream>
 #include "Game.hh"
+//Game* Game::singleton;
 
 int main() {
     Game game;
-    //game.initialize();
+    //Game::singleton = &game;
     game.main();
 }

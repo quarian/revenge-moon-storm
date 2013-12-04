@@ -7,6 +7,9 @@ Inventory::Inventory() {
 		items_[i] = 0;
 	}
 	gold_ = 0;
+
+        // TEST LINE -- remove eventually
+        items_["Small Bomb"] = 3;
 }
 Inventory::~Inventory() {}
 
@@ -58,14 +61,12 @@ bool Inventory::useItem(std::string item, Map& map, MapBlock* mb, Direction dir)
 		items_[item] -= 1;
 
 		Item* new_item = NULL;
+
 		if (item == "Small Bomb") {
 			new_item = new SmallBomb(map, mb);
 		}
 
-		//map.getGame().pushItem(new_item);
-		//mb->pushItem(new_item);
-
-		return true;
+                return true;
 	}
 	return false;
 }

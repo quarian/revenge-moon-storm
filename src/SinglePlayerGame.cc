@@ -6,6 +6,7 @@ SinglePlayerGame::SinglePlayerGame(
         GameState* parent,
         Player* player ) :
       GameState(parent),
+      map_(&game_),
       player_(player) {}
 
 
@@ -14,6 +15,7 @@ SinglePlayerGame::SinglePlayerGame(
         GameState*& stack,
         Player* player ) :
       GameState(game, stack),
+      map_(&game_),
       player_(player) {}
 
 

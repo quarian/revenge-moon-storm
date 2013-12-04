@@ -1,6 +1,7 @@
 #ifndef MB2_ITEM_HH
 #define MB2_ITEM_HH
 
+#include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
 
@@ -8,6 +9,7 @@
 
 class Map;
 class MapBlock;
+
 
 /*
  * Contains the asbtract base class for items and other varying properties of items
@@ -24,7 +26,7 @@ class Item {
 public:
 	//the item needs information from the game, which is given as a reference to the map.
 	//Now the items can check whether 
-	Item(Map& map, MapBlock* location, std::string name, bool passable, bool collectible) : mapref_(map), location_(location), name_(name), passable_(passable), collectible_(collectible), alive_(true) {}
+	Item(Map&, MapBlock*, std::string, bool, bool);
 	virtual ~Item();
 
 	virtual void update(float) = 0;
@@ -39,6 +41,10 @@ public:
 	bool getPassable() const { return passable_; }
 	bool getCollectible() const { return collectible_; }
 	bool getAlive() const { return alive_; }
+
+        sf::Sprite& getSprite() { return sprite_; }
+
+
 protected:
 	Map& mapref_; //Reference to the map
 	MapBlock* location_; //Location of the item
@@ -46,6 +52,8 @@ protected:
 	bool passable_; //Whether the player can walk into the square this item is in.
 	bool collectible_;
 	bool alive_;
+
+        sf::Sprite sprite_;
 };
 
 //Create treasures with

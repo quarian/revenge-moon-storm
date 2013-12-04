@@ -54,7 +54,7 @@ void World::updateAll(float dt) {
         if (avatar) avatar->update(dt);
     }
     for (Actor* m : monsters_) m->update(dt);
-    for (Item* i : items_) i->update(dt);
+    for (Item* i : map_.items) i->update(dt);
 }
 
 
@@ -71,8 +71,8 @@ void World::drawAll() {
         }
     }
 
-    // for (Item* i : items_)
-    //     game_.draw(i->getSprite());
+    for (Item* i : map_.items)
+        game_.draw(i->getSprite());
     for (Actor* m : monsters_)
         game_.draw(m->getSprite());
     for (Player* p : players_) {

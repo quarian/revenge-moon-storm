@@ -26,7 +26,7 @@ public:
      *  Key                 key to USE ITEM
      *  Key                 key to CYCLE ITEM
      */
-    PlayerInterface(Player*, Key=KB::Up, Key=KB::Left, Key=KB::Right, Key=KB::Down, Key=KB::L, Key=KB::K);
+    PlayerInterface(Player*, Key=KB::Up, Key=KB::Left, Key=KB::Right, Key=KB::Down, Key=KB::Space, Key=KB::LAlt);
     
     bool operator==(KeyInterface const& other) const; // override
 

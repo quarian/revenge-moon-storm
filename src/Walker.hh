@@ -2,6 +2,8 @@
 #define MB2_WALKER_HH
 
 /*
+ * Walker.hh
+ *
  * The Walker class represents all creatures (and other objects, such as
  * projectiles) around on the map in a continuous fashion (non-teleporting,
  * block-to-block movement).
