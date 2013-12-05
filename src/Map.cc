@@ -171,27 +171,49 @@ void Map::crossblast(Weapon* w) {
     location->takeDamage(p);
     new Explosion(*this, location);
 
+    bool up, down, left, right = false;
+
     //The other squares take damage
     for (int i = 1; i < l; i++) {
         if (location->x_ - i > 0) {
             auto mb = getBlock(location->x_ - i, location->y_);
-            mb->takeDamage(p - i*3);
-            new Explosion(*this, mb);
+            if (mb->getToughness() < 0) {
+                left = true;
+            }
+            if (!left) {
+                mb->takeDamage(p - i*3);
+                new Explosion(*this, mb);
+            }
         }
         if (location->x_ + i < getWidth() - 1) {
             auto mb = getBlock(location->x_ + i, location->y_);
-            mb->takeDamage(p - i*3);
-            new Explosion(*this, mb);
+            if (mb->getToughness() < 0) {
+                right = true;
+            }
+            if (!right) {
+                mb->takeDamage(p - i*3);
+                new Explosion(*this, mb);
+            }
         }
         if (location->y_ - i > 0) {
             auto mb = getBlock(location->x_, location->y_ - i);
-            mb->takeDamage(p - i*3);
-            new Explosion(*this, mb);
+            if (mb->getToughness() < 0) {
+                up = true;
+            }
+            if (!up) {
+                mb->takeDamage(p - i*3);
+                new Explosion(*this, mb);
+            }
         }
         if (location->y_ + i < getHeight() - 1) {
             auto mb = getBlock(location->x_, location->y_ + i);
-            mb->takeDamage(p - i*3);
-            new Explosion(*this, mb);
+            if (mb->getToughness() < 0) {
+                down = true;
+            }
+            if (!down) {
+                mb->takeDamage(p - i*3);
+                new Explosion(*this, mb);
+            }
         }
     }
 }

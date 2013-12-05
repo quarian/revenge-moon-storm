@@ -99,21 +99,15 @@ protected:
 /*
  * Item declarations
 */
-class SmallBomb : public Weapon {
+class NormalBomb : public Weapon {
 public:
-	SmallBomb(Map&, MapBlock*);
-	void update(float);
-};
-
-class BigBomb : public Weapon {
-public:
-	BigBomb(Map&, MapBlock*);
+	NormalBomb(Map&, MapBlock*, std::string);
 	void update(float);
 };
 
 class CrucifixBomb : public Weapon {
 public:
-	CrucifixBomb(Map&, MapBlock*);
+	CrucifixBomb(Map&, MapBlock*, std::string);
 	void update(float);
 };
 

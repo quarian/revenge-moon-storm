@@ -51,6 +51,7 @@ class MapBlock {
         void weaken(float);
         void takeDamage(int amount);
         float getToughness() const { return terrain_.toughness; }
+        Terrain& getTerrain() { return terrain_; }
 
         sf::Texture const& getTexture() const { return terrain_.type->texture; }
         

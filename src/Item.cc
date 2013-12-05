@@ -46,8 +46,9 @@ void Item::buildSprite(int frames, std::string filename, float totaltime) {
 std::vector<std::string> Item::names() {
 	return std::vector<std::string> {
 		"Small Bomb",
-        "Big Bomb",
-        "Crucifix Bomb"
+        "Large Bomb",
+        "Crucifix Bomb",
+        "Large Crucifix Bomb"
 	};
 }
 std::vector<std::string> Item::treasureNames() {
@@ -56,43 +57,39 @@ std::vector<std::string> Item::treasureNames() {
 	};
 }
 
-SmallBomb::SmallBomb(Map& map, MapBlock* location) : Weapon(map, location, "Small Bomb", false, Direction::NULLDIR) {
-	radius_ = 1;
-	power_ = 15;
-	fusetime_ = 2.0f;
+NormalBomb::NormalBomb(Map& map, MapBlock* location, std::string name) : Weapon(map, location, name, false, Direction::NULLDIR) {
+	if (name == "Small Bomb") {
+		radius_ = 1;
+		power_ = 15;
+		fusetime_ = 2.0f;
 
-	buildSprite(5, "bomb_anim_small.png", fusetime_);    
-}
+		buildSprite(5, "bomb_anim_small.png", fusetime_);    
+	} else if (name == "Large Bomb") {
+		radius_ = 3;
+		power_ = 25;
+		fusetime_ = 2.0f;
 
-BigBomb::BigBomb(Map& map, MapBlock* location) : Weapon(map, location, "Big Bomb", false, Direction::NULLDIR) {
-	radius_ = 2;
-	power_ = 25;
-	fusetime_ = 2.0f;
-
-	buildSprite(5, "bomb_anim.png", fusetime_);    
-}
-
-CrucifixBomb::CrucifixBomb(Map& map, MapBlock* location) : Weapon(map, location, "Crucifix Bomb", false, Direction::NULLDIR) {
-	radius_ = 5;
-	power_ = 26;
-	fusetime_ = 3.0f;
-
-	buildSprite(5, "bomb_anim.png", fusetime_);
-}
-
-void SmallBomb::update(float dt) {
-	sprite_.update(sf::seconds(dt));
-	if (alive_) {
-		fusetime_ -= dt;
-
-		if (fusetime_ <= 0) {
-			map_.blast(this);
-			alive_ = false;
-		}
+		buildSprite(5, "bomb_anim.png", fusetime_);
 	}
 }
 
-void BigBomb::update(float dt) {
+CrucifixBomb::CrucifixBomb(Map& map, MapBlock* location, std::string name) : Weapon(map, location, name, false, Direction::NULLDIR) {
+	if (name == "Crucifix Bomb") {
+		radius_ = 5;
+		power_ = 26;
+		fusetime_ = 3.0f;
+
+		buildSprite(5, "bomb_anim_small.png", fusetime_);
+	} else if (name == "Large Crucifix Bomb") {
+		radius_ = 64;
+		power_ = 100;
+		fusetime_ = 5.0f;
+
+		buildSprite(5, "bomb_anim.png", fusetime_);
+	}
+}
+
+void NormalBomb::update(float dt) {
 	sprite_.update(sf::seconds(dt));
 	if (alive_) {
 		fusetime_ -= dt;
