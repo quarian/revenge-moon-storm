@@ -28,7 +28,7 @@ Item::Item(Map& map,
 
 Item::~Item() {
 	//tell the game and the mapblock that this item is now deleted
-	//map_.popItem(this);
+	map_.popItem(this);
 	location_->popItem(this);
 }
 
@@ -56,7 +56,7 @@ std::vector<std::string> Item::treasureNames() {
 
 SmallBomb::SmallBomb(Map& map, MapBlock* location) : Weapon(map, location, "Small Bomb", false, Direction::NULLDIR) {
 	radius_ = 2;
-	power_ = 1;
+	power_ = 8;
 	fusetime_ = 2.0f;
 
 	buildSprite(5, "bomb_anim.png", fusetime_);    

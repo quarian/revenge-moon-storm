@@ -40,10 +40,11 @@ class Map {
         Game* getGame() const { return game_; }
         std::vector<std::vector<MapBlock>>* getGrid();
         void pushItem(Item*);
+        void popItem(Item*);
 
-        std::vector <Player*> players;
-        std::vector <Walker*> monsters;
-        std::vector <Item*> items;
+        std::set <Player*> players;
+        std::set <Walker*> monsters;
+        std::set <Item*> items;
 
     private:
         std::vector<std::vector<MapBlock>> grid_;

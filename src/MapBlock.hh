@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <set>
 #include <algorithm> // for find_if
 #include <SFML/Graphics.hpp>
 
@@ -31,10 +32,10 @@ class MapBlock {
         bool isDiggable() const;
         MapBlock* getBlock(Direction direction) const;
         Map& getMap() const { return map_; }
-        void exit(const Walker* w);
+        void exit(Walker* w);
         void enter(Walker* w);
         void pushItem(Item* item);
-        Item* popItem(Item* item);
+        void popItem(Item* item);
         void collect(Inventory* inventory);
         
         /* Methods related to digging.
@@ -53,8 +54,8 @@ class MapBlock {
         
 
     private:
-        std::vector<Walker*> walkers_;
-        std::vector<Item*> items_;
+        std::set<Walker*> walkers_;
+        std::set<Item*> items_;
         Map& map_;
         Terrain terrain_;
 };

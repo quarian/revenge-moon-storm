@@ -1,11 +1,7 @@
 #include "MapBlock.hh"
 
 #include <cmath>
-//const unsigned MapBlock::NONE = 0;
-//const unsigned MapBlock::WEAK = 1;
-//const unsigned MapBlock::MEDIUM = 2;
-//const unsigned MapBlock::STRONG = 3;
-//const unsigned MapBlock::INDESTRUCTIBLE = 10;
+
 
 MapBlock::MapBlock(int x, int y, std::string content, Map& map, Terrain terrain) : x_(x), y_(y), content_(content), map_(map), terrain_(terrain)
 {}
@@ -35,13 +31,11 @@ MapBlock* MapBlock::getBlock(Direction direction) const {
 }
 
 void MapBlock::enter(Walker* w) {
-    walkers_.push_back(w);
+    walkers_.insert(w);
 }
 
-void MapBlock::exit(const Walker* w) {
-    std::vector<Walker*>::iterator iter = std::find_if(walkers_.begin(), walkers_.end(), [&](Walker* t)
-                                                                                            { return t == w; });
-    walkers_.erase(iter);
+void MapBlock::exit(Walker* w) {
+    walkers_.erase(w);
 }
 
 void MapBlock::clear() {
@@ -65,14 +59,11 @@ void MapBlock::collect(Inventory* inventory) {
 }
 
 void MapBlock::pushItem(Item* item) {
-    items_.push_back(item);
+    items_.insert(item);
 }
 
-Item* MapBlock::popItem(Item* item) {
-    std::vector<Item*>::iterator iter = std::find_if(items_.begin(), items_.end(), [&](Item* i)
-                                                                                     { return i == item; });
-    items_.erase(iter);
-    return *iter;
+void MapBlock::popItem(Item* item) {
+    auto it = items_.erase(item);
 }
 
 void MapBlock::takeDamage(int amount) {
@@ -82,12 +73,4 @@ void MapBlock::takeDamage(int amount) {
     // Weaken the items
     for (auto item : items_)
             item->takeDamage(amount);
-
-    // Update item list
-    std::vector<Item*> items_new;
-    for (auto item : items_) {
-        if (item->getAlive()) items_new.push_back(item);
-        else delete item;
-    }
-    items_ = items_new;
 }

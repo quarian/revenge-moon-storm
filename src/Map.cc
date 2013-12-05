@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <algorithm>
 #include "Map.hh"
 
 //Map::Map() : game_(nullptr) {}
@@ -102,5 +103,10 @@ void Map::blast(Weapon* w) {
 
 
 void Map::pushItem(Item* item) {
-    items.push_back(item);
+    items.insert(item);
+}
+
+
+void Map::popItem(Item* item) {
+    items.erase(item);
 }

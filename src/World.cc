@@ -1,14 +1,19 @@
+#include <algorithm>
 #include "World.hh"
 
 
 World::World(GameState* parent, Map& map, std::vector<Player*> players)
         : GameState(parent), map_(map) {
-    map_.players = players;
+    map.players.clear();
+    for (auto p : players)
+        map.players.insert(p);
 }
 
 World::World(Game& game, GameState*& stack, Map& map, std::vector<Player*> players)
         : GameState(game, stack), map_(map) {
-    map_.players = players;
+    map.players.clear();
+    for (auto p : players)
+        map.players.insert(p);
 }
 
 
@@ -52,12 +57,25 @@ void World::update(float dt) {
 
 
 void World::updateAll(float dt) {
+    // Remove dead items
+    std::vector<Item*> deadItems;
+    for (Item* i : map_.items)
+        if (!i->getAlive())
+            deadItems.push_back(i);
+    for (Item* i : deadItems) delete i;
+
+    // Update players
     for (Player* p : map_.players) {
         Actor* avatar = p->getActor();
         if (avatar) avatar->update(dt);
     }
+
+    // Update monsters
     for (Walker* m : map_.monsters) m->update(dt);
-    for (Item* i : map_.items) i->update(dt);
+
+    // Update items
+    for (Item* i : map_.items)
+        i->update(dt);
 }
 
 
