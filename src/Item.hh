@@ -1,11 +1,13 @@
 #ifndef MB2_ITEM_HH
 #define MB2_ITEM_HH
 
-#include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
 
 #include "Map.hh"
+
+#include "AnimatedSprite.hpp"
+#include "Animation.hpp"
 
 class Map;
 class MapBlock;
@@ -26,7 +28,7 @@ class Item {
 public:
 	//the item needs information from the game, which is given as a reference to the map.
 	//Now the items can check whether 
-	Item(Map&, MapBlock*, std::string, bool, bool);
+	Item(Map&, MapBlock*, std::string, bool, bool, Direction);
 	virtual ~Item();
 
 	virtual void update(float) = 0;
@@ -35,25 +37,29 @@ public:
 	static std::vector<std::string> names(); //use this to access all the names of the items in the game
 	static std::vector<std::string> treasureNames();
 
-	Map& getMapref() const { return mapref_; }
+	Map& getMap() const { return map_; }
 	MapBlock* getLocation() const { return location_; }
 	std::string getName() const { return name_; }
 	bool getPassable() const { return passable_; }
 	bool getCollectible() const { return collectible_; }
 	bool getAlive() const { return alive_; }
+	Direction getDirection() const { return direction_; }
 
-        sf::Sprite& getSprite() { return sprite_; }
-
+    AnimatedSprite& getSprite() { return sprite_; }
 
 protected:
-	Map& mapref_; //Reference to the map
+	void buildSprite(int, std::string, float);
+
+	Map& map_; //Reference to the map
 	MapBlock* location_; //Location of the item
 	std::string name_; //A name identifier for each item type
 	bool passable_; //Whether the player can walk into the square this item is in.
 	bool collectible_;
 	bool alive_;
+	Direction direction_;
 
-        sf::Sprite sprite_;
+	Animation anim_; //The animation, which can be set as a static, single frame animation
+	AnimatedSprite sprite_; //the drawable sprite image
 };
 
 //Create treasures with
@@ -73,7 +79,7 @@ private:
 //Abstract base class for weapons
 class Weapon : public Item {
 public:
-	Weapon(Map& map, MapBlock* location, std::string name, bool passable) : Item(map, location, name, passable, false) {};
+	Weapon(Map& map, MapBlock* location, std::string name, bool passable, Direction dir = Direction::NULLDIR) : Item(map, location, name, passable, false, dir) {};
 
 	virtual void update(float) = 0;
 	//all weapons get instantly destroyed as a consequence of an explosion or other source of damage
@@ -96,6 +102,18 @@ protected:
 class SmallBomb : public Weapon {
 public:
 	SmallBomb(Map&, MapBlock*);
+	void update(float);
+};
+
+class BigBomb : public Weapon {
+public:
+	BigBomb(Map&, MapBlock*);
+	void update(float);
+};
+
+class CrucifixBomb : public Weapon {
+public:
+	CrucifixBomb(Map&, MapBlock*);
 	void update(float);
 };
 
