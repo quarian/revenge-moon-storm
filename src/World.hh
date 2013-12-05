@@ -44,13 +44,6 @@ private:
     std::vector<Player*> players_;
     WorldGUI gui_;
 
-    /* Iteration sets for all updatable objects on the map. */
-    // std::set<Actor*> monsters_;
-    // std::set<Item*> items_; // SUPPLANTED BY Map::items
-
-    /* List of those MapBlocks that  */
-    // std::list<MapBlock*> blockRedraws_;
-
     void updateAll(float);
     void drawMapObjects();
     void drawGUI();

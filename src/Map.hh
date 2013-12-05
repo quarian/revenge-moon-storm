@@ -35,12 +35,6 @@ class Map {
         MapBlock* getBlock(int x, int y);
         MapBlock* getBlock(int x, int y, Direction direction);
 
-        /* Returns a vector of all the MapBlocks that lie within a certain
-         * radius of some reference block. Set the last parameter to false to
-         * exclude the reference block from the vector.
-         */
-        std::vector<MapBlock*> getInRadius(MapBlock*, float, bool=true);
-
         void blast(Weapon* w);
         unsigned getHeight();
         unsigned getWidth();
@@ -54,9 +48,25 @@ class Map {
         std::set <Walker*> monsters;
         std::set <Item*> items;
 
+
     private:
         std::vector<std::vector<MapBlock>> grid_;
         Game* game_;
+
+
+    public:
+        /* MAP UTILITIES -- defined in MapUtils.cc */
+
+        /* Returns a vector of all the MapBlocks that lie within a certain
+         * radius of some reference block. Set the last parameter to false to
+         * exclude the reference block from the vector.
+         */
+        std::vector<MapBlock*> getInRadius(MapBlock*, float, bool=true);
+
+        /* Returns a vector of all the MapBlocks that can be seen from the
+         * given reference block. Used, for example, to determine fog of war.
+         */
+        std::vector<MapBlock*> getLOS(MapBlock*);
 };
 
 #endif

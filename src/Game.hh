@@ -25,9 +25,6 @@ class GameState;
 class Game {
 public:
     Game();
-    // sf::Clock& getClock() { return clock_; }
-
-    // void initialize();
     void main();
 
     EventManager eventManager_;
@@ -38,24 +35,10 @@ public:
 
     void draw(sf::Drawable& drawable) { window_.draw(drawable); }
 
-    //static Game* singleton;
-
 
 private:
-    //void MainLoop();
     void handleEvents();
     void terminate();
-    // void Update();
-    // void Draw();
-    // void Shutdown();
-    
-    // void InitializeMap(std::string);
-    // void UpdateMap();
-    // void DrawMap();
-    // 
-    // void InitializeWalkers(size_t playerCount);
-    // void UpdateWalkers();
-    // void DrawWalkers();
 
     GameState* stack_;
     bool isRunning_;
@@ -63,23 +46,11 @@ private:
     
     WindowManager window_;
     
-    // bool isPaused_;
-    // std::vector<sf::Sprite> mapSprites_;
-    // std::vector<sf::Sprite> playerSprites_;
-    // std::vector<Player*> players_;
-    // std::vector<PlayerKeys> playerKeySettings_;
-    // std::vector<Item> items_;
-    
-    // Map map_;
-    // size_t mapWidth_;
-    // size_t mapHeight_;
-    
     sf::Sprite background_;
     std::map<std::string, Animation> animations_;
     std::map<std::string, sf::Texture> textures_;
     
     sf::Clock clock_;
-    // sf::Time elapsedTime_;
 };
 
 #endif
