@@ -36,7 +36,7 @@ public:
 
     sf::Vector2f blockSize_;
 
-    void draw(sf::Drawable& sprite) { window_.draw(sprite); }
+    void draw(sf::Drawable& drawable) { window_.draw(drawable); }
 
     //static Game* singleton;
 

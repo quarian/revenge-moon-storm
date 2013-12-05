@@ -10,6 +10,7 @@
 #include "Actor.hh"
 #include "MapBlock.hh"
 #include "Item.hh"
+#include "WorldGUI.hh"
 
 /* World
  * =====
@@ -40,17 +41,19 @@ public:
 
 private:
     Map& map_;
+    std::vector<Player*> players_;
+    WorldGUI gui_;
 
     /* Iteration sets for all updatable objects on the map. */
-    std::vector<Player*> players_;
-    std::set<Actor*> monsters_;
-    //std::set<Item*> items_; // SUPPLANTED BY Map::items
+    // std::set<Actor*> monsters_;
+    // std::set<Item*> items_; // SUPPLANTED BY Map::items
 
     /* List of those MapBlocks that  */
     // std::list<MapBlock*> blockRedraws_;
 
     void updateAll(float);
-    void drawAll();
+    void drawMapObjects();
+    void drawGUI();
 
     void initKeyboard();
 };

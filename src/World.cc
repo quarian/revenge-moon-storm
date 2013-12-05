@@ -3,14 +3,20 @@
 
 
 World::World(GameState* parent, Map& map, std::vector<Player*> players)
-        : GameState(parent), map_(map) {
+        : GameState(parent),
+          map_(map),
+          players_(players),
+          gui_(WorldGUI(*map.getGame(), 0, 704))  {
     map.players.clear();
     for (auto p : players)
         map.players.insert(p);
 }
 
 World::World(Game& game, GameState*& stack, Map& map, std::vector<Player*> players)
-        : GameState(game, stack), map_(map) {
+        : GameState(game, stack),
+          map_(map),
+          players_(players),
+          gui_(WorldGUI(*map.getGame()))  {
     map.players.clear();
     for (auto p : players)
         map.players.insert(p);
@@ -27,13 +33,13 @@ void World::init() {
             game_.graphicsManager_.getAnimation("digging_player"),
             game_.graphicsManager_.getPlayerColor());
     }
-    drawAll();
+    drawMapObjects();
 }
 
 
 void World::resume() {
     initKeyboard();
-    drawAll();
+    drawMapObjects();
 }
 
 
@@ -52,7 +58,7 @@ void World::initKeyboard() {
 
 void World::update(float dt) {
     updateAll(dt);
-    drawAll();
+    drawMapObjects();
 }
 
 
@@ -79,7 +85,7 @@ void World::updateAll(float dt) {
 }
 
 
-void World::drawAll() {
+void World::drawMapObjects() {
     size_t mapWidth = map_.getWidth();
     size_t mapHeight = map_.getHeight();
 
@@ -100,4 +106,12 @@ void World::drawAll() {
         Actor* avatar = p->getActor();
         if (avatar) game_.draw(avatar->getSprite());
     }
+}
+
+
+void World::drawGUI() {
+    gui_.clear();
+    for (size_t i=0; i < players_.size(); i++)
+        gui_.makePlayerInfo(players_[i], i);
+    gui_.draw();
 }
