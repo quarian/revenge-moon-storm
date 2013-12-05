@@ -22,15 +22,17 @@ class Game;
 class Weapon;
 class Item;
 class Player;
+class MapGenerator;
 
 class Map {
-
+    friend class MapGenerator;
     public:
         //Map();
         Map(Game* game);
         Map& operator=(const Map& other);
         Map(const Map& other);
         void loadFromFile(std::string filename, TerrainManager const&);
+        void generateRandomMap(TerrainManager const&, int height = 48, int width = 64);
         void printMap();
         MapBlock* getBlock(int x, int y);
         MapBlock* getBlock(int x, int y, Direction direction);
@@ -54,6 +56,8 @@ class Map {
 
 
     private:
+        void generateBorders(TerrainManager const&, int height, int width);
+        void insertFeature(TerrainManager const&);
         std::vector<std::vector<MapBlock>> grid_;
         Game* game_;
 

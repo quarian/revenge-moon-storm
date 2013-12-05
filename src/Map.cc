@@ -46,6 +46,62 @@ void Map::loadFromFile(std::string filename, TerrainManager const& tmgr) {
     }
 }
 
+void Map::generateRandomMap(TerrainManager const& tmgr, int height, int width) {
+    generateBorders(tmgr, height, width);
+    for (int i = 0; i < 15; i++) {
+        insertFeature(tmgr);
+    }
+}
+
+void Map::generateBorders(TerrainManager const& tmgr, int height, int width) {
+    std::string content;
+    for (int i = 0; i < height; i ++) {
+        std::vector<MapBlock> new_row;
+        grid_.push_back(new_row);
+        for (int j = 0; j < width; j++) {
+            if (i == 0 || j == 0 || i == height - 1 || j == width - 1) {
+                content = "#";
+                Terrain t(tmgr[content[0]]);
+                MapBlock mb(j, i, content, *this, t);
+                grid_[i].push_back(mb);
+            } else {
+                content = " ";
+                Terrain t(tmgr[content[0]]);
+                MapBlock mb(j, i, content, *this, t);
+                grid_[i].push_back(mb);
+            }
+        }
+    }
+}
+
+void Map::insertFeature(TerrainManager const& tmgr) {
+    unsigned w = getWidth() - 1;
+    unsigned h = getHeight() - 1;
+    Terrain t = tmgr.random();
+    std::string content(&t.type->signifier, 0, 1);
+    unsigned x_min, x_max, y_min, y_max;
+    x_min = (rand() % w) + 1;
+    y_min = (rand() % h) + 1;
+    //std::cout << "x_min " << x_min << ", y_min " << y_min << ", w " << w << ", h " << h << std::endl;
+    x_max = std::min(w, x_min + rand() % (getWidth() - x_min));
+    y_max = std::min(h, y_min + rand() % (getHeight() - y_min));
+    std::string empty = " ";
+    for (unsigned i = 0; i < getHeight(); i++) {
+        for (unsigned j = 0; j < getWidth(); j++) {
+            if (((i == y_min || i == y_max) && (j >= x_min && j <= x_max)) ||
+                ((j == x_min || j == x_max) && (i >= y_min && i <= y_max))) {
+                if (!empty.compare(grid_[i][j].content_) && (y_min != y_max) && (x_min != x_max)) {
+                    MapBlock mb(j, i, content, *this, t);
+                    grid_[i][j] = mb;
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+}
+
+
 void Map::printMap() {
     std::cout  << "Printing map" << std::endl;
     for (auto iter = grid_.begin(); iter != grid_.end(); iter++) {

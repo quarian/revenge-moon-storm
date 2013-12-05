@@ -3,12 +3,18 @@
 
 #include "Map.hh"
 
+class Game;
+
 class MapGenerator {
 
     public:
-        MapGenerator();
-        Map generateMap();
+        MapGenerator(TerrainManager* tmgr, Game* game);
+        Map& generateMap();
+        Map generateTotallyRandomMap();
     
+    private:
+        TerrainManager* tmgr_;
+        Game* game_;
 };
 
 #endif

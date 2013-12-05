@@ -3,6 +3,10 @@
 #include "SinglePlayerGame.hh"
 #include "Game.hh"
 
+// For rand!
+#include <time.h>
+#include <stdlib.h>
+
 Game::Game() : stack_(nullptr),
                isRunning_(true),
                rootPath_("."),
@@ -10,7 +14,7 @@ Game::Game() : stack_(nullptr),
                eventManager_(window_, isRunning_),
                graphicsManager_(window_,blockSize_,textures_,animations_),
                terrainManager_(graphicsManager_) {
-
+    
     window_.launchWindow();
     graphicsManager_.initializeGraphics(rootPath_);
     terrainManager_.init("terrain.cfg");
@@ -20,6 +24,7 @@ Game::Game() : stack_(nullptr),
 
 
 void Game::main() {
+    srand(time(NULL)); // Init rand
     Player kafka("Kafka");
     stack_ = new SinglePlayerGame(*this, stack_, &kafka);
 
