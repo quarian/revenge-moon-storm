@@ -2,17 +2,20 @@
 
 
 World::World(GameState* parent, Map& map, std::vector<Player*> players)
-        : GameState(parent), map_(map), players_(players) {}
-
+        : GameState(parent), map_(map) {
+    map_.players = players;
+}
 
 World::World(Game& game, GameState*& stack, Map& map, std::vector<Player*> players)
-        : GameState(game, stack), map_(map), players_(players) {}
+        : GameState(game, stack), map_(map) {
+    map_.players = players;
+}
 
 
 void World::init() {
     initKeyboard();
 
-    for (Player* p : players_) {
+    for (Player* p : map_.players) {
         p->spawn(map_, map_.getBlock(1,1)); // TODO: spawn points
         p->getActor()->initSprite(
             game_.graphicsManager_.getAnimation("walking_player"),
@@ -37,7 +40,7 @@ void World::pause() {
 void World::initKeyboard() {
     game_.eventManager_.clearInterfaces();
     game_.eventManager_.registerInterface(new GlobalGameInterface(this));
-    for (Player* p : players_)
+    for (Player* p : map_.players)
         game_.eventManager_.registerInterface(p->getInterface());
 }
 
@@ -49,11 +52,11 @@ void World::update(float dt) {
 
 
 void World::updateAll(float dt) {
-    for (Player* p : players_) {
+    for (Player* p : map_.players) {
         Actor* avatar = p->getActor();
         if (avatar) avatar->update(dt);
     }
-    for (Actor* m : monsters_) m->update(dt);
+    for (Walker* m : map_.monsters) m->update(dt);
     for (Item* i : map_.items) i->update(dt);
 }
 
@@ -73,9 +76,9 @@ void World::drawAll() {
 
     for (Item* i : map_.items)
         game_.draw(i->getSprite());
-    for (Actor* m : monsters_)
+    for (Walker* m : map_.monsters)
         game_.draw(m->getSprite());
-    for (Player* p : players_) {
+    for (Player* p : map_.players) {
         Actor* avatar = p->getActor();
         if (avatar) game_.draw(avatar->getSprite());
     }

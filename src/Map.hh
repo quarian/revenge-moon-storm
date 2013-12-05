@@ -12,6 +12,8 @@
 #include "MapBlock.hh"
 #include "Terrain.hh"
 #include "Item.hh"
+#include "Walker.hh"
+//#include "Player.hh"
 
 // Note that Map coordinates (0,0) are at the upper left hand corner.
 
@@ -19,6 +21,7 @@ class MapBlock;
 class Game;
 class Weapon;
 class Item;
+class Player;
 
 class Map {
 
@@ -38,6 +41,8 @@ class Map {
         std::vector<std::vector<MapBlock>>* getGrid();
         void pushItem(Item*);
 
+        std::vector <Player*> players;
+        std::vector <Walker*> monsters;
         std::vector <Item*> items;
 
     private:
