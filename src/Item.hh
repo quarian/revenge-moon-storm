@@ -117,4 +117,17 @@ public:
 	void update(float);
 };
 
+
+/*
+ * For convenience, explosions are treated like items.
+ */
+class Explosion : public Item {
+public:
+    Explosion(Map&, MapBlock*);
+    void update(float);
+    bool takeDamage(int) { return false; } // I AM INVINCIBLE
+private:
+    float fusetime_;
+};
+
 #endif

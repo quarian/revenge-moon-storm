@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <algorithm>
+#include <cmath>
+
 #include "Map.hh"
 
 //Map::Map() : game_(nullptr) {}
@@ -88,25 +90,52 @@ void Map::blast(Weapon* w) {
     int r = w->getRadius();
     int p = w->getPower();
     MapBlock* location = w->getLocation();
-    int distance = 0;
-    if (SmallBomb* sb = dynamic_cast<SmallBomb*>(w)) {
-        for (auto iter = grid_.begin(); iter != grid_.end(); iter++) {
-            for (auto jiter = iter->begin(); jiter != iter->end(); jiter++) {
-                distance = sqrt(((*jiter).x_ - location->x_) * ((*jiter).x_ - location->x_) +
-                                ((*jiter).y_ - location->y_) * ((*jiter).y_ - location->y_));
-                if (distance < r)
-                    (*jiter).takeDamage(p);
-            }
-        }
+    for (auto mb : getInRadius(location, r)) {
+        mb->takeDamage(p);
+        new Explosion(*this, mb);
     }
+
+    //int distance = 0;
+    //if (SmallBomb* sb = dynamic_cast<SmallBomb*>(w)) {
+    //    for (auto iter = grid_.begin(); iter != grid_.end(); iter++) {
+    //        for (auto jiter = iter->begin(); jiter != iter->end(); jiter++) {
+    //            distance = sqrt(((*jiter).x_ - location->x_) * ((*jiter).x_ - location->x_) +
+    //                            ((*jiter).y_ - location->y_) * ((*jiter).y_ - location->y_));
+    //            if (distance < r)
+    //                (*jiter).takeDamage(p);
+    //        }
+    //    }
+    //}
 }
 
 
-void Map::pushItem(Item* item) {
-    items.insert(item);
-}
+std::vector<MapBlock*> Map::getInRadius(MapBlock* ref, float r, bool inclusive) {
+    std::vector<MapBlock*> results;
 
+    // Make life easier
+    int x = ref->x_;
+    int y = ref->y_;
+    float r2 = r*r;
 
-void Map::popItem(Item* item) {
-    items.erase(item);
+    // Find the maximal bounding box of blocks -- no sense to search outside it
+    int xmin = fmax(0, x-ceil(r));
+    int xmax = fmin(getWidth()-1, x+ceil(r));
+    int ymin = fmax(0, y-ceil(r));
+    int ymax = fmin(getHeight()-1, y+ceil(r));
+
+    // If I look at these for too long, I get the feeling that they're about to 
+    // fall over
+    if (inclusive)
+        for (int i = xmin; i <= xmax; i++)
+            for (int j = ymin; j <= ymax; j++)
+                if (((x-i)*(x-i) + (y-j)*(y-j)) <= r2)
+                    results.push_back(getBlock(i,j));
+    else
+        for (int i = xmin; i <= xmax; i++)
+            for (int j = ymin; j <= ymax; j++)
+                if (((x-i)*(x-i) + (y-j)*(y-j)) <= r2)
+                    if ((i != x) || (j != y))
+                        results.push_back(getBlock(i,j));
+
+    return results;
 }

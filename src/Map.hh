@@ -34,13 +34,21 @@ class Map {
         void printMap();
         MapBlock* getBlock(int x, int y);
         MapBlock* getBlock(int x, int y, Direction direction);
+
+        /* Returns a vector of all the MapBlocks that lie within a certain
+         * radius of some reference block. Set the last parameter to false to
+         * exclude the reference block from the vector.
+         */
+        std::vector<MapBlock*> getInRadius(MapBlock*, float, bool=true);
+
         void blast(Weapon* w);
         unsigned getHeight();
         unsigned getWidth();
         Game* getGame() const { return game_; }
         std::vector<std::vector<MapBlock>>* getGrid();
-        void pushItem(Item*);
-        void popItem(Item*);
+
+        void pushItem(Item* item) { items.insert(item); }
+        void popItem(Item* item) { items.erase(item); }
 
         std::set <Player*> players;
         std::set <Walker*> monsters;
