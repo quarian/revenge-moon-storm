@@ -9,7 +9,7 @@ Player::Player(std::string name, size_t lives) :
     resistance_(0.0f),
     lives_(lives),
     name_(name),
-    currentItem_(""),
+    currentItem_("Small Bomb"),
     avatar_(nullptr) { }
 
 Player::~Player() {

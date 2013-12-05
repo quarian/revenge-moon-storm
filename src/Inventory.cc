@@ -26,16 +26,17 @@ std::map<std::string, size_t> Inventory::getNonzeroItems() {
 std::string Inventory::getNextItem(std::string const& name) const {
     // Try to find nonzero item between the given item and end()...
     auto it = items_.find(name);
-    while (++it != items_.end())
-        if (it->second > 0) return it->first;
+    if (it != items_.end())
+        while (++it != items_.end())
+            if (it->second > 0) return it->first;
 
     // Try to find nonzero item between begin() and the given item...
-    it = items_.begin();
-    while ((++it)->first != name)
-        if (it->second > 0) return it->first;
-
-    // Failed; don't change item
-    return name;
+    for (it = items_.begin(); it != items_.end(); it++) {
+        if (it->second > 0)
+            return it->first;
+        if (it->first == name)
+            return name;
+    }
 }
 
 size_t Inventory::getItemCount(std::string item) {
