@@ -29,7 +29,7 @@ private:
 
     sf::Font guiFont_;
 
-    const int PLAYER_INFO_WIDTH = 200;
-    const int PLAYER_INFO_HEIGHT = 50;
-    const int PLAYER_INFO_SPACING = 20;
+    static const int PLAYER_INFO_WIDTH;
+    static const int PLAYER_INFO_HEIGHT;
+    static const int PLAYER_INFO_SPACING;
 };

@@ -9,6 +9,12 @@ WorldGUI::WorldGUI(
     yCoord_(y) {
     guiFont_.loadFromFile("./graphics/fonts/sansation.ttf");
 }
+
+
+
+const int WorldGUI::PLAYER_INFO_WIDTH = 200;
+const int WorldGUI::PLAYER_INFO_HEIGHT = 50;
+const int WorldGUI::PLAYER_INFO_SPACING = 20;
                 
 
 void WorldGUI::clear() {
