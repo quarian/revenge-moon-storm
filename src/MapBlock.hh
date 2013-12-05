@@ -51,13 +51,6 @@ class MapBlock {
 
         sf::Texture const& getTexture() const { return terrain_.type->texture; }
         
-        //static const unsigned NONE;
-        //static const unsigned WEAK;
-        //static const unsigned MEDIUM;
-        //static const unsigned STRONG;
-        //static const unsigned INDESTRUCTIBLE;
-        //static constexpr float NONE = 0.0;
-        //static constexpr float INDESTRUCTIBLE = -100;
 
     private:
         std::vector<Walker*> walkers_;

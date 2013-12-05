@@ -76,15 +76,18 @@ Item* MapBlock::popItem(Item* item) {
 }
 
 void MapBlock::takeDamage(int amount) {
+    // Weaken the terrain
     weaken(amount);
-    for (auto iter = items_.begin(); iter != items_.end(); iter++) {
-        bool destoryed = (*iter)->takeDamage(amount);
-        if (destoryed)
-            iter = items_.erase(iter);
+
+    // Weaken the items
+    for (auto item : items_)
+            item->takeDamage(amount);
+
+    // Update item list
+    std::vector<Item*> items_new;
+    for (auto item : items_) {
+        if (item->getAlive()) items_new.push_back(item);
+        else delete item;
     }
-    for (auto iter = walkers_.begin(); iter != walkers_.end(); iter++) {
-            bool destroyed = false;//Game::damageActor(*iter, amount);
-            if (destroyed)
-                iter = walkers_.erase(iter);
-    }
+    items_ = items_new;
 }
