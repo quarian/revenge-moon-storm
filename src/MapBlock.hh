@@ -34,8 +34,10 @@ class MapBlock {
         Map& getMap() const { return map_; }
         void exit(Walker* w);
         void enter(Walker* w);
-        void pushItem(Item* item);
-        void popItem(Item* item);
+
+        void pushItem(Item* item) { items_.insert(item); }
+        void popItem(Item* item) { items_.erase(item); }
+
         void collect(Inventory* inventory);
         
         /* Methods related to digging.

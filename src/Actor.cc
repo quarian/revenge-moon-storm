@@ -19,13 +19,18 @@ Actor::Actor(
         inventory_(inv) { }
 
 
-bool Actor::takeDamage(int dmg) {
+Actor::~Actor() {
+    location_->exit(this);
+}
+
+
+bool Actor::takeDamage(float dmg) {
     health_ -= round(dmg * vulnerability_);
     return health_ > 0;
 }
 
 
-bool Actor::heal(int amount) {
+bool Actor::heal(float amount) {
     if (!isAlive()) return false;
     health_ = fmin(health_ + amount, maxHealth_);
     return true;

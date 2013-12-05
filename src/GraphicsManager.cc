@@ -37,6 +37,7 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
 	frontToEnd();
 	loadTexture("wtf.png");
 	loadTexture("background_grid.png");
+    loadTexture("blood_splatter.png");
 	
 	// Create animations
 	Animation standingPlayer;

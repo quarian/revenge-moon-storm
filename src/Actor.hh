@@ -25,12 +25,12 @@ public:
      *  Inventory*          where collected items go -- if nullptr, doesn't collect
      */
     Actor(Map&, MapBlock*, float, float=0.0, int=100, float=0.0, Inventory* =nullptr);
-    virtual ~Actor() {}
+    virtual ~Actor();
 
     /* Deals/heals damage. takeDamage() returns true if the Actor is still
      * alive after the damage is dealt. */
-    virtual bool takeDamage(int);
-    virtual bool heal(int);
+    virtual bool takeDamage(float);
+    virtual bool heal(float);
 
     /* Getters and other info. */
     int getHealth() const { return health_; }

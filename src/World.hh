@@ -44,11 +44,14 @@ private:
     std::vector<Player*> players_;
     WorldGUI gui_;
 
+    void cull();
     void updateAll(float);
     void drawMapObjects();
     void drawGUI();
 
     void initKeyboard();
+
+    void terminate();
 };
 
 #endif

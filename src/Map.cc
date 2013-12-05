@@ -160,18 +160,6 @@ void Map::blast(Weapon* w) {
         mb->takeDamage(p - getDistance(location, mb) * 3); //lower power over distance
         new Explosion(*this, mb);
     }
-
-    //int distance = 0;
-    //if (SmallBomb* sb = dynamic_cast<SmallBomb*>(w)) {
-    //    for (auto iter = grid_.begin(); iter != grid_.end(); iter++) {
-    //        for (auto jiter = iter->begin(); jiter != iter->end(); jiter++) {
-    //            distance = sqrt(((*jiter).x_ - location->x_) * ((*jiter).x_ - location->x_) +
-    //                            ((*jiter).y_ - location->y_) * ((*jiter).y_ - location->y_));
-    //            if (distance < r)
-    //                (*jiter).takeDamage(p);
-    //        }
-    //    }
-    //}
 }
 
 void Map::crossblast(Weapon* w) {

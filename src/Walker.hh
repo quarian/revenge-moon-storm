@@ -47,7 +47,7 @@ public:
     Direction getDirection() const { return facing_; }
     Direction getPosition() const { return dPos_; }
     MapBlock* getLocation() const { return location_; }
-
+    virtual bool isAlive() const { return true; }
 
     /* Returns whether the Walker is "going somewhere". */
     bool isMoving() const { return (target_ != nullptr); }

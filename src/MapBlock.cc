@@ -1,4 +1,5 @@
 #include "MapBlock.hh"
+#include "Actor.hh"
 
 #include <cmath>
 
@@ -58,13 +59,6 @@ void MapBlock::collect(Inventory* inventory) {
     }
 }
 
-void MapBlock::pushItem(Item* item) {
-    items_.insert(item);
-}
-
-void MapBlock::popItem(Item* item) {
-    auto it = items_.erase(item);
-}
 
 void MapBlock::takeDamage(int amount) {
     // Weaken the terrain
@@ -72,5 +66,8 @@ void MapBlock::takeDamage(int amount) {
 
     // Weaken the items
     for (auto item : items_)
-            item->takeDamage(amount);
+        item->takeDamage(amount);
+    for (Walker* w : walkers_)
+        if (Actor* a = dynamic_cast<Actor*>(w))
+            a->takeDamage(amount);
 }

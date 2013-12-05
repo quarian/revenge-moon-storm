@@ -139,3 +139,7 @@ void Explosion::update(float dt) {
             alive_ = false;
     }
 }
+
+BloodSplatter::BloodSplatter(Map& map, MapBlock* location) : Item(map, location, "blood splatter", true, false, Direction::NULLDIR) {
+    buildSprite(1, "blood_splatter.png", 1.0f);
+}

@@ -130,4 +130,12 @@ private:
     float fusetime_;
 };
 
+
+class BloodSplatter : public Item {
+public:
+    BloodSplatter(Map&, MapBlock*);
+    void update(float) {}
+    bool takeDamage(int) { return false; }
+};
+
 #endif
