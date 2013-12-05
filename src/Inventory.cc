@@ -11,6 +11,7 @@ Inventory::Inventory() {
         // TEST LINE -- remove eventually
         items_["Small Bomb"] = 20;
         items_["Big Bomb"] = 20;
+        items_["Crucifix Bomb"] = 20;
 }
 Inventory::~Inventory() {}
 
@@ -66,11 +67,12 @@ bool Inventory::useItem(std::string item, Map& map, MapBlock* mb, Direction dir)
 
 		if (item == "Small Bomb")
 			new_item = new SmallBomb(map, mb);
-                else if (item == "Big Bomb")
+        else if (item == "Big Bomb")
 			new_item = new BigBomb(map, mb);
-                // ...
+        else if (item == "Crucifix Bomb")
+        	new_item = new CrucifixBomb(map, mb);
 
-                return true;
+       return true;
 	}
 	return false;
 }

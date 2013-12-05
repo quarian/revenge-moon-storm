@@ -16,17 +16,26 @@ std::vector<MapBlock*> Map::getInRadius(MapBlock* ref, float r, bool inclusive) 
 
     // If I look at these for too long, I get the feeling that they're about to 
     // fall over
-    if (inclusive)
-        for (int i = xmin; i <= xmax; i++)
-            for (int j = ymin; j <= ymax; j++)
-                if (((x-i)*(x-i) + (y-j)*(y-j)) <= r2)
+    if (inclusive) {
+        for (int i = xmin; i <= xmax; i++) {
+            for (int j = ymin; j <= ymax; j++) {
+                if (((x-i)*(x-i) + (y-j)*(y-j)) <= r2) {
                     results.push_back(getBlock(i,j));
-    else
-        for (int i = xmin; i <= xmax; i++)
-            for (int j = ymin; j <= ymax; j++)
-                if (((x-i)*(x-i) + (y-j)*(y-j)) <= r2)
-                    if ((i != x) || (j != y))
+                }
+            }
+        }
+    } else {
+        for (int i = xmin; i <= xmax; i++) {
+            for (int j = ymin; j <= ymax; j++) {
+                if (((x-i)*(x-i) + (y-j)*(y-j)) <= r2) {
+                    if ((i != x) || (j != y)) {
                         results.push_back(getBlock(i,j));
+                    }
+                }
+            }
+        }
+    }
+
 
     return results;
 }

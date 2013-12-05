@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <algorithm>
 #include <cmath>
+#include <iostream>
 
 #include "Map.hh"
 
@@ -86,12 +87,21 @@ std::vector<std::vector<MapBlock>>* Map::getGrid() {
     return &grid_;
 }
 
+float Map::getDistance(int x1, int y1, int x2, int y2) {
+    return sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+}
+
+float Map::getDistance(MapBlock* mb1, MapBlock* mb2) {
+    return getDistance(mb1->x_, mb1->y_, mb2->x_, mb2->y_);
+}
+
 void Map::blast(Weapon* w) {
     int r = w->getRadius();
     int p = w->getPower();
     MapBlock* location = w->getLocation();
     for (auto mb : getInRadius(location, r)) {
-        mb->takeDamage(p);
+        //std::cerr << "distance: " << getDistance(location, mb) << std::endl;
+        mb->takeDamage(p - getDistance(location, mb) * 3); //lower power over distance
         new Explosion(*this, mb);
     }
 
@@ -106,4 +116,38 @@ void Map::blast(Weapon* w) {
     //        }
     //    }
     //}
+}
+
+void Map::crossblast(Weapon* w) {
+    int l = w->getRadius();
+    int p = w->getPower();
+    MapBlock* location = w->getLocation();
+
+    //The blast square takes damage
+    location->takeDamage(p);
+    new Explosion(*this, location);
+
+    //The other squares take damage
+    for (int i = 1; i < l; i++) {
+        if (location->x_ - i > 0) {
+            auto mb = getBlock(location->x_ - i, location->y_);
+            mb->takeDamage(p - i*3);
+            new Explosion(*this, mb);
+        }
+        if (location->x_ + i < getWidth() - 1) {
+            auto mb = getBlock(location->x_ + i, location->y_);
+            mb->takeDamage(p - i*3);
+            new Explosion(*this, mb);
+        }
+        if (location->y_ - i > 0) {
+            auto mb = getBlock(location->x_, location->y_ - i);
+            mb->takeDamage(p - i*3);
+            new Explosion(*this, mb);
+        }
+        if (location->y_ + i < getHeight() - 1) {
+            auto mb = getBlock(location->x_, location->y_ + i);
+            mb->takeDamage(p - i*3);
+            new Explosion(*this, mb);
+        }
+    }
 }

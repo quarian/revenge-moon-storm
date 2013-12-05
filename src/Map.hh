@@ -36,6 +36,7 @@ class Map {
         MapBlock* getBlock(int x, int y, Direction direction);
 
         void blast(Weapon* w);
+        void crossblast(Weapon* w);
         unsigned getHeight();
         unsigned getWidth();
         Game* getGame() const { return game_; }
@@ -43,6 +44,9 @@ class Map {
 
         void pushItem(Item* item) { items.insert(item); }
         void popItem(Item* item) { items.erase(item); }
+
+        float getDistance(MapBlock*, MapBlock*);
+        float getDistance(int, int, int, int);
 
         std::set <Player*> players;
         std::set <Walker*> monsters;
