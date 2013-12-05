@@ -9,7 +9,7 @@ Inventory::Inventory() {
 	gold_ = 0;
 
         // TEST LINE -- remove eventually
-        items_["Small Bomb"] = 3;
+        items_["Small Bomb"] = 20;
 }
 Inventory::~Inventory() {}
 

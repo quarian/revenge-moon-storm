@@ -56,7 +56,7 @@ std::vector<std::string> Item::treasureNames() {
 
 SmallBomb::SmallBomb(Map& map, MapBlock* location) : Weapon(map, location, "Small Bomb", false, Direction::NULLDIR) {
 	radius_ = 2;
-	power_ = 8;
+	power_ = 12;
 	fusetime_ = 2.0f;
 
 	buildSprite(5, "bomb_anim.png", fusetime_);    

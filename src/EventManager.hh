@@ -49,8 +49,8 @@ private:
     WindowManager& window_;
     std::list<KeyInterface*> keyInterfaces_;
 
-    MenuKeys menuKeys_;
     bool& isRunning_;
+    MenuKeys menuKeys_;
     // bool& isPaused_;
 };
 
