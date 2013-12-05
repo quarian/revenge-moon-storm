@@ -30,6 +30,7 @@ public:
 
     /* indexing operator, for accessing TerrainType data by character */
     TerrainType const& operator[] (char) const;
+    TerrainType const& random() const;
 
 private:
     std::map<char, TerrainType*> terrains_;

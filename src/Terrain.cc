@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include "Terrain.hh"
 
 
@@ -20,6 +21,14 @@ void TerrainManager::init(std::istream& is) {
 TerrainManager::~TerrainManager() {
     for (auto t : terrains_)
         delete t.second;
+}
+
+
+TerrainManager::TerrainType const& TerrainManager::random() const {
+    int i = rand() % terrains_.size();
+    auto it = terrains_.begin();
+    while (i --> 0) it++;
+    return *it->second;
 }
 
 
