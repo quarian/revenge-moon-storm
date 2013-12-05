@@ -3,14 +3,15 @@
 #include <iostream>
 
 
-Player::Player(std::string name, size_t lives) :
-    speed_(14.0f),
-    digPower_(23.0f),
-    resistance_(0.0f),
-    lives_(lives),
-    name_(name),
-    currentItem_("Small Bomb"),
-    avatar_(nullptr) { }
+Player::Player(std::string name, const PlayerInterface::KeySet& keys, size_t lives) :
+        speed_(14.0f),
+        digPower_(23.0f),
+        resistance_(0.0f),
+        lives_(lives),
+        name_(name),
+        currentItem_("Small Bomb"),
+        avatar_(nullptr),
+        interface_(PlayerInterface(this, keys)) {}
 
 Player::~Player() {
     clearAvatar();
@@ -63,5 +64,5 @@ bool Player::clearAvatar() {
 
 
 PlayerInterface* Player::getInterface() {
-    return new PlayerInterface(this);
+    return &interface_;
 }

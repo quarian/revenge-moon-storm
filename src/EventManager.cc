@@ -14,8 +14,6 @@ void EventManager::registerInterface(KeyInterface* interface) {
 // }
 
 void EventManager::clearInterfaces() {
-    for (auto interface : keyInterfaces_)
-        delete interface;
     keyInterfaces_.clear();
 }
 

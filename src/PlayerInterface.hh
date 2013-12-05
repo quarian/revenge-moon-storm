@@ -4,29 +4,30 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Event.hpp>
 
+#include "PlayerInterface.hh"
 #include "KeyInterface.hh"
 #include "Direction.hh"
-#include "Player.hh"
 
 class Player;
 
 class PlayerInterface : public KeyInterface {
 public:
+    struct KeySet;
+
+    // Some typical keysets
+    static const KeySet ARROWS;
+    static const KeySet ARROWS_WIDE;
+    static const KeySet WASD;
+    static const KeySet WASD_DVORAK;
+
     /* Constructor
      *
      * PARAMETERS
      * ==========
      *  Player&             the player who owns this interface
-     *
-     *  Key                 key to move UP
-     *  Key                 key to move LEFT
-     *  Key                 key to move RIGHT
-     *  Key                 key to move DOWN
-     *
-     *  Key                 key to USE ITEM
-     *  Key                 key to CYCLE ITEM
+     *  KeySet              the keyset containing the relevant keys
      */
-    PlayerInterface(Player*, Key=KB::Up, Key=KB::Left, Key=KB::Right, Key=KB::Down, Key=KB::Space, Key=KB::LAlt);
+    PlayerInterface(Player*, const KeySet&);
     
     bool operator==(KeyInterface const& other) const; // override
 
@@ -45,16 +46,22 @@ public:
 private:
     Player* player_;
 
-    Key up_;
-    Key left_;
-    Key right_;
-    Key down_;
-
-    Key use_;
-    Key change_;
+    const KeySet& keys_;
 
     bool useKeyState_;
     bool changeKeyState_;
 };
+
+
+struct PlayerInterface::KeySet {
+    Key up;
+    Key left;
+    Key right;
+    Key down;
+
+    Key use;
+    Key change;
+};
+
 
 #endif

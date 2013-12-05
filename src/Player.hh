@@ -15,7 +15,7 @@ friend bool PlayerTest1(std::ostream&);
 
 public:
     /* Constructor. */
-    Player(std::string, size_t=1);
+    Player(std::string, const PlayerInterface::KeySet& =PlayerInterface::ARROWS, size_t=1);
     ~Player();
 
     /* Spawns a new Actor onto the given map.
@@ -56,6 +56,7 @@ protected:
     Inventory inventory_;
     std::string currentItem_;
     ControlledActor* avatar_;
+    PlayerInterface interface_;
 
     /* Make sure that no avatar is connected; delete it if it is. */
     bool clearAvatar();
