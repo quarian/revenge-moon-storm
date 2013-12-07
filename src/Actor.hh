@@ -61,7 +61,7 @@ protected:
     float vulnerability_;
     Inventory* inventory_;
     
-    //								void updateSprite(float dt);
+    // void updateSprite(float dt);
     AnimatedSprite spriteDigger_;
 };
 

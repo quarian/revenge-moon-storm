@@ -77,3 +77,11 @@ void AIPlayerSeeker::queueSleep() {
 int AIPlayerSeeker::planPathLength(float dist) const {
     return floor(log2(dist) / 2) + 2;
 }
+
+
+void AIPlayerSeeker::proceed() {
+    Walker::proceed();
+    auto targets = location_->getPlayers();
+    for (auto p : targets)
+        p->takeDamage(damage_);
+}

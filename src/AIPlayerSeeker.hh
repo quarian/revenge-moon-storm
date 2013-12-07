@@ -39,6 +39,9 @@ protected:
     /* Formulate a plan on what to do next. */
     virtual void think();
 
+    /* Overridden to enable damage dealing. */
+    virtual void proceed();
+
     /* How many steps to plan ahead if the target player is at the given
      * distance? */
     virtual int planPathLength(float) const;

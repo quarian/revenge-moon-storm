@@ -1,5 +1,6 @@
 #include "MapBlock.hh"
 #include "Actor.hh"
+#include "ControlledActor.hh"
 
 #include <cmath>
 
@@ -113,4 +114,15 @@ void MapBlock::takeDamage(int amount) {
     for (Walker* w : walkers_)
         if (Actor* a = dynamic_cast<Actor*>(w))
             a->takeDamage(amount);
+}
+
+
+std::vector<ControlledActor*> MapBlock::getPlayers() {
+    std::vector<ControlledActor*> vec;
+    for (auto w : walkers_) {
+        if (ControlledActor* p = dynamic_cast<ControlledActor*>(w)) {
+            vec.push_back(p);
+        }
+    }
+    return vec;
 }

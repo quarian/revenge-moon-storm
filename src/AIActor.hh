@@ -41,19 +41,20 @@ protected:
     float sleep_;
 
 
-    /* The AIActor keeps, as a stack of pointers, a sequence of MapBlocks that
+    /* The AIActor keeps, as a deque of pointers, a sequence of MapBlocks that
      * it is currently walking along. These functions to deal with the path
-     * stack. */
+     * deque. */
 
-    /* Cancels the currently planned path. */
+    /* Functions to administrate the deque. */
+    void pushPath(std::deque<MapBlock*>, int=-1);
+    void pushPath(MapBlock*);
+    void setPath(std::deque<MapBlock*>, int=-1);
     void cancelPath();
 
     /* Continue moving along the path. This is the function that findTarget()
      * is meant to call when simply continuing onwards is called for. */
     void popPath(float);
-    void pushPath(std::deque<MapBlock*>, int=-1);
-    void pushPath(MapBlock*);
-    void setPath(std::deque<MapBlock*>, int=-1);
+
 
 private:
     std::deque<MapBlock*> path_;

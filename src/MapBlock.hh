@@ -19,6 +19,7 @@ class Map;
 class Item;
 class Inventory;
 class Actor;
+class ControlledActor;
 
 class MapBlock {
     public:
@@ -71,6 +72,8 @@ class MapBlock {
         Terrain& getTerrain() { return terrain_; }
 
         sf::Texture const& getTexture() const { return terrain_.type->texture; }
+
+        std::vector<ControlledActor*> getPlayers();
         
 
     private:
