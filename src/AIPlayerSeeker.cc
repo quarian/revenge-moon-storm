@@ -51,7 +51,7 @@ void AIPlayerSeeker::think() {
     }
     
     // TODO: random walk if no path
-    // pushPath(map_.randomWalk(5));
+    pushPath(map_.randomWalk(location_, 5));
     needThink_ = false;
 }
 

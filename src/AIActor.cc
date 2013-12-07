@@ -45,7 +45,7 @@ void AIActor::popPath(float dt) {
 }
 
 
-void AIActor::pushPath(std::deque<MapBlock*> mbs, int nmax=-1) {
+void AIActor::pushPath(std::deque<MapBlock*> mbs, int nmax) {
     if (nmax == -1) {
         while (!mbs.empty()) {
             pushPath(mbs.front());
@@ -65,7 +65,7 @@ void AIActor::pushPath(MapBlock* mb) {
 }
 
 
-void AIActor::setPath(std::deque<MapBlock*> mbs, int nmax=-1) {
+void AIActor::setPath(std::deque<MapBlock*> mbs, int nmax) {
     cancelPath();
     pushPath(mbs, nmax);
 }

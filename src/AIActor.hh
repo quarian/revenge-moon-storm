@@ -48,9 +48,9 @@ protected:
     /* Continue moving along the path. This is the function that findTarget()
      * is meant to call when simply continuing onwards is called for. */
     void popPath(float);
-    void pushPath(std::deque<MapBlock*>, int);
+    void pushPath(std::deque<MapBlock*>, int=-1);
     void pushPath(MapBlock*);
-    void setPath(std::deque<MapBlock*>, int);
+    void setPath(std::deque<MapBlock*>, int=-1);
 
 private:
     std::deque<MapBlock*> path_;
