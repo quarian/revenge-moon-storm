@@ -3,7 +3,7 @@
 
 #include "MapBlock.hh"
 
-#include <stack>
+#include <deque>
 
 /* A* pathfinding algorithm
  *
@@ -65,7 +65,7 @@ namespace AStar {
      *
      * Return value: stack of MapBlock pointers.
      */
-    std::stack<MapBlock*> find(
+    std::deque<MapBlock*> find(
             MapBlock* const,
             MapBlock* const,
             CostFunction const& =SimpleCostFunction(),

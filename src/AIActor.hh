@@ -6,7 +6,7 @@
  */
 
 #include "Actor.hh"
-#include <stack>
+#include <deque>
 
 class AIActor : public Actor {
 public:
@@ -34,8 +34,8 @@ protected:
 
     virtual void findTarget(float);
 
-    /* How long until the next thought? */
-    float dThink_;
+    /* Does think() need to be called on next update? */
+    bool needThink_;
 
 
     /* The AIActor keeps, as a stack of pointers, a sequence of MapBlocks that
@@ -48,12 +48,12 @@ protected:
     /* Continue moving along the path. This is the function that findTarget()
      * is meant to call when simply continuing onwards is called for. */
     void popPath(float);
-    void pushPath(std::stack<MapBlock*>, int);
+    void pushPath(std::deque<MapBlock*>, int);
     void pushPath(MapBlock*);
-    void setPath(std::stack<MapBlock*>, int);
+    void setPath(std::deque<MapBlock*>, int);
 
 private:
-    std::stack<MapBlock*> path_;
+    std::deque<MapBlock*> path_;
 };
 
 #endif

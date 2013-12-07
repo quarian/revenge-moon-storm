@@ -1,5 +1,7 @@
+#include <SFML/Graphics.hpp>
 #include <algorithm>
 #include "World.hh"
+#include "AIPlayerSeeker.hh"
 
 
 World::World(GameState* parent, Map& map, std::vector<Player*> players)
@@ -33,6 +35,12 @@ void World::init() {
             game_.graphicsManager_.getAnimation("digging_player"),
             game_.graphicsManager_.getPlayerColor());
     }
+
+    AIPlayerSeeker* monster = new AIPlayerSeeker(map_, map_.getBlock(30, 30));
+    monster->initSprite(game_.graphicsManager_.getAnimation("walking_player"), sf::Color::Red);
+    map_.getBlock(30,30)->enter(monster);
+    map_.monsters.insert(monster);
+
     drawMapObjects();
 }
 

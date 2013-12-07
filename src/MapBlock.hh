@@ -27,10 +27,16 @@ class MapBlock {
 
         int x_;
         int y_;
+        int getSquareDistance(MapBlock const*) const;
+        int getManhattanDistance(MapBlock const*) const;
+
         std::string content_;
         bool isPassable() const;
         bool isDiggable() const;
+
         MapBlock* getBlock(Direction direction) const;
+        MapBlock* getRandomPassableNeighbor() const;
+
         Map& getMap() const { return map_; }
         void exit(Walker* w);
         void enter(Walker* w);

@@ -43,6 +43,7 @@ public:
     virtual void update(float); // Overridden
     
     void initSprite(Animation const& walking, Animation const& digging, sf::Color);
+    void initSprite(Animation const& walking, sf::Color);
     
     AnimatedSprite& getSprite();
 

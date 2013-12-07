@@ -33,12 +33,12 @@ AStar::Node::Node(
 }
 
 
-std::stack<MapBlock*> AStar::find(
+std::deque<MapBlock*> AStar::find(
         MapBlock* const start,
         MapBlock* const finish,
         CostFunction const& costFn,
-        bool includeStart, // TODO
-        bool includeFinish, // TODO
+        bool includeStart,
+        bool includeFinish,
         float maxCost
 ) {
     /* Initialization */
@@ -75,13 +75,13 @@ std::stack<MapBlock*> AStar::find(
         }
     } // while (!pq.empty())
 
-    std::stack<MapBlock*> solution;
+    std::deque<MapBlock*> solution;
 
     /* If the search was successful, trace back the path */
     if (current->block == finish) {
         while (current != nullptr) {
             if ((includeStart || current->block != start) && (includeFinish || current->block != finish))
-                 solution.push(current->block);
+                 solution.push_back(current->block);
             current = current->previous;
         }
     }

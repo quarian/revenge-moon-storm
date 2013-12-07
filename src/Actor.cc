@@ -60,6 +60,14 @@ void Actor::initSprite(Animation const& walking, Animation const& digging, sf::C
     updateSprite(0.0);
 }
 
+void Actor::initSprite(Animation const& walking, sf::Color color) {
+    sprite_.setAnimation(walking);
+    sprite_.setColor(color);
+    sprite_.setOrigin(8,8);
+    
+    updateSprite(0.0);
+}
+
 AnimatedSprite& Actor::getSprite() {
 	if (digging_) {
 		return spriteDigger_;

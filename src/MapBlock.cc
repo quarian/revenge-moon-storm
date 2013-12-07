@@ -19,6 +19,18 @@ MapBlock MapBlock::operator=(const MapBlock& other) {
     return *this;
 }
 
+int MapBlock::getSquareDistance(MapBlock const* other) const {
+    int dx = x_ - other->x_;
+    int dy = y_ - other->y_;
+    return dx*dx + dy*dy;
+}
+
+int MapBlock::getManhattanDistance(MapBlock const* other) const {
+    int dx = x_ - other->x_;
+    int dy = y_ - other->y_;
+    return fabs(dx) + fabs(dy);
+}
+
 bool MapBlock::isPassable() const {
     return terrain_.type->passable;
 }
@@ -30,6 +42,16 @@ bool MapBlock::isDiggable() const {
 MapBlock* MapBlock::getBlock(Direction direction) const {
     return map_.getBlock(x_, y_, direction);
 }
+
+MapBlock* MapBlock::getRandomPassableNeighbor() const {
+    std::vector<Direction> neighbors = { Direction::NORTH, Direction::EAST, Direction::SOUTH, Direction::WEST };
+    std::random_shuffle(neighbors.begin(), neighbors.end());
+    for (auto n : neighbors)
+        if (getBlock(n)->isPassable())
+            return getBlock(n);
+    return nullptr;
+}
+
 
 void MapBlock::enter(Walker* w) {
     walkers_.insert(w);

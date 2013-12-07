@@ -30,7 +30,8 @@ World.cc\
 SinglePlayerGame.cc\
 WorldGUI.cc\
 MapUtils.cc\
-MultiplayerGame.cc
+MultiplayerGame.cc\
+AIPlayerSeeker.cc
 MAIN=main.cc
 RPATH=-Wl,-rpath=./lib/
 TESTS=WalkerTest.cc DirectionTest.cc ActorTest.cc ControlledActorTest.cc PlayerTest.cc MapTest.cc InventoryTest.cc AStarTest.cc testMain.cc TerrainTest.cc

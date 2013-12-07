@@ -12,59 +12,62 @@ AIActor::AIActor(
     float resistance,
     Inventory* inv) :
         Actor(map, block, speed, digPower, health, resistance, inv),
-        dThink_(0.0) { }
+        needThink_(true) { }
 
 
 void AIActor::update(float dt) {
-    dThink_ -= dt;
-    if (dThink_ <= 0)
+    if (needThink_)
         think();
     Actor::update(dt);
 }
 
 
 void AIActor::cancelPath() {
-    while(!path_.empty())
-        path_.pop();
+    path_.clear();
+    needThink_ = true;
 }
 
 void AIActor::popPath(float dt) {
     if (!path_.empty()) {
-        target_ = path_.top();
-        path_.pop();
+        target_ = path_.front();
+        path_.pop_front();
 
-        if ( fdim(target_->x_, location_->x_) + // If not neighboring
-             fdim(target_->y_, location_->y_) != 1) {
-            target_ = nullptr;
-            cancelPath();
+        while (target_ == location_ && !path_.empty()) {
+            target_ = path_.front();
+            path_.pop_front();
         }
 
-        update(dt);
-    }
+        if (location_->getManhattanDistance(target_) != 1) { // Not neighboring
+            target_ = nullptr;
+            cancelPath();
+            needThink_ = true;
+        } else update(dt);
+
+    } else needThink_ = true;
 }
 
 
-void AIActor::pushPath(std::stack<MapBlock*> mbs, int nmax=-1) {
+void AIActor::pushPath(std::deque<MapBlock*> mbs, int nmax=-1) {
     if (nmax == -1) {
         while (!mbs.empty()) {
-            pushPath(mbs.top());
-            mbs.pop();
+            pushPath(mbs.front());
+            mbs.pop_front();
         }
     } else {
         while (nmax --> 0 && !mbs.empty()) {
-            pushPath(mbs.top());
-            mbs.pop();
+            pushPath(mbs.front());
+            mbs.pop_front();
         }
     }
 }
 
 
 void AIActor::pushPath(MapBlock* mb) {
-    path_.push(mb);
+    path_.push_back(mb);
 }
 
 
-void AIActor::setPath(std::stack<MapBlock*> mbs, int nmax=-1) {
+void AIActor::setPath(std::deque<MapBlock*> mbs, int nmax=-1) {
     cancelPath();
     pushPath(mbs, nmax);
 }
