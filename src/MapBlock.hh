@@ -5,6 +5,7 @@
 #include <vector>
 #include <set>
 #include <algorithm> // for find_if
+#include <functional>
 #include <SFML/Graphics.hpp>
 
 #include "Map.hh"
@@ -45,6 +46,7 @@ class MapBlock {
 
         MapBlock* getBlock(Direction direction) const;
         MapBlock* getRandomPassableNeighbor() const;
+        MapBlock* getRandomNeighbor(std::function<bool(MapBlock*)>) const;
 
         Map& getMap() const { return map_; }
         void exit(Walker* w);

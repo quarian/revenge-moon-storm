@@ -1,5 +1,29 @@
 #include "Map.hh"
 
+
+std::deque<MapBlock*> Map::randomWalk(
+        MapBlock* mb, size_t length, bool frontInclusive) {
+    return randomWalk(mb, length, frontInclusive,
+            [](MapBlock* mb){ return mb->isPassable(); });
+}
+
+std::deque<MapBlock*> Map::randomWalk(
+        MapBlock* mb, size_t length, bool frontInclusive,
+        std::function<bool(MapBlock*)> pred) {
+    std::deque<MapBlock*> result;
+    if (length < 1) return result;
+    if (frontInclusive) {
+        result.push_back(mb);
+        length -= 1;
+    }
+    while (length --> 0) {
+        mb = mb->getRandomNeighbor(pred);
+        if (!mb) break;
+        result.push_back(mb);
+    }
+    return result;
+}
+
 std::vector<MapBlock*> Map::getInRadius(MapBlock* ref, float r, bool inclusive) {
     std::vector<MapBlock*> results;
 

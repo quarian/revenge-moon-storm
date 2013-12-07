@@ -59,13 +59,18 @@ MapBlock* MapBlock::getBlock(Direction direction) const {
     return map_.getBlock(x_, y_, direction);
 }
 
-MapBlock* MapBlock::getRandomPassableNeighbor() const {
+MapBlock* MapBlock::getRandomNeighbor(
+        std::function<bool(MapBlock*)> pred) const {
     std::vector<Direction> neighbors = { Direction::NORTH, Direction::EAST, Direction::SOUTH, Direction::WEST };
     std::random_shuffle(neighbors.begin(), neighbors.end());
     for (auto n : neighbors)
-        if (getBlock(n)->isPassable())
+        if (pred(getBlock(n)))
             return getBlock(n);
     return nullptr;
+}
+
+MapBlock* MapBlock::getRandomPassableNeighbor() const {
+    return getRandomNeighbor([](MapBlock* mb){ return mb->isPassable(); });
 }
 
 

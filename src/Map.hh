@@ -1,6 +1,7 @@
 #ifndef MB2_MAP_HH
 #define MB2_MAP_HH
 
+#include <functional>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -44,6 +45,7 @@ class Map {
         Game* getGame() const { return game_; }
         std::vector<std::vector<MapBlock>>* getGrid();
 
+
         void pushItem(Item* item) { items.insert(item); }
         void popItem(Item* item) { items.erase(item); }
 
@@ -75,6 +77,19 @@ class Map {
          * given reference block. Used, for example, to determine fog of war.
          */
         std::vector<MapBlock*> getLOS(MapBlock*);
+
+        /* Generates and returns a random-walk path starting at the given
+         * MapBlock. The boolean specifies whether the starting MapBlock is
+         * included. The caller may specify a predicate that specifies what
+         * MapBlocks are valid path elements. The default is to construct the
+         * walk strictly out of passable blocks.
+         *
+         * The silly overload dance here is to enable a default predicate that
+         * would create a circular dependency in the header.
+         */
+        std::deque<MapBlock*> randomWalk(MapBlock*, size_t, bool=false);
+        std::deque<MapBlock*> randomWalk(MapBlock*, size_t, bool,
+                std::function<bool(MapBlock*)>);
 };
 
 #endif
