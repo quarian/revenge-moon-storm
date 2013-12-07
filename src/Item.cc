@@ -61,13 +61,13 @@ NormalBomb::NormalBomb(Map& map, MapBlock* location, std::string name) : Weapon(
 	if (name == "Small Bomb") {
 		radius_ = 1;
 		power_ = 15;
-		fusetime_ = 2.0f;
+		fusetime_ = 1.0f;
 
 		buildSprite(5, "bomb_anim_small.png", fusetime_);    
 	} else if (name == "Large Bomb") {
 		radius_ = 3;
 		power_ = 25;
-		fusetime_ = 2.0f;
+		fusetime_ = 1.0f;
 
 		buildSprite(5, "bomb_anim.png", fusetime_);
 	}
@@ -77,13 +77,13 @@ CrucifixBomb::CrucifixBomb(Map& map, MapBlock* location, std::string name) : Wea
 	if (name == "Crucifix Bomb") {
 		radius_ = 5;
 		power_ = 26;
-		fusetime_ = 3.0f;
+		fusetime_ = 1.5f;
 
 		buildSprite(5, "bomb_anim_small.png", fusetime_);
 	} else if (name == "Large Crucifix Bomb") {
 		radius_ = 64;
 		power_ = 100;
-		fusetime_ = 5.0f;
+		fusetime_ = 2.0f;
 
 		buildSprite(5, "bomb_anim.png", fusetime_);
 	}
