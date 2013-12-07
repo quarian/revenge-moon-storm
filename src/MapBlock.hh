@@ -10,6 +10,7 @@
 #include "Map.hh"
 #include "Inventory.hh"
 #include "Terrain.hh"
+#include "Direction.hh"
 
 // Forward declaration
 class Walker;
@@ -27,8 +28,16 @@ class MapBlock {
 
         int x_;
         int y_;
+
+        /* Functions for simple maths related to block-block relationships.
+         * getSquareDistance returns the distance squared r^2, getManhattanDistance
+         * returns the Manhattan distance (|dx| + |dy|), and getFacingTo returns
+         * the (approximate) direction from this block to the target (or NULLDIR
+         * if they're the same).
+         */
         int getSquareDistance(MapBlock const*) const;
         int getManhattanDistance(MapBlock const*) const;
+        Direction getFacingTo(MapBlock const*) const;
 
         std::string content_;
         bool isPassable() const;

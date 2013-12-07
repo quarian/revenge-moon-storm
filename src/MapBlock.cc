@@ -31,6 +31,22 @@ int MapBlock::getManhattanDistance(MapBlock const* other) const {
     return fabs(dx) + fabs(dy);
 }
 
+Direction MapBlock::getFacingTo(MapBlock const* other) const {
+    if (!other) return Direction::NULLDIR;
+    if (other == this) return Direction::NULLDIR;
+
+    int dx = other->x_ - x_;
+    int dy = other->y_ - y_;
+
+    if (fabs(dx) > fabs(dy)) {
+        if (dx < 0) return Direction::WEST;
+        else return Direction::EAST;
+    } else {
+        if (dy < 0) return Direction::NORTH;
+        else return Direction::SOUTH;
+    }
+}
+
 bool MapBlock::isPassable() const {
     return terrain_.type->passable;
 }

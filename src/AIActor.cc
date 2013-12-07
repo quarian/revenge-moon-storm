@@ -37,13 +37,11 @@ void AIActor::popPath(float dt) {
             path_.pop_front();
         }
 
-        if (location_->getManhattanDistance(target_) != 1) { // Not neighboring
-            target_ = nullptr;
-            cancelPath();
-            needThink_ = true;
-        } else update(dt);
+        Direction facing = location_->getFacingTo(target_);
+        if (facing != Direction::NULLDIR)
+            facing_ = facing;
 
-    } else needThink_ = true;
+    } else target_ = nullptr;
 }
 
 
@@ -75,4 +73,11 @@ void AIActor::setPath(std::deque<MapBlock*> mbs, int nmax=-1) {
 
 void AIActor::findTarget(float dt) {
     popPath(dt);
+    if (target_) {
+        if (location_->getManhattanDistance(target_) != 1) { // Not neighboring
+            target_ = nullptr;
+            cancelPath();
+            needThink_ = true;
+        } else update(dt);
+    } else needThink_ = true;
 }

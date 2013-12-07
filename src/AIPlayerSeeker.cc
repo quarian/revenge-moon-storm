@@ -39,7 +39,8 @@ void AIPlayerSeeker::think() {
         MapBlock* neighbor = target->getRandomPassableNeighbor();
         if (neighbor) pushPath(neighbor);
         if (target == location_) pushPath(target);
-    } else {
+    }
+    else {
         /* Plot a course towards the player. */
         for (auto a : players) {
             auto path = AStar::find(a.second->getLocation(), location_, AStar::SimpleCostFunction(), false);
@@ -50,6 +51,7 @@ void AIPlayerSeeker::think() {
     }
     
     // TODO: random walk if no path
+    // pushPath(map_.randomWalk(5));
     needThink_ = false;
 }
 
