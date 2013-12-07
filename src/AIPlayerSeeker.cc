@@ -49,7 +49,7 @@ void AIPlayerSeeker::think() {
 
         /* Plot a course towards the player. */
         for (auto a : players) {
-            auto path = AStar::find(a.second->getLocation(), location_, AStar::SimpleCostFunction(), false);
+            auto path = AStar::find(location_, a.second->getLocation(), AStar::SimpleCostFunction(), false);
             if (path.empty()) continue;
             int plotlen = planPathLength(a.first);
             pushPath(path, plotlen);
