@@ -77,6 +77,7 @@ class Map {
          * given reference block. Used, for example, to determine fog of war.
          */
         std::vector<MapBlock*> getLOS(MapBlock*);
+        void bresenham(int, int, int, int, std::vector<MapBlock*>&);
 
         /* Generates and returns a random-walk path starting at the given
          * MapBlock. The boolean specifies whether the starting MapBlock is

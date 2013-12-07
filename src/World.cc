@@ -130,7 +130,7 @@ void World::drawMapObjects() {
     sf::Sprite blockSprite;
     for (size_t x=0; x!=mapWidth; x++) {
         for (size_t y=0; y!=mapHeight; y++) {
-            if (map_.getBlock(x,y)->visible_)
+            if (map_.getBlock(x,y)->visible_ || x == 0 || y == 0 || x == mapWidth - 1 || y == mapHeight - 1)
             	blockSprite.setTexture(map_.getBlock(x,y)->getTexture());
             else
                 blockSprite.setTexture(game_.graphicsManager_.getTexture("fow.png"));
