@@ -33,7 +33,7 @@ class Map {
         Map& operator=(const Map& other);
         Map(const Map& other);
         void loadFromFile(std::string filename, TerrainManager const&);
-        void generateRandomMap(TerrainManager const&, int height = 48, int width = 64);
+        void generateRandomMap(TerrainManager const&, int height = 44, int width = 64);
         void printMap();
         MapBlock* getBlock(int x, int y);
         MapBlock* getBlock(int x, int y, Direction direction);
