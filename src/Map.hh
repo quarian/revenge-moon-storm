@@ -90,6 +90,18 @@ class Map {
         std::deque<MapBlock*> randomWalk(MapBlock*, size_t, bool=false);
         std::deque<MapBlock*> randomWalk(MapBlock*, size_t, bool,
                 std::function<bool(MapBlock*)>);
+
+        /* Chooses a MapBlock within the given number of steps of the starting
+         * block, then returns an A* shortest-path to it. Parameters are the
+         * same as above.
+         *
+         * WARNING: the integration with A* is NOT FOOLPROOF yet, wrt. the
+         *          handling of the predicate.
+         */
+        std::deque<MapBlock*> randomDestinationWalk(
+                MapBlock*, size_t, bool=false);
+        std::deque<MapBlock*> randomDestinationWalk(
+                MapBlock*, size_t, bool, std::function<bool(MapBlock*)>);
 };
 
 #endif

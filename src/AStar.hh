@@ -3,6 +3,7 @@
 
 #include "MapBlock.hh"
 
+#include <functional>
 #include <deque>
 
 /* A* pathfinding algorithm
@@ -47,8 +48,18 @@ namespace AStar {
     class WalkingDiggingCostFunction : public CostFunction {
     public:
         const float walkCost, digCostBase, digCost;
-        WalkingDiggingCostFunction(float walkCost, float digCostBase, float digCost)
-                : walkCost(walkCost), digCostBase(digCostBase), digCost(digCost) {}
+        const std::function<bool(MapBlock const* const)> pred;
+        WalkingDiggingCostFunction(
+                float walkCost,
+                float digCostBase,
+                float digCost,
+                std::function<bool(MapBlock const* const)> pred =
+                        [](MapBlock const* const mb){ return true; }
+                ) :
+            walkCost(walkCost),
+            digCostBase(digCostBase),
+            digCost(digCost),
+            pred(pred) {}
 
         float operator()(MapBlock const* const) const;
     };

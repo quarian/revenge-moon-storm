@@ -37,6 +37,9 @@ protected:
     /* Does think() need to be called on next update? */
     bool needThink_;
 
+    /* If this is positive, it overrides all other actions. */
+    float sleep_;
+
 
     /* The AIActor keeps, as a stack of pointers, a sequence of MapBlocks that
      * it is currently walking along. These functions to deal with the path

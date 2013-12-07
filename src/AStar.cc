@@ -14,6 +14,7 @@ float AStar::SimpleCostFunction::operator()(MapBlock const* const mb) const {
 
 
 float AStar::WalkingDiggingCostFunction::operator()(MapBlock const* const mb) const {
+    if (!pred(mb)) return AStar::INF;
     if (mb->isPassable()) return walkCost;
     else if (mb->isDiggable()) return digCostBase + digCost * mb->getToughness();
     return AStar::INF;
@@ -81,7 +82,7 @@ std::deque<MapBlock*> AStar::find(
     if (current->block == finish) {
         while (current != nullptr) {
             if ((includeStart || current->block != start) && (includeFinish || current->block != finish))
-                 solution.push_back(current->block);
+                 solution.push_front(current->block);
             current = current->previous;
         }
     }

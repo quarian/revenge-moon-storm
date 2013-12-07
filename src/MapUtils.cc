@@ -1,4 +1,5 @@
 #include "Map.hh"
+#include "AStar.hh"
 
 
 std::deque<MapBlock*> Map::randomWalk(
@@ -22,6 +23,22 @@ std::deque<MapBlock*> Map::randomWalk(
         result.push_back(mb);
     }
     return result;
+}
+
+std::deque<MapBlock*> Map::randomDestinationWalk(
+        MapBlock* mb, size_t length, bool frontInclusive) {
+    return randomDestinationWalk(mb, length, frontInclusive,
+            [](MapBlock* mb){ return mb->isPassable(); });
+}
+
+std::deque<MapBlock*> Map::randomDestinationWalk(
+        MapBlock* mb, size_t length, bool frontInclusive,
+        std::function<bool(MapBlock*)> pred) {
+
+    // TODO: Properly handle the predicate in A* !!
+    
+    MapBlock* destination = randomWalk(mb, length, frontInclusive, pred).back();
+    return AStar::find(mb, destination, AStar::SimpleCostFunction(), frontInclusive);
 }
 
 std::vector<MapBlock*> Map::getInRadius(MapBlock* ref, float r, bool inclusive) {

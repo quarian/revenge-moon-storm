@@ -33,6 +33,9 @@ protected:
     float damage_;
     int LOS2_;
 
+    float queuedSleep_;
+    void queueSleep();
+
     /* Formulate a plan on what to do next. */
     virtual void think();
 

@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <utility>
 #include <cmath>
+#include <cstdlib>
 
 #include "AIPlayerSeeker.hh"
 #include "AStar.hh"
@@ -17,7 +18,8 @@ AIPlayerSeeker::AIPlayerSeeker(
         int LOS) :
     AIActor(map, block, speed, 0.0, health, 0.0, nullptr),
     damage_(damage),
-    LOS2_(LOS*LOS) {}
+    LOS2_(LOS*LOS),
+    queuedSleep_(0.0f) {}
 
 
 void AIPlayerSeeker::think() {
@@ -33,6 +35,8 @@ void AIPlayerSeeker::think() {
 
     /* If already very close, plan accordingly */
     if (!players.empty() && players[0].first <= 1) {
+        queueSleep();
+
         MapBlock* target = players[0].second->getLocation();
 
         if (target != location_) pushPath(target);
@@ -40,7 +44,9 @@ void AIPlayerSeeker::think() {
         if (neighbor) pushPath(neighbor);
         if (target == location_) pushPath(target);
     }
-    else {
+    else if (!players.empty()) {
+        queueSleep();
+
         /* Plot a course towards the player. */
         for (auto a : players) {
             auto path = AStar::find(a.second->getLocation(), location_, AStar::SimpleCostFunction(), false);
@@ -48,11 +54,23 @@ void AIPlayerSeeker::think() {
             int plotlen = planPathLength(a.first);
             pushPath(path, plotlen);
         }
+    } else {
+        if (queuedSleep_ > 0) {
+            sleep_ = queuedSleep_;
+            queuedSleep_ = 0;
+        } else {
+            pushPath(map_.randomDestinationWalk(location_, 10));
+            queueSleep();
+        }
     }
-    
-    // TODO: random walk if no path
-    pushPath(map_.randomWalk(location_, 5));
+
     needThink_ = false;
+}
+
+
+void AIPlayerSeeker::queueSleep() {
+    // Choose a sleep time
+    queuedSleep_ = exp(0.003 * (rand() % 100)) - 1;
 }
 
 

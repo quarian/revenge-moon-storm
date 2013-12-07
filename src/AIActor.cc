@@ -12,11 +12,14 @@ AIActor::AIActor(
     float resistance,
     Inventory* inv) :
         Actor(map, block, speed, digPower, health, resistance, inv),
-        needThink_(true) { }
+        needThink_(true),
+        sleep_(0.0f) {}
 
 
 void AIActor::update(float dt) {
-    if (needThink_)
+    if (sleep_ > 0)
+        sleep_ -= dt;
+    else if (needThink_)
         think();
     Actor::update(dt);
 }
