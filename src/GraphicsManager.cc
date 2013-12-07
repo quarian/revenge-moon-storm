@@ -21,6 +21,7 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
     loadTexture("Indestructible.png");
     loadTexture("Sand.png");
     loadTexture("fow.png");
+    loadTexture("unexplored.png");
 	
 	//Load from /players
 	frontToEnd();
@@ -29,6 +30,7 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
     //loadTexture("player_walking2.png");
     loadTexture("player_spritesheet.png");
     loadTexture("digger_spritesheet.png");
+    loadTexture("little_bug.png");
     
     //Load from  /items
 	frontToEnd();
@@ -61,6 +63,14 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
     diggingPlayer.addFrame(sf::IntRect(16*3,0,16,16));
     diggingPlayer.addFrame(sf::IntRect(16*4,0,16,16));
     animations_["digging_player"] = diggingPlayer;
+
+    Animation tinyBug;
+    tinyBug.setSpriteSheet(getTexture("little_bug.png"));
+    tinyBug.addFrame(sf::IntRect(0,0,16,16));
+    tinyBug.addFrame(sf::IntRect(16,0,16,16));
+    tinyBug.addFrame(sf::IntRect(16*2,0,16,16));
+    tinyBug.addFrame(sf::IntRect(16*3,0,16,16));
+    animations_["tiny_bug"] = tinyBug;
     
     frontToEnd();
     Animation explosion1;
