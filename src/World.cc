@@ -69,8 +69,8 @@ void World::initKeyboard() {
 
 
 void World::update(float dt) {
-    cull();
     updateAll(dt);
+    cull();
     drawMapObjects();
 }
 
