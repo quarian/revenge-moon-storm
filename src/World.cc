@@ -131,16 +131,21 @@ void World::drawMapObjects() {
     sf::Sprite blockSprite;
     for (size_t x=0; x!=mapWidth; x++) {
         for (size_t y=0; y!=mapHeight; y++) {
-            blockSprite.setTexture(map_.getBlock(x,y)->getTexture());
+            if (map_.getBlock(x,y)->visible_)
+            	blockSprite.setTexture(map_.getBlock(x,y)->getTexture());
+            else
+                blockSprite.setTexture(game_.graphicsManager_.getTexture("fow.png"));
             blockSprite.setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
             game_.draw(blockSprite);
         }
     }
 
     for (Item* i : map_.items)
-        game_.draw(i->getSprite());
+        if (i->getLocation()->visible_)
+            game_.draw(i->getSprite());
     for (Walker* m : map_.monsters)
-        game_.draw(m->getSprite());
+        if (m->getLocation()->visible_)
+            game_.draw(m->getSprite());
     for (Player* p : map_.players) {
         Actor* avatar = p->getActor();
         if (avatar) game_.draw(avatar->getSprite());

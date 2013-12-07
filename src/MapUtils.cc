@@ -82,10 +82,38 @@ std::vector<MapBlock*> Map::getInRadius(MapBlock* ref, float r, bool inclusive) 
 }
 
 
-std::vector<MapBlock*> Map::getLOS(MapBlock*) {
+std::vector<MapBlock*> Map::getLOS(MapBlock* mb) {
     std::vector<MapBlock*> results;
-
+    results.push_back(mb);
+    mb->visible_ = true;
+    MapBlock* current_block = mb;
+    Direction current_dir = Direction::NORTH;
+    while (current_block->isPassable()) {
+        current_block = current_block->getBlock(current_dir);
+        results.push_back(current_block);
+        current_block->visible_ = true;
+    }
+    current_block = mb;
+    current_dir = Direction::EAST;
+    while (current_block->isPassable()) {
+        current_block = current_block->getBlock(current_dir);
+        results.push_back(current_block);
+        current_block->visible_ = true;
+    }
+    current_block = mb;
+    current_dir = Direction::SOUTH;
+    while (current_block->isPassable()) {
+        current_block = current_block->getBlock(current_dir);
+        results.push_back(current_block);
+        current_block->visible_ = true;
+    }
+    current_block = mb;
+    current_dir = Direction::WEST;
+    while (current_block->isPassable()) {
+        current_block = current_block->getBlock(current_dir);
+        results.push_back(current_block);
+        current_block->visible_ = true;
+    }
     // TODO
-
     return results;
 }

@@ -20,6 +20,7 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
     loadTexture("Weak.png");
     loadTexture("Indestructible.png");
     loadTexture("Sand.png");
+    loadTexture("fow.png");
 	
 	//Load from /players
 	frontToEnd();

@@ -30,6 +30,7 @@ class MapBlock {
 
         int x_;
         int y_;
+        bool visible_;
 
         /* Functions for simple maths related to block-block relationships.
          * getSquareDistance returns the distance squared r^2, getManhattanDistance
