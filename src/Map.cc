@@ -85,19 +85,24 @@ void Map::insertFeature(TerrainManager const& tmgr) {
     unsigned h = getHeight() - 1;
     Terrain t = tmgr.random();
     char content = t.type->signifier;
-    unsigned x_min, x_max, y_min, y_max;
-    x_min = (rand() % w) + 1;
-    y_min = (rand() % h) + 1;
+    bool indestructible = t.toughness < -90.0f;
+    unsigned x_min, x_max, y_min, y_max, door_x, door_y;
+    x_min = std::min(w, (rand() % w) + 1);
+    y_min = std::min(h, (rand() % h) + 1);
     //std::cout << "x_min " << x_min << ", y_min " << y_min << ", w " << w << ", h " << h << std::endl;
-    x_max = std::min(w, x_min + rand() % (getWidth() - x_min));
-    y_max = std::min(h, y_min + rand() % (getHeight() - y_min));
+    x_max = std::min(w, x_min + 1 + rand() % (getWidth() - x_min));
+    y_max = std::min(h, y_min + 1 + rand() % (getHeight() - y_min));
+    if (indestructible && x_max > x_min && y_max > y_min) {
+        door_x = rand() % (x_max - x_min) + x_min;
+        door_y = rand() % (y_max - y_min) + y_min;
+    }
     char empty = ' ';
-    for (unsigned i = 0; i < getHeight(); i++) {
-        for (unsigned j = 0; j < getWidth(); j++) {
+    for (unsigned i = 1; i < h; i++) {
+        for (unsigned j = 1; j < w; j++) {
             if (((i == y_min || i == y_max) && (j >= x_min && j <= x_max)) ||
                 ((j == x_min || j == x_max) && (i >= y_min && i <= y_max))) {
-                if ((empty != grid_[i][j].content_) && (y_min != y_max) && (x_min != x_max)) {
-                    MapBlock mb(j, i, content, *this, t);
+                if ((y_min < y_max) && (x_min < x_max)) {
+		    MapBlock mb(j, i, content, *this, t);
                     grid_[i][j] = mb;
                 } else {
                     break;
