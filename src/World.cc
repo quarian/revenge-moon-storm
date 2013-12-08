@@ -91,7 +91,7 @@ void World::cull() {
         if (!w->isAlive())
             deadMonsters.push_back(w);
     for (Walker* w : deadMonsters) {
-        new BloodSplatter(map_, w->getLocation());
+        w->splatter();
         map_.monsters.erase(w);
         delete w;
     }
@@ -102,7 +102,7 @@ void World::cull() {
         if (!p->getActor()->isAlive())
             deadPlayers.push_back(p);
     for (Player* p : deadPlayers) {
-        new BloodSplatter(map_, p->getActor()->getLocation());
+        p->getActor()->splatter();
         map_.players.erase(p);
         p->die();
     }

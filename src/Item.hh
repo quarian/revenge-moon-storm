@@ -142,9 +142,14 @@ private:
 
 class BloodSplatter : public Item {
 public:
-    BloodSplatter(Map&, MapBlock*);
+    BloodSplatter(Map&, MapBlock*, std::string="blood_splatter.png");
     void update(float) {}
     bool takeDamage(int) { return false; }
+};
+
+class BugSplat : public BloodSplatter {
+public:
+    BugSplat(Map& map, MapBlock* mb) : BloodSplatter(map, mb, "bug_splat.png") {}
 };
 
 class Dustcloud : public Item {

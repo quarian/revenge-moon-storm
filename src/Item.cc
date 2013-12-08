@@ -198,8 +198,9 @@ void Explosion::update(float dt) {
     }
 }
 
-BloodSplatter::BloodSplatter(Map& map, MapBlock* location) : Item(map, location, "blood splatter", true, false, Direction::NULLDIR) {
-    buildSprite(1, "blood_splatter.png", 1.0f);
+BloodSplatter::BloodSplatter(Map& map, MapBlock* location, std::string imagefile) :
+        Item(map, location, "blood splatter", true, false, Direction::NULLDIR) {
+    buildSprite(1, imagefile, 1.0f);
 }
 
 Dustcloud::Dustcloud(Map& map, MapBlock* location) : Item(map, location, "dust cloud", true, false, Direction::NULLDIR) {

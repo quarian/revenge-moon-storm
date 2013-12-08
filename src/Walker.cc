@@ -1,4 +1,5 @@
 #include "Walker.hh"
+#include "Item.hh"
 
 #include <SFML/System/Time.hpp>
 #include <cmath>
@@ -17,6 +18,11 @@ Walker::Walker(Map& map, MapBlock* location, float speed) :
 void Walker::update(float dt) {
     updateLocation(dt);
     updateSprite(dt);
+}
+
+
+void Walker::splatter() {
+    new BloodSplatter(map_, location_);
 }
 
 

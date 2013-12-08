@@ -11,6 +11,7 @@
 class TinyBug : public AIPlayerSeeker {
 public:
     TinyBug(Map&, MapBlock*);
+    void splatter();
 };
 
 #endif

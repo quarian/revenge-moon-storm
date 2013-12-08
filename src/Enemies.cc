@@ -5,3 +5,5 @@ TinyBug::TinyBug(Map& map, MapBlock* mb) :
     initSprite(map.getGame()->graphicsManager_.getAnimation("tiny_bug"), sf::Color::Red);
     sprite_.setFrameTime(sf::seconds(0.07f));
 }
+
+void TinyBug::splatter() { new BugSplat(map_, location_); }

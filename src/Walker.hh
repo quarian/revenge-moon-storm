@@ -38,6 +38,9 @@ public:
      * its target. */
     virtual void update(float);
 
+    /* Death splatter. */
+    virtual void splatter();
+
     /* Getters:
      *
      * Which way is the Walker facing?
