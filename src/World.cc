@@ -41,6 +41,8 @@ void World::init() {
     map_.monsters.insert(monster);
 
     drawMapObjects();
+    for (auto p : map_.players)
+        map_.getLOS(p->getActor()->getLocation());
 }
 
 
@@ -133,7 +135,7 @@ void World::drawMapObjects() {
             if (map_.getBlock(x,y)->visible_ || x == 0 || y == 0 || x == mapWidth - 1 || y == mapHeight - 1)
             	blockSprite.setTexture(map_.getBlock(x,y)->getTexture());
             else
-                blockSprite.setTexture(game_.graphicsManager_.getTexture("fow.png"));
+                blockSprite.setTexture(game_.graphicsManager_.getTexture("unexplored.png"));
             blockSprite.setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
             game_.draw(blockSprite);
         }
