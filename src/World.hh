@@ -50,8 +50,6 @@ protected:
     void drawGUI();
 
     void initKeyboard();
-
-    void terminate();
 };
 
 #endif

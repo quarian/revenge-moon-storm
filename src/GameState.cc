@@ -19,3 +19,8 @@ void GameState::terminate() {
     if (parent_)
         parent_->resume();
 }
+
+
+void GameState::kill() {
+    stack_ = parent_;
+}

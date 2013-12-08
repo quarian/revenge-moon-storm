@@ -28,7 +28,6 @@ Item::Item(Map& map,
 
 Item::~Item() {
 	//tell the map and the mapblock that this item is now deleted
-	map_.popItem(this);
 	location_->popItem(this);
 }
 

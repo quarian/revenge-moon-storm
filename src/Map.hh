@@ -32,12 +32,15 @@ class Map {
         Map(Game* game);
         Map& operator=(const Map& other);
         Map(const Map& other);
+        ~Map();
+
         void loadFromFile(std::string filename, TerrainManager const&);
         void generateRandomMap(TerrainManager const&, int height = 44, int width = 64);
         void printMap();
         MapBlock* getBlock(int x, int y);
         MapBlock* getBlock(int x, int y, Direction direction);
 
+        void clear();
         void blast(Weapon* w);
         void crossblast(Weapon* w);
         int getHeight();
@@ -48,6 +51,8 @@ class Map {
 
         void pushItem(Item* item) { items.insert(item); }
         void popItem(Item* item) { items.erase(item); }
+
+        void spawnPlayer(Player*, int, int);
 
         float getDistance(MapBlock*, MapBlock*);
         float getDistance(int, int, int, int);

@@ -23,7 +23,29 @@ Map::Map(const Map& other) : game_(other.game_)
 {
 }
 
+Map::~Map() {
+    clear();
+}
+
+void Map::clear() {
+    for (auto m : monsters)
+        delete m;
+    monsters.clear();
+
+    for (auto i : items)
+        delete i;
+    items.clear();
+
+    players.clear();
+
+    for (auto row : grid_)
+        row.clear();
+    grid_.clear();
+}
+
 void Map::loadFromFile(std::string filename, TerrainManager const& tmgr) {
+    clear();
+
     std::cout << "Loading from file " << filename << " ...";
     std::ifstream infile(filename);
     std::string line;
@@ -153,6 +175,15 @@ int Map::getWidth() {
 
 std::vector<std::vector<MapBlock>>* Map::getGrid() {
     return &grid_;
+}
+
+void Map::spawnPlayer(Player* player, int x, int y) {
+    player->spawn(*this, getBlock(x, y));
+    player->getActor()->initSprite(
+            game_->graphicsManager_.getAnimation("walking_player"),
+            game_->graphicsManager_.getAnimation("digging_player"),
+            game_->graphicsManager_.getPlayerColor());
+    players.insert(player);
 }
 
 float Map::getDistance(int x1, int y1, int x2, int y2) {

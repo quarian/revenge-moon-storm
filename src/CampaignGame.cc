@@ -16,7 +16,8 @@ void CampaignGame::init() {
 
 
 void CampaignGame::resume() {
-    if (phase_ == 2) terminate();
+    if (phase_ == 2)
+        terminate();
 
     if ((phase_ % 2) == 0) {
         phase_++;

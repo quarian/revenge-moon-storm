@@ -4,38 +4,28 @@
 #include "Enemies.hh"
 
 
-World::World(GameState* parent, Map& map, std::vector<Player*> players)
+World::World(
+        GameState* parent,
+        Map& map,
+        std::vector<Player*> players)
         : GameState(parent),
           map_(map),
           players_(players),
-          gui_(WorldGUI(*map.getGame(), 0, 704))  {
-    map.players.clear();
-    for (auto p : players_)
-        map.players.insert(p);
-}
+          gui_(WorldGUI(*map.getGame(), 0, 704))  {}
 
-World::World(Game& game, GameState*& stack, Map& map, std::vector<Player*> players)
+World::World(
+        Game& game,
+        GameState*& stack,
+        Map& map,
+        std::vector<Player*> players)
         : GameState(game, stack),
           map_(map),
           players_(players),
-          gui_(WorldGUI(*map.getGame()))  {
-    map.players.clear();
-    for (auto p : players_)
-        map.players.insert(p);
-}
+          gui_(WorldGUI(*map.getGame()))  {}
 
 
 void World::init() {
     initKeyboard();
-
-    for (Player* p : map_.players) {
-        p->spawn(map_, map_.getBlock(1,1)); // TODO: spawn points
-        p->getActor()->initSprite(
-            game_.graphicsManager_.getAnimation("walking_player"),
-            game_.graphicsManager_.getAnimation("digging_player"),
-            game_.graphicsManager_.getPlayerColor());
-    }
-
     drawMapObjects();
     for (auto p : map_.players)
         map_.getLOS(p->getActor()->getLocation());
@@ -45,16 +35,13 @@ void World::init() {
 void World::resume() {
     initKeyboard();
     drawMapObjects();
+    for (auto p : map_.players)
+        map_.getLOS(p->getActor()->getLocation());
 }
 
 
 void World::pause() {
     // spawn(new PauseMenu());
-}
-
-
-void World::terminate() {
-    for (auto i : map_.items) delete i;
 }
 
 
@@ -79,7 +66,10 @@ void World::cull() {
     for (Item* i : map_.items)
         if (!i->getAlive())
             deadItems.push_back(i);
-    for (Item* i : deadItems) delete i;
+    for (Item* i : deadItems) {
+        delete i;
+        map_.popItem(i);
+    }
 
     // Kill dead monsters
     std::vector<Walker*> deadMonsters;
@@ -94,9 +84,11 @@ void World::cull() {
 
     // Kill dead Players
     std::vector<Player*> deadPlayers;
-    for (Player* p : map_.players)
-        if (!p->getActor()->isAlive())
+    for (Player* p : map_.players) {
+        Actor* a = p->getActor();
+        if (a && !a->isAlive())
             deadPlayers.push_back(p);
+    }
     for (Player* p : deadPlayers) {
         p->getActor()->splatter();
         map_.players.erase(p);

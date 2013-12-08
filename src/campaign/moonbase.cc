@@ -11,7 +11,8 @@ void CampaignGame::showStoryMoonbase() {
 void CampaignGame::launchLevelMoonbase() {
     map_.loadFromFile("./maps/campaign/moonbase.map", game_.terrainManager_);
 
-    // TODO: special elements...
+    // TODO: more...
+    map_.spawnPlayer(player_, 1,1);
     
     spawn(new CampaignGameWorld(this, map_, player_, phase_));
 }
