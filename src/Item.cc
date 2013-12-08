@@ -104,7 +104,7 @@ Flamer::Flamer(Map& map, MapBlock* mb, Direction dir, int damage, int spreadChan
         spreadSpeed_(spreadSpeed),
         damage_(damage),
         lifetime_(spreadSpeed) {
-    new Explosion(map, mb, 0.05f);
+    new Flame(map, mb);
     mb->takeDamage(damage);
 }
 
@@ -215,5 +215,28 @@ void Dustcloud::update(float dt) {
         fusetime_ -= dt;
         if (fusetime_ <= 0)
             alive_ = false;
+    }
+}
+
+Flame::Flame(Map& map, MapBlock* location) : Item(map, location, "flame", true, false, Direction::NULLDIR) {
+	fusetime_ = 0.2f;
+	anim_counter = 0;
+	power_ = 1; //one tick per fusetime_, the flame will be up for 1 second
+
+	buildSprite(4, "flame.png", fusetime_);
+	sprite_.setLooped(true);
+}
+
+void Flame::update(float dt) {
+	sprite_.update(sf::seconds(dt));
+    if (alive_) {
+        fusetime_ -= dt;
+        if (fusetime_ <= 0) {
+        	fusetime_ = 0.2f;
+        	if (anim_counter++ > 4) {
+	            alive_ = false;
+	        }
+	       	location_->takeDamage(power_);
+	    }
     }
 }

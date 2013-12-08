@@ -161,4 +161,15 @@ private:
 	float fusetime_;
 };
 
+class Flame : public Item {
+public:
+	Flame(Map&, MapBlock*);
+	void update(float);
+	bool takeDamage(int) { return false; }
+private:
+	float fusetime_;
+	int anim_counter;
+	int power_;
+};
+
 #endif
