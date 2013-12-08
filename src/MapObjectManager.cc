@@ -21,3 +21,10 @@ bool MapObjectManager::place(char signifier, Map& map, MapBlock* mb) {
         }
     }
 }
+
+
+bool MapObjectManager::contains(char c) {
+    return (
+            c == 'x'
+           );
+}

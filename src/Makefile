@@ -25,6 +25,7 @@ Animation.cc\
 AStar.cc\
 GlobalGameInterface.cc\
 Terrain.cc\
+MapObjectManager.cc\
 GameState.cc\
 World.cc\
 SinglePlayerGame.cc\

@@ -36,10 +36,6 @@ void World::init() {
             game_.graphicsManager_.getPlayerColor());
     }
 
-    AIPlayerSeeker* monster = new TinyBug(map_, map_.getBlock(30,30));
-    map_.getBlock(30,30)->enter(monster);
-    map_.monsters.insert(monster);
-
     drawMapObjects();
     for (auto p : map_.players)
         map_.getLOS(p->getActor()->getLocation());

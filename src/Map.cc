@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "Map.hh"
+#include "MapObjectManager.hh"
 
 //Map::Map() : game_(nullptr) {}
 
@@ -27,20 +28,25 @@ void Map::loadFromFile(std::string filename, TerrainManager const& tmgr) {
     std::ifstream infile(filename);
     std::string line;
     int row = 0;
-    int column = 0;
     while (std::getline(infile, line)) {
         std::string temp;
         std::istringstream iss(line);
         std::string line_as_string = iss.str();
-        column = 0;
+        int column = 0;
         std::vector<MapBlock> new_row;
         grid_.push_back(new_row);
-        for (auto iter = line_as_string.begin(); iter != line_as_string.end(); iter++) {
-            std::string content(1, *iter);
-            Terrain terrain(tmgr[content[0]]);
-            MapBlock mb(column, row, content, *this, terrain);
+
+        for (char content : line_as_string) {
+            if (MapObjectManager::contains(content)) {
+                MapBlock mb(column, row, ' ', *this, Terrain(tmgr[' ']));
+                grid_[row].push_back(mb);
+                MapObjectManager::place(content, *this, getBlock(row, column));
+            } else {
+                Terrain terrain(tmgr[content]);
+                MapBlock mb(column, row, content, *this, terrain);
+                grid_[row].push_back(mb);
+            }
             column++;
-            grid_[row].push_back(mb);
         }
         row++;
     }
@@ -54,19 +60,19 @@ void Map::generateRandomMap(TerrainManager const& tmgr, int height, int width) {
 }
 
 void Map::generateBorders(TerrainManager const& tmgr, int height, int width) {
-    std::string content;
+    char content;
     for (int i = 0; i < height; i ++) {
         std::vector<MapBlock> new_row;
         grid_.push_back(new_row);
         for (int j = 0; j < width; j++) {
             if (i == 0 || j == 0 || i == height - 1 || j == width - 1) {
-                content = "#";
-                Terrain t(tmgr[content[0]]);
+                content = '#';
+                Terrain t(tmgr[content]);
                 MapBlock mb(j, i, content, *this, t);
                 grid_[i].push_back(mb);
             } else {
-                content = " ";
-                Terrain t(tmgr[content[0]]);
+                content = ' ';
+                Terrain t(tmgr[content]);
                 MapBlock mb(j, i, content, *this, t);
                 grid_[i].push_back(mb);
             }
@@ -78,19 +84,19 @@ void Map::insertFeature(TerrainManager const& tmgr) {
     unsigned w = getWidth() - 1;
     unsigned h = getHeight() - 1;
     Terrain t = tmgr.random();
-    std::string content(&t.type->signifier, 0, 1);
+    char content = t.type->signifier;
     unsigned x_min, x_max, y_min, y_max;
     x_min = (rand() % w) + 1;
     y_min = (rand() % h) + 1;
     //std::cout << "x_min " << x_min << ", y_min " << y_min << ", w " << w << ", h " << h << std::endl;
     x_max = std::min(w, x_min + rand() % (getWidth() - x_min));
     y_max = std::min(h, y_min + rand() % (getHeight() - y_min));
-    std::string empty = " ";
+    char empty = ' ';
     for (unsigned i = 0; i < getHeight(); i++) {
         for (unsigned j = 0; j < getWidth(); j++) {
             if (((i == y_min || i == y_max) && (j >= x_min && j <= x_max)) ||
                 ((j == x_min || j == x_max) && (i >= y_min && i <= y_max))) {
-                if (!empty.compare(grid_[i][j].content_) && (y_min != y_max) && (x_min != x_max)) {
+                if ((empty != grid_[i][j].content_) && (y_min != y_max) && (x_min != x_max)) {
                     MapBlock mb(j, i, content, *this, t);
                     grid_[i][j] = mb;
                 } else {
@@ -104,12 +110,9 @@ void Map::insertFeature(TerrainManager const& tmgr) {
 
 void Map::printMap() {
     std::cout  << "Printing map" << std::endl;
-    for (auto iter = grid_.begin(); iter != grid_.end(); iter++) {
-        for (auto jiter = (*iter).begin(); jiter != (*iter).end(); jiter++) {
-            if (!(jiter->content_).compare(""))
-                std::cout << " ";
-            else
-                std::cout << jiter->content_;
+    for (auto row : grid_) {
+        for (auto mb : row) {
+            std::cout << mb.content_;
         }
         std::cout << std::endl;
     }

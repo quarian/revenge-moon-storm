@@ -23,7 +23,7 @@ class ControlledActor;
 
 class MapBlock {
     public:
-        MapBlock(int x, int y, std::string content, Map& map, Terrain terrain);
+        MapBlock(int x, int y, char content, Map& map, Terrain terrain);
         ~MapBlock() {};
         MapBlock(const MapBlock& other);
         MapBlock operator=(const MapBlock& other);
@@ -42,7 +42,7 @@ class MapBlock {
         int getManhattanDistance(MapBlock const*) const;
         Direction getFacingTo(MapBlock const*) const;
 
-        std::string content_;
+        char content_;
         bool isPassable() const;
         bool isDiggable() const;
 

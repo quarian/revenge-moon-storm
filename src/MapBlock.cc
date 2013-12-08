@@ -5,7 +5,7 @@
 #include <cmath>
 
 
-MapBlock::MapBlock(int x, int y, std::string content, Map& map, Terrain terrain) : x_(x), y_(y), visible_(false), content_(content), map_(map), terrain_(terrain)
+MapBlock::MapBlock(int x, int y, char content, Map& map, Terrain terrain) : x_(x), y_(y), visible_(false), content_(content), map_(map), terrain_(terrain)
 {}
 
 MapBlock::MapBlock(const MapBlock& other) : x_(other.x_), y_(other.y_), visible_(other.visible_), content_(other.content_), map_(other.map_), terrain_(other.terrain_) {}

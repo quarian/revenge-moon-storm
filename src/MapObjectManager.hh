@@ -9,6 +9,7 @@ class MapBlock;
 
 namespace MapObjectManager {
     bool place(char, Map&, MapBlock*);
+    bool contains(char);
 }
 
 #endif
