@@ -34,7 +34,12 @@ MapUtils.cc\
 MultiplayerGame.cc\
 AIPlayerSeeker.cc\
 Enemies.cc\
-CampaignGame.cc
+CampaignGame.cc\
+CampaignGameWorld.cc\
+campaign/moonbase.cc\
+campaign/tunnels.cc\
+campaign/caverns.cc\
+campaign/boss.cc
 MAIN=main.cc
 RPATH=-Wl,-rpath=./lib/
 TESTS=WalkerTest.cc DirectionTest.cc ActorTest.cc ControlledActorTest.cc PlayerTest.cc MapTest.cc InventoryTest.cc AStarTest.cc testMain.cc TerrainTest.cc

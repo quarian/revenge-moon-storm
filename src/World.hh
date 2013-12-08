@@ -27,7 +27,7 @@ public:
     /* The update function drives the main functionality of this game state. It
      * takes the elapsed time dt, in seconds, as a parameter.
      */
-    void update(float);
+    virtual void update(float);
 
     /* Functions to handle whatever initial work needs to be done when this
      * game state receives control. init() is called when this object has just
@@ -39,7 +39,7 @@ public:
     void pause();
 
 
-private:
+protected:
     Map& map_;
     std::vector<Player*> players_;
     WorldGUI gui_;

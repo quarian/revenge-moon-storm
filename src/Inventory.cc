@@ -41,6 +41,8 @@ std::string Inventory::getNextItem(std::string const& name) const {
         if (it->first == name)
             return name;
     }
+
+    return name;
 }
 
 size_t Inventory::getItemCount(std::string item) {
@@ -65,20 +67,18 @@ bool Inventory::useItem(std::string item, Map& map, MapBlock* mb, Direction dir)
 	if (items_[item] > 0) {
 		items_[item] -= 1;
 
-		Item* new_item = NULL;
+                if (item == "Small Bomb")
+                        new NormalBomb(map, mb, item);
+                else if (item == "Large Bomb")
+                        new NormalBomb(map, mb, item);
+                else if (item == "Crucifix Bomb")
+                        new CrucifixBomb(map, mb, item);
+                else if (item == "Large Crucifix Bomb")
+                        new CrucifixBomb(map, mb, item);
+                else if (item == "Flamer")
+                        new Flamer(map, mb->getBlock(dir), dir);
 
-		if (item == "Small Bomb")
-			new_item = new NormalBomb(map, mb, item);
-        else if (item == "Large Bomb")
-			new_item = new NormalBomb(map, mb, item);
-        else if (item == "Crucifix Bomb")
-        	new_item = new CrucifixBomb(map, mb, item);
-        else if (item == "Large Crucifix Bomb")
-        	new_item = new CrucifixBomb(map, mb, item);
-        else if (item == "Flamer")
-        	new_item = new Flamer(map, mb->getBlock(dir), dir);
-
-       return true;
+               return true;
 	}
 	return false;
 }

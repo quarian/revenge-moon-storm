@@ -40,8 +40,8 @@ class Map {
 
         void blast(Weapon* w);
         void crossblast(Weapon* w);
-        unsigned getHeight();
-        unsigned getWidth();
+        int getHeight();
+        int getWidth();
         Game* getGame() const { return game_; }
         std::vector<std::vector<MapBlock>>* getGrid();
 

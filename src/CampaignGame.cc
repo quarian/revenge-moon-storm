@@ -1,4 +1,5 @@
 #include "CampaignGame.hh"
+#include "DummyGameState.hh"
 
 CampaignGame::CampaignGame(GameState* parent, Player* player) :
         GameState(parent), map_(&game_), player_(player) {}
@@ -8,14 +9,14 @@ CampaignGame::CampaignGame(Game& game, GameState*& stack, Player* player) :
 
 
 void CampaignGame::init() {
-    phase_ = 0;
+    phase_ = 1;
     storeIsNext_ = false;
     showStoryMoonbase();
 }
 
 
 void CampaignGame::resume() {
-    if (phase_ == 9) terminate();
+    if (phase_ == 2) terminate();
 
     if ((phase_ % 2) == 0) {
         phase_++;
@@ -26,10 +27,10 @@ void CampaignGame::resume() {
         else if (phase_ == 8) victory();
     } else {
         if (storeIsNext_) {
-            storeIsNext_ = true;
-            // spawn Store
-        } else {
             storeIsNext_ = false;
+            spawn(new DummyGameState(this)); // TODO: replace with Store
+        } else {
+            //storeIsNext_ = true;
             if (phase_ == 1) launchLevelMoonbase();
             else if (phase_ == 3) launchLevelTunnels();
             else if (phase_ == 5) launchLevelCaverns();
@@ -39,16 +40,6 @@ void CampaignGame::resume() {
 }
 
 
-void CampaignGame::launchLevelMoonbase() {}
-void CampaignGame::launchLevelTunnels() {}
-void CampaignGame::launchLevelCaverns() {}
-void CampaignGame::launchLevelBoss() {}
-
-
-void CampaignGame::showStoryMoonbase() {}
-void CampaignGame::showStoryTunnels() {}
-void CampaignGame::showStoryCaverns() {}
-void CampaignGame::showStoryBoss() {}
-
-
-void CampaignGame::victory() {}
+void CampaignGame::victory() {
+    spawn(new DummyGameState(this));
+}

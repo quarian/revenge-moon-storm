@@ -54,7 +54,7 @@ namespace AStar {
                 float digCostBase,
                 float digCost,
                 std::function<bool(MapBlock const* const)> pred =
-                        [](MapBlock const* const mb){ return true; }
+                        [](MapBlock const* const){ return true; }
                 ) :
             walkCost(walkCost),
             digCostBase(digCostBase),

@@ -2,6 +2,7 @@
 #include "GlobalGameInterface.hh"
 #include "SinglePlayerGame.hh"
 #include "MultiplayerGame.hh"
+#include "CampaignGame.hh"
 #include "Game.hh"
 
 // For rand!
@@ -31,7 +32,8 @@ void Game::main() {
     Player* dostojevsky = new Player("Dostojevsky", PlayerInterface::WASD_DVORAK);
 
     // stack_ = new SinglePlayerGame(*this, stack_, kafka);
-    stack_ = new MultiplayerGame(*this, stack_, {kafka, dostojevsky});
+    // stack_ = new MultiplayerGame(*this, stack_, {kafka, dostojevsky});
+    stack_ = new CampaignGame(*this, stack_, kafka);
 
     clock_.restart();
     stack_->init();

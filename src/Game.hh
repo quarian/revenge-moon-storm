@@ -27,10 +27,6 @@ public:
     Game();
     void main();
 
-    EventManager eventManager_;
-    GraphicsManager graphicsManager_;
-    TerrainManager terrainManager_;
-
     sf::Vector2f blockSize_;
 
     void draw(sf::Drawable& drawable) { window_.draw(drawable); }
@@ -53,6 +49,11 @@ private:
     
     sf::Clock clock_;
 
+
+public:
+    EventManager eventManager_;
+    GraphicsManager graphicsManager_;
+    TerrainManager terrainManager_;
 };
 
 #endif

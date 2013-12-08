@@ -31,4 +31,4 @@ void MultiplayerGame::resume() {
 }
 
 
-void MultiplayerGame::update(float dt) {} // Never used -- does not take input
+void MultiplayerGame::update(float) {} // Never used -- does not take input

@@ -10,7 +10,7 @@ World::World(GameState* parent, Map& map, std::vector<Player*> players)
           players_(players),
           gui_(WorldGUI(*map.getGame(), 0, 704))  {
     map.players.clear();
-    for (auto p : players)
+    for (auto p : players_)
         map.players.insert(p);
 }
 
@@ -20,7 +20,7 @@ World::World(Game& game, GameState*& stack, Map& map, std::vector<Player*> playe
           players_(players),
           gui_(WorldGUI(*map.getGame()))  {
     map.players.clear();
-    for (auto p : players)
+    for (auto p : players_)
         map.players.insert(p);
 }
 
@@ -113,7 +113,8 @@ void World::updateAll(float dt) {
     }
 
     // Update monsters
-    for (Walker* m : map_.monsters) m->update(dt);
+    for (Walker* m : map_.monsters)
+        m->update(dt);
 
     // Update items
     for (Item* i : map_.items)

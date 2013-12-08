@@ -30,7 +30,7 @@ void AIActor::cancelPath() {
     needThink_ = true;
 }
 
-void AIActor::popPath(float dt) {
+void AIActor::popPath(float) {
     if (!path_.empty()) {
         target_ = path_.front();
         path_.pop_front();

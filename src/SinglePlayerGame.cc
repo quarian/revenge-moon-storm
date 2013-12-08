@@ -31,4 +31,4 @@ void SinglePlayerGame::resume() {
 }
 
 
-void SinglePlayerGame::update(float dt) {} // Never used -- does not take input
+void SinglePlayerGame::update(float) {} // Never used -- does not take input
