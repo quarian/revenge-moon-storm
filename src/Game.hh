@@ -49,6 +49,7 @@ private:
     sf::Sprite background_;
     std::map<std::string, Animation> animations_;
     std::map<std::string, sf::Texture> textures_;
+    std::map<std::string, sf::Font> fonts_;
     
     sf::Clock clock_;
 

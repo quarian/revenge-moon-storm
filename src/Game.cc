@@ -13,7 +13,7 @@ Game::Game() : stack_(nullptr),
                rootPath_("."),
                // isPaused_(true),
                eventManager_(window_, isRunning_),
-               graphicsManager_(window_,blockSize_,textures_,animations_),
+               graphicsManager_(window_,blockSize_,textures_,animations_,fonts_),
                terrainManager_(graphicsManager_) {
     
     window_.launchWindow();

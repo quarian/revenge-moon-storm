@@ -8,9 +8,11 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
     blockSize_ = sf::Vector2f(16,16);
 
     // Load textures
-    if (!font_.loadFromFile(rootPath_+"/fonts/sansation.ttf")) {
+    if (!fonts_["sansation"].loadFromFile(rootPath_+"/fonts/sansation.ttf")) {
         std::cout << "Font load from "<<rootPath_+"/fonts/sansation.ttf failed"<<std::endl;
-        return;
+    }
+	if (!fonts_["dark_world"].loadFromFile(rootPath_+"/fonts/dark_world.ttf")) {
+        std::cout << "Font load from "<<rootPath_+"/fonts/sansation.ttf failed"<<std::endl;
     }
 
     std::cout<<"Loading textures to textures_[filename.png]"<<std::endl;
@@ -32,18 +34,21 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
     loadTexture("digger_spritesheet.png");
     loadTexture("little_bug.png");
     loadTexture("medium_bug.png");
+    loadTexture("green_bug_splat.png");
     
     //Load from  /items
 	frontToEnd();
     loadTexture("Goldbar.png");
     loadTexture("explosion_spritesheet.png");
+    loadTexture("blood_splatter.png");
+    loadTexture("bug_splat.png");
+
+    
 	//Load from /misc
 	frontToEnd();
 	loadTexture("wtf.png");
 	loadTexture("background_grid.png");
-    loadTexture("blood_splatter.png");
-    loadTexture("bug_splat.png");
-    loadTexture("green_bug_splat.png");
+
 	
 	// Create animations
 	Animation standingPlayer;

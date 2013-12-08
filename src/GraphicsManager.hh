@@ -13,11 +13,12 @@
 class GraphicsManager {
 public:
     GraphicsManager(WindowManager& w, sf::Vector2f& blockSize, std::map<std::string, sf::Texture>& textures,
-    				std::map<std::string, Animation>& animations) :
+    				std::map<std::string, Animation>& animations, std::map<std::string, sf::Font>& fonts) :
 						 	window_(w),
 						 	blockSize_(blockSize),
 						 	textures_(textures),
 						 	animations_(animations),
+						 	fonts_(fonts),
 						 	playerColorsIndex_(0) { }
 
     // Loads all predefined textures and creates animations
@@ -49,7 +50,7 @@ private:
     
     std::map<std::string, sf::Texture>& textures_;   
     std::map<std::string, Animation>& animations_;
-    sf::Font font_;
+    std::map<std::string, sf::Font>& fonts_;
     size_t playerColorsIndex_;
     
     //std::map<std::string, sf::Sprite> sprites_;
