@@ -83,7 +83,7 @@ public:
 
 	virtual void update(float) = 0;
 	//all weapons get instantly destroyed as a consequence of an explosion or other source of damage
-	virtual bool takeDamage(int) { return true; }
+	virtual bool takeDamage(int) = 0;
 
 	int getRadius() const { return radius_; }
 	int getPower() const { return power_; }
@@ -103,12 +103,14 @@ class NormalBomb : public Weapon {
 public:
 	NormalBomb(Map&, MapBlock*, std::string);
 	void update(float);
+	bool takeDamage(int);
 };
 
 class CrucifixBomb : public Weapon {
 public:
 	CrucifixBomb(Map&, MapBlock*, std::string);
 	void update(float);
+	bool takeDamage(int);
 };
 
 
@@ -130,6 +132,15 @@ public:
     BloodSplatter(Map&, MapBlock*);
     void update(float) {}
     bool takeDamage(int) { return false; }
+};
+
+class Dustcloud : public Item {
+public:
+	Dustcloud(Map&, MapBlock*);
+	void update(float);
+	bool takeDamage(int) { return false; }
+private:
+	float fusetime_;
 };
 
 #endif

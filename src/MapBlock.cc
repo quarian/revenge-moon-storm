@@ -86,12 +86,13 @@ void MapBlock::exit(Walker* w) {
 
 void MapBlock::clear() {
     terrain_.raze();
+    new Dustcloud(map_, this);
 }
 
 void MapBlock::weaken(float dmg) {
-    if (dmg > terrain_.toughness)
+    if (dmg > terrain_.toughness) {
         terrain_.raze();
-    else
+    } else
         terrain_.takeDamage(dmg);
 }
 

@@ -92,6 +92,7 @@ void Actor::dig(float dt) {
 
 void Actor::knock(Direction dir) {
     facing_ = dir;
+    digging_ = false;
 
     target_ = location_->getBlock(facing_);
     if (target_ == nullptr) return;
