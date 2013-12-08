@@ -113,13 +113,26 @@ public:
 	bool takeDamage(int);
 };
 
+class Flamer : public Item {
+public:
+    Flamer(Map&, MapBlock*, Direction, int=10, int=15, size_t=8, float=0.03f);
+    void update(float);
+    bool takeDamage(int) { return false; }
+private:
+    int spreadChance_;
+    size_t telomere_;
+    int spreadSpeed_;
+    int damage_;
+    float lifetime_;
+};
+
 
 /*
  * For convenience, explosions are treated like items.
  */
 class Explosion : public Item {
 public:
-    Explosion(Map&, MapBlock*);
+    Explosion(Map&, MapBlock*, float=0.3f);
     void update(float);
     bool takeDamage(int) { return false; } // I AM INVINCIBLE
 private:

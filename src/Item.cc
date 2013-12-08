@@ -48,10 +48,11 @@ void Item::buildSprite(int frames, std::string filename, float totaltime) {
 
 std::vector<std::string> Item::names() {
 	return std::vector<std::string> {
-		"Small Bomb",
-        "Large Bomb",
-        "Crucifix Bomb",
-        "Large Crucifix Bomb"
+            "Small Bomb",
+            "Large Bomb",
+            "Crucifix Bomb",
+            "Large Crucifix Bomb",
+            "Flamer"
 	};
 }
 
@@ -95,6 +96,18 @@ CrucifixBomb::CrucifixBomb(Map& map, MapBlock* location, std::string name) : Wea
 	}
 }
 
+
+Flamer::Flamer(Map& map, MapBlock* mb, Direction dir, int damage, int spreadChance, size_t telomere, float spreadSpeed) :
+        Item(map, mb, "Flamer", true, false, dir),
+        spreadChance_(spreadChance),
+        telomere_(telomere),
+        spreadSpeed_(spreadSpeed),
+        damage_(damage),
+        lifetime_(spreadSpeed) {
+    new Explosion(map, mb, 0.05f);
+    mb->takeDamage(damage);
+}
+
 //Weapon updates
 
 void NormalBomb::update(float dt) {
@@ -119,6 +132,26 @@ void CrucifixBomb::update(float dt) {
 			map_.crossblast(this);
 		}
 	}
+}
+
+void Flamer::update(float dt) {
+    lifetime_ -= dt;
+    if (lifetime_ < 0) {
+        alive_ = false;
+        if (location_->isPassable() && telomere_ > 0) {
+            new Flamer(map_, location_->getBlock(direction_),
+                    direction_, damage_, spreadChance_, telomere_-1, spreadSpeed_);
+
+            if (rand() % 100 <= spreadChance_) {
+                new Flamer(map_, location_->getBlock(direction_)->getBlock(direction_.cw()),
+                    direction_, damage_, spreadChance_, telomere_-1, spreadSpeed_);
+            }
+            if (rand() % 100 <= spreadChance_) {
+                new Flamer(map_, location_->getBlock(direction_)->getBlock(direction_.ccw()),
+                    direction_, damage_, spreadChance_, telomere_-1, spreadSpeed_);
+            }
+        }
+    }
 }
 
 //Weapon takeDamages
@@ -150,9 +183,8 @@ void Treasure::update(float) {
 
 //Item derivates
 
-Explosion::Explosion(Map& map, MapBlock* location) : Item(map, location, "explosion", true, false, Direction::NULLDIR) {
-    fusetime_ = 0.3f;
-
+Explosion::Explosion(Map& map, MapBlock* location, float fuse) :
+        Item(map, location, "explosion", true, false, Direction::NULLDIR), fusetime_(fuse) {
     buildSprite(8, "explosion.png", fusetime_);    
 }
 

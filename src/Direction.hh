@@ -28,6 +28,10 @@ public:
      */
     float angle() const;
     static constexpr float UNDEFINED_ANGLE = 1000.0f;
+
+    /* Gets the next Direction clockwise or counter-clockwise. */
+    Direction cw() const;
+    Direction ccw() const;
         
 
     /* Returns how far this is from 0.0 */

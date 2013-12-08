@@ -13,6 +13,7 @@ Inventory::Inventory() {
         items_["Large Bomb"] = 20;
         items_["Crucifix Bomb"] = 20;
         items_["Large Crucifix Bomb"] = 20;
+        items_["Flamer"] = 10;
 }
 Inventory::~Inventory() {}
 
@@ -74,6 +75,8 @@ bool Inventory::useItem(std::string item, Map& map, MapBlock* mb, Direction dir)
         	new_item = new CrucifixBomb(map, mb, item);
         else if (item == "Large Crucifix Bomb")
         	new_item = new CrucifixBomb(map, mb, item);
+        else if (item == "Flamer")
+        	new_item = new Flamer(map, mb->getBlock(dir), dir);
 
        return true;
 	}

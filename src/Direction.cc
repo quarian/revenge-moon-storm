@@ -10,6 +10,10 @@ float Direction::angle() const {
 }
 
 
+Direction Direction::cw() const { return Direction(-y_, x_); }
+Direction Direction::ccw() const { return Direction(y_, -x_); }
+
+
 bool Direction::operator<(Direction const& other) const {
     if (x_ < other.x_) return true;
     else if (y_ < other.y_) return true;
