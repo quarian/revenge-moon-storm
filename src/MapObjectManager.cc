@@ -11,6 +11,12 @@ bool MapObjectManager::place(char signifier, Map& map, MapBlock* mb) {
             mb->enter(bug);
             return true;
         }
+        case 'X': {
+            auto bug = new GreenBug(map, mb);
+            map.monsters.insert(bug);
+            mb->enter(bug);
+            return true;
+        }
 
         /* TREASURES */
 
@@ -25,6 +31,7 @@ bool MapObjectManager::place(char signifier, Map& map, MapBlock* mb) {
 
 bool MapObjectManager::contains(char c) {
     return (
-            c == 'x'
+            c == 'x' ||
+            c == 'X'
            );
 }

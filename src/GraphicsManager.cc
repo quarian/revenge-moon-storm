@@ -31,6 +31,7 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
     loadTexture("player_spritesheet.png");
     loadTexture("digger_spritesheet.png");
     loadTexture("little_bug.png");
+    loadTexture("medium_bug.png");
     
     //Load from  /items
 	frontToEnd();
@@ -42,6 +43,7 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
 	loadTexture("background_grid.png");
     loadTexture("blood_splatter.png");
     loadTexture("bug_splat.png");
+    loadTexture("green_bug_splat.png");
 	
 	// Create animations
 	Animation standingPlayer;
@@ -73,6 +75,14 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
     tinyBug.addFrame(sf::IntRect(16*3,0,16,16));
     animations_["tiny_bug"] = tinyBug;
     
+    Animation mediumBug;
+    mediumBug.setSpriteSheet(getTexture("medium_bug.png"));
+    mediumBug.addFrame(sf::IntRect(0,0,16,16));
+    mediumBug.addFrame(sf::IntRect(16,0,16,16));
+    mediumBug.addFrame(sf::IntRect(16*2,0,16,16));
+    mediumBug.addFrame(sf::IntRect(16*3,0,16,16));
+    animations_["medium_bug"] = mediumBug;
+
     frontToEnd();
     Animation explosion1;
     explosion1.setSpriteSheet(getTexture("explosion_spritesheet.png"));
