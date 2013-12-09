@@ -82,38 +82,39 @@ std::vector<MapBlock*> Map::getInRadius(MapBlock* ref, float r, bool inclusive) 
 }
 
 
-std::vector<MapBlock*> Map::getLOS(MapBlock* mb) {
+std::vector<MapBlock*> Map::getLOS(MapBlock* mb, bool reveal) {
     std::vector<MapBlock*> results;
     results.push_back(mb);
-    mb->visible_ = true;
+    if (reveal) mb->visible_ = true;
+
     // Bresenham fails on straight lines, so handle them separately
     MapBlock* current_block = mb;
     Direction current_dir = Direction::NORTH;
     while (current_block->isPassable()) {
         current_block = current_block->getBlock(current_dir);
         results.push_back(current_block);
-        current_block->visible_ = true;
+        if (reveal) current_block->visible_ = true;
     }
     current_block = mb;
     current_dir = Direction::EAST;
     while (current_block->isPassable()) {
         current_block = current_block->getBlock(current_dir);
         results.push_back(current_block);
-        current_block->visible_ = true;
+        if (reveal) current_block->visible_ = true;
     }
     current_block = mb;
     current_dir = Direction::SOUTH;
     while (current_block->isPassable()) {
         current_block = current_block->getBlock(current_dir);
         results.push_back(current_block);
-        current_block->visible_ = true;
+        if (reveal) current_block->visible_ = true;
     }
     current_block = mb;
     current_dir = Direction::WEST;
     while (current_block->isPassable()) {
         current_block = current_block->getBlock(current_dir);
         results.push_back(current_block);
-        current_block->visible_ = true;
+        if (reveal) current_block->visible_ = true;
     }
     for (unsigned y = 1; y < grid_.size() - 1; y++) {
         for (unsigned x = 1; x < grid_[y].size() - 1; x++) {
@@ -127,7 +128,7 @@ std::vector<MapBlock*> Map::getLOS(MapBlock* mb) {
 // Slightly modified version of the Bresenham line drawing algorithm,
 // fitted for the line of sight calculation.
 
-void Map::bresenham(int x0, int x1, int y0, int y1, std::vector<MapBlock*>& results) {
+void Map::bresenham(int x0, int x1, int y0, int y1, std::vector<MapBlock*>& results, bool reveal) {
     bool steep = (fabs(y1 - y0) >= fabs(x1 - x0));
     if (steep) {
         std::swap(x0, y0);
@@ -149,14 +150,14 @@ void Map::bresenham(int x0, int x1, int y0, int y1, std::vector<MapBlock*>& resu
             if (!getBlock(y, x)->isPassable()) {
                 break;
             } else {
-                getBlock(y, x)->visible_ = true;
+                if (reveal) getBlock(y, x)->visible_ = true;
                 results.push_back(getBlock(y, x));
             }
         } else {
             if (!getBlock(x, y)->isPassable()) {
                 break;
             } else {
-                getBlock(x, y)->visible_ = true;
+                if (reveal) getBlock(x, y)->visible_ = true;
                 results.push_back(getBlock(x, y));
             }
         }
@@ -167,10 +168,10 @@ void Map::bresenham(int x0, int x1, int y0, int y1, std::vector<MapBlock*>& resu
         }
     }
     if (steep) {
-        getBlock(y, x)->visible_ = true;
+        if (reveal) getBlock(y, x)->visible_ = true;
 	results.push_back(getBlock(y, x));
     } else {
-        grid_[y][x]->visible_ = true;
+        if (reveal) grid_[y][x]->visible_ = true;
 	results.push_back(getBlock(x, y));
     }
 }
