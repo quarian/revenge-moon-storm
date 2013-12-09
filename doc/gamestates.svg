@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="69cm" height="23cm" viewBox="118 348 1364 453" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="160" y="500" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x="160" y="500" width="200" height="40"/>
+  </g>
+  <g>
+    <rect style="fill: #d8e5e5" x="160" y="460" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="160" y="460" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="260" y="486.25">
+    <tspan x="260" y="486.25">MainMenu</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="380" y="500" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x="380" y="500" width="200" height="40"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="380" y="460" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="380" y="460" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="480" y="486.25">
+    <tspan x="480" y="486.25">MainMenu</tspan>
+  </text>
+  <g>
+    <rect style="fill: #d8e5e5" x="380" y="420" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="380" y="420" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="480" y="446.25">
+    <tspan x="480" y="446.25">CampaignGame</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="1040" y="500" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x="1040" y="500" width="200" height="40"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="1040" y="460" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1040" y="460" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1140" y="486.25">
+    <tspan x="1140" y="486.25">MainMenu</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="1040" y="420" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1040" y="420" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1140" y="446.25">
+    <tspan x="1140" y="446.25">CampaignGame</tspan>
+  </text>
+  <g>
+    <rect style="fill: #d8e5e5" x="1040" y="380" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1040" y="380" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1140" y="406.25">
+    <tspan x="1140" y="406.25">CampaignGameWorld</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="600" y="500" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x="600" y="500" width="200" height="40"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="600" y="460" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="600" y="460" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="700" y="486.25">
+    <tspan x="700" y="486.25">MainMenu</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="600" y="420" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="600" y="420" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="700" y="446.25">
+    <tspan x="700" y="446.25">CampaignGame</tspan>
+  </text>
+  <g>
+    <rect style="fill: #d8e5e5" x="600" y="380" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="600" y="380" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="700" y="406.25">
+    <tspan x="700" y="406.25">Store</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="820" y="500" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x="820" y="500" width="200" height="40"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="820" y="460" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="820" y="460" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="920" y="486.25">
+    <tspan x="920" y="486.25">MainMenu</tspan>
+  </text>
+  <g>
+    <rect style="fill: #d8e5e5" x="820" y="420" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="820" y="420" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="920" y="446.25">
+    <tspan x="920" y="446.25">CampaignGame</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="1260" y="500" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x="1260" y="500" width="200" height="40"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="1260" y="460" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1260" y="460" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1360" y="486.25">
+    <tspan x="1360" y="486.25">MainMenu</tspan>
+  </text>
+  <g>
+    <rect style="fill: #d8e5e5" x="1260" y="420" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1260" y="420" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1360" y="446.25">
+    <tspan x="1360" y="446.25">CampaignGame</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="600" y="760" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x="600" y="760" width="200" height="40"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="600" y="720" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="600" y="720" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="700" y="746.25">
+    <tspan x="700" y="746.25">MainMenu</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="600" y="680" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="600" y="680" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="700" y="706.25">
+    <tspan x="700" y="706.25">CampaignGame</tspan>
+  </text>
+  <g>
+    <rect style="fill: #d8e5e5" x="600" y="640" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="600" y="640" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="700" y="666.25">
+    <tspan x="700" y="666.25">CampaignGameWorld</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="160" y="760" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x="160" y="760" width="200" height="40"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="160" y="720" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="160" y="720" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="260" y="746.25">
+    <tspan x="260" y="746.25">MainMenu</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="160" y="680" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="160" y="680" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="260" y="706.25">
+    <tspan x="260" y="706.25">CampaignGame</tspan>
+  </text>
+  <g>
+    <rect style="fill: #d8e5e5" x="160" y="640" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="160" y="640" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="260" y="666.25">
+    <tspan x="260" y="666.25">Store</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="380" y="760" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x="380" y="760" width="200" height="40"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="380" y="720" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="380" y="720" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="480" y="746.25">
+    <tspan x="480" y="746.25">MainMenu</tspan>
+  </text>
+  <g>
+    <rect style="fill: #d8e5e5" x="380" y="680" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="380" y="680" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="480" y="706.25">
+    <tspan x="480" y="706.25">CampaignGame</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="820" y="760" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x="820" y="760" width="200" height="40"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="820" y="720" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="820" y="720" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="920" y="746.25">
+    <tspan x="920" y="746.25">MainMenu</tspan>
+  </text>
+  <g>
+    <rect style="fill: #d8e5e5" x="820" y="680" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="820" y="680" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="920" y="706.25">
+    <tspan x="920" y="706.25">CampaignGame</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="1040" y="760" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x="1040" y="760" width="200" height="40"/>
+  </g>
+  <g>
+    <rect style="fill: #d8e5e5" x="1040" y="720" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1040" y="720" width="200" height="40"/>
+  </g>
+  <text font-size="18.0619" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1140" y="746.25">
+    <tspan x="1140" y="746.25">MainMenu</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffadad" x="1260" y="760" width="200" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x="1260" y="760" width="200" height="40"/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 370.278,420.348 A 207.691,207.691 0 0 0 260,460"/>
+    <polygon style="fill: #000000" points="377.764,420.028 367.826,425.15 370.265,420.12 367.703,415.151 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="377.764,420.028 367.826,425.15 370.265,420.12 367.703,415.151 "/>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:italic;font-weight:normal" x="320" y="400">
+    <tspan x="320" y="400">Spawns</tspan>
+  </text>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 590.286,379.577 A 164.438,164.438 0 0 0 480,420"/>
+    <polygon style="fill: #000000" points="597.77,379.837 587.432,384.094 590.29,379.29 588.161,374.12 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="597.77,379.837 587.432,384.094 590.29,379.29 588.161,374.12 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 1030.29,379.577 A 164.438,164.438 0 0 0 920,420"/>
+    <polygon style="fill: #000000" points="1037.77,379.837 1027.43,384.094 1030.29,379.29 1028.16,374.12 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1037.77,379.837 1027.43,384.094 1030.29,379.29 1028.16,374.12 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 590.286,639.577 A 164.438,164.438 0 0 0 480,680"/>
+    <polygon style="fill: #000000" points="597.77,639.837 587.432,644.094 590.29,639.29 588.161,634.12 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="597.77,639.837 587.432,644.094 590.29,639.29 588.161,634.12 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" d="M 895.659,412.41 A 134.723,134.723 0 0 0 800,380"/>
+    <polygon style="fill: #000000" points="901.204,417.434 890.589,413.924 895.888,412.144 897.643,406.836 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="901.204,417.434 890.589,413.924 895.888,412.144 897.643,406.836 "/>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:italic;font-weight:normal" x="800" y="360">
+    <tspan x="800" y="360">Terminates</tspan>
+  </text>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" d="M 1335.66,412.41 A 134.723,134.723 0 0 0 1240,380"/>
+    <polygon style="fill: #000000" points="1341.2,417.434 1330.59,413.924 1335.89,412.144 1337.64,406.836 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1341.2,417.434 1330.59,413.924 1335.89,412.144 1337.64,406.836 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" d="M 455.659,672.41 A 134.723,134.723 0 0 0 360,640"/>
+    <polygon style="fill: #000000" points="461.204,677.434 450.589,673.924 455.888,672.144 457.643,666.836 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="461.204,677.434 450.589,673.924 455.888,672.144 457.643,666.836 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" d="M 895.659,672.41 A 134.723,134.723 0 0 0 800,640"/>
+    <polygon style="fill: #000000" points="901.204,677.434 890.589,673.924 895.888,672.144 897.643,666.836 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="901.204,677.434 890.589,673.924 895.888,672.144 897.643,666.836 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" d="M 1115.66,712.41 A 134.723,134.723 0 0 0 1020,680"/>
+    <polygon style="fill: #000000" points="1121.2,717.434 1110.59,713.924 1115.89,712.144 1117.64,706.836 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1121.2,717.434 1110.59,713.924 1115.89,712.144 1117.64,706.836 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" d="M 1335.66,752.41 A 134.723,134.723 0 0 0 1240,720"/>
+    <polygon style="fill: #000000" points="1341.2,757.434 1330.59,753.924 1335.89,752.144 1337.64,746.836 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1341.2,757.434 1330.59,753.924 1335.89,752.144 1337.64,746.836 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 150.683,638.578 A 32.423,32.423 0 0 0 120,660"/>
+    <polygon style="fill: #000000" points="157.862,639.345 146.836,641.195 150.691,637.147 149.766,631.634 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="157.862,639.345 146.836,641.195 150.691,637.147 149.766,631.634 "/>
+  </g>
+  <g>
+    <polygon style="fill: #ffffff" points="1400,710 1440,710 1440,700 1480,720 1440,740 1440,730 1400,730 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1400,710 1440,710 1440,700 1480,720 1440,740 1440,730 1400,730 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1400,710 1440,710 1440,700 1480,720 1440,740 1440,730 1400,730 "/>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="1436.92" y="724.45">
+    <tspan x="1436.92" y="724.45">EXIT</tspan>
+  </text>
+  <g>
+    <polygon style="fill: #ffffff" points="140,410 180,410 180,400 220,420 180,440 180,430 140,430 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="140,410 180,410 180,400 220,420 180,440 180,430 140,430 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="140,410 180,410 180,400 220,420 180,440 180,430 140,430 "/>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="176.923" y="424.45">
+    <tspan x="176.923" y="424.45">START</tspan>
+  </text>
+  <g>
+    <rect style="fill: #d8e5e5" x="148.75" y="371.8" width="142.5" height="16.4"/>
+    <text font-size="14.1111" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="220" y="384.9">
+      <tspan x="220" y="384.9">Active GameState</tspan>
+    </text>
+  </g>
+</svg>
