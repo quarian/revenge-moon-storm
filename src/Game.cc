@@ -3,6 +3,7 @@
 #include "SinglePlayerGame.hh"
 #include "MultiplayerGame.hh"
 #include "CampaignGame.hh"
+#include "DummyGameState.hh"
 #include "Game.hh"
 
 // For rand!
@@ -24,6 +25,11 @@ Game::Game() : stack_(nullptr),
     background_.setTexture(graphicsManager_.getTexture("background_grid.png"));
 }
 
+Game::~Game() {
+    if (window_.isOpen())
+        window_.close();
+}
+
 
 void Game::main() {
     srand(time(NULL)); // Init rand
@@ -34,21 +40,26 @@ void Game::main() {
     // stack_ = new SinglePlayerGame(*this, stack_, kafka);
     // stack_ = new MultiplayerGame(*this, stack_, {kafka, dostojevsky});
     stack_ = new CampaignGame(*this, stack_, kafka);
+    // stack_ = new DummyGameState(*this, stack_);
 
     clock_.restart();
     stack_->init();
 
     while (stack_) {
-        if (!window_.isOpen() || !isRunning_) {
-            terminate();
-            break;
+        if (!stack_->alive()) {
+            delete stack_;
+            if (stack_)
+                stack_->resume();
         }
-
-        window_.clear(sf::Color::White);
-        window_.draw(background_);
-        handleEvents();
-        stack_->update(clock_.restart().asSeconds());
-        window_.display();
+        else if (!window_.isOpen() || !isRunning_) {
+            terminate();
+        } else {
+            window_.clear(sf::Color::White);
+            window_.draw(background_);
+            handleEvents();
+            stack_->update(clock_.restart().asSeconds());
+            window_.display();
+        }
     }
 
     delete kafka;
@@ -66,5 +77,5 @@ void Game::handleEvents() {
 
 void Game::terminate() {
     while (stack_)
-        stack_->kill();
+        delete stack_;
 }

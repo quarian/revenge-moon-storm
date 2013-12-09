@@ -10,12 +10,14 @@ bool MapObjectManager::place(char signifier, Map& map, MapBlock* mb) {
             map.monsters.insert(bug);
             mb->enter(bug);
             return true;
+            break;
         }
         case 'X': {
             auto bug = new GreenBug(map, mb);
             map.monsters.insert(bug);
             mb->enter(bug);
             return true;
+            break;
         }
 
         /* TREASURES */

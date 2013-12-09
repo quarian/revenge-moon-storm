@@ -16,10 +16,9 @@ void CampaignGame::init() {
 
 
 void CampaignGame::resume() {
-    if (phase_ == 2)
+    if (phase_ == 2) {
         terminate();
-
-    if ((phase_ % 2) == 0) {
+    } else if ((phase_ % 2) == 0) {
         phase_++;
 
         if (phase_ == 2) showStoryTunnels();
@@ -31,7 +30,7 @@ void CampaignGame::resume() {
             storeIsNext_ = false;
             spawn(new DummyGameState(this)); // TODO: replace with Store
         } else {
-            //storeIsNext_ = true;
+            // storeIsNext_ = true;
             if (phase_ == 1) launchLevelMoonbase();
             else if (phase_ == 3) launchLevelTunnels();
             else if (phase_ == 5) launchLevelCaverns();

@@ -146,18 +146,18 @@ void Map::bresenham(int x0, int x1, int y0, int y1, std::vector<MapBlock*>& resu
     int x = x0;
     for (x = x0; x != x1; x += x_step) {
         if (steep) {
-            if (!grid_[x][y].isPassable()) {
+            if (!getBlock(y, x)->isPassable()) {
                 break;
             } else {
-                grid_[x][y].visible_ = true;
-                results.push_back(&grid_[x][y]);
+                getBlock(y, x)->visible_ = true;
+                results.push_back(getBlock(y, x));
             }
         } else {
-            if (!grid_[y][x].isPassable()) {
+            if (!getBlock(x, y)->isPassable()) {
                 break;
             } else {
-                grid_[y][x].visible_ = true;
-                results.push_back(&grid_[y][x]);
+                getBlock(x, y)->visible_ = true;
+                results.push_back(getBlock(x, y));
             }
         }
         error -= dy;
@@ -167,10 +167,10 @@ void Map::bresenham(int x0, int x1, int y0, int y1, std::vector<MapBlock*>& resu
         }
     }
     if (steep) {
-        grid_[x][y].visible_ = true;
-	results.push_back(&grid_[x][y]);
+        getBlock(y, x)->visible_ = true;
+	results.push_back(getBlock(y, x));
     } else {
-        grid_[y][x].visible_ = true;
-	results.push_back(&grid_[y][x]);
+        grid_[y][x]->visible_ = true;
+	results.push_back(getBlock(x, y));
     }
 }

@@ -1,11 +1,22 @@
 #include "GameState.hh"
 
 GameState::GameState(Game& game, GameState*& stack)
-        : game_(game), stack_(stack), parent_(stack) {}
+        : game_(game),
+        stack_(stack),
+        parent_(stack),
+        alive_(true) {}
 
 
 GameState::GameState(GameState* parent)
-        : game_(parent->game_), stack_(parent->stack_), parent_(parent) {}
+        : game_(parent->game_),
+        stack_(parent->stack_),
+        parent_(parent),
+        alive_(true) {}
+
+
+GameState::~GameState() {
+    stack_ = parent_;
+}
 
 
 void GameState::spawn(GameState* state) {
@@ -15,12 +26,5 @@ void GameState::spawn(GameState* state) {
 
 
 void GameState::terminate() {
-    stack_ = parent_;
-    if (parent_)
-        parent_->resume();
-}
-
-
-void GameState::kill() {
-    stack_ = parent_;
+    alive_ = false;
 }

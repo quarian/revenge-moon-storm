@@ -25,6 +25,7 @@ class GameState;
 class Game {
 public:
     Game();
+    ~Game();
     void main();
 
     sf::Vector2f blockSize_;

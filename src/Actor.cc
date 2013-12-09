@@ -1,6 +1,7 @@
 #include "Actor.hh"
 
 #include <cmath>
+#include <iostream>
 
 Actor::Actor(
     Map& map,
@@ -16,7 +17,8 @@ Actor::Actor(
         health_(health),
         maxHealth_(health),
         vulnerability_(1.0 - resistance),
-        inventory_(inv) { }
+        inventory_(inv) {
+}
 
 
 Actor::~Actor() {

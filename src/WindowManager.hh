@@ -13,6 +13,8 @@
 public:
     void launchWindow();
     void launchWindow(size_t width, size_t height);
+    void closeWindow();
+
     void setSize(size_t width,size_t height);
     void setPlayMode();
     void setMenuMode(); //this&);

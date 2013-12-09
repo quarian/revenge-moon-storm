@@ -22,6 +22,7 @@ public:
      */
     GameState(Game&, GameState*&);
     GameState(GameState*);
+    virtual ~GameState();
 
     /* The update function drives the main functionality of this game state. It
      * takes the elapsed time dt, in seconds, as a parameter.
@@ -35,7 +36,7 @@ public:
     virtual void init() = 0;
     virtual void resume() = 0;
 
-    virtual void kill();
+    bool alive() { return alive_; }
 
 
 protected:
@@ -59,6 +60,7 @@ protected:
 private:
     /* The previous game state. */
     GameState* parent_;
+    bool alive_;
 };
 
 #endif

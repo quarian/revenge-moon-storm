@@ -21,7 +21,11 @@ MultiplayerGame::MultiplayerGame(
 
 void MultiplayerGame::init() {
     map_.loadFromFile("./maps/foo2.map", game_.terrainManager_);
+
     //map_.generateRandomMap(game_.terrainManager_);
+    for (auto p : players_)
+        map_.spawnPlayer(p, 1, 1);
+
     spawn(new World(this, map_, players_ ));
 }
 

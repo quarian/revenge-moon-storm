@@ -36,10 +36,15 @@ void Map::clear() {
         delete i;
     items.clear();
 
+    for (auto p : players)
+        p->clearAvatar();
     players.clear();
 
-    for (auto row : grid_)
+    for (auto row : grid_) {
+        for (auto p : row)
+            delete p;
         row.clear();
+    }
     grid_.clear();
 }
 
@@ -49,26 +54,27 @@ void Map::loadFromFile(std::string filename, TerrainManager const& tmgr) {
     std::cout << "Loading from file " << filename << " ...";
     std::ifstream infile(filename);
     std::string line;
-    int row = 0;
-    int column = 0;
     if (!infile)
         std::cout << " error: could not open file!" << std::endl;
+
+    int row = 0;
+    int column = 0;
     while (std::getline(infile, line)) {
         std::string temp;
         std::istringstream iss(line);
         std::string line_as_string = iss.str();
         column = 0;
-        std::vector<MapBlock> new_row;
+        std::vector<MapBlock*> new_row;
         grid_.push_back(new_row);
 
         for (char content : line_as_string) {
             if (MapObjectManager::contains(content)) {
-                MapBlock mb(column, row, ' ', *this, Terrain(tmgr[' ']));
+                MapBlock* mb = new MapBlock(column, row, ' ', *this, Terrain(tmgr[' ']));
+                MapObjectManager::place(content, *this, mb);
                 grid_[row].push_back(mb);
-                MapObjectManager::place(content, *this, getBlock(column, row));
             } else {
                 Terrain terrain(tmgr[content]);
-                MapBlock mb(column, row, content, *this, terrain);
+                MapBlock* mb = new MapBlock(column, row, content, *this, terrain);
                 grid_[row].push_back(mb);
             }
             column++;
@@ -88,18 +94,18 @@ void Map::generateRandomMap(TerrainManager const& tmgr, int height, int width) {
 void Map::generateBorders(TerrainManager const& tmgr, int height, int width) {
     char content;
     for (int i = 0; i < height; i ++) {
-        std::vector<MapBlock> new_row;
+        std::vector<MapBlock*> new_row;
         grid_.push_back(new_row);
         for (int j = 0; j < width; j++) {
             if (i == 0 || j == 0 || i == height - 1 || j == width - 1) {
                 content = '#';
                 Terrain t(tmgr[content]);
-                MapBlock mb(j, i, content, *this, t);
+                MapBlock* mb = new MapBlock(j, i, content, *this, t);
                 grid_[i].push_back(mb);
             } else {
                 content = ' ';
                 Terrain t(tmgr[content]);
-                MapBlock mb(j, i, content, *this, t);
+                MapBlock* mb = new MapBlock(j, i, content, *this, t);
                 grid_[i].push_back(mb);
             }
         }
@@ -128,7 +134,8 @@ void Map::insertFeature(TerrainManager const& tmgr) {
             if (((i == y_min || i == y_max) && (j >= x_min && j <= x_max)) ||
                 ((j == x_min || j == x_max) && (i >= y_min && i <= y_max))) {
                 if ((y_min < y_max) && (x_min < x_max)) {
-		    MapBlock mb(j, i, content, *this, t);
+		    MapBlock* mb = new MapBlock(j, i, content, *this, t);
+                    delete grid_[i][j];
                     grid_[i][j] = mb;
                 } else {
                     break;
@@ -143,27 +150,28 @@ void Map::printMap() {
     std::cout  << "Printing map" << std::endl;
     for (auto row : grid_) {
         for (auto mb : row) {
-            std::cout << mb.content_;
+            std::cout << mb->content_;
         }
         std::cout << std::endl;
     }
 }
 
 MapBlock* Map::getBlock(int x, int y) {
-    return &grid_[y][x];
+    if (x < 0 || y < 0 || x >= getWidth() || y >= getHeight()) return nullptr;
+    return grid_[y][x];
 }
 
 MapBlock* Map::getBlock(int x, int y, Direction direction) {
     if (direction == Direction::NORTH)
-        return &grid_[y - 1][x];
+        return getBlock(x, y-1);
     else if (direction == Direction::SOUTH)
-        return &grid_[y + 1][x];
+        return getBlock(x, y+1);
     else if (direction == Direction::WEST)
-        return &grid_[y][x - 1];
+        return getBlock(x-1, y);
     else if (direction == Direction::EAST)
-        return &grid_[y][x + 1];
+        return getBlock(x+1, y);
     else
-        return &grid_[y][x];
+        return getBlock(x, y);
 }
 
 int Map::getHeight() {
@@ -173,7 +181,7 @@ int Map::getWidth() {
     return grid_[0].size();
 }
 
-std::vector<std::vector<MapBlock>>* Map::getGrid() {
+std::vector<std::vector<MapBlock*>>* Map::getGrid() {
     return &grid_;
 }
 

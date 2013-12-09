@@ -68,6 +68,7 @@ std::deque<MapBlock*> AStar::find(
                               Direction::WEST}
         ) {
             MapBlock* neighbor = current->block->getBlock(dir);
+            if (!neighbor) continue; // If no such block exists
             auto it = nodes.find(neighbor);
             if (it != nodes.end()) continue; // If already processed, pass
             nodes[neighbor] =

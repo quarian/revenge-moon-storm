@@ -2,11 +2,11 @@
 
 
 void WindowManager::launchWindow() {
-    this->create(sf::VideoMode(1024,768), "GameWindow");
+    create(sf::VideoMode(1024,768), "GameWindow");
 }
 
 void WindowManager::launchWindow(size_t width, size_t height) {
-    this->create(sf::VideoMode(width,height), "GameWindow");
+    create(sf::VideoMode(width,height), "GameWindow");
 }
 
 void drawGameArea(sf::Sprite& sprite, float x, float y) {

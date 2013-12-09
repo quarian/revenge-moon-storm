@@ -12,6 +12,7 @@ class PlayerInterface;
 
 class Player {
 friend bool PlayerTest1(std::ostream&);
+friend void Map::clear();
 
 public:
     /* Constructor. */

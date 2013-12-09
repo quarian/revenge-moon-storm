@@ -46,7 +46,7 @@ class Map {
         int getHeight();
         int getWidth();
         Game* getGame() const { return game_; }
-        std::vector<std::vector<MapBlock>>* getGrid();
+        std::vector<std::vector<MapBlock*>>* getGrid();
 
 
         void pushItem(Item* item) { items.insert(item); }
@@ -65,7 +65,7 @@ class Map {
     private:
         void generateBorders(TerrainManager const&, int height, int width);
         void insertFeature(TerrainManager const&);
-        std::vector<std::vector<MapBlock>> grid_;
+        std::vector<std::vector<MapBlock*>> grid_;
         Game* game_;
 
 

@@ -5,12 +5,13 @@
 #include <set>
 
 #include "GameState.hh"
-#include "GlobalGameInterface.hh"
 #include "Map.hh"
 #include "Actor.hh"
 #include "MapBlock.hh"
 #include "Item.hh"
 #include "WorldGUI.hh"
+
+class GlobalGameInterface;
 
 /* World
  * =====
@@ -23,6 +24,7 @@ class World : public GameState {
 public:
      World(GameState*, Map&, std::vector<Player*>);
      World(Game&, GameState*&, Map&, std::vector<Player*>);
+     ~World();
 
     /* The update function drives the main functionality of this game state. It
      * takes the elapsed time dt, in seconds, as a parameter.
@@ -42,7 +44,8 @@ public:
 protected:
     Map& map_;
     std::vector<Player*> players_;
-    WorldGUI gui_;
+    GlobalGameInterface* interface_;
+    //WorldGUI gui_;
 
     void cull();
     void updateAll(float);

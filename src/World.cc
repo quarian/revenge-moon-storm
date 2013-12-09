@@ -2,6 +2,7 @@
 #include <algorithm>
 #include "World.hh"
 #include "Enemies.hh"
+#include "GlobalGameInterface.hh"
 
 
 World::World(
@@ -11,7 +12,8 @@ World::World(
         : GameState(parent),
           map_(map),
           players_(players),
-          gui_(WorldGUI(*map.getGame(), 0, 704))  {}
+          interface_(new GlobalGameInterface(this)) {}
+          //gui_(WorldGUI(*map.getGame(), 0, 704))  {}
 
 World::World(
         Game& game,
@@ -21,10 +23,17 @@ World::World(
         : GameState(game, stack),
           map_(map),
           players_(players),
-          gui_(WorldGUI(*map.getGame()))  {}
+          interface_(new GlobalGameInterface(this)) {}
+          //gui_(WorldGUI(*map.getGame()))  {}
+
+
+World::~World() {
+    delete interface_;
+}
 
 
 void World::init() {
+    //interface_ = new GlobalGameInterface(this);
     initKeyboard();
     drawMapObjects();
     for (auto p : map_.players)
@@ -47,7 +56,8 @@ void World::pause() {
 
 void World::initKeyboard() {
     game_.eventManager_.clearInterfaces();
-    game_.eventManager_.registerInterface(new GlobalGameInterface(this));
+    game_.eventManager_.registerInterface(interface_);
+
     for (Player* p : map_.players)
         game_.eventManager_.registerInterface(p->getInterface());
 }
@@ -144,8 +154,8 @@ void World::drawMapObjects() {
 
 
 void World::drawGUI() {
-    gui_.clear();
-    for (size_t i=0; i < players_.size(); i++)
-        gui_.makePlayerInfo(players_[i], i);
-    gui_.draw();
+    //gui_.clear();
+    //for (size_t i=0; i < players_.size(); i++)
+    //    gui_.makePlayerInfo(players_[i], i);
+    //gui_.draw();
 }
