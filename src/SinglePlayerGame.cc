@@ -22,6 +22,8 @@ SinglePlayerGame::SinglePlayerGame(
 void SinglePlayerGame::init() {
     map_.loadFromFile("./maps/foo2.map", game_.terrainManager_);
     //map_.generateRandomMap(game_.terrainManager_);
+    map_.spawnPlayer(player_, 1, 1);
+
     spawn(new World(this, map_, {player_} ));
 }
 

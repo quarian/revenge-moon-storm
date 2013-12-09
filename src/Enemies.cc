@@ -1,7 +1,7 @@
 #include "Enemies.hh"
 
 TinyBug::TinyBug(Map& map, MapBlock* mb) :
-        AIPlayerSeeker(map, mb, 5, 8.0, 15, 8) {
+        AIPlayerSeeker(map, mb, 5, 6.0, 15, 12) {
     initSprite(map.getGame()->graphicsManager_.getAnimation("tiny_bug"), sf::Color::Red);
     sprite_.setFrameTime(sf::seconds(0.07f));
 }
@@ -11,7 +11,7 @@ void TinyBug::splatter() { new BugSplat(map_, location_); }
 
 
 GreenBug::GreenBug(Map& map, MapBlock* mb) :
-        AIPlayerSeeker(map, mb, 15, 6.0, 45, 10) {
+        AIPlayerSeeker(map, mb, 15, 4.0, 45, 15) {
     initSprite(map.getGame()->graphicsManager_.getAnimation("medium_bug"), sf::Color::Green);
     sprite_.setFrameTime(sf::seconds(0.10f));
 }
