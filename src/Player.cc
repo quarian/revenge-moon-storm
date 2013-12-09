@@ -5,7 +5,7 @@
 
 Player::Player(std::string name, const PlayerInterface::KeySet& keys, size_t lives) :
         speed_(14.0f),
-        digPower_(23.0f),
+        digPower_(60.0f),
         resistance_(0.0f),
         lives_(lives),
         name_(name),

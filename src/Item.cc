@@ -66,13 +66,13 @@ std::vector<std::string> Item::treasureNames() {
 NormalBomb::NormalBomb(Map& map, MapBlock* location, std::string name) : Weapon(map, location, name, false, Direction::NULLDIR) {
 	if (name == "Small Bomb") {
 		radius_ = 1;
-		power_ = 15;
+		power_ = 25;
 		fusetime_ = 1.0f;
 
 		buildSprite(5, "bomb_anim_small.png", fusetime_);    
 	} else if (name == "Large Bomb") {
 		radius_ = 2;
-		power_ = 25;
+		power_ = 60;
 		fusetime_ = 1.0f;
 
 		buildSprite(5, "bomb_anim.png", fusetime_);
@@ -82,13 +82,13 @@ NormalBomb::NormalBomb(Map& map, MapBlock* location, std::string name) : Weapon(
 CrucifixBomb::CrucifixBomb(Map& map, MapBlock* location, std::string name) : Weapon(map, location, name, false, Direction::NULLDIR) {
 	if (name == "Crucifix Bomb") {
 		radius_ = 5;
-		power_ = 26;
+		power_ = 40;
 		fusetime_ = 1.5f;
 
 		buildSprite(4, "crucifix_anim_small.png", fusetime_);
 	} else if (name == "Large Crucifix Bomb") {
 		radius_ = 64;
-		power_ = 100;
+		power_ = 80;
 		fusetime_ = 2.0f;
 
 		buildSprite(4, "crucifix_anim.png", fusetime_);
