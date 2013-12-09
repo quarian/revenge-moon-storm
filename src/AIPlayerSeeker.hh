@@ -31,6 +31,7 @@ public:
 
 protected:
     float damage_;
+    int LOS_;
     int LOS2_;
 
     float queuedSleep_;

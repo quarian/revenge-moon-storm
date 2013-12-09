@@ -18,6 +18,7 @@ AIPlayerSeeker::AIPlayerSeeker(
         int LOS) :
     AIActor(map, block, speed, 0.0, health, 0.0, nullptr),
     damage_(damage),
+    LOS_(LOS),
     LOS2_(LOS*LOS),
     queuedSleep_(0.0f) {}
 
@@ -49,7 +50,10 @@ void AIPlayerSeeker::think() {
 
         /* Plot a course towards the player. */
         for (auto a : players) {
-            auto path = AStar::find(location_, a.second->getLocation(), AStar::SimpleCostFunction(), false);
+            auto path = AStar::find(location_,
+                                    a.second->getLocation(),
+                                    AStar::SimpleCostFunction(),
+                                    false, true, LOS_);
             if (path.empty()) continue;
             int plotlen = planPathLength(a.first);
             pushPath(path, plotlen);
