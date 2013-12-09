@@ -5,34 +5,48 @@
 #include <SFML/Window/Event.hpp>
 
 #include "KeyInterface.hh"
-#include "Direction.hh"
-#include "Player.hh"
+//#include "KeyInterface.hh"
+#include "Menu.hh"
+
+class Menu;
 
 class MenuInterface : public KeyInterface {
 public:
+    //struct KeySet;
+
+    // Some typical keysets
+    //static const KeySet ARROWS;
+
     /* Constructor
      *
      * PARAMETERS
      * ==========
      *  Menu*               the menu that's being controlled by this interface
-     *
-     *  Key                 key to SELECT OPTION
-     *  Key                 key to GO BACK
      */
-    MenuInterface(Player*, Key=KB::Enter, Key=KB::Backspace);
+    MenuInterface(Menu*);
     
-    bool operator==(KeyInterface const& other) const override;
+    bool operator==(KeyInterface const& other) const;
 
 
     /* Parse the event and, if it's relevant to the menu, act on it. */
-    void parse(sf::Event&) override;
+    void parse(sf::Event&);
 
     
 private:
     Menu* menu_;
 
-    Key select_;
-    Key back_;
+//    const KeySet keys_;
 };
+
+//struct MenuInterface::KeySet {
+//    Key up;
+//    Key left;
+//    Key right;
+//    Key down;
+
+//    Key select;
+//    Key esc;
+//};
+
 
 #endif

@@ -48,6 +48,7 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
 	frontToEnd();
 	loadTexture("wtf.png");
 	loadTexture("background_grid.png");
+	loadTexture("background_menu.png");
 
 	
 	// Create animations

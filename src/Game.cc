@@ -1,3 +1,4 @@
+#include "MainMenu.hh"
 #include "PlayerInterface.hh"
 #include "GlobalGameInterface.hh"
 #include "SinglePlayerGame.hh"
@@ -33,7 +34,8 @@ Game::~Game() {
 
 void Game::main() {
     srand(time(NULL)); // Init rand
-
+	// stack_ = new MainMenu(*this, stack_, fonts_, background_);
+	
     Player* kafka = new Player("Kafka");
     Player* dostojevsky = new Player("Dostojevsky", PlayerInterface::WASD_DVORAK);
 
