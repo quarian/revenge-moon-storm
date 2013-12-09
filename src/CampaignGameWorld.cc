@@ -5,10 +5,10 @@ CampaignGameWorld::CampaignGameWorld(
             GameState* parent,
             Map& map,
             Player* player,
-            int& phase) :
+            bool& flagVictorious) :
         World(parent, map, {player}),
         player_(player),
-        phase_(phase) {
+        flagVictorious_(flagVictorious) {
 }
 
 
@@ -17,23 +17,17 @@ CampaignGameWorld::CampaignGameWorld(
             GameState*& stack,
             Map& map,
             Player* player,
-            int& phase) :
+            bool& flagVictorious) :
         World(game, stack, map, {player}),
         player_(player),
-        phase_(phase) {
+        flagVictorious_(flagVictorious) {
 }
 
 
 void CampaignGameWorld::update(float dt) {
-    /* Check termination condition... */
-    if (player_->getActor() == nullptr) {
-        // Player has died! Terminate and go back without advancing a level
+    /* If player is dead or victorious, terminate the world */
+    if (player_->getActor() == nullptr || flagVictorious_)
         terminate();
-    } else if (false) { // TODO: victory condition
-        // Player has attained victory!
-        phase_++;
-        terminate();
-    }
 
     /* If nothing special has happened, just carry on as normal. */
     World::update(dt);

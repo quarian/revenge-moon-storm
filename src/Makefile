@@ -34,6 +34,7 @@ MapUtils.cc\
 MultiplayerGame.cc\
 AIPlayerSeeker.cc\
 Enemies.cc\
+Fixtures.cc\
 CampaignGame.cc\
 CampaignGameWorld.cc\
 campaign/moonbase.cc\

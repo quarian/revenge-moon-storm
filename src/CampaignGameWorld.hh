@@ -7,14 +7,14 @@ class Player;
 
 class CampaignGameWorld : public World {
 public:
-     CampaignGameWorld(GameState*, Map&, Player*, int&);
-     CampaignGameWorld(Game&, GameState*&, Map&, Player*, int&);
+     CampaignGameWorld(GameState*, Map&, Player*, bool&);
+     CampaignGameWorld(Game&, GameState*&, Map&, Player*, bool&);
 
      void update(float);
 
 private:
      Player* player_;
-     int& phase_;
+     bool& flagVictorious_;
 };
 
 #endif

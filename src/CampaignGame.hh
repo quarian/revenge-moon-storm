@@ -29,10 +29,10 @@ public:
     void launchLevelCaverns();
     void launchLevelBoss();
 
-    void showStoryMoonbase();
-    void showStoryTunnels();
-    void showStoryCaverns();
-    void showStoryBoss();
+    //void showStoryMoonbase();
+    //void showStoryTunnels();
+    //void showStoryCaverns();
+    //void showStoryBoss();
 
     void victory();
 
@@ -41,6 +41,7 @@ private:
     Player* player_;
     int phase_;
     bool storeIsNext_;
+    bool flagVictorious_;
 };
 
 

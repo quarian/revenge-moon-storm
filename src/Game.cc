@@ -37,7 +37,7 @@ void Game::main() {
     Player* kafka = new Player("Kafka");
     Player* dostojevsky = new Player("Dostojevsky", PlayerInterface::WASD_DVORAK);
 
-    // stack_ = new SinglePlayerGame(*this, stack_, kafka);
+    //stack_ = new SinglePlayerGame(*this, stack_, kafka);
     // stack_ = new MultiplayerGame(*this, stack_, {kafka, dostojevsky});
     stack_ = new CampaignGame(*this, stack_, kafka);
     // stack_ = new DummyGameState(*this, stack_);
