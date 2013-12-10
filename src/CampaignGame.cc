@@ -13,7 +13,7 @@ void CampaignGame::init() {
     phase_ = 1;
     flagVictorious_ = false;
     storeIsNext_ = false;
-    launchLevelMoonbase();
+    resume();
 }
 
 
