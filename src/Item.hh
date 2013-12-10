@@ -94,6 +94,22 @@ protected:
 	float fusetime_; //in seconds, how long the fuse will burn. Zero for instant action (e.g. guns)
 };
 
+class Weaponbox : public Item {
+public:
+	Weaponbox(Map&, MapBlock*, float);
+
+	void update(float);
+	bool takeDamage(int) { return false; }
+
+	std::string generateItem() const;
+
+private:
+	//0.0f .. 1.0f tells what percentage of items can spawn from this crate
+	//Take with a grain of salt
+	float rarity_; 
+	
+	
+};
 
 
 /*

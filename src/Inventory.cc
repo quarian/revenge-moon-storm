@@ -93,5 +93,9 @@ void Inventory::collect(Item* item) {
 
 		//the item's constructor informs all the other holders of this data that its being deleted.
 		delete item;
-	}
+	} else if (Weaponbox* w = dynamic_cast<Weaponbox*>(item)) {
+        addItem(w->generateItem());
+
+        delete item;
+    }
 }

@@ -40,6 +40,8 @@ private:
 	int selxmax_;
 	int selymax_;
 
+	sf::Font storefont;
+
 
 	void initKeyboard();
 

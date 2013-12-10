@@ -2,6 +2,7 @@
 #include "Game.hh"
 #include <vector>
 #include <string>
+#include <algorithm>
 
 /*
  * Contains item implementations
@@ -179,6 +180,19 @@ Treasure::Treasure(Map& map, MapBlock* location, std::string name, int worth) : 
 }
 void Treasure::update(float) {
 	sprite_.update(sf::seconds(0.0f));
+}
+
+Weaponbox::Weaponbox(Map& map, MapBlock* location, float rarity) : Item(map, location, "weapon box", true, true, Direction::NULLDIR), rarity_(rarity) {
+	buildSprite(1, "weaponbox.png", 1.0f);
+}
+void Weaponbox::update(float) {
+	sprite_.update(sf::seconds(0.0f));
+}
+
+std::string Weaponbox::generateItem() const {
+	float r = std::min(1.0f, std::max(0.0f, rarity_));
+	int i = (int)(r*(Item::names().size()));
+	return Item::names()[rand() % i];
 }
 
 //Item derivates

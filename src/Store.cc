@@ -32,6 +32,8 @@ void Store::init() {
     selmax_ = Item::names().size();
     selxmax_ = 2;
     selymax_ = selmax_ / selxmax_;
+
+    storefont.loadFromFile("batmanforeveralternate.ttf");
 }
 
 void Store::update(float) {
@@ -43,6 +45,8 @@ void Store::update(float) {
 }
 
 void Store::draw() {
+    //SPRITES
+
     sf::Sprite storetitle;
     storetitle.setTexture(game_.graphicsManager_.getTexture("workshop_title.png"));
     storetitle.setPosition(1024/2 - storetitle.getGlobalBounds().width/2, 40);
@@ -74,6 +78,17 @@ void Store::draw() {
     done.setTexture(game_.graphicsManager_.getTexture("done_button.png"));
     done.setPosition(1024/2 - done.getGlobalBounds().width/2, 160);
     game_.draw(done);
+
+    //TEXT
+
+    //player scrap amount
+    sf::Text player_scrap;
+    player_scrap.setFont(storefont);
+    std::ostringstream convert;
+    convert << player_->getInventory().getGold();
+    player_scrap.setString(convert.str());
+    player_scrap.setPosition(30, 30);
+    game_.draw(player_scrap);
 }
 
 void Store::initKeyboard() {
@@ -124,7 +139,7 @@ void Store::sellItem() {
 
 int Store::getPrice(std::string item) const {
     std::map<std::string, int> prices;
-    prices["Small Bomb"] = 100;
+    prices["Small Bomb"] = 100; //TODO CHANGE THESE
     prices["Large Bomb"] = 100;
     prices["Crucifix Bomb"] = 100;
     prices["Large Crucifix Bomb"] = 100;
