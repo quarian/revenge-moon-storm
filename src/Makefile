@@ -26,6 +26,7 @@ AnimatedSprite.cc\
 Animation.cc\
 AStar.cc\
 GlobalGameInterface.cc\
+CheatsInterface.cc\
 Terrain.cc\
 MapObjectManager.cc\
 GameState.cc\

@@ -13,9 +13,7 @@ void CampaignGame::init() {
     phase_ = 1;
     flagVictorious_ = false;
     storeIsNext_ = false;
-    // showStoryMoonbase();
     launchLevelMoonbase();
-    //spawn(new Store(this, player_));
 }
 
 
@@ -30,8 +28,9 @@ void CampaignGame::resume() {
     if (phase_ == 5) {
         phase_++;
         victory();
-    } else if (phase_ == 6)
+    } else if (phase_ == 6) {
         terminate();
+    }
 
     // COMMENTED OUT : Story panels (probably no time for these)
     //if (phase_ == 2) {

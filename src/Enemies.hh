@@ -16,10 +16,19 @@ public:
     void splatter();
 };
 
+
 class GreenBug : public AIPlayerSeeker {
 public:
     GreenBug(Map&, MapBlock*);
     void splatter();
+};
+
+
+class Scarab : public AIActor {
+};
+
+
+class ScarabQueen : public AIActor {
 };
 
 
