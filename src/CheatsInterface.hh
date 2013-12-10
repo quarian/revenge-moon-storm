@@ -7,7 +7,7 @@ class CheatsInterface : public KeyInterface {
 public:
     CheatsInterface(bool&);
     virtual bool operator==(KeyInterface const& other) const = 0;
-    virtual void parse(sf::Event&);
+    virtual bool parse(sf::Event&);
 private:
     bool& flagVictory_;
 };

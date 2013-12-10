@@ -47,7 +47,8 @@ campaign/boss.cc\
 MenuInterface.cc\
 Menu.cc\
 MainMenu.cc\
-SinglePlayerMenu.cc
+SinglePlayerMenu.cc\
+MultiPlayerMenu.cc
 MAIN=main.cc
 RPATH=-Wl,-rpath=./lib/
 TESTS=WalkerTest.cc DirectionTest.cc ActorTest.cc ControlledActorTest.cc PlayerTest.cc MapTest.cc InventoryTest.cc AStarTest.cc testMain.cc TerrainTest.cc

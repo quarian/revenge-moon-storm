@@ -56,11 +56,12 @@ protected:
 
 	void setTittle(std::string tittle);
 	virtual void addMenuSelection(std::string selectionName, int FontSize);
-	virtual void addMenuSelectionRight(std::string selectionName, int , int = 30);
-	virtual void addMenuSelectionLeft(std::string selectionName, int , int = 30);
+	virtual void addMenuSelectionRight(std::string selectionName, int , int fontSize= 30);
+	virtual void addMenuSelectionLeft(std::string selectionName, int , int fontSize= 30);
 
 	std::map<std::string, sf::Font>& fonts_;
     std::map<std::string, sf::Text*> texts_;
+    std::map<std::string, sf::Text*> sidetexts_;
     sf::Sprite& background_;
         
     int selectionIndex_;

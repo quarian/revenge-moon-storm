@@ -10,7 +10,7 @@ void SinglePlayerMenu::init() {
 	addMenuSelection("Start", 40);
 	//addMenuSelection("Name", 40);
 	//addMenuSelection("Difficulty", 40);
-	addMenuSelection("Campaign", 40);
+	//addMenuSelection("Campaign", 40);
 	addMenuSelection("Back", 40);
 	
 	initKeyboard();
@@ -22,8 +22,8 @@ void SinglePlayerMenu::keySelect() {
 	int index = 0;
 	if (selections_[selectionIndex_] == selections_[index]) {start();}
 	index++;
-	if (selections_[selectionIndex_] == selections_[index]) {waitingCampaign_ = true;}
-	index++;
+	/*if (selections_[selectionIndex_] == selections_[index]) {waitingCampaign_ = true;}
+	index++;*/
 	if (selections_[selectionIndex_] == selections_[index]) {terminate();}
 	//index++;
 }

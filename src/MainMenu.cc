@@ -41,12 +41,6 @@ void MainMenu::keyEscape() {
 
 void MainMenu::singlePlayerSelected() {
 	spawn(new SinglePlayerMenu(game_, stack_, fonts_, background_, playerNames_, selectPressed_, escPressed_));
-	
-	// pasted from singleplayer menu
-	/*background_.setTexture(game_.graphicsManager_.getTexture("background_grid.png"));
-	if (playerNames_.empty()) playerNames_.push_back("Dostojevsky");
-	Player* player_ = new Player("Pertti",PlayerInterface::ARROWS_WIDE);
-    spawn(new CampaignGame(this, player_));*/
 }
 
 void MainMenu::keySelReleased() {selectPressed_ = false;}

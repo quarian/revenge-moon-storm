@@ -34,14 +34,14 @@ Game::~Game() {
 
 void Game::main() {
     srand(time(NULL)); // Init rand
-	//stack_ = new MainMenu(*this, stack_, fonts_, background_);
+	stack_ = new MainMenu(*this, stack_, fonts_, background_);
 	
-    Player* kafka = new Player("Kafka");
+    //Player* kafka = new Player("Kafka");
     //Player* dostojevsky = new Player("Dostojevsky", PlayerInterface::WASD_DVORAK);
 
     //stack_ = new SinglePlayerGame(*this, stack_, kafka);
     // stack_ = new MultiplayerGame(*this, stack_, {kafka, dostojevsky});
-    stack_ = new CampaignGame(*this, stack_, kafka);
+    //stack_ = new CampaignGame(*this, stack_, kafka);
     // stack_ = new DummyGameState(*this, stack_);
 
     clock_.restart();
@@ -64,7 +64,7 @@ void Game::main() {
         }
     }
 
-    delete kafka;
+    //delete kafka;
     //delete dostojevsky;
 }
 
