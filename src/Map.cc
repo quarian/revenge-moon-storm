@@ -97,6 +97,75 @@ void Map::generateRandomMap(TerrainManager const& tmgr, bool overlap, int height
     }
 }
 
+void Map::generateMaze(TerrainManager const& tmgr, int height, int width) {
+    generateBorders(tmgr, height, width);
+    divide(tmgr, 1, width - 1, 1, height - 1);
+}
+
+void Map::divide(TerrainManager const& tmgr, int x_min, int x_max, int y_min, int y_max) {
+    if (x_max - x_min < 4 || y_max - y_min < 4)
+        return;
+    bool horizontal = (rand() % 2) == 0;
+    char content = '#';
+    Terrain t(tmgr[content]);
+    int door;
+    if (horizontal) {
+        int y = rand() % (y_max - y_min - 3) + y_min + 2;
+        door = rand() % (x_max - x_min - 3) + x_min + 2;
+        //door = (x_max + x_min) / 2;
+        for (int i = x_min; i < x_max; i++) {
+            if (i != door) {
+                MapBlock* mb = new MapBlock(i, y, content, *this, t);
+                delete grid_[y][i];
+                grid_[y][i] = mb;
+            }
+        }
+        if (grid_[y][x_min - 1]->isPassable() && !grid_[y + 1][x_min - 1]->isPassable() && !grid_[y + 1][x_min - 1]->isPassable()) {
+            content = ' ';
+            t = tmgr[content];
+            MapBlock* mb = new MapBlock(x_min, y, content, *this, t);
+            delete grid_[y][x_min];
+            grid_[y][x_min] = mb;
+        }
+        if (grid_[y][x_max]->isPassable() && !grid_[y - 1][x_max]->isPassable() && !grid_[y + 1][x_max]->isPassable()) {
+            content = ' ';
+            t = tmgr[content];
+            MapBlock* mb = new MapBlock(x_max - 1, y, content, *this, t);
+            delete grid_[y][x_max - 1];
+            grid_[y][x_max - 1] = mb;
+        }
+        divide(tmgr, x_min, x_max, y_min, y);
+        divide(tmgr, x_min, x_max, y + 1, y_max);
+    } else {
+        int x = rand() % (x_max - x_min - 3) + x_min + 2;
+        door = (rand() % (y_max - y_min - 3)) + y_min + 2;
+        //door = (y_max + y_min) / 2;
+        for (int i = y_min; i < y_max; i++) {
+            if (i != door) {
+                MapBlock* mb = new MapBlock(x, i, content, *this, t);
+                delete grid_[i][x];
+                grid_[i][x] = mb;
+            }
+        }
+        if (grid_[y_min - 1][x]->isPassable() && !grid_[y_min - 1][x + 1]->isPassable() && !grid_[y_min - 1][x - 1]->isPassable()) {
+            content = ' ';
+            t = tmgr[content];
+            MapBlock* mb = new MapBlock(x, y_min, content, *this, t);
+            delete grid_[y_min][x];
+            grid_[y_min][x] = mb;
+        }
+        if (grid_[y_max][x]->isPassable() && !grid_[y_max][x - 1]->isPassable() && !grid_[y_max][x + 1]->isPassable()) {
+            content = ' ';
+            t = tmgr[content];
+            MapBlock* mb = new MapBlock(x, y_max - 1, content, *this, t);
+            delete grid_[y_max - 1][x];
+            grid_[y_max - 1][x] = mb;
+        }
+        divide(tmgr, x + 1, x_max, y_min, y_max);
+        divide(tmgr, x_min, x, y_min, y_max);
+    }
+}
+
 void Map::generateBorders(TerrainManager const& tmgr, int height, int width) {
     char content;
     for (int i = 0; i < height; i ++) {
