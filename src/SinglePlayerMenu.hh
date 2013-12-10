@@ -19,6 +19,8 @@ class SinglePlayerMenu : public Menu {
 public:
 
     SinglePlayerMenu(Game&, GameState*&,std::map<std::string,sf::Font>&, sf::Sprite&, std::vector<std::string>&, bool&, bool&);
+    
+    ~SinglePlayerMenu() {delete player_;}
 
     void init();
     

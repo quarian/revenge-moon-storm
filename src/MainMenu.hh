@@ -4,6 +4,7 @@
 #include "Menu.hh"
 #include "SinglePlayerMenu.hh"
 #include "MultiPlayerMenu.hh"
+#include "MapEditor.hh"
 #include <map>
 
 /* MainMenu
@@ -32,6 +33,7 @@ public:
 private:	
 	void singlePlayerSelected();
 	void multiPlayerSelected();
+	void mapEdiorSelected();
 	
 	std::vector<std::string> playerNames_;
 	//std::vector<PlayerInterface::KeySet> keySets_;

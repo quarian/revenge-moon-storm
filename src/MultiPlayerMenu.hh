@@ -6,7 +6,7 @@
 #include "MultiplayerGame.hh"
 #include "PlayerInterface.hh"
 #include "Player.hh"
-#include <iostream>
+#include <numeric>
 /* MultiPlayerMenu
  * ================
  * 
@@ -18,8 +18,11 @@ class MultiPlayerMenu : public Menu {
 public:
 
     MultiPlayerMenu(Game&, GameState*&,std::map<std::string,sf::Font>&, sf::Sprite&, std::vector<std::string>&, bool&, bool&);
+    
+    ~MultiPlayerMenu() {for (Player* pl : players_) delete pl;}
 
     void init();
+    void update(float);
     
     /* Ask for player name to save scores, then terminate */
     //void resume();

@@ -9,7 +9,8 @@ void MainMenu::init() {
 	
 	setTittle("Main menu");
 	addMenuSelection("Singleplayer", 50);
-	addMenuSelection("MultiPlayer", 50);
+	addMenuSelection("Multiplayer", 50);
+	addMenuSelection("Map Editor", 50);
 	addMenuSelection("Exit", 50);
 	
 	//keySets_.push_back(PlayerInterface::ARROWS);
@@ -27,6 +28,9 @@ void MainMenu::keySelect() {
 	index++;
 	if (selections_[selectionIndex_] == selections_[index])
 		multiPlayerSelected();
+	index++;
+	if (selections_[selectionIndex_] == selections_[index])
+		mapEdiorSelected();
 	index++;
 	if (selections_[selectionIndex_] == selections_[index])
 		terminate();
@@ -49,5 +53,9 @@ void MainMenu::keyEscReleased() {escPressed_ = false;}
 
 void MainMenu::multiPlayerSelected() {
 	spawn(new MultiPlayerMenu(game_, stack_, fonts_, background_, playerNames_,selectPressed_,escPressed_));
+}
+
+void MainMenu::mapEdiorSelected() {
+	spawn(new MapEditor(this));
 }
 

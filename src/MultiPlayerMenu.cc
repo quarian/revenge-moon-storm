@@ -9,7 +9,7 @@ void MultiPlayerMenu::init() {
 
 	addMenuSelection("Start", 40);
 	addMenuSelection("Players", 40);
-	addMenuSelectionRight("Add player",2,30); addMenuSelectionLeft("Remove player", 2, 30);
+	//addMenuSelectionRight("Add player",2,30); addMenuSelectionLeft("Remove player", 2, 30);
 	//addMenuSelection("Difficulty", 40);
 	addMenuSelection("Map", 40);
 	addMenuSelection("Back", 40);
@@ -18,6 +18,15 @@ void MultiPlayerMenu::init() {
 	keySets_.push_back(PlayerInterface::ARROWS);
 	
 	initKeyboard();
+}
+
+void MultiPlayerMenu::update(float) {
+	//if (waitingPlayerName_) {
+	//std::string str;
+	//str = accumulate(begin(playerNames_), end(playerNames_), str);
+	texts_["Players"]->setString("Players: ");// + str + newName_;
+	updateMenu();
+	drawMenu();
 }
   	    
 void MultiPlayerMenu::keySelect() {
