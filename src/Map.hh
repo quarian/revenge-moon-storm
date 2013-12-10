@@ -35,7 +35,7 @@ class Map {
         ~Map();
 
         void loadFromFile(std::string filename, TerrainManager const&);
-        void generateRandomMap(TerrainManager const&, int height = 44, int width = 64);
+        void generateRandomMap(TerrainManager const&, bool overlap = true, int height = 44, int width = 64);
         void printMap();
         MapBlock* getBlock(int x, int y);
         MapBlock* getBlock(int x, int y, Direction direction);
@@ -64,7 +64,7 @@ class Map {
 
     private:
         void generateBorders(TerrainManager const&, int height, int width);
-        void insertFeature(TerrainManager const&);
+        void insertFeature(TerrainManager const&, bool overlap);
         std::vector<std::vector<MapBlock*>> grid_;
         Game* game_;
 

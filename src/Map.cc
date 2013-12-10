@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <cmath>
 #include <iostream>
+#include <cstring>
 
 #include "Map.hh"
 #include "MapObjectManager.hh"
@@ -84,10 +85,15 @@ void Map::loadFromFile(std::string filename, TerrainManager const& tmgr) {
     std::cout << " done. (" << getWidth() << " by " << getHeight() << " blocks)\n";
 }
 
-void Map::generateRandomMap(TerrainManager const& tmgr, int height, int width) {
+void Map::generateRandomMap(TerrainManager const& tmgr, bool overlap, int height, int width) {
     generateBorders(tmgr, height, width);
-    for (int i = 0; i < 15; i++) {
-        insertFeature(tmgr);
+    int features;
+    if (overlap)
+        features = 10;
+    else
+        features = 200;
+    for (int i = 0; i < features; i++) {
+        insertFeature(tmgr, overlap);
     }
 }
 
@@ -112,23 +118,44 @@ void Map::generateBorders(TerrainManager const& tmgr, int height, int width) {
     }
 }
 
-void Map::insertFeature(TerrainManager const& tmgr) {
+void Map::insertFeature(TerrainManager const& tmgr, bool overlap) {
     int w = getWidth() - 1;
     int h = getHeight() - 1;
     Terrain t = tmgr.random();
     char content = t.type->signifier;
+    char empty = ' ';
     bool indestructible = t.toughness < -90.0f;
+    while (indestructible || !strcmp(&content, &empty)) {
+        t = tmgr.random();
+        indestructible = t.toughness < -90.0f;
+        content = t.type->signifier;
+    }
     int x_min, x_max, y_min, y_max, door_x, door_y;
     x_min = std::min(w, (rand() % w) + 1);
     y_min = std::min(h, (rand() % h) + 1);
     //std::cout << "x_min " << x_min << ", y_min " << y_min << ", w " << w << ", h " << h << std::endl;
     x_max = std::min(w, x_min + 1 + rand() % (getWidth() - x_min));
     y_max = std::min(h, y_min + 1 + rand() % (getHeight() - y_min));
-    if (indestructible && x_max > x_min && y_max > y_min) {
+    if (x_max > x_min && y_max > y_min) {
         door_x = rand() % (x_max - x_min) + x_min;
         door_y = rand() % (y_max - y_min) + y_min;
     }
-    char empty = ' ';
+    
+    // Check for overlaps on features - if overlaps, forget aboyt adding the feature
+    if (!overlap) {
+        for (int i = 1; i < h; i++) {
+            for (int j = 1; j < w; j++) {
+                if (((i == y_min || i == y_max) && (j >= x_min && j <= x_max)) ||
+                    ((j == x_min || j == x_max) && (i >= y_min && i <= y_max))) {
+                    if ((y_min < y_max) && (x_min < x_max)) {
+                        if (!grid_[i][j]->isPassable())
+                            return;
+                    }
+                }
+            }
+        }
+    }
+
     for (int i = 1; i < h; i++) {
         for (int j = 1; j < w; j++) {
             if (((i == y_min || i == y_max) && (j >= x_min && j <= x_max)) ||
