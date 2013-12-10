@@ -54,6 +54,8 @@ public:
 	void increaseGold(int);
 	/* Adds +1 to the given item's quantity */
 	void addItem(std::string);
+	// Decreases the given item's quantity by 1. Gold is added in the caller function in Store
+	void sellItem(std::string);
 	/* Decreases the item count in the inventory, if possible, and returns a boolean */
 	bool useItem(std::string, Map&, MapBlock*, Direction);
 	//An item is picked up by an actor and given to the inventory to parse

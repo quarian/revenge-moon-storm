@@ -41,6 +41,7 @@ public:
     /* Getter and setter for the associated player. */
     Player* getPlayer() { return player_; }
     void setPlayer(Player* player) { player_ = player; }
+    const KeySet& getKeySet() { return keys_; }
 
     
 private:

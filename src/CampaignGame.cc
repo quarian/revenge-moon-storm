@@ -1,5 +1,6 @@
 #include "CampaignGame.hh"
 #include "DummyGameState.hh"
+#include "Store.hh"
 
 CampaignGame::CampaignGame(GameState* parent, Player* player) :
         GameState(parent), map_(&game_), player_(player) {}
@@ -14,6 +15,7 @@ void CampaignGame::init() {
     storeIsNext_ = false;
     // showStoryMoonbase();
     launchLevelMoonbase();
+    //spawn(new Store(this, player_));
 }
 
 
@@ -45,7 +47,7 @@ void CampaignGame::resume() {
     
     else if (storeIsNext_) {
         storeIsNext_ = false;
-        spawn(new DummyGameState(this)); // TODO: replace with Store
+        spawn(new Store(this, player_)); // TODO: replace with Store
     } else {
         storeIsNext_ = true;
         if (phase_ == 1) launchLevelMoonbase();

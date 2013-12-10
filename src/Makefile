@@ -16,6 +16,8 @@ ControlledActor.cc\
 Player.cc\
 Item.cc\
 Inventory.cc\
+Store.cc\
+StoreInterface.cc\
 Game.cc\
 GraphicsManager.cc\
 EventManager.cc\

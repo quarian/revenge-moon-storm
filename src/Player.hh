@@ -37,6 +37,7 @@ public:
     size_t getLives() const { return lives_; }
     std::string getName() const { return name_; }
     std::string getCurrentItem() const { return currentItem_; }
+    Inventory& getInventory() { return inventory_; }
 
     void setLives(size_t lives) { lives_ = lives; }
     ControlledActor* getActor() { return avatar_; }

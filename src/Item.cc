@@ -55,6 +55,7 @@ std::vector<std::string> Item::names() {
 	};
 }
 
+
 std::vector<std::string> Item::treasureNames() {
 	return std::vector<std::string> {
 		"Gold Bar"

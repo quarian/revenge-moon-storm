@@ -63,6 +63,10 @@ void Inventory::addItem(std::string item) {
 	items_[item] += 1;
 }
 
+void Inventory::sellItem(std::string item) {
+    items_[item] -= 1;
+}
+
 bool Inventory::useItem(std::string item, Map& map, MapBlock* mb, Direction dir) {
 	if (items_[item] > 0) {
 		items_[item] -= 1;
