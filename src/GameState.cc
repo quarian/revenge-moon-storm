@@ -26,5 +26,6 @@ void GameState::spawn(GameState* state) {
 
 
 void GameState::terminate() {
+    game_.eventManager_.clearInterfaces();
     alive_ = false;
 }
