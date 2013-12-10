@@ -242,13 +242,12 @@ void Map::insertFeature(TerrainManager const& tmgr, bool overlap) {
 }
 
 
-void Map::printMap() {
-    std::cout  << "Printing map" << std::endl;
+void Map::printMap(std::ostream& os) {
     for (auto row : grid_) {
         for (auto mb : row) {
-            std::cout << mb->content_;
+            os << mb->content_;
         }
-        std::cout << std::endl;
+        os << std::endl;
     }
 }
 
@@ -363,4 +362,19 @@ void Map::crossblast(Weapon* w) {
             }
         }
     }
+}
+
+void Map::setBlock(int x, int y, char content, Terrain t) {
+    MapBlock* mb = new MapBlock(x, y, content, *this, t);
+    delete grid_[y][x];
+    grid_[y][x] = mb;
+}
+
+void Map::save() {
+    std::string name = "new_and_should_be_renamed.map";
+    std::ofstream output;
+    output.open(name);
+    printMap(output);
+    output.close();
+
 }

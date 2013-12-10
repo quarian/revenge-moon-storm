@@ -4,6 +4,7 @@
 #include <functional>
 #include <iostream>
 #include <fstream>
+#include <fstream>
 #include <sstream>
 #include <vector>
 #include <string>
@@ -38,7 +39,7 @@ class Map {
         void generateRandomMap(TerrainManager const&, bool overlap = true, int height = 44, int width = 64);
         void generateMaze(TerrainManager const&, int height = 44, int width = 64);
         void divide(TerrainManager const&, int x_min, int x_max, int y_min, int y_max);
-        void printMap();
+        void printMap(std::ostream& os = std::cout);
         MapBlock* getBlock(int x, int y);
         MapBlock* getBlock(int x, int y, Direction direction);
 
@@ -49,6 +50,9 @@ class Map {
         int getWidth();
         Game* getGame() const { return game_; }
         std::vector<std::vector<MapBlock*>>* getGrid();
+
+        void setBlock(int, int, char, Terrain);
+        void save();
 
 
         void pushItem(Item* item) { items.insert(item); }

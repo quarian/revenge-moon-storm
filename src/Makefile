@@ -48,7 +48,9 @@ MenuInterface.cc\
 Menu.cc\
 MainMenu.cc\
 SinglePlayerMenu.cc\
-MultiPlayerMenu.cc
+MultiPlayerMenu.cc\
+EditorInterface.cc\
+MapEditor.cc
 MAIN=main.cc
 RPATH=-Wl,-rpath=./lib/
 TESTS=WalkerTest.cc DirectionTest.cc ActorTest.cc ControlledActorTest.cc PlayerTest.cc MapTest.cc InventoryTest.cc AStarTest.cc testMain.cc TerrainTest.cc
