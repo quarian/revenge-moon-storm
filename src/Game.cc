@@ -34,10 +34,10 @@ Game::~Game() {
 
 void Game::main() {
     srand(time(NULL)); // Init rand
-	// stack_ = new MainMenu(*this, stack_, fonts_, background_);
+	//stack_ = new MainMenu(*this, stack_, fonts_, background_);
 	
     Player* kafka = new Player("Kafka");
-    Player* dostojevsky = new Player("Dostojevsky", PlayerInterface::WASD_DVORAK);
+    //Player* dostojevsky = new Player("Dostojevsky", PlayerInterface::WASD_DVORAK);
 
     //stack_ = new SinglePlayerGame(*this, stack_, kafka);
     // stack_ = new MultiplayerGame(*this, stack_, {kafka, dostojevsky});
@@ -65,7 +65,7 @@ void Game::main() {
     }
 
     delete kafka;
-    delete dostojevsky;
+    //delete dostojevsky;
 }
 
 

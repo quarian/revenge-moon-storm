@@ -17,25 +17,37 @@ bool PlayerInterface::operator==(KeyInterface const& other) const {
 }
 
 
-void PlayerInterface::parse(sf::Event& evt) {
+bool PlayerInterface::parse(sf::Event& evt) {
     // Key pressed
     if (evt.type == sf::Event::KeyPressed) {
-        if (evt.key.code == keys_.up)    player_->keyDown(Direction::NORTH);
-        if (evt.key.code == keys_.left)  player_->keyDown(Direction::WEST);
-        if (evt.key.code == keys_.right) player_->keyDown(Direction::EAST);
-        if (evt.key.code == keys_.down)  player_->keyDown(Direction::SOUTH);
+        if (evt.key.code == keys_.up)    {  player_->keyDown(Direction::NORTH);
+        									return true; }
+        if (evt.key.code == keys_.left)  {  player_->keyDown(Direction::WEST);
+        									return true; }
+        if (evt.key.code == keys_.right) {  player_->keyDown(Direction::EAST);
+        									return true; }
+        if (evt.key.code == keys_.down)  {  player_->keyDown(Direction::SOUTH);
+        									return true; }
 
-        if (evt.key.code == keys_.use)    player_->useItem();
-        if (evt.key.code == keys_.change) player_->changeWeapon();
+        if (evt.key.code == keys_.use)    { player_->useItem();
+        									return true; }
+        if (evt.key.code == keys_.change) { player_->changeWeapon();
+        									return true; }
     }
 
     // Key released
     else if (evt.type == sf::Event::KeyReleased) {
-        if (evt.key.code == keys_.up)    player_->keyUp(Direction::NORTH);
-        if (evt.key.code == keys_.left)  player_->keyUp(Direction::WEST);
-        if (evt.key.code == keys_.right) player_->keyUp(Direction::EAST);
-        if (evt.key.code == keys_.down)  player_->keyUp(Direction::SOUTH);
+        if (evt.key.code == keys_.up)    { player_->keyUp(Direction::NORTH);
+        									return true; }
+        if (evt.key.code == keys_.left)  { player_->keyUp(Direction::WEST);
+        									return true; }
+        if (evt.key.code == keys_.right) { player_->keyUp(Direction::EAST);
+        									return true; }
+        if (evt.key.code == keys_.down)  { player_->keyUp(Direction::SOUTH);
+        									return true; }
     }
+    
+    return false;
 }
 
 

@@ -12,9 +12,10 @@ bool GlobalGameInterface::operator==(KeyInterface const& other) const {
 }
 
 
-void GlobalGameInterface::parse(sf::Event& evt) {
+bool GlobalGameInterface::parse(sf::Event& evt) {
     if (evt.type == sf::Event::KeyPressed) {
         // if (evt.key.code == exitKey_)   game_->Shutdown();
         // if (evt.key.code == pauseKey_)  world_->pause();
     }
+    return false;
 }

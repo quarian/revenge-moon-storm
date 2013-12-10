@@ -3,6 +3,7 @@
 
 #include "Menu.hh"
 #include "SinglePlayerMenu.hh"
+#include "MultiPlayerMenu.hh"
 #include <map>
 
 /* MainMenu
@@ -33,6 +34,8 @@ private:
 	void multiPlayerSelected();
 	
 	std::vector<std::string> playerNames_;
+	//std::vector<PlayerInterface::KeySet> keySets_;
+	//std::vector<Player*> players_;
 	//std::map<std::string settingName,int value> gameSettings_;
 	
 	bool selectPressed_;

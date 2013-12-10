@@ -32,6 +32,7 @@ public:
     virtual void init() = 0;
     virtual void resume();
     //void terminate();
+    virtual void start() {}
     
     void keyDown();
     void keyUp();
@@ -42,15 +43,21 @@ public:
 	
 	//virtual void keyRightReleased() = 0;
     //virtual void keyLeftReleased() = 0;
-    virtual void keySelReleased() {std::cout<<"kdsfakj";}//= 0;
+    virtual void keySelReleased() {}//= 0;
     virtual void keyEscReleased() {}//=0;
+    
+    virtual bool waitingPlayerName() {return false;}
+    virtual void sendText(std::string) {}
 
 protected:
 	
 	virtual void updateMenu();
 	virtual void drawMenu();
 
+	void setTittle(std::string tittle);
 	virtual void addMenuSelection(std::string selectionName, int FontSize);
+	virtual void addMenuSelectionRight(std::string selectionName, int , int = 30);
+	virtual void addMenuSelectionLeft(std::string selectionName, int , int = 30);
 
 	std::map<std::string, sf::Font>& fonts_;
     std::map<std::string, sf::Text*> texts_;
@@ -61,7 +68,7 @@ protected:
     //std::vector<sf::Vector2f> selectorPos_;
     
     void initKeyboard();
-    MenuInterface* interface_;
+    //MenuInterface* interface_;
 
 };
 

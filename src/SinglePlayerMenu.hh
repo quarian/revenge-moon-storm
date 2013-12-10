@@ -2,7 +2,6 @@
 #define MB2_SINGLEPLAYERMENU_HH
 
 #include "Menu.hh"
-#include <iostream>
 
 //#include "SinglePlayerGame.hh"
 #include "CampaignGame.hh"
@@ -26,6 +25,8 @@ public:
     /* Ask for player name to save scores, then terminate */
     //void resume();
     //void terminate();
+    //void keyRight();
+    //void keyLeft();
 	void keySelect();
 	void keyEscape();
 	
@@ -43,6 +44,8 @@ private:
 	
 	bool& selectPressed_;
 	bool& escPressed_;
+	
+	bool waitingCampaign_;
 	
 };
 

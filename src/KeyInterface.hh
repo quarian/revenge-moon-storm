@@ -31,7 +31,7 @@ public:
     /* Parse the event and, if it's relevant to the interface, pass the
      * command onward.
      */
-    virtual void parse(sf::Event&) = 0;
+    virtual bool parse(sf::Event&) = 0;
 };
 
 #endif

@@ -42,5 +42,6 @@ void EventManager::EventLoop(sf::Event& event) {
 
 void EventManager::PlayerEvents(sf::Event& event) {
     for (auto interface : keyInterfaces_)
-        interface->parse(event);
+	    if (interface->parse(event))
+	    	break;
 }

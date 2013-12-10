@@ -24,16 +24,23 @@ bool StoreInterface::operator==(KeyInterface const& other) const {
 }
 
 
-void StoreInterface::parse(sf::Event& evt) {
+bool StoreInterface::parse(sf::Event& evt) {
     // Key pressed
     if (evt.type == sf::Event::KeyPressed) {
-        if (evt.key.code == keys_.up)    store_->keyDown(Direction::NORTH);
-        if (evt.key.code == keys_.left)  store_->keyDown(Direction::WEST);
-        if (evt.key.code == keys_.right) store_->keyDown(Direction::EAST);
-        if (evt.key.code == keys_.down)  store_->keyDown(Direction::SOUTH);
+        if (evt.key.code == keys_.up)    { store_->keyDown(Direction::NORTH);
+        								   return true; }
+        if (evt.key.code == keys_.left)  { store_->keyDown(Direction::WEST);
+        								   return true; }
+        if (evt.key.code == keys_.right) { store_->keyDown(Direction::EAST);
+        								   return true; }
+        if (evt.key.code == keys_.down)  { store_->keyDown(Direction::SOUTH);
+        								   return true; }
 
-        if (evt.key.code == keys_.buy)   store_->buyItem();
-        if (evt.key.code == keys_.sell)  store_->sellItem();
+        if (evt.key.code == keys_.buy)   { store_->buyItem();
+        								   return true; }
+        if (evt.key.code == keys_.sell)  { store_->sellItem();
+        								   return true; }
+        return false;
     }
 
     // Key released

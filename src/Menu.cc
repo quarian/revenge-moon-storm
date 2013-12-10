@@ -4,21 +4,19 @@ Menu::Menu(Game& game, GameState*& stack, std::map<std::string, sf::Font>& fonts
             GameState(game, stack),
       	    fonts_(fonts),
       	    background_(background),
-      	    selectionIndex_(0),
-      	    interface_(new MenuInterface(this)) { }
+      	    selectionIndex_(0)/*,
+      	    interface_(new MenuInterface(this))*/ { }
       	    
 Menu::Menu(GameState* stack, std::map<std::string, sf::Font>& fonts, sf::Sprite& background) : 
             GameState(stack),
       	    fonts_(fonts),
-      	    background_(background),
-      	    interface_(new MenuInterface(this)) { }    
+      	    background_(background)/*,
+      	    interface_(new MenuInterface(this))*/ { }    
       	    
 void Menu::initKeyboard() {
-    /*game_.eventManager_.clearInterfaces();
-    game_.eventManager_.registerInterface(new GlobalGameInterface(this));
-    for (Player* p : map_.players)*/
-    
-    game_.eventManager_.registerInterface(interface_);
+    game_.eventManager_.clearInterfaces();
+    game_.eventManager_.registerInterface(new MenuInterface(this));
+
 }
 
 void Menu::update(float dt) {
@@ -27,6 +25,7 @@ void Menu::update(float dt) {
 }
 
 void Menu::resume() {
+	initKeyboard();
     terminate();
 }
 
@@ -48,11 +47,39 @@ void Menu::updateMenu() {
 	}
 }
 
+void Menu::setTittle(std::string tittle) {
+	texts_[tittle] = new sf::Text(tittle, fonts_["dark_world"],80);
+	sf::FloatRect dim = texts_[tittle]->getLocalBounds();
+	texts_[tittle]->setOrigin(dim.width/2, dim.height/2);
+	texts_[tittle]->setPosition(sf::Vector2f(512,50));
+}
+
 void Menu::addMenuSelection(std::string selectionName, int FontSize) {
 		selections_.push_back(selectionName);
-		sf::Vector2f pos(100,FontSize*2*(1+selections_.size()));
+		sf::Vector2f pos(512,FontSize*2*(1+selections_.size()));
 		texts_[selectionName] = new sf::Text(selectionName, fonts_["dark_world"],FontSize);
-			texts_[selectionName]->setPosition(pos);
+		sf::FloatRect dim = texts_[selectionName]->getLocalBounds();
+		texts_[selectionName]->setOrigin(dim.width/2, dim.height/2);
+		texts_[selectionName]->setPosition(pos);
+		//selectorPos_.push_back(pos);
+}
+
+void Menu::addMenuSelectionRight(std::string selectionName, int row, int FontSize) {
+		selections_.push_back(selectionName);
+		sf::Vector2f pos(712,FontSize*2*(1+row));
+		texts_[selectionName] = new sf::Text(selectionName, fonts_["dark_world"],FontSize);
+		sf::FloatRect dim = texts_[selectionName]->getLocalBounds();
+		texts_[selectionName]->setOrigin(dim.width/2, dim.height/2);
+		texts_[selectionName]->setPosition(pos);
+		//selectorPos_.push_back(pos);
+}
+void Menu::addMenuSelectionLeft(std::string selectionName, int row, int FontSize) {
+		selections_.push_back(selectionName);
+		sf::Vector2f pos(312,FontSize*2*(1+row));
+		texts_[selectionName] = new sf::Text(selectionName, fonts_["dark_world"],FontSize);
+		sf::FloatRect dim = texts_[selectionName]->getLocalBounds();
+		texts_[selectionName]->setOrigin(dim.width/2, dim.height/2);
+		texts_[selectionName]->setPosition(pos);
 		//selectorPos_.push_back(pos);
 }
 

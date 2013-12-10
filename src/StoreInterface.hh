@@ -22,7 +22,7 @@ public:
 
     StoreInterface(Store*);
     bool operator==(KeyInterface const& other) const; // overridé
-    void parse(sf::Event&); // override
+    bool parse(sf::Event&); // override
 
 
     

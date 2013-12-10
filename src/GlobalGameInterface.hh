@@ -40,7 +40,7 @@ public:
     /* Parse the event and, if it's relevant to the interface, pass the
      * command onward.
      */
-    virtual void parse(sf::Event&);
+    virtual bool parse(sf::Event&);
 
 private:
     World* world_;

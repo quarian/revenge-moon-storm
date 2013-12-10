@@ -35,7 +35,7 @@ public:
     /* Parse the event and, if it's relevant to the owning player, pass the
      * command onward.
      */
-    void parse(sf::Event&); // override
+    bool parse(sf::Event&); // override
 
 
     /* Getter and setter for the associated player. */
