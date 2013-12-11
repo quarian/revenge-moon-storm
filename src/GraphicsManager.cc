@@ -37,6 +37,7 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
     loadTexture("digger_spritesheet.png");
     loadTexture("little_bug.png");
     loadTexture("medium_bug.png");
+    loadTexture("scarab.png");
     loadTexture("green_bug_splat.png");
     
     //Load from  /items
@@ -91,6 +92,12 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
     mediumBug.addFrame(sf::IntRect(16*2,0,16,16));
     mediumBug.addFrame(sf::IntRect(16*3,0,16,16));
     animations_["medium_bug"] = mediumBug;
+
+    Animation scarab;;
+    scarab.setSpriteSheet(getTexture("medium_bug.png"));
+    scarab.addFrame(sf::IntRect(0,0,16,16));
+    scarab.addFrame(sf::IntRect(16,0,16,16));
+    animations_["scarab"] = scarab;
 
     frontToEnd();
     Animation explosion1;

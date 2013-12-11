@@ -42,7 +42,7 @@ Scarab::Scarab(Map& map,
         fuse_(fuse),
         power_(power),
         target_(tgt) {
-    initSprite(map.getGame()->graphicsManager_.getAnimation("tiny_bug"), sf::Color::Magenta);
+    initSprite(map.getGame()->graphicsManager_.getAnimation("scarab"), sf::Color::Red);
     sprite_.setFrameTime(sf::seconds(0.03f));
 }
 
