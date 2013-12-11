@@ -6,14 +6,19 @@
 body {
     max-width: 1024px;
     margin: auto;
+    font-size: 12pt;
 }
-.code { font-family: monospace; }
+.code {
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 10pt;
+}
 .tb1 {
     vertical-align: top;
     font-weight: bold;
 }
 .tb2 { vertical-align: top; }
-#gamemodes {
+#gamemodes, #tasks {
     width: 80%;
     margin: auto;
 }
@@ -277,6 +282,37 @@ decreased. And if your code segfaults, it is even worse and your points will be 
 -->
 
 <h2>Tasks sharing and schedule</h2>
+
+<table id="tasks">
+    <tr><td class="tb1">Miro</td>
+        <td class="tb2">
+        </td>
+    </tr>
+    <tr><td class="tb1">Henri</td>
+        <td class="tb2">
+        </td>
+    </tr>
+    <tr><td class="tb1">Joonas</td>
+        <td class="tb2">
+            <span class="code">Walker</span> and all inheriting classes; <span class="code">Player</span>; enemy AI<br/>
+            <span class="code">GameState</span> base class and mechanism; <span class="code">CampaignGame</span><br/>
+            <span class="code">KeyInterface</span> base class and mechanism; <span class="code">PlayerInterface</span><br/>
+            <span class="code">TerrainManager</span>, 
+            <span class="code">MapObjectManager</span><br/>
+            A* pathfinding algorithm implementation<br/>
+            Map fixtures<br/>
+        </td>
+    </tr>
+    <tr><td class="tb1">Roope</td>
+        <td class="tb2">
+            <span class="code">Game</span>,
+            <span class="code">EventManager</span>,
+            <span class="code">GraphicsManager</span>,
+            <span class="code">WindowManager</span><br/>
+            Game menus and graphics<br/>
+        </td>
+    </tr>
+</table>
 
 <!--
 <p>In this chapter you must tell how the task sharing and communication inside the group worked.
