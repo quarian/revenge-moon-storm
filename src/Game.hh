@@ -41,7 +41,6 @@ private:
     bool isRunning_;
     std::string rootPath_;
     
-    WindowManager window_;
     
     sf::Sprite background_;
     std::map<std::string, Animation> animations_;
@@ -52,6 +51,7 @@ private:
 
 
 public:
+    WindowManager window_;
     EventManager eventManager_;
     GraphicsManager graphicsManager_;
     TerrainManager terrainManager_;
