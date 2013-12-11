@@ -20,8 +20,7 @@ public:
     MainMenu(Game&, GameState*&);
 
     void init();
-    void resume() {};
-    //void terminate();
+	void resume() {initKeyboard();}
     void keySelect();
     void keyEscape();
     

@@ -6,7 +6,7 @@ SinglePlayerMenu::SinglePlayerMenu(Game& game, GameState*& stack, bool& selectPr
 
 void SinglePlayerMenu::init() {
 
-	setTitle("Singleplayer");
+	setTitle("Singleplayer ");
 
 	addMenuSelection("Start", 40);
 	//addMenuSelection("Name", 40);
@@ -21,7 +21,7 @@ void SinglePlayerMenu::keySelect() {
 	if (selectPressed_) return;
 	selectPressed_ = true;
 	
-	if (selectionKeys_[selectionIndex_] == "Start")		start();
+	if (selectionKeys_[selectionIndex_] == "Start")		initPlayers();
 	if (selectionKeys_[selectionIndex_] == "Back" ) 	terminate();
 }
 
@@ -35,8 +35,14 @@ void SinglePlayerMenu::keySelReleased() {selectPressed_ = false;}
 
 void SinglePlayerMenu::keyEscapeReleased() {escPressed_ = false;}
 
+void SinglePlayerMenu::initPlayers() {
+	players_.push_back(new Player("1",PlayerInterface::ARROWS_WIDE));
+	spawCountter_=1;
+	resume();
+}
+
 void SinglePlayerMenu::start() {
+std::cout << "SSSSSSSSSSSSs";
 	background_.setTexture(game_.graphicsManager_.getTexture("background_grid.png"));
-	players_.push_back( new Player("1",PlayerInterface::ARROWS_WIDE));
     spawn(new CampaignGame(this, players_[0]));
 }

@@ -12,7 +12,7 @@ void MultiPlayerMenu::init() {
 	mapNames_ = {"random","random maze"};
 	readMapNames();
 	
-	setTitle("Multiplayer");
+	setTitle("Multiplayer ");
 
 	addMenuSelection("Start", 30);
 	addMenuSelection("Players", 30);
@@ -34,7 +34,7 @@ void MultiPlayerMenu::keySelect() {
 	if (selectPressed_) return;
 	selectPressed_ = true;
 
-	if (selectionKeys_[selectionIndex_] == "Start") 	start();
+	if (selectionKeys_[selectionIndex_] == "Start") 	initPlayers();
 	if (selectionKeys_[selectionIndex_] == "Back" ) 	terminate();
 }
 
@@ -73,13 +73,18 @@ void MultiPlayerMenu::keySelReleased() {selectPressed_ = false;}
 
 void MultiPlayerMenu::keyEscapeReleased() {escPressed_ = false;}
 
-void MultiPlayerMenu::start() {
-	background_.setTexture(game_.graphicsManager_.getTexture("background_grid.png"));
+void MultiPlayerMenu::initPlayers() {
 	size_t j = 0;
 	for (size_t i=0;i!=playerCount_;i++,j++) {
 		if (j==keySets_.size()) j=0;
 		players_.push_back(new Player(std::to_string(i+1),keySets_[i]));
 	}
+	spawCountter_=playerCount_;
+	resume();
+}
+
+void MultiPlayerMenu::start() {
+	background_.setTexture(game_.graphicsManager_.getTexture("background_grid.png"));
 	spawn(new MultiplayerGame(this, players_,mapNames_[mapIndex_]));
 }
 
@@ -87,8 +92,7 @@ void MultiPlayerMenu::readMapNames() {
     struct dirent **dircontent;
     int n,i;
     n = scandir("./maps", &dircontent, 0, versionsort);
-    if (n < 0)
-        perror("scandir");
+    if (n < 0) perror("scandir");
     else {
         for(i =0 ; i < n; ++i) {
         	char *tmp;

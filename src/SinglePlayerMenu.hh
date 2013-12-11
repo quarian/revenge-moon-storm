@@ -17,16 +17,12 @@ class SinglePlayerMenu : public Menu {
 public:
 
     SinglePlayerMenu(Game&, GameState*&, bool&, bool&);
-    
-    ~SinglePlayerMenu() {}
 
     void init();
     
     /* Ask for player name to save scores, then terminate */
     //void resume();
 
-    //void keyRight();
-    //void keyLeft();
 	void keySelect();
 	void keyEscape();
 	
@@ -34,7 +30,10 @@ public:
     void keyEscapeReleased();
 
 private:
+	/* Spawns SinglePlayerGame */
 	void start();
+	/* Creates Players */
+	void initPlayers();
 	
 	bool& selectPressed_;
 	bool& escPressed_;

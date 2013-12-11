@@ -3,6 +3,7 @@
 
 #include "GameState.hh"
 #include "GlobalGameInterface.hh"
+#include "Store.hh"
 #include "MenuInterface.hh"
 #include "Player.hh"
 
@@ -20,7 +21,7 @@ public:
 	Menu(Game&, GameState*&);
 	Menu(GameState* stack);
 	
-	virtual ~Menu() {}
+	virtual ~Menu() {for (Player* pl : players_) delete pl; /*Should also delete all menus sf::Texts*/}
 	
     /* The update function drives the main functionality of this game state. It
      * takes the elapsed time dt, in seconds, as a parameter.
@@ -70,6 +71,13 @@ protected:
     void initKeyboard();
     
     std::vector<Player*> players_;
+    
+    /* spawnCounter gets the value of players_.size() after players have been created
+     * when 0 resume terminates 
+     * when 1 resume() spawn a PlayerGame when more 
+     * then 1 resume() spawns stores for Players in players_ 
+     */
+    int spawCountter_;
 };
 
 #endif

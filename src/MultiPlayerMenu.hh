@@ -17,8 +17,6 @@ class MultiPlayerMenu : public Menu {
 public:
 
     MultiPlayerMenu(Game&, GameState*&, bool&, bool&);
-    
-    ~MultiPlayerMenu() {for (Player* pl : players_) delete pl;}
 
     void init();
     
@@ -34,12 +32,12 @@ public:
     void keySelReleased();
     void keyEscapeReleased();
     
-    /*bool waitingPlayerName() {return waitingPlayerName_;}
-    void sendText(std::string name) {newName_=name;}*/
-
 private:
-	/* Creates players and spawns multiplayer game */
+
+	/* Spawns MultiPlayerGame */
 	void start();
+	/* Creates Players */
+	void initPlayers();
 	
 	std::vector<PlayerInterface::KeySet> keySets_;
 	size_t playerCount_;

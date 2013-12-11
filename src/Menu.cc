@@ -25,9 +25,21 @@ void Menu::update(float dt) {
 }
 
 void Menu::resume() {
-	for (auto pl : players_) delete pl;
+
+	if (spawCountter_<0) {
+		for (auto pl : players_) delete pl;
+		terminate();
+	}
+	else if	(spawCountter_==0) {
+		spawCountter_--;
+		start();
+	}
+	else {
+		spawn(new Store(this,players_[spawCountter_-1]));
+		spawCountter_--;
+	}
+	
 	initKeyboard();
-    terminate();
 }
 
 void Menu::drawMenu() {
