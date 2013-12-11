@@ -7,6 +7,8 @@
 #include "Game.hh"
 #include "Map.hh"
 
+class Actor;
+
 /* Tiny Bug
  *
  * Agile little pests with low damage and health. */
@@ -24,11 +26,40 @@ public:
 };
 
 
-class Scarab : public AIActor {
+class Lurker : public AIPlayerSeeker {
+public:
+    Lurker(Map&, MapBlock*);
+    void splatter();
 };
 
 
-class ScarabQueen : public AIActor {
+class Scarab : public AIPlayerSeeker {
+public:
+    Scarab(Map&, MapBlock*, Actor*, float=10.0, float=2.0, int=20);
+    void splatter();
+    void think();
+    void update(float);
+    bool takeDamage(float);
+private:
+    float fuse_;
+    int power_;
+    Actor* target_;
+    void explode();
+};
+
+
+class ScarabQueen : public AIPlayerSeeker {
+public:
+    ScarabQueen(Map&, MapBlock*);
+    void splatter();
+    void think();
+    void update(float);
+private:
+    std::vector<float> scarabs_; // Scarab state
+    float launchCooldown_; // Time since last scarab was launched
+    int scarabsReady(); // How many scarabs are ready?
+    bool launchScarabAtNearest(std::vector<std::pair<float, Actor*>>);
+    void launchScarab(Actor*);
 };
 
 
