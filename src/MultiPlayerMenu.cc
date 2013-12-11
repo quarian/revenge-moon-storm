@@ -22,9 +22,10 @@ void MultiPlayerMenu::init() {
 	addMenuSelection("Start", 30);
 	addMenuSelection("Players", 30);
 	updateText("Players","< Players: " + std::to_string(playerCount_)+" >");
-	//addMenuSelection("Difficulty", 40);
 	addMenuSelection("Map", 30);
 	updateText("Map","< Map: " + mapNames_[mapIndex_]+" >");
+	addMenuSelection("Scarp", 30);
+	updateText("Scarp","< Scarp: " + std::to_string(scarp_) +" >");	
 	
 	addMenuSelection("Back", 30);
 	
@@ -54,6 +55,11 @@ void MultiPlayerMenu::keyRight() {
 		if (mapIndex_== mapNames_.size()) mapIndex_=0;
 		updateText("Map","< Map: "+ mapNames_[mapIndex_] +" >");
 	}
+	if (selectionKeys_[selectionIndex_] == "Scarp") {
+		if (scarp_>=1000000000) return;
+		scarp_+=50;
+		updateText("Scarp","< Scarp: "+ std::to_string(scarp_) +" >");
+	}
 }
 void MultiPlayerMenu::keyLeft() {
 	if (selectionKeys_[selectionIndex_] == "Players") {
@@ -66,6 +72,11 @@ void MultiPlayerMenu::keyLeft() {
 		mapIndex_--;
 		updateText("Map","< Map: "+ mapNames_[mapIndex_] +" >");
 	}
+	if (selectionKeys_[selectionIndex_] == "Scarp") {
+		if (scarp_== 0) return;
+		scarp_-=50;
+		updateText("Scarp","< Scarp: "+ std::to_string(scarp_) +" >");
+	}	
 }
 
 void MultiPlayerMenu::keyEscape() {

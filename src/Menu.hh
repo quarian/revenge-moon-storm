@@ -71,7 +71,7 @@ protected:
     void initKeyboard();
     
     std::vector<Player*> players_;
-    
+   	int scarp_;
     /* spawnCounter gets the value of players_.size() after players have been created
      * when 0 resume terminates 
      * when 1 resume() spawn a PlayerGame when more 

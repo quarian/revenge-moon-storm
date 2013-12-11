@@ -6,14 +6,16 @@ Menu::Menu(Game& game, GameState*& stack) :
       	    texts_(game_.graphicsManager_.texts_),
       	    background_(game_.background_),
       	    selectionIndex_(0), 
-			spawnCountter_(0) { }
+			spawnCountter_(0),
+			scarp_(100) { }
       	    
 Menu::Menu(GameState* stack) : 
             GameState(stack),
       	    fonts_(game_.graphicsManager_.fonts_),
       	    texts_(game_.graphicsManager_.texts_),
       	    background_(game_.background_), 
-			spawnCountter_(0) { }    
+			spawnCountter_(0),
+			scarp_(100) { }    
       	    
 void Menu::initKeyboard() {
     game_.eventManager_.clearInterfaces();
