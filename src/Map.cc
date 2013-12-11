@@ -98,11 +98,13 @@ void Map::generateRandomMap(TerrainManager const& tmgr, bool overlap, int height
     for (int i = 0; i < features; i++) {
         insertFeature(tmgr, overlap);
     }
+    addItems(20);
 }
 
 void Map::generateMaze(TerrainManager const& tmgr, int height, int width) {
     generateBorders(tmgr, height, width);
     divide(tmgr, 1, width - 1, 1, height - 1);
+    addItems(20);
 }
 
 void Map::divide(TerrainManager const& tmgr, int x_min, int x_max, int y_min, int y_max) {
@@ -227,7 +229,6 @@ void Map::insertFeature(TerrainManager const& tmgr, bool overlap) {
             }
         }
     }
-
     for (int i = 1; i < h; i++) {
         for (int j = 1; j < w; j++) {
             if (((i == y_min || i == y_max) && (j >= x_min && j <= x_max)) ||
@@ -239,6 +240,25 @@ void Map::insertFeature(TerrainManager const& tmgr, bool overlap) {
                 } else {
                     break;
                 }
+            }
+        }
+    }
+}
+
+void Map::addItems(int amount) {
+    for (int i = 0; i < amount; i++) {
+        bool placed = false;
+        int x, y;
+        while (!placed) {
+            x = rand() % (getWidth() - 3) + 1;
+            y = rand() % (getHeight() - 3) + 1;
+            if (grid_[y][x]->isPassable()) {
+                bool gold = rand() % 2 == 0;
+                if (gold)
+                    new Treasure(*this, grid_[y][x], "Gold Bar", 100);
+                else
+                    new Weaponbox(*this, grid_[y][x]);
+                placed = true;
             }
         }
     }

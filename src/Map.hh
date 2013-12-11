@@ -44,6 +44,7 @@ class Map {
         void generateRandomMap(TerrainManager const&, bool overlap = true, int height = 44, int width = 64);
         void generateMaze(TerrainManager const&, int height = 44, int width = 64);
         void divide(TerrainManager const&, int x_min, int x_max, int y_min, int y_max);
+        void addItems(int amount);
 
         /* Pointers to individual map tiles, or tiles' neighbors in the given
          * direction. Distance helper functions.
