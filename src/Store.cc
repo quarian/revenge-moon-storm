@@ -97,8 +97,17 @@ void Store::draw() {
     std::stringstream convert;
     convert << player_->getInventory().getGold();
     storetext_->setString("Scrap: " + convert.str());
-    storetext_->setPosition(30, 30);
+    storetext_->setPosition(590, 400);
     storetext_->setColor(sf::Color::White);
+    game_.draw(*storetext_);
+
+    //clear the string stream for reuse
+    convert.str(std::string());
+    convert.clear();
+
+    convert << getPrice(getSelection());
+    storetext_->setString("Cost: " + convert.str());
+    storetext_->setPosition(590, 450);
     game_.draw(*storetext_);
 }
 
@@ -150,6 +159,7 @@ void Store::sellItem() {
 
 int Store::getPrice(std::string item) const {
     std::map<std::string, int> prices;
+    prices[""] = 0;
     prices["Small Bomb"] = 100; //TODO CHANGE THESE
     prices["Large Bomb"] = 100;
     prices["Crucifix Bomb"] = 100;
@@ -160,5 +170,7 @@ int Store::getPrice(std::string item) const {
 }
 
 std::string Store::getSelection() const {
-    return Item::names()[selection_];
+    if (selection_ >= 0)
+        return Item::names()[selection_];
+    return "";
 }
