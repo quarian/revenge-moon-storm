@@ -82,6 +82,13 @@ The <span class="code">alt</span> target for <span class="code">make</span>
 attempts to use system libraries instead.
 
 Both targets create an executable titled <span class="code">minebombers</span>.
+
+You can also compile a simple map editor by running <span class="code">make editor</span>.
+This creates an executable called <span class="code">editor</span>, which must be run with
+one command line argument. The command line argument defines the name of the map you
+are editing. If an existing map is given as an argument you can modify that, otherwise when you save
+the map a new file is created. Map names are interpreted relative to the <span class="code">maps</span>
+folder.
 </p>
 
 
@@ -139,6 +146,13 @@ at the start of each round. One player at a time can use the store,
 and they use the same keys in the store as they do in the game.
 Player 1 uses the arrow keys to move and right Ctrl to fire, right Shift to change weapons;
 Player 2 uses the WASD keys to move and Spacebar to fire, left Alt to change weapons.
+</p>
+
+<p>
+In the editor you can place elements to the map by using your mouse. You can add multiple
+blocks by holding the left mouse button and dragging the mouse. You can change the type
+of element added by using the appropriate keys shown in the bottom of the screen. Press
+<span class="code">s</span> to save to the file you supplied on startup.
 </p>
 
 <!--
@@ -224,6 +238,21 @@ that is, when the main menu exits, so does the program.
 <h3>The map architecture</h3>
 
 <p>
+A <span class="code">Map</span> is represented as a two dimensional grid (implemented as standard C++
+<span class="code">vectors</span>) <span class="code">MapBlocks</span>. Both <span class="code">Map</span> and
+<span class="code">MapBlock</span> offer functions and utilites to both get information about the current map
+and modify the state of maps and its blocks &mdash; these features are discussed here.
+
+During a game of RoTM the map holds the information about what is going on in the battlefield, such as players,
+monsters, items and terrain features. Coincidentially the map blocks also hold the information on who resides in
+the given block. More on this on the next chapter.
+
+The <span class="code">Map</span> has a few methods for creating random maps. Specifically, it can create maps
+with random rooms and maps with mazes. The generation algorithms are discussed in more detail on the algorithms
+section. Other utility algorthms on the map include the computation of line of sight (more on this too on the
+algorithms section), radius calculations and various other, simple methods.
+
+
 </p>
 
 <h3>The map object system</h3>
@@ -292,6 +321,58 @@ but the map's set of walkers needs to be "garbage collected" by another routine.
 
 <h2>Data structures and algorithms</h2>
 
+<h3>Map generation algorithms</h3>
+
+RotM sports two kinds of random map generation algorithms - one that creates random rooms and one that
+creates random mazes. The random room algorithm works as follows:
+
+<ol>
+    <li>Create borders for the map</li>
+    <li>Fill the map with empty blocks</li>
+    <li>Create a single room somewhere on the map with random terrain walls</li>
+    <li>Randomly decide a new room to add</li>
+    <li>Try adding the feature</li>
+    <li>If adding failed, go to step 3</li>
+    <li>Otherwise, add feature</li>
+    <li>Go to step 3 if the stoppping condition has not been met</li>
+    <li>Throw in some items randomly on the map</li>
+</ol>
+
+The maze generation algorithm works by recursively dividing rooms into smaller rooms. This results
+in good mazes gameplaywise (enough room to maneuver). The algorithm works as follows:
+
+<p>
+<span class="code">define divide(x_min, x_max, y_min, y_max)</span><br/>
+&nbsp;&nbsp;<span class="code">if (x_max - x_min smaller than threshold or y_max - y_min smaller than threshold)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="code">return</span><br/>
+&nbsp;&nbsp;<span class="code">horizontal = randInt % 2</span><br/>
+&nbsp;&nbsp;<span class="code">if (horizontal)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="code">add a wall at random y coordinate between y_min and y_max and add door somewhere in the wall</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="code">divide(x_min, x_max, y_min, y)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="code">divide(x_min, x_max, y, y_max)</span><br/>
+&nbsp;&nbsp;<span class="code">else</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="code">add a wall at random x coordinate between x_min and x_max and add door somewhere in the wall</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="code">divide(x_min, x, y_min, y_max)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="code">divide(x, x_max, y_min, y_max)</span><br/>
+</p>
+
+<p>
+There are some additional checks in the algorithm to ensure that the doors are not blocked, but this is the basic
+idea of the algorithm.
+</p>
+
+<h3>Line of sight algorithm</h3>
+
+<p>
+The program calculates the line of sight using a modified vestion of Bresenham's line algorithm (see the
+<a href="#refs">references</a> for a reference). The original Bresenham's algorithm twists the numbres
+around such that it can always increment the value that loops through the pixels - we don't want this
+kind of behaviour, since we want all the lines to start from the player (and not end there, as would
+be the case of some view lines if we were to use the original Bresenham's algorithm). In practice the
+program tries to draw a line to every border block and as long as there is nothing on the way, it marks
+those blocsk visible. Drawing of the line ends as soon as it hits something impassable.
+)
+</p>
 <!--
 <p>In this chapter you must describe the data structures and algorithms used in your program. Dont't put
 your code here, but describe the data structures and algorithms using natural language (you can also add pictures).</p>
@@ -315,6 +396,10 @@ decreased. And if your code segfaults, it is even worse and your points will be 
 <table id="tasks">
     <tr><td class="tb1">Miro</td>
         <td class="tb2">
+            <span class="code">Map</span> and <span class="code">MapBlock</span> implementations<br/>
+            Map generation (stuff lives in <span class="code">Map</span>)<br/>
+            Line of sight (in <span class="code">MapUtils</span>)<br/>
+            Map editor (in <span class="code">MapEditor</span> and <span class="code">EditorInterface</span>)<br/>
         </td>
     </tr>
     <tr><td class="tb1">Henri</td>
@@ -370,10 +455,15 @@ as opposed to just plopping something on the map and seeing if it does what it o
 
 <p>Do you think your plan was good enough, super, or should you have planned your program better?</p>
 -->
+<div id="refs">
+    <h2>References</h2>
 
-<h2>References</h2>
+    <p>In this chapter you must tell all the references you have used during your project.</p>
 
-<p>In this chapter you must tell all the references you have used during your project.</p>
+    <p>Bresenham's line algorihm, <a href="http://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm">Wikipedia on Bresenham's line algorithm</a>, read 11.12.2013</p>
+    <p>Things about maze generation, <a href="http://en.wikipedia.org/wiki/Maze_generation_algorithm">Wikipedia on maze generation</a>, read 11.12.2013</p>
+    <p>Ideas on map generation, <a href="http://pcg.wikidot.com/pcg-algorithm:dungeon-generation">Dungeon generation algorithms</a>, read 11.12.2013</p>
+</div>
 
 </body>
 </html>
