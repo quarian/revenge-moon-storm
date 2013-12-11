@@ -63,7 +63,7 @@ void Game::main() {
         stack_ = new MapEditor(*this, stack_, map_filename_);
     }
     else
-        stack_ = new MainMenu(*this, stack_, fonts_, background_);
+        stack_ = new MainMenu(*this, stack_);
     //stack_ = new SinglePlayerGame(*this, stack_, kafka);
     //stack_ = new MultiplayerGame(*this, stack_, {kafka, dostojevsky});
     //stack_ = new CampaignGame(*this, stack_, kafka);

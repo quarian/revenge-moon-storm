@@ -43,7 +43,6 @@ private:
     std::string rootPath_;
     
     
-    sf::Sprite background_;
     std::map<std::string, Animation> animations_;
     std::map<std::string, sf::Texture> textures_;
     std::map<std::string, sf::Font> fonts_;
@@ -55,6 +54,7 @@ private:
 
 
 public:
+    sf::Sprite background_;
     WindowManager window_;
     EventManager eventManager_;
     GraphicsManager graphicsManager_;

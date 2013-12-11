@@ -2,7 +2,7 @@
 
 
 
-MainMenu::MainMenu(Game& game, GameState*& stack, std::map<std::string, sf::Font>& fonts, sf::Sprite& background) : Menu(game, stack, fonts, background), selectPressed_(false), escPressed_(false) { }
+MainMenu::MainMenu(Game& game, GameState*& stack) : Menu(game, stack), selectPressed_(false), escPressed_(false) { }
 
 void MainMenu::init() {
 	//background_.setTexture(game_.graphicsManager_.getTexture("background_menu.png"));
@@ -22,19 +22,11 @@ void MainMenu::init() {
 void MainMenu::keySelect() {
 	if (selectPressed_) return;
 	selectPressed_ = true;
-	int index = 0;
-	if (selections_[selectionIndex_] == selections_[index])
-		singlePlayerSelected();
-	index++;
-	if (selections_[selectionIndex_] == selections_[index])
-		multiPlayerSelected();
-	index++;
-	if (selections_[selectionIndex_] == selections_[index])
-		mapEdiorSelected();
-	index++;
-	if (selections_[selectionIndex_] == selections_[index])
-		terminate();
-	//index++;
+	
+	if (selectionKeys_[selectionIndex_] == "Singleplayer")		singlePlayerSelected();
+	if (selectionKeys_[selectionIndex_] == "Multiplayer")		multiPlayerSelected();
+	if (selectionKeys_[selectionIndex_] == "Map Editor") 		mapEdiorSelected();
+	if (selectionKeys_[selectionIndex_] == "Exit" ) 			terminate();
 }
 
 void MainMenu::keyEscape() {
@@ -44,7 +36,7 @@ void MainMenu::keyEscape() {
 }
 
 void MainMenu::singlePlayerSelected() {
-	spawn(new SinglePlayerMenu(game_, stack_, fonts_, background_, playerNames_, selectPressed_, escPressed_));
+	spawn(new SinglePlayerMenu(game_, stack_, selectPressed_, escPressed_));
 }
 
 void MainMenu::keySelReleased() {selectPressed_ = false;}
@@ -52,7 +44,7 @@ void MainMenu::keyEscReleased() {escPressed_ = false;}
 
 
 void MainMenu::multiPlayerSelected() {
-	// spawn(new MultiPlayerMenu(game_, stack_, fonts_, background_, playerNames_,selectPressed_,escPressed_));
+	spawn(new MultiPlayerMenu(game_, stack_,selectPressed_,escPressed_));
 }
 
 void MainMenu::mapEdiorSelected() {

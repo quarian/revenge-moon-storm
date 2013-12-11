@@ -1,7 +1,8 @@
 #include "SinglePlayerMenu.hh"
 
 
-SinglePlayerMenu::SinglePlayerMenu(Game& game, GameState*& stack, std::map<std::string, sf::Font>& fonts, sf::Sprite& background, std::vector<std::string>& playerNames, bool& selectPressed, bool& escPressed) : Menu(game, stack, fonts, background), playerNames_(playerNames), selectPressed_(selectPressed), escPressed_(escPressed), waitingCampaign_(false) { }
+SinglePlayerMenu::SinglePlayerMenu(Game& game, GameState*& stack, bool& selectPressed, bool& escPressed) : 
+				Menu(game, stack), selectPressed_(selectPressed), escPressed_(escPressed) { }
 
 void SinglePlayerMenu::init() {
 
@@ -19,13 +20,9 @@ void SinglePlayerMenu::init() {
 void SinglePlayerMenu::keySelect() {
 	if (selectPressed_) return;
 	selectPressed_ = true;
-	int index = 0;
-	if (selections_[selectionIndex_] == selections_[index]) {start();}
-	index++;
-	/*if (selections_[selectionIndex_] == selections_[index]) {waitingCampaign_ = true;}
-	index++;*/
-	if (selections_[selectionIndex_] == selections_[index]) {terminate();}
-	//index++;
+	
+	if (selectionKeys_[selectionIndex_] == "Start")		start();
+	if (selectionKeys_[selectionIndex_] == "Back" ) 	terminate();
 }
 
 void SinglePlayerMenu::keyEscape() {
@@ -40,7 +37,6 @@ void SinglePlayerMenu::keyEscapeReleased() {escPressed_ = false;}
 
 void SinglePlayerMenu::start() {
 	background_.setTexture(game_.graphicsManager_.getTexture("background_grid.png"));
-	if (playerNames_.empty()) playerNames_.push_back("Dostojevsky");
-	player_ = new Player(playerNames_[0],PlayerInterface::ARROWS_WIDE);
-    spawn(new CampaignGame(this, player_));
+	players_.push_back( new Player("1",PlayerInterface::ARROWS_WIDE));
+    spawn(new CampaignGame(this, players_[0]));
 }

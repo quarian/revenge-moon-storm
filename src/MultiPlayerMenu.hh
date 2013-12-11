@@ -5,7 +5,6 @@
 
 #include "MultiplayerGame.hh"
 #include "PlayerInterface.hh"
-#include "Player.hh"
 #include <numeric>
 /* MultiPlayerMenu
  * ================
@@ -17,12 +16,11 @@
 class MultiPlayerMenu : public Menu {
 public:
 
-    MultiPlayerMenu(Game&, GameState*&,std::map<std::string,sf::Font>&, sf::Sprite&, std::vector<std::string>&, bool&, bool&);
+    MultiPlayerMenu(Game&, GameState*&, bool&, bool&);
     
     ~MultiPlayerMenu() {for (Player* pl : players_) delete pl;}
 
     void init();
-    void update(float);
     
     /* Ask for player name to save scores, then terminate */
     //void resume();
@@ -33,34 +31,26 @@ public:
 	void keySelect();
 	void keyEscape();
 	
-	//void keyRightReleased() {rightPressed_ = false}
-    //void keyLeftReleased() {leftPressed_ = false}
     void keySelReleased();
     void keyEscapeReleased();
     
-    bool waitingPlayerName() {return waitingPlayerName_;}
-    void sendText(std::string name) {newName_=name;}
+    /*bool waitingPlayerName() {return waitingPlayerName_;}
+    void sendText(std::string name) {newName_=name;}*/
 
 private:
-	//void updateMenu();
+	/* Creates players and spawns multiplayer game */
 	void start();
 	
-	//void addPlayer();
-	void askPlayerName();
-	void removePlayer();
-	
-	std::vector<std::string>& playerNames_;
 	std::vector<PlayerInterface::KeySet> keySets_;
-	std::vector<Player*> players_;
+	size_t playerCount_;
 	
 	bool& selectPressed_;
 	bool& escPressed_;
-	
-	
-	std::string newName_;
-	bool waitingPlayerName_;
-	bool waitingMapSelect_;
-	
+
+	/* Reads the map names from maps dir to mapNames_ vector */
+	void readMapNames();
+	std::vector<std::string> mapNames_;
+	size_t mapIndex_;
 
 	
 };

@@ -1,17 +1,17 @@
 #include "Menu.hh"
 
-Menu::Menu(Game& game, GameState*& stack, std::map<std::string, sf::Font>& fonts, sf::Sprite& background) : 
+Menu::Menu(Game& game, GameState*& stack) : 
             GameState(game, stack),
-      	    fonts_(fonts),
-      	    background_(background),
-      	    selectionIndex_(0)/*,
-      	    interface_(new MenuInterface(this))*/ { }
+      	    fonts_(game_.graphicsManager_.fonts_),
+      	    texts_(game_.graphicsManager_.texts_),
+      	    background_(game_.background_),
+      	    selectionIndex_(0) { }
       	    
-Menu::Menu(GameState* stack, std::map<std::string, sf::Font>& fonts, sf::Sprite& background) : 
+Menu::Menu(GameState* stack) : 
             GameState(stack),
-      	    fonts_(fonts),
-      	    background_(background)/*,
-      	    interface_(new MenuInterface(this))*/ { }    
+      	    fonts_(game_.graphicsManager_.fonts_),
+      	    texts_(game_.graphicsManager_.texts_),
+      	    background_(game_.background_) { }    
       	    
 void Menu::initKeyboard() {
     game_.eventManager_.clearInterfaces();
@@ -25,76 +25,62 @@ void Menu::update(float dt) {
 }
 
 void Menu::resume() {
+	for (auto pl : players_) delete pl;
 	initKeyboard();
     terminate();
 }
 
 void Menu::drawMenu() {
-	for (auto it = texts_.begin(); it != texts_.end(); it++) { 
-		game_.draw(*it->second);
+	for (auto t : menuTexts_) { 
+		game_.draw(*t);
 	}
-	/*for (auto it = sidetexts_.begin(); it != sidetexts_.end(); it++) { 
-		game_.draw(*it->second);
-	}*/
-		
 }
 
 void Menu::updateMenu() {
-	for (auto s: texts_) {
-		if (s.first == selections_[selectionIndex_]) {
-			s.second->setColor(sf::Color::Red);
-			s.second->setStyle(sf::Text::Bold);
+	for (auto textPtr : menuTexts_) {
+		if (textPtr == texts_[selectionKeys_[selectionIndex_]]/*.second*/) {
+			textPtr->setColor(sf::Color::Red);
+			textPtr->setStyle(sf::Text::Bold);
 		}
 		else {
-			s.second->setColor(sf::Color::White);
-			s.second->setStyle(sf::Text::Regular);
+			textPtr->setColor(sf::Color::White);
+			textPtr->setStyle(sf::Text::Regular);
 		}
 	}
 }
 
 void Menu::setTittle(std::string tittle) {
-	texts_[tittle] = new sf::Text(tittle, fonts_["dark_world"],80);
+	texts_[tittle] = new sf::Text(tittle, fonts_["batman"],80);
 	sf::FloatRect dim = texts_[tittle]->getLocalBounds();
 	texts_[tittle]->setOrigin(dim.width/2, dim.height/2);
 	texts_[tittle]->setPosition(sf::Vector2f(512,50));
+	menuTexts_.push_back(texts_[tittle]);
 }
 
 void Menu::addMenuSelection(std::string selectionName, int FontSize) {
-		selections_.push_back(selectionName);
-		sf::Vector2f pos(512,FontSize*2*(1+selections_.size()));
-		texts_[selectionName] = new sf::Text(selectionName, fonts_["dark_world"],FontSize);
-		sf::FloatRect dim = texts_[selectionName]->getLocalBounds();
-		texts_[selectionName]->setOrigin(dim.width/2, dim.height/2);
-		texts_[selectionName]->setPosition(pos);
-		//selectorPos_.push_back(pos);
+	selectionKeys_.push_back(selectionName);
+	sf::Vector2f pos(512,FontSize*2*(1+selectionKeys_.size()));
+	texts_[selectionName] = new sf::Text(selectionName, fonts_["batman"],FontSize);
+	sf::FloatRect dim = texts_[selectionName]->getLocalBounds();
+	texts_[selectionName]->setOrigin(dim.width/2, dim.height/2);
+	texts_[selectionName]->setPosition(pos);
+	menuTexts_.push_back(texts_[selectionName]);
 }
 
-void Menu::addMenuSelectionRight(std::string selectionName, int row, int FontSize) {
-		/*selections_.push_back(selectionName);
-		sf::Vector2f pos(712,FontSize*2*(1+row));
-		sidetexts_[selectionName] = new sf::Text(selectionName, fonts_["dark_world"],FontSize);
-		sf::FloatRect dim = texts_[selectionName]->getLocalBounds();
-		sidetexts_[selectionName]->setOrigin(dim.width/2, dim.height/2);
-		sidetexts_[selectionName]->setPosition(pos);*/
-}
-void Menu::addMenuSelectionLeft(std::string selectionName, int row, int FontSize) {
-		/*selections_.push_back(selectionName);
-		sf::Vector2f pos(312,FontSize*2*(1+row));
-		sidetexts_[selectionName] = new sf::Text(selectionName, fonts_["dark_world"],FontSize);
-		sf::FloatRect dim = texts_[selectionName]->getLocalBounds();
-		sidetexts_[selectionName]->setOrigin(dim.width/2, dim.height/2);
-		sidetexts_[selectionName]->setPosition(pos);*/
+void Menu::updateText(std::string key, std::string NewStr) {
+	texts_[key]->setString(NewStr);
+	sf::FloatRect dim;
+	dim = texts_[key]->getLocalBounds();
+	texts_[key]->setOrigin(dim.width/2, dim.height/2);
+
 }
 
 void Menu::keyDown() {
 	selectionIndex_++;
-	if (selectionIndex_==selections_.size()) selectionIndex_ = 0;
+	if (selectionIndex_==selectionKeys_.size()) selectionIndex_ = 0;
 }
 
 void Menu::keyUp() {
+	if (selectionIndex_==0) selectionIndex_ = selectionKeys_.size();
 	selectionIndex_--;
-	if (selectionIndex_<0) selectionIndex_ = selections_.size()-1;
 }
-
-void Menu::keyRight() {keySelect();}
-void Menu::keyLeft() {}

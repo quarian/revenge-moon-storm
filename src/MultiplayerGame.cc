@@ -4,25 +4,32 @@
 
 MultiplayerGame::MultiplayerGame(
         GameState* parent,
-        std::vector<Player*> players ) :
+        std::vector<Player*> players, 
+        std::string mapName ) :
       GameState(parent),
       map_(&game_),
-      players_(players) {}
+      players_(players),
+      mapName_(mapName) {}
 
 
 MultiplayerGame::MultiplayerGame(
         Game& game,
         GameState*& stack,
-        std::vector<Player*> players ) :
+        std::vector<Player*> players, 
+        std::string mapName ) :
       GameState(game, stack),
       map_(&game_),
-      players_(players) {}
+      players_(players),
+      mapName_(mapName) {}
 
 
 void MultiplayerGame::init() {
-    map_.loadFromFile("./maps/foo2.map", game_.terrainManager_);
+	if (mapName_=="random") map_.generateRandomMap(game_.terrainManager_);
+	else if (mapName_=="random maze") map_.generateMaze(game_.terrainManager_);
+    else map_.loadFromFile("./maps/"+mapName_, game_.terrainManager_);
 
-    //map_.generateRandomMap(game_.terrainManager_);
+    
+    
     for (auto p : players_)
         map_.spawnPlayer(p, 1, 1);
 

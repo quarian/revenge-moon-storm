@@ -3,7 +3,7 @@
 
 #include "Menu.hh"
 #include "SinglePlayerMenu.hh"
-//#include "MultiPlayerMenu.hh"
+#include "MultiPlayerMenu.hh"
 #include "MapEditor.hh"
 #include <map>
 
@@ -17,7 +17,7 @@
 class MainMenu : public Menu {
 public:
 
-    MainMenu(Game&, GameState*&,std::map<std::string,sf::Font>&, sf::Sprite&);
+    MainMenu(Game&, GameState*&);
 
     void init();
     void resume() {};

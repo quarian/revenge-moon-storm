@@ -21,8 +21,8 @@
 
 class MultiplayerGame : public GameState {
 public:
-     MultiplayerGame(GameState*, std::vector<Player*>);
-     MultiplayerGame(Game&, GameState*&, std::vector<Player*>);
+     MultiplayerGame(GameState*, std::vector<Player*>, std::string mapName_);
+     MultiplayerGame(Game&, GameState*&, std::vector<Player*>, std::string mapName);
 
     /* The update function drives the main functionality of this game state. It
      * takes the elapsed time dt, in seconds, as a parameter.
@@ -40,6 +40,7 @@ public:
 private:
     Map map_;
     std::vector<Player*> players_;
+    std::string mapName_;
 };
 
 #endif

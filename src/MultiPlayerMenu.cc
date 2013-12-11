@@ -1,90 +1,72 @@
 #include "MultiPlayerMenu.hh"
+#include <dirent.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <cstring>
 
 
-MultiPlayerMenu::MultiPlayerMenu(Game& game, GameState*& stack, std::map<std::string, sf::Font>& fonts, sf::Sprite& background, std::vector<std::string>& playerNames, bool& selectPressed, bool& escPressed) : Menu(game, stack, fonts, background), playerNames_(playerNames), selectPressed_(selectPressed), escPressed_(escPressed), waitingPlayerName_(false), waitingMapSelect_(false) { }
+MultiPlayerMenu::MultiPlayerMenu(Game& game, GameState*& stack, bool& selectPressed, bool& escPressed) : Menu(game, stack),  playerCount_(2), selectPressed_(selectPressed), escPressed_(escPressed), mapIndex_(0) { }
 
 void MultiPlayerMenu::init() {
 
+	mapNames_ = {"random","random maze"};
+	readMapNames();
+	
 	setTittle("Multiplayer");
 
 	addMenuSelection("Start", 40);
 	addMenuSelection("Players", 40);
-	//addMenuSelectionRight("Add player",2,30); addMenuSelectionLeft("Remove player", 2, 30);
+	updateText("Players","< Players: " + std::to_string(playerCount_)+" >");
 	//addMenuSelection("Difficulty", 40);
 	addMenuSelection("Map", 40);
+	updateText("Map","< Map: " + mapNames_[mapIndex_]+" >");
+	
 	addMenuSelection("Back", 40);
 	
 	keySets_.push_back(PlayerInterface::WASD_DVORAK);
 	keySets_.push_back(PlayerInterface::ARROWS);
 	
 	initKeyboard();
+	
 }
-
-void MultiPlayerMenu::update(float) {
-	//if (waitingPlayerName_) {
-	//std::string str;
-	//str = accumulate(begin(playerNames_), end(playerNames_), str);
-	texts_["Players"]->setString("Players: ");// + str + newName_;
-	updateMenu();
-	drawMenu();
-}
-  	    
+    
 void MultiPlayerMenu::keySelect() {
 	if (selectPressed_) return;
 	selectPressed_ = true;
-	int index = 0;
-	if (selections_[selectionIndex_] == selections_[index] && !waitingPlayerName_ && !waitingMapSelect_) {start();}
-	index++;
-	
-	if (selections_[selectionIndex_] == selections_[index] && !waitingPlayerName_ && !waitingMapSelect_) { askPlayerName(); /*playerNames_.push_back();*/}
-	if (selections_[selectionIndex_] == selections_[index] && waitingPlayerName_ && !waitingMapSelect_) { playerNames_.push_back(newName_); }
-	index++;
-	if (selections_[selectionIndex_] == selections_[index] && !waitingPlayerName_ && !waitingMapSelect_) {/*mapSelect();*/}
-	if (selections_[selectionIndex_] == selections_[index] && !waitingPlayerName_ && waitingMapSelect_) {}
-	index++;
-	if (selections_[selectionIndex_] == selections_[index] && !waitingPlayerName_ && !waitingMapSelect_) {terminate();}
-	//index++;
+
+	if (selectionKeys_[selectionIndex_] == "Start") 	start();
+	if (selectionKeys_[selectionIndex_] == "Back" ) 	terminate();
 }
 
 void MultiPlayerMenu::keyRight() {
-	/*if (selections_[selectionIndex_] == selections_[1] && waitingCampaign_) {
-		askPlayerName();
+	if (selectionKeys_[selectionIndex_] == "Players") {
+		if (playerCount_== 4) return;
+		playerCount_++;
+		updateText("Players","< Players: " + std::to_string(playerCount_)+" >");
 	}
-	if (selections_[selectionIndex_] == selections_[1] && !waitingCampaign_) {
-		playerNames_.push_back(newName_);
-	}*/
+	if (selectionKeys_[selectionIndex_] == "Map") {
+		mapIndex_++;
+		if (mapIndex_== mapNames_.size()) mapIndex_=0;
+		updateText("Map","< Map: "+ mapNames_[mapIndex_] +" >");
+	}
 }
-
 void MultiPlayerMenu::keyLeft() {
-	/*if (selections_[selectionIndex_] == selections_[1] && waitingPlayerName_) {
-		waitingPlayerName_=false;
-		//sf::sleep(sf::milliseconds(10));
+	if (selectionKeys_[selectionIndex_] == "Players") {
+		if (playerCount_== 2) return;
+		playerCount_--;
+		updateText("Players","< Players: " + std::to_string(playerCount_)+" >");
 	}
-	if (selections_[selectionIndex_] == selections_[1] && !waitingPlayerName_) {
-		removePlayer();
-	}*/
+	if (selectionKeys_[selectionIndex_] == "Map") {
+		if (mapIndex_== 0) mapIndex_ = mapNames_.size();
+		mapIndex_--;
+		updateText("Map","< Map: "+ mapNames_[mapIndex_] +" >");
+	}
 }
-
-
 
 void MultiPlayerMenu::keyEscape() {
 	if (escPressed_) return;
 	escPressed_ = true;
 	terminate();
-}
-
-//void MultiPlayerMenu::addPlayer() {
-//	
-//}
-
-void MultiPlayerMenu::askPlayerName() {
-	waitingPlayerName_ = true;
-	addMenuSelectionRight(newName_, 30,1);
-}
-
-void MultiPlayerMenu::removePlayer() {
-	if (playerNames_.empty()) return;
-	playerNames_.pop_back();	
 }
 
 void MultiPlayerMenu::keySelReleased() {selectPressed_ = false;}
@@ -93,13 +75,32 @@ void MultiPlayerMenu::keyEscapeReleased() {escPressed_ = false;}
 
 void MultiPlayerMenu::start() {
 	background_.setTexture(game_.graphicsManager_.getTexture("background_grid.png"));
-	if (playerNames_.empty()) {
-		playerNames_= {"Obama", "Putin"};
+	size_t j = 0;
+	for (size_t i=0;i!=playerCount_;i++,j++) {
+		if (j==keySets_.size()) j=0;
+		players_.push_back(new Player(std::to_string(i+1),keySets_[i]));
 	}
-	int i = 0;
-	for (auto& name : playerNames_) {
-		players_.push_back(new Player(name,keySets_[i]));
-		i++;
-	}
-	spawn(new MultiplayerGame(this, players_));
+	spawn(new MultiplayerGame(this, players_,mapNames_[mapIndex_]));
+}
+
+void MultiPlayerMenu::readMapNames() {
+    struct dirent **dircontent;
+    int n,i;
+    n = scandir("./maps", &dircontent, 0, versionsort);
+    if (n < 0)
+        perror("scandir");
+    else {
+        for(i =0 ; i < n; ++i) {
+        	char *tmp;
+			tmp = dircontent[i]->d_name;
+			std::string str(tmp);
+			if (str.find(".map") != std::string::npos) {
+				mapNames_.push_back(str);
+				std::cout << str << std::endl;
+			}
+            free(dircontent[i]);
+        }
+        free(dircontent);
+    }
+	for (auto n : mapNames_) std::cout << n << std::endl;
 }

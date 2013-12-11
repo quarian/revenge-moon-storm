@@ -4,8 +4,9 @@
 #include "GameState.hh"
 #include "GlobalGameInterface.hh"
 #include "MenuInterface.hh"
-#include <iostream>
-/* MainMenu
+#include "Player.hh"
+
+/* Menu
  * ================
  * 
  * 
@@ -16,8 +17,9 @@ class MenuInterface;
 class Menu : public GameState {
 public:
 
-	Menu(Game&, GameState*&,std::map<std::string, sf::Font>&, sf::Sprite&);
-	Menu(GameState* stack, std::map<std::string, sf::Font>& fonts, sf::Sprite& background);
+	Menu(Game&, GameState*&);
+	Menu(GameState* stack);
+	
 	virtual ~Menu() {}
 	
     /* The update function drives the main functionality of this game state. It
@@ -36,18 +38,13 @@ public:
     
     void keyDown();
     void keyUp();
-    virtual void keyLeft();
-    virtual void keyRight();
+    virtual void keyLeft() {}
+    virtual void keyRight() {}
     virtual void keySelect() = 0;
-    virtual void keyEscape() = 0;
+    virtual void keyEscape() {terminate();};
 	
-	//virtual void keyRightReleased() = 0;
-    //virtual void keyLeftReleased() = 0;
     virtual void keySelReleased() {}//= 0;
     virtual void keyEscReleased() {}//=0;
-    
-    virtual bool waitingPlayerName() {return false;}
-    virtual void sendText(std::string) {}
 
 protected:
 	
@@ -56,21 +53,23 @@ protected:
 
 	void setTittle(std::string tittle);
 	virtual void addMenuSelection(std::string selectionName, int FontSize);
-	virtual void addMenuSelectionRight(std::string selectionName, int , int fontSize= 30);
-	virtual void addMenuSelectionLeft(std::string selectionName, int , int fontSize= 30);
+	void updateText(std::string key, std::string NewStr);
 
+	/* Global maps containing all fonts and texts of the game */
 	std::map<std::string, sf::Font>& fonts_;
-    std::map<std::string, sf::Text*> texts_;
-    std::map<std::string, sf::Text*> sidetexts_;
+    std::map<std::string, sf::Text*>& texts_;
+    
+    /* Pointers to texts which are drawed while in current menu */
+    std::vector<sf::Text*> menuTexts_;
+
     sf::Sprite& background_;
-        
-    int selectionIndex_;
-    std::vector<std::string> selections_;
-    //std::vector<sf::Vector2f> selectorPos_;
+
+    size_t selectionIndex_;
+    std::vector<std::string> selectionKeys_;
     
     void initKeyboard();
-    //MenuInterface* interface_;
-
+    
+    std::vector<Player*> players_;
 };
 
 #endif

@@ -32,15 +32,15 @@ bool MenuInterface::parse(sf::Event& evt) {
         //if (evt.key.code == sf::Keyboard::Down)  	menu_->keyDown();
 
     }
-    
-    else if (menu_->waitingPlayerName()) {
+
+	// Text input
+    /*else if (menu_->waitingPlayerName()) {
 		std::string str;
 		sf::Text text;
-		// Text input
+
 		if (evt.type == sf::Event::TextEntered) {
 			// Handle ASCII characters only
-			if (evt.text.unicode < 128)
-			{
+			if (evt.text.unicode < 128) {
 				str += static_cast<char>(evt.text.unicode);
 				str = text.getString();
 			}
@@ -48,7 +48,7 @@ bool MenuInterface::parse(sf::Event& evt) {
 		if (!str.empty()) menu_->sendText(str);
 		
 		return true;
-	}
+	}*/
 	
 	return false;
 }
