@@ -38,7 +38,7 @@ public:
     
 
     //Hack because SFML doesnt like text
-    std::map<std::string, sf::Text> texts_
+    std::map<std::string, sf::Text> texts_;
     std::map<std::string, sf::Font>& fonts_;
 
 private:
