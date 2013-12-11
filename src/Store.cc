@@ -41,6 +41,7 @@ void Store::init() {
 
     storetext_ = new sf::Text();
     storetext_->setFont(storefont_);
+    storetext_->setCharacterSize(20);
     //GM assumes ownership of sf::Text pointers
     //because they cant be so easily destructed :C
     game_.graphicsManager_.texts_["storetext"] = storetext_;
@@ -95,7 +96,7 @@ void Store::draw() {
     
     std::stringstream convert;
     convert << player_->getInventory().getGold();
-    storetext_->setString(convert.str());
+    storetext_->setString("Scrap: " + convert.str());
     storetext_->setPosition(30, 30);
     storetext_->setColor(sf::Color::White);
     game_.draw(*storetext_);

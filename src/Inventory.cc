@@ -90,12 +90,7 @@ bool Inventory::useItem(std::string item, Map& map, MapBlock* mb, Direction dir)
 void Inventory::collect(Item* item) {
 	if (Treasure* t = dynamic_cast<Treasure*>(item)) {
 		increaseGold(t->getWorth());
-
-		//the item's constructor informs all the other holders of this data that its being deleted.
-		delete item;
 	} else if (Weaponbox* w = dynamic_cast<Weaponbox*>(item)) {
         addItem(w->generateItem());
-
-        delete item;
     }
 }

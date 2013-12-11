@@ -3,7 +3,7 @@
 #include "ControlledActor.hh"
 
 #include <cmath>
-
+#include <iostream>
 
 MapBlock::MapBlock(int x, int y, char content, Map& map, Terrain terrain) : x_(x), y_(y), visible_(false), content_(content), map_(map), terrain_(terrain)
 {}
@@ -97,11 +97,25 @@ void MapBlock::weaken(float dmg) {
 }
 
 void MapBlock::collect(Inventory* inventory) {
-    for (auto iter = items_.begin(); iter != items_.end(); iter++) {
+    /*for (auto iter = items_.begin(); iter != items_.end(); iter++) {
         if ((*iter)->getCollectible()) {
             inventory->collect(*iter);
-            iter = items_.erase(iter);
+            std::cerr << "WAT" << std::endl;
+            delete *iter;
+            std::cerr << "WAT" << std::endl;
         }
+    }*/
+
+    std::vector<Item*> deadItems;
+    for (auto item : items_) {
+        if (item->getCollectible()) {
+            inventory->collect(item);
+            deadItems.push_back(item);
+        }
+    }
+    for (Item* i : deadItems) {
+        delete i;
+        map_.popItem(i);
     }
 }
 
