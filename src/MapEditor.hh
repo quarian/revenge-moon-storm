@@ -19,12 +19,20 @@ public:
     void handleInput(unsigned x, unsigned y);
     void setBrush(char b) { brush_ = b; }
     void saveMap();
+    char getBrush() { return brush_; }
 
 private:
     Map map_;
     void draw();
     EditorInterface interface_;
     char brush_;
+    sf::Text* t1;
+    sf::Text* t2;
+    sf::Text* t3;
+    sf::Text* t4;
+    sf::Text* t5;
+    sf::Font font;
+
 };
 
 

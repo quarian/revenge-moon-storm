@@ -1,11 +1,27 @@
 #include "MapEditor.hh"
+#include <cstring>
 
 MapEditor::MapEditor(
         GameState* parent ) :
       GameState(parent),
       map_(&game_),
       interface_(*this),
-      brush_('#') {}
+      brush_('s')
+{
+    char n = 'z';
+    char s = 'x';
+    char S = 'c';
+    char w = 'v';
+    char I = 'b';
+    if (!font.loadFromFile("./graphics/fonts/sansation.ttf"))
+        std::cout << "FAIL!" << std::endl;
+    std::cout << "SUCCESS" << std::endl;
+    t1 = new sf::Text(n, font, 16u);
+    t2 = new sf::Text(s, font, 16u);
+    t3 = new sf::Text(S, font, 16u);
+    t4 = new sf::Text(w, font, 16u);
+    t5 = new sf::Text(I, font, 16u);
+}
 
 
 MapEditor::MapEditor(
@@ -14,7 +30,22 @@ MapEditor::MapEditor(
       GameState(game, stack),
       map_(&game_),
       interface_(*this),
-      brush_('#'){}
+      brush_('s')
+{
+    char n = 'z';
+    char s = 'x';
+    char S = 'c';
+    char w = 'v';
+    char I = 'b';
+    if (!font.loadFromFile("./graphics/fonts/sansation.ttf"))
+        std::cout << "FAIL!" << std::endl;
+    std::cout << "SUCCESS" << std::endl;
+    t1 = new sf::Text(n, font, 16u);
+    t2 = new sf::Text(s, font, 16u);
+    t3 = new sf::Text(S, font, 16u);
+    t4 = new sf::Text(w, font, 16u);
+    t5 = new sf::Text(I, font, 16u);
+}
 
 
 void MapEditor::init() {
@@ -54,6 +85,74 @@ void MapEditor::draw() {
             game_.draw(blockSprite);
         }
     }
+
+    size_t y = 45;
+    size_t x = 3;
+
+    char n = ' ';
+    char s = 's';
+    char S = 'S';
+    char w = 'W';
+    char I = '#';
+    
+    blockSprite.setTexture(game_.terrainManager_[n].texture);
+    blockSprite.setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
+    game_.draw(blockSprite);
+    x+=2;
+    blockSprite.setTexture(game_.terrainManager_[s].texture);
+    blockSprite.setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
+    game_.draw(blockSprite);
+    x+=2;
+    blockSprite.setTexture(game_.terrainManager_[S].texture);
+    blockSprite.setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
+    game_.draw(blockSprite);
+    x+=2;
+    blockSprite.setTexture(game_.terrainManager_[w].texture);
+    blockSprite.setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
+    game_.draw(blockSprite);
+    x+=2;
+    blockSprite.setTexture(game_.terrainManager_[I].texture);
+    blockSprite.setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
+    game_.draw(blockSprite);
+
+    y++;
+    x = 3;
+
+    
+    if (!strncmp(&brush_, &n, 1))
+        t1->setColor(sf::Color::Red);
+    else
+        t1->setColor(sf::Color::White);
+    t1->setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
+    game_.draw(*t1);
+    x+=2;
+    if (!strncmp(&brush_, &s, 1))
+        t2->setColor(sf::Color::Red);
+    else
+        t2->setColor(sf::Color::White);
+    t2->setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
+    game_.draw(*t2);
+    x+=2;
+    if (!strncmp(&brush_, &S, 1))
+        t3->setColor(sf::Color::Red);
+    else
+        t3->setColor(sf::Color::White);
+    t3->setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
+    game_.draw(*t3);
+    x+=2;
+    if (!strncmp(&brush_, &w, 1))
+        t4->setColor(sf::Color::Red);
+    else
+        t4->setColor(sf::Color::White);
+    t4->setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
+    game_.draw(*t4);
+    x+=2;
+    if (!strncmp(&brush_, &I, 1))
+        t5->setColor(sf::Color::Red);
+    else
+        t5->setColor(sf::Color::White);
+    t5->setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
+    game_.draw(*t5);
 
     for (Item* i : map_.items)
         game_.draw(i->getSprite());
