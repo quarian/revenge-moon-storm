@@ -143,13 +143,13 @@ void World::drawMapObjects() {
     for (Item* i : map_.items)
         if (i->getLocation()->visible_)
             game_.draw(i->getSprite());
-    for (Walker* m : map_.monsters)
-        if (m->getLocation()->visible_)
-            game_.draw(m->getSprite());
     for (Player* p : map_.players) {
         Actor* avatar = p->getActor();
         if (avatar) game_.draw(avatar->getSprite());
     }
+    for (Walker* m : map_.monsters)
+        if (m->getLocation()->visible_)
+            game_.draw(m->getSprite());
 }
 
 

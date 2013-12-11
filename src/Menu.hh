@@ -38,8 +38,8 @@ public:
     void keyUp();
     virtual void keyLeft();
     virtual void keyRight();
-	virtual void keySelect() = 0;
-	virtual void keyEscape() = 0;
+    virtual void keySelect() = 0;
+    virtual void keyEscape() = 0;
 	
 	//virtual void keyRightReleased() = 0;
     //virtual void keyLeftReleased() = 0;

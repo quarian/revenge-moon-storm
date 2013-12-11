@@ -3,7 +3,7 @@
 
 #include "Menu.hh"
 #include "SinglePlayerMenu.hh"
-#include "MultiPlayerMenu.hh"
+//#include "MultiPlayerMenu.hh"
 #include "MapEditor.hh"
 #include <map>
 
@@ -22,10 +22,10 @@ public:
     void init();
     void resume() {};
     //void terminate();
-	void keySelect();
-	void keyEscape();
-	
-	//void keyRightReleased() {rightPressed_ = false}
+    void keySelect();
+    void keyEscape();
+    
+    //void keyRightReleased() {rightPressed_ = false}
     //void keyLeftReleased() {leftPressed_ = false}
     void keySelReleased();
     void keyEscReleased();

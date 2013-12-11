@@ -27,7 +27,7 @@ Actor::~Actor() {
 
 
 bool Actor::takeDamage(float dmg) {
-    health_ -= round(dmg * vulnerability_);
+    health_ -= dmg * vulnerability_;
     return health_ > 0;
 }
 

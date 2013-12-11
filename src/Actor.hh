@@ -56,8 +56,8 @@ protected:
 
     bool digging_;
     float digPower_;
-    int health_;
-    int maxHealth_;
+    float health_;
+    float maxHealth_;
     float vulnerability_;
     Inventory* inventory_;
     

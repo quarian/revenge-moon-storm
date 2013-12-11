@@ -52,7 +52,7 @@ void MainMenu::keyEscReleased() {escPressed_ = false;}
 
 
 void MainMenu::multiPlayerSelected() {
-	spawn(new MultiPlayerMenu(game_, stack_, fonts_, background_, playerNames_,selectPressed_,escPressed_));
+	// spawn(new MultiPlayerMenu(game_, stack_, fonts_, background_, playerNames_,selectPressed_,escPressed_));
 }
 
 void MainMenu::mapEdiorSelected() {

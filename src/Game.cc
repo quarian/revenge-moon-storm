@@ -70,6 +70,7 @@ void Game::main() {
     // stack_ = new MultiplayerGame(*this, stack_, {kafka, dostojevsky});
     //stack_ = new CampaignGame(*this, stack_, kafka);
     // stack_ = new DummyGameState(*this, stack_);
+    stack_ = new MainMenu(*this, stack_, fonts_, background_);
 
     clock_.restart();
     stack_->init();
