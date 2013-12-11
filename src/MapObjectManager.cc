@@ -36,17 +36,44 @@ bool MapObjectManager::place(char signifier, Map& map, MapBlock* mb) {
         }
 
         /* TREASURES */
-        case '1':
-        case '2':
-        case '3':
-        case '4':
-        case '5':
-            break; // TODO: treasueres here
+        case '1': {
+            new Treasure(map, mb, "Metal Scrap", 10);
+            return true;
+            break;
+        }
+        case '2':{ 
+            new Treasure(map, mb, "Gunpowder", 25);
+            return true;
+            break;
+        }
+        case '3': {
+            new Treasure(map, mb, "Explosives", 50);
+            return true;
+            break;
+        }
+        case '4': {
+            new Treasure(map, mb, "Crate of IEDs", 100);
+            return true;
+            break;
+        }
+        case '5': {
+            new Treasure(map, mb, "Military Box", 250);
+            return true;
+            break;
+        }
+
+        //WEAPON BOX
+        case 'B': {
+            new Weaponbox(map, mb);
+            return true;
+            break;
+        }
 
 
         /* OTHER */
         case '&':
             new BloodSplatter(map, mb);
+            return true;
             break;
 
         /* DEFAULT */
@@ -71,6 +98,8 @@ bool MapObjectManager::contains(char c) {
             c == '3' ||
             c == '4' ||
             c == '5' ||
+
+            c == 'B' ||
 
             c == '&'
            );

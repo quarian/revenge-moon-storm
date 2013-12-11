@@ -182,7 +182,7 @@ void Treasure::update(float) {
 	sprite_.update(sf::seconds(0.0f));
 }
 
-Weaponbox::Weaponbox(Map& map, MapBlock* location, float rarity) : Item(map, location, "weapon box", true, true, Direction::NULLDIR), rarity_(rarity) {
+Weaponbox::Weaponbox(Map& map, MapBlock* location) : Item(map, location, "weapon box", true, true, Direction::NULLDIR) {
 	buildSprite(1, "weaponbox.png", 1.0f);
 }
 void Weaponbox::update(float) {
@@ -190,9 +190,7 @@ void Weaponbox::update(float) {
 }
 
 std::string Weaponbox::generateItem() const {
-	float r = std::min(1.0f, std::max(0.0f, rarity_));
-	int i = (int)(r*(Item::names().size()));
-	return Item::names()[rand() % i];
+	return Item::names()[rand() % Item::names().size()];
 }
 
 //Item derivates

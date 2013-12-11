@@ -41,6 +41,9 @@ void Store::init() {
 
     storetext_ = new sf::Text();
     storetext_->setFont(storefont_);
+    //GM assumes ownership of sf::Text pointers
+    //because they cant be so easily destructed :C
+    game_.graphicsManager_.texts_["storetext"] = storetext_;
 }
 
 void Store::update(float) {

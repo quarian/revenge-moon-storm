@@ -36,6 +36,7 @@ public:
     
     void setTextPosition(std::string name, int x, int y);
     
+    sf::Text* getText(std::string);
 
 private:
     WindowManager& window_;
@@ -52,7 +53,7 @@ private:
     
 public:
         //Hack because SFML doesnt like text
-    std::map<std::string, sf::Text> texts_;
+    std::map<std::string, sf::Text*> texts_;
     std::map<std::string, sf::Font>& fonts_;
 
 private:

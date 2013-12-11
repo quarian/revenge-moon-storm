@@ -180,6 +180,12 @@ Animation const& GraphicsManager::getAnimation(std::string name) {
 	return animations_[name];
 }
 
+sf::Text* GraphicsManager::getText(std::string id) {
+    if (texts_.find(id) != texts_.end())
+        return texts_[id];
+    return NULL;
+}
+
 
 /*
 void GraphicsManager::setTexture(sf::Sprite& sprite, std::string name) {

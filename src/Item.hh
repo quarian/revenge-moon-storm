@@ -96,7 +96,7 @@ protected:
 
 class Weaponbox : public Item {
 public:
-	Weaponbox(Map&, MapBlock*, float);
+	Weaponbox(Map&, MapBlock*);
 
 	void update(float);
 	bool takeDamage(int) { return false; }
@@ -106,8 +106,6 @@ public:
 private:
 	//0.0f .. 1.0f tells what percentage of items can spawn from this crate
 	//Take with a grain of salt
-	float rarity_; 
-	
 	
 };
 
