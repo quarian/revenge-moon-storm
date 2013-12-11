@@ -35,7 +35,7 @@ class Map {
         Map(const Map& other);
         ~Map();
 
-        void loadFromFile(std::string filename, TerrainManager const&);
+        bool loadFromFile(std::string filename, TerrainManager const&);
         void generateRandomMap(TerrainManager const&, bool overlap = true, int height = 44, int width = 64);
         void generateMaze(TerrainManager const&, int height = 44, int width = 64);
         void divide(TerrainManager const&, int x_min, int x_max, int y_min, int y_max);
@@ -52,7 +52,7 @@ class Map {
         std::vector<std::vector<MapBlock*>>* getGrid();
 
         void setBlock(int, int, char, Terrain);
-        void save();
+        void save(std::string path);
 
 
         void pushItem(Item* item) { items.insert(item); }

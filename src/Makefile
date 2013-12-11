@@ -3,7 +3,7 @@ CFLAGS=-c -std=c++0x -pedantic -Wall -Wextra -D_GLIBCXX_DEBUG -g
 LDFLAGS= 
 SFML=-L./lib/ -l:libsfml-audio.so.2 -l:libsfml-graphics.so.2 -l:libsfml-window.so.2 -l:libsfml-system.so.2 -l:libsfml-network.so.2
 SFML_ALT=-lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system -lsfml-network
-DIRS=-I .
+DIRS=-I . 
 SOURCES=\
 Direction.cc\
 PlayerInterface.cc\
@@ -51,14 +51,17 @@ SinglePlayerMenu.cc\
 MultiPlayerMenu.cc\
 EditorInterface.cc\
 MapEditor.cc
+EDITOR=EditorMain.cc
 MAIN=main.cc
 RPATH=-Wl,-rpath=./lib/
 TESTS=WalkerTest.cc DirectionTest.cc ActorTest.cc ControlledActorTest.cc PlayerTest.cc MapTest.cc InventoryTest.cc AStarTest.cc testMain.cc TerrainTest.cc
 TMP=$(SOURCES:.cc=.o)
 SOURCES_O=$(TMP:.cpp=.o)
 MAIN_O=$(MAIN:.cc=.o)
+EDITOR_O=$(EDITOR:.cc=.o)
 TESTS_O=$(TESTS:.cc=.o)
 EXECUTABLE=minebombers
+EDITOR_EXECUTABLE=editor
 TEST_EXECUTABLE=tests
 
 all: $(SOURCES) $(MAIN) $(EXECUTABLE)
@@ -73,13 +76,16 @@ $(EXECUTABLE)alt: $(SOURCES_O) $(MAIN_O)
 	$(CC) $(DIRS) $(CFLAGS) $< -o $@
 
 clean:
-	rm -f $(SOURCES_O) $(TESTS_O) $(MAIN_O) $(EXECUTABLE) $(TEST_EXECUTABLE)
+	rm -f $(SOURCES_O) $(TESTS_O) $(MAIN_O) $(EDITOR_O) $(EDITOR_EXECUTABLE) $(EXECUTABLE) $(TEST_EXECUTABLE)
 
 $(TEST_EXECUTABLE): $(SOURCES_O) $(TESTS_O)
 	$(CC) $(SOURCES_O) $(TESTS_O) $(LDFLAGS) -o $@ $(SFML) $(RPATH)
 
 alt$(TEST_EXECUTABLE): $(SOURCES_O) $(TESTS_O)
 	$(CC) $(SOURCES_O) $(TESTS_O) $(LDFLAGS) -o $(TEST_EXECUTABLE) $(SFML_ALT)
+
+$(EDITOR_EXECUTABLE): $(SOURCES_O) $(EDITOR_O)
+	$(CC) $(SOURCES_O) $(EDITOR_O) $(LDFLAGS) -o $(EDITOR_EXECUTABLE) $(SFML) $(RPATH)
 
 redo:
 	make clean

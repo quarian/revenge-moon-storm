@@ -6,13 +6,15 @@ MapEditor::MapEditor(
       GameState(parent),
       map_(&game_),
       interface_(*this),
-      brush_('s')
+      brush_('s'),
+      filename_("new.map")
 {
     char n = 'z';
     char s = 'x';
     char S = 'c';
     char w = 'v';
     char I = 'b';
+    std::string save = "Press s to save the map (saves to /maps folder)";
     if (!font.loadFromFile("./graphics/fonts/sansation.ttf"))
         std::cout << "FAIL!" << std::endl;
     std::cout << "SUCCESS" << std::endl;
@@ -21,22 +23,26 @@ MapEditor::MapEditor(
     t3 = new sf::Text(S, font, 16u);
     t4 = new sf::Text(w, font, 16u);
     t5 = new sf::Text(I, font, 16u);
+    t6 = new sf::Text(save, font, 16u);
 }
 
 
 MapEditor::MapEditor(
         Game& game,
-        GameState*& stack) :
+        GameState*& stack,
+        std::string map_filename) :
       GameState(game, stack),
       map_(&game_),
       interface_(*this),
-      brush_('s')
+      brush_('s'),
+      filename_(map_filename)
 {
     char n = 'z';
     char s = 'x';
     char S = 'c';
     char w = 'v';
     char I = 'b';
+    std::string save = "Press s to save the map (saves to /maps folder)";
     if (!font.loadFromFile("./graphics/fonts/sansation.ttf"))
         std::cout << "FAIL!" << std::endl;
     std::cout << "SUCCESS" << std::endl;
@@ -45,11 +51,14 @@ MapEditor::MapEditor(
     t3 = new sf::Text(S, font, 16u);
     t4 = new sf::Text(w, font, 16u);
     t5 = new sf::Text(I, font, 16u);
+    t6 = new sf::Text(save, font, 16u);
 }
 
 
 void MapEditor::init() {
-    map_.loadFromFile("./maps/blank.map", game_.terrainManager_);
+    std::string path = "./maps/" + filename_;
+    if (!map_.loadFromFile(path, game_.terrainManager_))
+        map_.loadFromFile("./maps/blank.map", game_.terrainManager_);
     game_.eventManager_.clearInterfaces();
     game_.eventManager_.registerInterface(&interface_);
     draw();
@@ -154,10 +163,15 @@ void MapEditor::draw() {
     t5->setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
     game_.draw(*t5);
 
+    x += 10;
+    t6->setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
+    game_.draw(*t6);
+
     for (Item* i : map_.items)
         game_.draw(i->getSprite());
 }
 
 void MapEditor::saveMap() {
-    map_.save();
+    std::string path = "./maps/" + filename_;
+    map_.save(path);
 }

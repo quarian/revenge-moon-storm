@@ -8,9 +8,12 @@
 
 class MapEditor : public GameState {
 friend class EditorInterface;
+
 public:
      MapEditor(GameState*);
-     MapEditor(Game&, GameState*&);
+     MapEditor(Game&, GameState*&, std::string map_filename);
+    
+    int main(int argc, char **argv);
 
     void update(float);
     void init();
@@ -31,7 +34,9 @@ private:
     sf::Text* t3;
     sf::Text* t4;
     sf::Text* t5;
+    sf::Text* t6;
     sf::Font font;
+    std::string filename_;
 
 };
 

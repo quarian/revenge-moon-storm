@@ -49,14 +49,16 @@ void Map::clear() {
     grid_.clear();
 }
 
-void Map::loadFromFile(std::string filename, TerrainManager const& tmgr) {
+bool Map::loadFromFile(std::string filename, TerrainManager const& tmgr) {
     clear();
 
     std::cout << "Loading from file " << filename << " ...";
     std::ifstream infile(filename);
     std::string line;
-    if (!infile)
+    if (!infile) {
         std::cout << " error: could not open file!" << std::endl;
+        return false;
+    }
 
     int row = 0;
     int column = 0;
@@ -83,6 +85,7 @@ void Map::loadFromFile(std::string filename, TerrainManager const& tmgr) {
         row++;
     }
     std::cout << " done. (" << getWidth() << " by " << getHeight() << " blocks)\n";
+    return true;
 }
 
 void Map::generateRandomMap(TerrainManager const& tmgr, bool overlap, int height, int width) {
@@ -370,10 +373,9 @@ void Map::setBlock(int x, int y, char content, Terrain t) {
     grid_[y][x] = mb;
 }
 
-void Map::save() {
-    std::string name = "new_and_should_be_renamed.map";
+void Map::save(std::string path) {
     std::ofstream output;
-    output.open(name);
+    output.open(path);
     printMap(output);
     output.close();
 

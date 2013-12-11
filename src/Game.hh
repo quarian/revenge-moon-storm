@@ -25,6 +25,7 @@ class GameState;
 class Game {
 public:
     Game();
+    Game(bool editor, std::string map_filename);
     ~Game();
     void main();
 
@@ -48,6 +49,9 @@ private:
     std::map<std::string, sf::Font> fonts_;
     
     sf::Clock clock_;
+
+    bool editor_;
+    std::string map_filename_;
 
 
 public:
