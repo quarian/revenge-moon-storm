@@ -40,9 +40,9 @@ bool StoreInterface::parse(sf::Event& evt) {
         								   return true; }
         if (evt.key.code == keys_.sell)  { store_->sellItem();
         								   return true; }
-        return false;
+        
     }
-
+    return false;
     // Key released
     // Keyup not needed for store
     /*else if (evt.type == sf::Event::KeyReleased) {
