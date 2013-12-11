@@ -29,25 +29,36 @@ class MapGenerator;
 class Map {
     friend class MapGenerator;
     public:
-        //Map();
         Map(Game* game);
         Map& operator=(const Map& other);
         Map(const Map& other);
         ~Map();
 
+        int getHeight();
+        int getWidth();
+        void printMap(std::ostream& os = std::cout);
+
+        /* Map reading and generation. */
+        void clear();
         bool loadFromFile(std::string filename, TerrainManager const&);
         void generateRandomMap(TerrainManager const&, bool overlap = true, int height = 44, int width = 64);
         void generateMaze(TerrainManager const&, int height = 44, int width = 64);
         void divide(TerrainManager const&, int x_min, int x_max, int y_min, int y_max);
-        void printMap(std::ostream& os = std::cout);
+
+        /* Pointers to individual map tiles, or tiles' neighbors in the given
+         * direction. Distance helper functions.
+         */
         MapBlock* getBlock(int x, int y);
         MapBlock* getBlock(int x, int y, Direction direction);
 
-        void clear();
+        float getDistance(MapBlock*, MapBlock*);
+        float getDistance(int, int, int, int);
+
+
         void blast(Weapon* w);
+        void blast(int, int, MapBlock*);
         void crossblast(Weapon* w);
-        int getHeight();
-        int getWidth();
+
         Game* getGame() const { return game_; }
         std::vector<std::vector<MapBlock*>>* getGrid();
 
@@ -55,13 +66,10 @@ class Map {
         void save(std::string path);
 
 
-        void pushItem(Item* item) { items.insert(item); }
-        void popItem(Item* item) { items.erase(item); }
-
         void spawnPlayer(Player*, int, int);
 
-        float getDistance(MapBlock*, MapBlock*);
-        float getDistance(int, int, int, int);
+        void pushItem(Item* item) { items.insert(item); }
+        void popItem(Item* item) { items.erase(item); }
 
         std::set <Player*> players;
         std::set <Walker*> monsters;
@@ -76,7 +84,10 @@ class Map {
 
 
     public:
-        /* MAP UTILITIES -- defined in MapUtils.cc */
+        /* MAP UTILITIES
+         * =============
+         *
+         * defined in MapUtils.cc */
 
         /* Returns a vector of all the MapBlocks that lie within a certain
          * radius of some reference block. Set the last parameter to false to

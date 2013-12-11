@@ -304,12 +304,17 @@ void Map::blast(Weapon* w) {
     int r = w->getRadius();
     int p = w->getPower();
     MapBlock* location = w->getLocation();
-    for (auto mb : getInRadius(location, r)) {
+    blast(r, p, location);
+}
+
+void Map::blast(int radius, int power, MapBlock* location) {
+    for (auto mb : getInRadius(location, radius)) {
         //std::cerr << "distance: " << getDistance(location, mb) << std::endl;
-        mb->takeDamage(p - getDistance(location, mb) * 3); //lower power over distance
+        mb->takeDamage(power - getDistance(location, mb) * 3); //lower power over distance
         new Explosion(*this, mb);
     }
 }
+
 
 void Map::crossblast(Weapon* w) {
     int l = w->getRadius();
