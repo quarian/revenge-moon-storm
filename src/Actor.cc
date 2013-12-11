@@ -111,7 +111,6 @@ void Actor::proceed() {
         target_ = nullptr;
     } else {
         target_->enter(this);
-        map_.getLOS(target_);
         location_->exit(this);
         if (inventory_)
             location_->collect(inventory_);

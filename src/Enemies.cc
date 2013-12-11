@@ -13,7 +13,7 @@
 
 TinyBug::TinyBug(Map& map, MapBlock* mb) :
         AIPlayerSeeker(map, mb, 10, 9.0, 15, 12) {
-    initSprite(map.getGame()->graphicsManager_.getAnimation("tiny_bug"), sf::Color::Red);
+    initSprite(map.getGame()->graphicsManager_.getAnimation("tiny_bug"), sf::Color::Yellow);
     sprite_.setFrameTime(sf::seconds(0.07f));
 }
 
@@ -42,8 +42,8 @@ Scarab::Scarab(Map& map,
         fuse_(fuse),
         power_(power),
         target_(tgt) {
-    initSprite(map.getGame()->graphicsManager_.getAnimation("tiny_bug"), sf::Color::Red);
-    sprite_.setFrameTime(sf::seconds(0.07f));
+    initSprite(map.getGame()->graphicsManager_.getAnimation("tiny_bug"), sf::Color::Magenta);
+    sprite_.setFrameTime(sf::seconds(0.03f));
 }
 
 
@@ -73,14 +73,16 @@ void Scarab::think() {
 }
 
 void Scarab::update(float dt) {
-    fuse_ -= dt;
-    if (fuse_ <= 0 || location_ == target_->getLocation()) explode();
-    AIPlayerSeeker::update(dt);
+    if (isAlive()) {
+        fuse_ -= dt;
+        if (fuse_ <= 0 || location_ == target_->getLocation()) explode();
+        AIPlayerSeeker::update(dt);
+    }
 }
 
 void Scarab::explode() {
     health_ = -100;
-    map_.blast(1.5, 40, location_);
+    map_.blast(1.5, 30, location_);
 }
 
 bool Scarab::takeDamage(float) {
@@ -120,7 +122,7 @@ void ScarabQueen::launchScarab(Actor* a) {
     launchCooldown_ = 0.5f;
     for (auto& s : scarabs_) {
         if (s == 0) {
-            s = 4.0f;
+            s = 5.0f;
             break;
         }
     }
