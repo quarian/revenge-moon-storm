@@ -12,8 +12,7 @@
 void CampaignGame::launchLevelBoss() {
     map_.loadFromFile("./maps/campaign/boss.map", game_.terrainManager_);
 
-    map_.spawnPlayer(player_, 1, 1);
-    new Fixtures::LevelExit(map_, map_.getBlock(49, 36), flagVictorious_, {player_});
+    map_.spawnPlayer(player_, 7, 12);
     
     spawn(new CampaignGameWorld(this, map_, player_, flagVictorious_));
 }
