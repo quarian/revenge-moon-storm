@@ -3,7 +3,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <style>
+body {
+    max-width: 1024px;
+    margin: auto;
+}
 .code { font-family: monospace; }
+.tb1 {
+    vertical-align: top;
+    font-weight: bold;
+}
+.tb2 { vertical-align: top; }
+#gamemodes {
+    width: 80%;
+    margin: auto;
+}
 </style>
 <title>AS-0.3302 Project document</title>
 </head>
@@ -42,11 +55,58 @@
 
 <h3>Last updated: </h3>
 
-<p>09.12.2013</p>
+<p>2013-12-11</p>
+
+
+
+
+
+
 
 <h2>Instructions for compiling and use</h2>
 
-Lorem ipsum dolor sit amet, motherfucker
+<p>
+The project should be compiled from the <span class="code">/src</span> folder
+with the command <span class="code">make</span>, 
+building the default target (<span class="code">all</span>).
+
+To ensure compatibility with school computers,
+the default target for <span class="code">make</span>
+uses a portable copy of SFML located in the <span class="code">/src/SFML</span> folder.
+The <span class="code">alt</span> target for <span class="code">make</span>
+attempts to use system libraries instead.
+
+Both targets create an executable titled <span class="code">minebombers</span>.
+</p>
+
+
+<p>
+The program opens into a main menu that can be navigated by arrow keys.
+The return key selects menu options.
+Two game modes are available:
+</p>
+
+<table id="gamemodes">
+    <tr>
+        <td class="tb1"><b>Campaign game</b></td>
+         <td class="tb2">
+             This is the game's "story mode", consisting of four levels.
+             The year is 2061.
+             You work at the New Thiggrinc lunar mining colony,
+             supplying the precious element MacCuffinium that powers the world economy.
+             One day, disaster strikes...
+         </td>
+    </tr>
+    <tr>
+        <td class="tb1"><b>Multiplayer game</b></td>
+         <td class="tb2">
+             Two-player hotseat game on a randomly generated map.
+             Collect the most gold to win.
+         </td>
+    </tr>
+</table>
+
+
 <!--
 <p>In this chapter you must tell which platform(s) and operating system(s) your program supports.
 How it can be compiled (and installed) ie. which tools are needed to compile the program and which commands to use.
@@ -61,6 +121,15 @@ example of program runs (example inputs and outputs and/or screenshots or someth
 reading these instructions, your project will most propably be failed.</b></p>
 -->
 
+
+
+
+
+
+
+
+
+
 <h2>Program architechture</h2>
 
 <!-- In this chapter you must describe the main architechture of your program. You <b>must draw</b> clear diagrams
@@ -68,13 +137,14 @@ of your program structure. You don't need to go in to the details, but this chap
 the idea of the architechture of your program. You must also tell, why you decided to use the architechture you used. -->
 
 <p>
-The architecture of RotM is conceptually divided, roughly speaking, into three domains.
+The architecture of RotM is conceptually divided, roughly speaking, into four domains.
 An administrative system manages resources and handles state transitions.
-The map architecture manages the grid-based game levels
-along with the associated map objects: player characters, monsters and items.
+The map architecture manages the grid-based game levels and their representation,
+and the map object system encompasses monsters, treasures, bombs, etc.
 The world controller drives the game loop on a given game level.
 It can be thought of as a bridge between the administrative system and the map architecture,
-because in some sense it belongs in both domains.
+because it has properties characteristic of both of these,
+but since it is conceptually a separate entity, it is here treated as such.
 </p>
 
 <h3>The administrative system</h3>
@@ -88,7 +158,7 @@ When it is constsructed, it initializes an
 It makes all three available for other parts of the program throughout its operation.
 (The program also makes use of a <span class="code">MapObjectManager</span>,
 which is stateless and can therefore just be represented as a two-function namespace
-that is globally available (as namespaces are).
+that is globally available (as namespaces are).)
 The graphics, terrain, and map object managers are resource managers.
 The event manager's function is to handle input events (keyboard commands and window events).
 </p>
@@ -109,7 +179,7 @@ When the last element on the stack terminates and gets popped, the program termi
 that is, when the main menu exits, so does the program.
 </p>
 
-<img src="gamestates.svg" width="1000px" />
+<img src="gamestates.svg" width="100%" />
 
 <h3>The world controller</h3>
 
@@ -119,31 +189,119 @@ that is, when the main menu exits, so does the program.
 
 <h3>The map architecture</h3>
 
+<p>
+</p>
+
+<h3>The map object system</h3>
+
+<p> 
+The game level, as represented by the <span class="code">Map</span> and
+<span class="code">MapBlock</span> classes, understands its dynamic contents
+&mdash; that is, interactive objects beyond simple terrain &mdash;
+as <span class="code">Player</span>,
+<span class="code">Walker</span> or
+<span class="code">Item</span> objects.
+Walkers represent characters, mainly monsters, who move around the map at some
+given speed. Items represent generally (though not strictly) stationary objects:
+collectible treasures, dropped bombs and event-triggering fixtures (and
+certain other entities that are not obviously item-like, but are represented as such for convenience,
+such as explosions).
+Both categories of objects expose an <span class="code">update(dt)</span> method
+which the loop of the world controller calls on each pass.
+</p>
+
+<p>
+<span class="code">Player</span> objects carry information about name, number of lives and inventory,
+and are able to spawn walkers as needed to act as avatars.
+Players are (from the point of view of the map architecture)
+mostly degenerate with walkers, in that most of the time the controller
+just wants to access the player's associated walker in order to tell it to update itself.
+Players and walkers are handled separately mainly because otherwise there would be no good way to tell
+whether a walker is associated with a player, and if so, which one.
+</p>
+
+<p>
+Usually, a <span class="code">Walker</span> object is also an <span class="code">Actor</span>.
+The <span class="code">Actor</span> class, which inherits <span class="code">Walker</span>,
+provides additional functionalities of health, digging, etc.
+These have been left out of <span class="code">Walker</span> for the sake of generality:
+this way, <span class="code">Walker</span> can, if necessary,
+act as a subclass for objects such as projectiles, for which digging
+and health are not meaningful properties.
+<span class="code">Actor</span> is further inherited by
+<span class="code">ControlledActor</span> and <span class="code">AIActor</span>,
+which represent keyboard-controlled and computer-controlled characters,
+respectively.
+Controlled actors provide methods that other objects can use to
+inform them of the controller state (which keys are pressed),
+while AI actors use an internal logic, managed by their <span class="code">update()</span>
+methods, that "plans ahead" what they're going to do.
+In general, when an AI actor is updated, it follows its existing plan if it has one;
+if the plan runs out, it calls its <span class="code">think()</span>
+method, which hatches a new one.
+</p>
+
+<p>
+<span class="code">Item</span> objects are almost entirely self-organizing.
+Their constructors automatically add them to the relevant <span class="code">Map</span>
+and <span class="code">MapBlock</span>, and their destructors remove them from the same.
+They only need to be <span class="code">new</span>ed and <span class="code">delete</span>d "by hand".
+Walkers handle their map tiles on their own,
+but the map's set of walkers needs to be "garbage collected" by another routine.
+</p>
+
+
+
+
+
+
+
 <h2>Data structures and algorithms</h2>
 
+<!--
 <p>In this chapter you must describe the data structures and algorithms used in your program. Dont't put
 your code here, but describe the data structures and algorithms using natural language (you can also add pictures).</p>
+-->
 
 <h2>Known bugs</h2>
 
+<p>
+NO. EVERYTHING IS PERFECT.
+</p>
+
+<!--
 <p>In this chapter you must tell all known bugs in your code. You must also tell what could have been done better.</p>
 
 <p>If the assistant finds bug(s) in your code that you haven't mentioned, it is very bad thing and your points will be
 decreased. And if your code segfaults, it is even worse and your points will be decreased more...</p>
+-->
 
 <h2>Tasks sharing and schedule</h2>
 
+<!--
 <p>In this chapter you must tell how the task sharing and communication inside the group worked.
 You must also tell the real schedule and amount of work done by each group member. You are also encouraged to describe the amount of work of each different part you your project. (planning, implementation of different areas of project, testing and documentation etc.)</p>
 
 <p>Think and tell also, if you could have shared tasks better. What went wrong compared to the schedule of your original
 plan and why.</p>
+-->
 
 <h2>Differences to the original plan</h2>
 
+<p>
+The original plan had us iterating on a basically functional program throughout the development process.
+This noble goal was sabotaged by early difficulties in building the administrative and world controller parts,
+meaning that in reality, it was a couple of weeks before we were able to scramble together a working iteration.
+This also led to challenges when developing the map architecture,
+because code sanity checks had to take the form of specially written unit tests
+as opposed to just plopping something on the map and seeing if it does what it ought to.
+</p>
+
+<!--
 <p>In this chapter you must tell what is done in different way that was originally planned and why.</p>
 
 <p>Do you think your plan was good enough, super, or should you have planned your program better?</p>
+-->
 
 <h2>References</h2>
 
