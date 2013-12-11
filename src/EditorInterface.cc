@@ -15,6 +15,10 @@ bool EditorInterface::parse(sf::Event& event) {
     if (event.type == sf::Event::MouseButtonPressed) {
         editor_.handleInput(event.mouseButton.x, event.mouseButton.y);
     }
+    if (event.type == sf::Event::MouseMoved) {
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            editor_.handleInput(sf::Mouse::getPosition(editor_.game_.window_).x, sf::Mouse::getPosition(editor_.game_.window_).y);
+    }
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Z) editor_.setBrush(' ');
         if (event.key.code == sf::Keyboard::X) editor_.setBrush('s');

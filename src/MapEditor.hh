@@ -7,6 +7,7 @@
 
 
 class MapEditor : public GameState {
+friend class EditorInterface;
 public:
      MapEditor(GameState*);
      MapEditor(Game&, GameState*&);
