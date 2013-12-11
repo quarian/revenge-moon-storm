@@ -21,16 +21,16 @@ public:
      * ==========
      *  Map const&          map that the Actor is placed on
      *  MapBlock*           initial position on the map
-     *  float               damage (per hit)
+     *  float               damage per second
      *  float               movement speed (blocks per second)
      *  int                 maximum health (also starting health)
      *  int                 line of sight (player detect)
      */
-    AIPlayerSeeker(Map&, MapBlock*, float=15, float=10.0, int=50, int=10);
+    AIPlayerSeeker(Map&, MapBlock*, float=10.0, float=10.0, int=50, int=10);
 
 
 protected:
-    float damage_;
+    float dps_;
     int LOS_;
     int LOS2_;
 
@@ -41,11 +41,17 @@ protected:
     virtual void think();
 
     /* Overridden to enable damage dealing. */
-    virtual void proceed();
+    virtual void update(float);
 
     /* How many steps to plan ahead if the target player is at the given
      * distance? */
     virtual int planPathLength(float) const;
+
+    virtual bool chaseNearest(std::vector<std::pair<float, Actor*>>, bool=true);
+    
+    void wander(int=10);
+
+    std::vector<std::pair<float, Actor*>> playersInRange(float=-1);
 };
 
 #endif
