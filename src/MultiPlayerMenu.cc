@@ -5,7 +5,12 @@
 #include <cstring>
 
 
-MultiPlayerMenu::MultiPlayerMenu(Game& game, GameState*& stack, bool& selectPressed, bool& escPressed) : Menu(game, stack),  playerCount_(2), selectPressed_(selectPressed), escPressed_(escPressed), mapIndex_(0) { }
+MultiPlayerMenu::MultiPlayerMenu(Game& game, GameState*& stack, bool& selectPressed, bool& escPressed) : 
+				Menu(game, stack),  
+				playerCount_(2), 
+				selectPressed_(selectPressed), 
+				escPressed_(escPressed), 
+				mapIndex_(0) { }
 
 void MultiPlayerMenu::init() {
 
@@ -79,7 +84,7 @@ void MultiPlayerMenu::initPlayers() {
 		if (j==keySets_.size()) j=0;
 		players_.push_back(new Player(std::to_string(i+1),keySets_[i]));
 	}
-	spawCountter_=playerCount_;
+	spawnCountter_=playerCount_;
 	resume();
 }
 

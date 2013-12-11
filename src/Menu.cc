@@ -5,13 +5,15 @@ Menu::Menu(Game& game, GameState*& stack) :
       	    fonts_(game_.graphicsManager_.fonts_),
       	    texts_(game_.graphicsManager_.texts_),
       	    background_(game_.background_),
-      	    selectionIndex_(0) { }
+      	    selectionIndex_(0), 
+			spawnCountter_(0) { }
       	    
 Menu::Menu(GameState* stack) : 
             GameState(stack),
       	    fonts_(game_.graphicsManager_.fonts_),
       	    texts_(game_.graphicsManager_.texts_),
-      	    background_(game_.background_) { }    
+      	    background_(game_.background_), 
+			spawnCountter_(0) { }    
       	    
 void Menu::initKeyboard() {
     game_.eventManager_.clearInterfaces();
@@ -26,20 +28,20 @@ void Menu::update(float dt) {
 
 void Menu::resume() {
 
-	if (spawCountter_<0) {
+	if (spawnCountter_<0) {
 		for (auto pl : players_) delete pl;
 		terminate();
+		initKeyboard();
 	}
-	else if	(spawCountter_==0) {
-		spawCountter_--;
+	else if	(spawnCountter_==0) {
+		spawnCountter_--;
 		start();
 	}
 	else {
-		spawn(new Store(this,players_[spawCountter_-1]));
-		spawCountter_--;
+		spawn(new Store(this,players_[spawnCountter_-1]));
+		spawnCountter_--;
 	}
 	
-	initKeyboard();
 }
 
 void Menu::drawMenu() {

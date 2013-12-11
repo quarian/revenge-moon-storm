@@ -77,7 +77,7 @@ protected:
      * when 1 resume() spawn a PlayerGame when more 
      * then 1 resume() spawns stores for Players in players_ 
      */
-    int spawCountter_;
+    int spawnCountter_;
 };
 
 #endif

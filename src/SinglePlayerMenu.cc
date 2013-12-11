@@ -2,7 +2,9 @@
 
 
 SinglePlayerMenu::SinglePlayerMenu(Game& game, GameState*& stack, bool& selectPressed, bool& escPressed) : 
-				Menu(game, stack), selectPressed_(selectPressed), escPressed_(escPressed) { }
+				Menu(game, stack), 
+				selectPressed_(selectPressed), 
+				escPressed_(escPressed) { }
 
 void SinglePlayerMenu::init() {
 
@@ -37,12 +39,11 @@ void SinglePlayerMenu::keyEscapeReleased() {escPressed_ = false;}
 
 void SinglePlayerMenu::initPlayers() {
 	players_.push_back(new Player("1",PlayerInterface::ARROWS_WIDE));
-	spawCountter_=1;
+	spawnCountter_=players_.size();
 	resume();
 }
 
 void SinglePlayerMenu::start() {
-std::cout << "SSSSSSSSSSSSs";
 	background_.setTexture(game_.graphicsManager_.getTexture("background_grid.png"));
     spawn(new CampaignGame(this, players_[0]));
 }
