@@ -20,6 +20,20 @@ bool MapObjectManager::place(char signifier, Map& map, MapBlock* mb) {
             return true;
             break;
         }
+        case 'L': {
+            auto lurker = new Lurker(map, mb);
+            map.monsters.insert(lurker);
+            mb->enter(lurker);
+            return true;
+            break;
+        }
+        case 'Q': {
+            auto queen = new ScarabQueen(map, mb);
+            map.monsters.insert(queen);
+            mb->enter(queen);
+            return true;
+            break;
+        }
 
         /* TREASURES */
         case '1':
@@ -40,6 +54,8 @@ bool MapObjectManager::place(char signifier, Map& map, MapBlock* mb) {
             return false;
         }
     }
+
+    return false;
 }
 
 
@@ -47,6 +63,8 @@ bool MapObjectManager::contains(char c) {
     return (
             c == 'x' ||
             c == 'X' ||
+            c == 'L' ||
+            c == 'Q' ||
 
             c == '1' ||
             c == '2' ||
