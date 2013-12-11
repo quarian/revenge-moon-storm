@@ -49,7 +49,7 @@ void Menu::updateMenu() {
 	}
 }
 
-void Menu::setTittle(std::string tittle) {
+void Menu::setTitle(std::string tittle) {
 	texts_[tittle] = new sf::Text(tittle, fonts_["batman"],80);
 	sf::FloatRect dim = texts_[tittle]->getLocalBounds();
 	texts_[tittle]->setOrigin(dim.width/2, dim.height/2);

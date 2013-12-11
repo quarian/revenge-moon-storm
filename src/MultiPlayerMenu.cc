@@ -12,16 +12,16 @@ void MultiPlayerMenu::init() {
 	mapNames_ = {"random","random maze"};
 	readMapNames();
 	
-	setTittle("Multiplayer");
+	setTitle("Multiplayer");
 
-	addMenuSelection("Start", 40);
-	addMenuSelection("Players", 40);
+	addMenuSelection("Start", 30);
+	addMenuSelection("Players", 30);
 	updateText("Players","< Players: " + std::to_string(playerCount_)+" >");
 	//addMenuSelection("Difficulty", 40);
-	addMenuSelection("Map", 40);
+	addMenuSelection("Map", 30);
 	updateText("Map","< Map: " + mapNames_[mapIndex_]+" >");
 	
-	addMenuSelection("Back", 40);
+	addMenuSelection("Back", 30);
 	
 	keySets_.push_back(PlayerInterface::WASD_DVORAK);
 	keySets_.push_back(PlayerInterface::ARROWS);
@@ -96,11 +96,9 @@ void MultiPlayerMenu::readMapNames() {
 			std::string str(tmp);
 			if (str.find(".map") != std::string::npos) {
 				mapNames_.push_back(str);
-				std::cout << str << std::endl;
 			}
             free(dircontent[i]);
         }
         free(dircontent);
     }
-	for (auto n : mapNames_) std::cout << n << std::endl;
 }

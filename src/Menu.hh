@@ -51,7 +51,7 @@ protected:
 	virtual void updateMenu();
 	virtual void drawMenu();
 
-	void setTittle(std::string tittle);
+	virtual void setTitle(std::string tittle);
 	virtual void addMenuSelection(std::string selectionName, int FontSize);
 	void updateText(std::string key, std::string NewStr);
 

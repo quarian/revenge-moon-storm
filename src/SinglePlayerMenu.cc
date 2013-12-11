@@ -6,7 +6,7 @@ SinglePlayerMenu::SinglePlayerMenu(Game& game, GameState*& stack, bool& selectPr
 
 void SinglePlayerMenu::init() {
 
-	setTittle("Singleplayer");
+	setTitle("Singleplayer");
 
 	addMenuSelection("Start", 40);
 	//addMenuSelection("Name", 40);

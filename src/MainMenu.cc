@@ -7,7 +7,23 @@ MainMenu::MainMenu(Game& game, GameState*& stack) : Menu(game, stack), selectPre
 void MainMenu::init() {
 	//background_.setTexture(game_.graphicsManager_.getTexture("background_menu.png"));
 	
-	setTittle("Main menu");
+	texts_["main_title1"] = new sf::Text("Revenge of the Moon ", fonts_["batman"],60);
+	sf::FloatRect dim1 = texts_["main_title1"]->getLocalBounds();
+	texts_["main_title1"]->setOrigin(dim1.width/2, dim1.height/2);
+	texts_["main_title1"]->setStyle(sf::Text::Bold);
+	menuTexts_.push_back(texts_["main_title1"]);
+	
+	texts_["main_title2"] = new sf::Text("The Gathering Storm", fonts_["dark_world"],50);
+	sf::FloatRect dim2 = texts_["main_title2"]->getLocalBounds();
+	texts_["main_title2"]->setOrigin(dim2.width/2, dim2.height/2);
+	texts_["main_title2"]->setRotation(-2);
+	texts_["main_title2"]->setStyle(sf::Text::Underlined);
+	texts_["main_title2"]->setColor(sf::Color(139,37,0,225));
+	menuTexts_.push_back(texts_["main_title2"]);
+	
+	texts_["main_title1"]->setPosition(sf::Vector2f(512,40));
+	texts_["main_title2"]->setPosition(sf::Vector2f(512,115));
+	
 	addMenuSelection("Singleplayer", 50);
 	addMenuSelection("Multiplayer", 50);
 	addMenuSelection("Map Editor", 50);
@@ -18,6 +34,8 @@ void MainMenu::init() {
 
 	initKeyboard();
 }
+
+
 
 void MainMenu::keySelect() {
 	if (selectPressed_) return;
