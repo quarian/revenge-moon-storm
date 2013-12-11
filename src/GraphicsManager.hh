@@ -37,10 +37,6 @@ public:
     void setTextPosition(std::string name, int x, int y);
     
 
-    //Hack because SFML doesnt like text
-    std::map<std::string, sf::Text> texts_;
-    std::map<std::string, sf::Font>& fonts_;
-
 private:
     WindowManager& window_;
 	
@@ -54,15 +50,20 @@ private:
     std::map<std::string, sf::Texture>& textures_;   
     std::map<std::string, Animation>& animations_;
     
+public:
+        //Hack because SFML doesnt like text
+    std::map<std::string, sf::Text> texts_;
+    std::map<std::string, sf::Font>& fonts_;
+
+private:
     size_t playerColorsIndex_;
     
     //std::map<std::string, sf::Sprite> sprites_;
     //std::map<std::string, AnimatedSprite> animatedSprites_;
-    ;
+    
     
 
     void loadTexture(std::string filename);
-
 };
 
 #endif

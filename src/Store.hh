@@ -42,6 +42,7 @@ private:
 	int selxmax_;
 	int selymax_;
 
+	sf::Font& storefont_;
 	sf::Text* storetext_;
 
 	void initKeyboard();

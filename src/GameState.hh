@@ -38,6 +38,7 @@ public:
 
     bool alive() { return alive_; }
 
+    Game& getGame() { return game_; }
 
 protected:
     /* The main game object, used to get access to graphics, terrain, etc.

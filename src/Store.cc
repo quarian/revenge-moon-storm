@@ -13,7 +13,8 @@ Store::Store(
         GameState* parent,
         Player* player ) :
       GameState(parent),
-      player_(player) {}
+      player_(player),
+      storefont_(parent->getGame().graphicsManager_.fonts_["batman"]) {}
 
 
 Store::Store(
@@ -21,7 +22,8 @@ Store::Store(
         GameState*& stack,
         Player* player ) :
       GameState(game, stack),
-      player_(player) {}
+      player_(player),
+      storefont_(game.graphicsManager_.fonts_["batman"]) {}
 
 Store::~Store() {
     //The text CAN NOT be deleted here, because it will segfault (bug in SFML)
@@ -36,8 +38,6 @@ void Store::init() {
     selmax_ = Item::names().size();
     selxmax_ = 2;
     selymax_ = selmax_ / selxmax_;
-
-    storefont_.loadFromFile("batmanforeveralternate.ttf");
 
     storetext_ = new sf::Text();
     storetext_->setFont(storefont_);
