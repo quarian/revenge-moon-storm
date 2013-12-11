@@ -15,6 +15,7 @@ MapEditor::MapEditor(
     char w = 'v';
     char I = 'b';
     std::string save = "Press s to save the map (saves to /maps folder)";
+    std::string items = "Press i to add items";
     if (!font.loadFromFile("./graphics/fonts/sansation.ttf"))
         std::cout << "FAIL!" << std::endl;
     std::cout << "SUCCESS" << std::endl;
@@ -24,6 +25,7 @@ MapEditor::MapEditor(
     t4 = new sf::Text(w, font, 16u);
     t5 = new sf::Text(I, font, 16u);
     t6 = new sf::Text(save, font, 16u);
+    t7 = new sf::Text(items, font, 16u);
 }
 
 
@@ -43,6 +45,7 @@ MapEditor::MapEditor(
     char w = 'v';
     char I = 'b';
     std::string save = "Press s to save the map (saves to /maps folder)";
+    std::string items = "Press i to add items";
     if (!font.loadFromFile("./graphics/fonts/sansation.ttf"))
         std::cout << "FAIL!" << std::endl;
     std::cout << "SUCCESS" << std::endl;
@@ -52,6 +55,7 @@ MapEditor::MapEditor(
     t4 = new sf::Text(w, font, 16u);
     t5 = new sf::Text(I, font, 16u);
     t6 = new sf::Text(save, font, 16u);
+    t7 = new sf::Text(items, font, 16u);
 }
 
 
@@ -164,8 +168,12 @@ void MapEditor::draw() {
     game_.draw(*t5);
 
     x += 10;
+    y--;
     t6->setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
     game_.draw(*t6);
+    y++;
+    t7->setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
+    game_.draw(*t7);
 
     for (Item* i : map_.items)
         game_.draw(i->getSprite());

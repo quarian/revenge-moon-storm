@@ -254,10 +254,14 @@ void Map::addItems(int amount) {
             y = rand() % (getHeight() - 3) + 1;
             if (grid_[y][x]->isPassable()) {
                 bool gold = rand() % 2 == 0;
-                if (gold)
+                if (gold) {
+                    grid_[y][x]->content_ = '4'; // HACKS GALORE
                     new Treasure(*this, grid_[y][x], "Gold Bar", 100);
-                else
+                }
+                else {
+                    grid_[y][x]->content_ = 'B'; // HACKS GALORE
                     new Weaponbox(*this, grid_[y][x]);
+                }
                 placed = true;
             }
         }
