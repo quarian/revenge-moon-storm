@@ -14,6 +14,9 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
 	if (!fonts_["dark_world"].loadFromFile(rootPath_+"/fonts/dark_world.ttf")) {
         std::cout << "Font load from "<<rootPath_+"/fonts/sansation.ttf failed"<<std::endl;
     }
+    if (!fonts_["batman"].loadFromFile(rootPath_+"/fonts/batmanforeveralternate.ttf")) {
+        std::cout << "Font load from "<<rootPath_+"/fonts/batmanforeveralternate.ttf failed"<<std::endl;
+    }
 
     std::cout<<"Loading textures to textures_[filename.png]"<<std::endl;
     //Load from /blocks

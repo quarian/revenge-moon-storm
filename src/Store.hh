@@ -18,6 +18,8 @@ public:
 	Store(GameState*, Player*);
 	Store(Game&, GameState*&, Player*);
 
+	~Store();
+
 	void init();
 	void resume() {} //Wont spawn child states
 	void update(float);
@@ -40,8 +42,7 @@ private:
 	int selxmax_;
 	int selymax_;
 
-	sf::Font storefont;
-
+	sf::Text* storetext_;
 
 	void initKeyboard();
 

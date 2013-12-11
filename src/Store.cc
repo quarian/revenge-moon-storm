@@ -23,6 +23,10 @@ Store::Store(
       GameState(game, stack),
       player_(player) {}
 
+Store::~Store() {
+    //The text CAN NOT be deleted here, because it will segfault (bug in SFML)
+}
+
 void Store::init() {
     initKeyboard();
 
@@ -33,7 +37,10 @@ void Store::init() {
     selxmax_ = 2;
     selymax_ = selmax_ / selxmax_;
 
-    storefont.loadFromFile("batmanforeveralternate.ttf");
+    storefont_.loadFromFile("batmanforeveralternate.ttf");
+
+    storetext_ = new sf::Text();
+    storetext_->setFont(storefont_);
 }
 
 void Store::update(float) {
@@ -82,13 +89,13 @@ void Store::draw() {
     //TEXT
 
     //player scrap amount
-    sf::Text player_scrap;
-    player_scrap.setFont(storefont);
-    std::ostringstream convert;
+    
+    std::stringstream convert;
     convert << player_->getInventory().getGold();
-    player_scrap.setString(convert.str());
-    player_scrap.setPosition(30, 30);
-    game_.draw(player_scrap);
+    storetext_->setString(convert.str());
+    storetext_->setPosition(30, 30);
+    storetext_->setColor(sf::Color::White);
+    game_.draw(*storetext_);
 }
 
 void Store::initKeyboard() {
@@ -116,7 +123,7 @@ void Store::keyDown(Direction dir) {
 }
 
 void Store::buyItem() {
-    if (sely_ != -1) {
+    if (selection_ != -1) {
         if (player_->getInventory().getGold() >= getPrice(getSelection())) {
             player_->getInventory().decreaseGold(getPrice(getSelection()));
             player_->getInventory().addItem(getSelection());
@@ -127,7 +134,7 @@ void Store::buyItem() {
 }
 
 void Store::sellItem() {
-    if (sely_ != -1) {
+    if (selection_ != -1) {
         if (player_->getInventory().getItemCount(getSelection()) > 0) {
             player_->getInventory().increaseGold(getPrice(getSelection()));
             player_->getInventory().sellItem(getSelection());
@@ -149,5 +156,5 @@ int Store::getPrice(std::string item) const {
 }
 
 std::string Store::getSelection() const {
-    return Item::names()[selx_ + sely_*10];
+    return Item::names()[selection_];
 }
