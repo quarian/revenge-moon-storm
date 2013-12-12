@@ -32,7 +32,7 @@ public:
     virtual ~Item();
 
     virtual void update(float) = 0;
-    virtual bool takeDamage(int) = 0;
+    virtual bool takeDamage(float) = 0;
 
     static std::vector<std::string> names(); //use this to access all the names of the items in the game
     static std::vector<std::string> passiveNames();
@@ -74,7 +74,7 @@ public:
     Treasure(Map&, MapBlock*, std::string, int);
 
     void update(float);
-    bool takeDamage(int) { return false; } //treasure cannot be destroyed
+    bool takeDamage(float) { return false; } //treasure cannot be destroyed
     int getWorth() const { return worth_; }
 private:
     int worth_; //non-zero for treasures, this value is added to the player's gold reserve
@@ -88,7 +88,7 @@ public:
 
     virtual void update(float) = 0;
     //all weapons get instantly destroyed as a consequence of an explosion or other source of damage
-    virtual bool takeDamage(int) = 0;
+    virtual bool takeDamage(float) = 0;
 
     int getRadius() const { return radius_; }
     int getPower() const { return power_; }
@@ -104,7 +104,7 @@ public:
     Weaponbox(Map&, MapBlock*);
 
     void update(float);
-    bool takeDamage(int) { return false; }
+    bool takeDamage(float) { return false; }
 
     std::string generateItem() const;
 
@@ -122,21 +122,21 @@ class NormalBomb : public Weapon {
 public:
     NormalBomb(Map&, MapBlock*, std::string);
     void update(float);
-    bool takeDamage(int);
+    bool takeDamage(float);
 };
 
 class CrucifixBomb : public Weapon {
 public:
     CrucifixBomb(Map&, MapBlock*, std::string);
     void update(float);
-    bool takeDamage(int);
+    bool takeDamage(float);
 };
 
 class Flamer : public Item {
 public:
     Flamer(Map&, MapBlock*, Direction, int=10, int=15, size_t=8, float=0.03f);
     void update(float);
-    bool takeDamage(int) { return false; }
+    bool takeDamage(float) { return false; }
 private:
     int spreadChance_;
     size_t telomere_;
@@ -149,7 +149,7 @@ class Mine : public Weapon {
 public:
     Mine(Map&, MapBlock*);
     void update(float);
-    bool takeDamage(int);
+    bool takeDamage(float);
     bool getArmed() const { return armed_; }
 private:
     bool armed_;
@@ -160,7 +160,7 @@ public:
     //integer is the iteration, boolean tells if this bomb was the first (to extend the initial blast time)
     CarpetBomb(Map&, MapBlock*, int, bool);
     void update(float);
-    bool takeDamage(int);
+    bool takeDamage(float);
     void explode();
 private:
     int iteration_;
@@ -174,7 +174,7 @@ class Explosion : public Item {
 public:
     Explosion(Map&, MapBlock*, float=0.3f);
     void update(float);
-    bool takeDamage(int) { return false; } // I AM INVINCIBLE
+    bool takeDamage(float) { return false; } // I AM INVINCIBLE
 private:
     float fusetime_;
 };
@@ -184,7 +184,7 @@ class BloodSplatter : public Item {
 public:
     BloodSplatter(Map&, MapBlock*, std::string="blood_splatter.png");
     void update(float) {}
-    bool takeDamage(int) { return false; }
+    bool takeDamage(float) { return false; }
 };
 
 class BugSplat : public BloodSplatter {
@@ -211,7 +211,7 @@ class Dustcloud : public Item {
 public:
     Dustcloud(Map&, MapBlock*);
     void update(float);
-    bool takeDamage(int) { return false; }
+    bool takeDamage(float) { return false; }
 private:
     float fusetime_;
 };
@@ -220,7 +220,7 @@ class Flame : public Item {
 public:
     Flame(Map&, MapBlock*);
     void update(float);
-    bool takeDamage(int) { return false; }
+    bool takeDamage(float) { return false; }
 private:
     float fusetime_;
     int anim_counter;

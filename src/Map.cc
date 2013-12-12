@@ -336,7 +336,7 @@ void Map::blast(Weapon* w) {
 void Map::blast(int radius, int power, MapBlock* location) {
     for (auto mb : getInRadius(location, radius)) {
         //std::cerr << "distance: " << getDistance(location, mb) << std::endl;
-        mb->takeDamage(std::max(5.0f, power - getDistance(location, mb) * 2)); //lower power over distance
+        mb->takeDamage(std::max(5.0f, power - getDistance(location, mb) * 2.0f)); //lower power over distance
         new Explosion(*this, mb);
     }
 }
@@ -355,7 +355,7 @@ void Map::crossblast(Weapon* w) {
 
     //The other squares take damage
     for (int i = 1; i < l; i++) {
-        int dmg = std::max(5, p - i*2);
+        float dmg = std::max(5.0f, p - i*2.0f);
 
         if (location->x_ - i > 0) {
             auto mb = getBlock(location->x_ - i, location->y_);

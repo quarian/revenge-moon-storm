@@ -101,19 +101,19 @@ NormalBomb::NormalBomb(Map& map, MapBlock* location, std::string name) :
 		Weapon(map, location, name, false, false, Direction::NULLDIR) {
 	if (name == "Small Bomb") {
 		radius_ = 1;
-		power_ = 25;
+		power_ = 25.0f;
 		fusetime_ = 1.0f;
 
 		buildSprite(5, "bomb_anim_small.png", fusetime_);    
 	} else if (name == "Large Bomb") {
 		radius_ = 2;
-		power_ = 60;
+		power_ = 60.0f;
 		fusetime_ = 1.0f;
 
 		buildSprite(5, "bomb_anim.png", fusetime_);
 	} else if (name == "Nuclear Bomb") {
         radius_ = 10;
-        power_ = 200;
+        power_ = 200.0f;
         fusetime_ = 3.0f;
 
         buildSprite(3, "nuclear_anim.png", fusetime_);
@@ -124,13 +124,13 @@ CrucifixBomb::CrucifixBomb(Map& map, MapBlock* location, std::string name) :
 		Weapon(map, location, name, false, false, Direction::NULLDIR) {
 	if (name == "Crucifix Bomb") {
 		radius_ = 5;
-		power_ = 40;
+		power_ = 40.0f;
 		fusetime_ = 1.5f;
 
 		buildSprite(4, "crucifix_anim_small.png", fusetime_);
 	} else if (name == "Large Crucifix Bomb") {
 		radius_ = 64;
-		power_ = 80;
+		power_ = 80.0f;
 		fusetime_ = 2.0f;
 
 		buildSprite(4, "crucifix_anim.png", fusetime_);
@@ -154,7 +154,7 @@ Mine::Mine(Map& map, MapBlock* mb) :
         Weapon(map, mb, "Mine", true, false, Direction::NULLDIR),
         armed_(false) {
     radius_ = 1;
-    power_ = 65;
+    power_ = 65.0f;
     fusetime_ = 0.3f;
 
     buildSprite(2, "mine_anim.png", 1.0f); //1 second blink time
@@ -168,7 +168,7 @@ CarpetBomb::CarpetBomb(Map& map, MapBlock* mb, int iteration, bool first) :
         first_(first) {
 
     radius_ = 1;
-    power_ = 25;
+    power_ = 25.0f;
     fusetime_ = first ? 1.5f : 0.2f;
 
     if (first)
@@ -250,7 +250,7 @@ void CarpetBomb::update(float dt) {
 
 //Weapon takeDamages
 
-bool NormalBomb::takeDamage(int) {
+bool NormalBomb::takeDamage(float) {
 	if (alive_) {
 		alive_ = false;
 		map_.blast(this);
@@ -258,7 +258,7 @@ bool NormalBomb::takeDamage(int) {
 	return true;
 }
 
-bool CrucifixBomb::takeDamage(int) {
+bool CrucifixBomb::takeDamage(float) {
 	if (alive_) {
 		alive_ = false;
 		map_.crossblast(this);
@@ -266,7 +266,7 @@ bool CrucifixBomb::takeDamage(int) {
 	return true;
 }
 
-bool Mine::takeDamage(int) {
+bool Mine::takeDamage(float) {
 	if (alive_) {
 		alive_ = false;
 		map_.blast(this);
@@ -274,7 +274,7 @@ bool Mine::takeDamage(int) {
 	return true;
 }
 
-bool CarpetBomb::takeDamage(int) {
+bool CarpetBomb::takeDamage(float) {
     if (first_ && alive_) {
         alive_ = false;
         explode();
@@ -360,6 +360,7 @@ Flame::Flame(Map& map, MapBlock* location) : Item(map, location, "flame", true, 
 
 void Flame::update(float dt) {
 	sprite_.update(sf::seconds(dt));
+
     location_->takeDamage(dps_*dt);
     if (alive_) {
         fusetime_ -= dt;

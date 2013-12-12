@@ -68,7 +68,7 @@ class MapBlock {
          */
         void clear();
         void weaken(float);
-        void takeDamage(int amount);
+        void takeDamage(float amount);
         float getToughness() const { return terrain_.toughness; }
         Terrain& getTerrain() { return terrain_; }
 

@@ -110,7 +110,7 @@ void MapBlock::collect(Inventory* inventory) {
 }
 
 
-void MapBlock::takeDamage(int amount) {
+void MapBlock::takeDamage(float amount) {
     // Weaken the terrain
     weaken(amount);
 
