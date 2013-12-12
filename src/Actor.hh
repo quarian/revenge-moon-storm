@@ -56,6 +56,7 @@ protected:
 
     bool digging_;
     float digPower_;
+    float digPowerInitial_;
     float health_;
     float maxHealth_;
     float vulnerability_;

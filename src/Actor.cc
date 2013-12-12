@@ -14,6 +14,7 @@ Actor::Actor(
         Walker(map, block, speed),
         digging_(false),
         digPower_(digPower),
+        digPowerInitial_(digPower),
         health_(health),
         maxHealth_(health),
         vulnerability_(1.0 - resistance),
@@ -40,6 +41,9 @@ bool Actor::heal(float amount) {
 
 
 void Actor::update(float dt) {
+    if (inventory_)
+        digPower_ = digPowerInitial_ + inventory_->getExtraMiningPower();
+
     if (!target_)
         findTarget(dt);
     else if (centered() && digging_)

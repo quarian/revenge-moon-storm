@@ -12,21 +12,21 @@
 */
 
 TinyBug::TinyBug(Map& map, MapBlock* mb) :
-        AIPlayerSeeker(map, mb, 10, 9.0, 15, 12) {
+        AIPlayerSeeker(map, mb, 10, 7.0, 15, 12) {
     initSprite(map.getGame()->graphicsManager_.getAnimation("tiny_bug"), sf::Color::Yellow);
     sprite_.setFrameTime(sf::seconds(0.07f));
 }
 
 
 GreenBug::GreenBug(Map& map, MapBlock* mb) :
-        AIPlayerSeeker(map, mb, 20, 5.5, 45, 15) {
+        AIPlayerSeeker(map, mb, 20, 4.5, 45, 15) {
     initSprite(map.getGame()->graphicsManager_.getAnimation("medium_bug"), sf::Color::Green);
     sprite_.setFrameTime(sf::seconds(0.10f));
 }
 
 
 Lurker::Lurker(Map& map, MapBlock* mb) :
-        AIPlayerSeeker(map, mb, 40, 6.0, 120, 20) {
+        AIPlayerSeeker(map, mb, 40, 5.2, 120, 20) {
     initSprite(map.getGame()->graphicsManager_.getAnimation("lurker"), sf::Color::Green);
     sprite_.setFrameTime(sf::seconds(0.10f));
 }
@@ -48,7 +48,7 @@ Scarab::Scarab(Map& map,
 
 
 ScarabQueen::ScarabQueen(Map& map, MapBlock* mb) :
-        AIPlayerSeeker(map, mb, 30, 2.5, 100, 15),
+        AIPlayerSeeker(map, mb, 30, 1.7, 100, 15),
         scarabs_({0, 0, 0}),
         launchCooldown_(0) {
     initSprite(map.getGame()->graphicsManager_.getAnimation("medium_bug"), sf::Color::Green);
