@@ -47,6 +47,7 @@ public:
 private:
     Map map_;
     std::vector<Player*> players_;
+    std::map<Player*, int> wins_;
     std::string mapName_;
     int nRounds_;
     int totalRounds_;

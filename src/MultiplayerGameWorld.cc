@@ -5,9 +5,11 @@
 MultiplayerGameWorld::MultiplayerGameWorld(
             GameState* parent,
             Map& map,
-            std::vector<Player*> players) :
+            std::vector<Player*> players,
+            std::map<Player*, int>& wins) :
         World(parent, map, players),
-        players_(players) {
+        players_(players),
+        wins_(wins) {
 }
 
 
@@ -15,9 +17,11 @@ MultiplayerGameWorld::MultiplayerGameWorld(
             Game& game,
             GameState*& stack,
             Map& map,
-            std::vector<Player*> players) :
+            std::vector<Player*> players,
+            std::map<Player*, int>& wins) :
         World(game, stack, map, players),
-        players_(players) {
+        players_(players),
+        wins_(wins) {
 }
 
 
@@ -27,6 +31,7 @@ void MultiplayerGameWorld::update(float dt) {
         for (auto p : players_) {
             if (p->getActor()) {
                 p->getInventory().increaseGold(1000); // Last man standing prize
+                wins_[p]++;
             }
         }
         terminate();

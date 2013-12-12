@@ -38,6 +38,8 @@ MultiplayerGame::MultiplayerGame(
 
 
 void MultiplayerGame::init() {
+    for (auto p : players_)
+        wins_[p] = 0;
     resume();
 }
 
@@ -77,7 +79,7 @@ void MultiplayerGame::playRound() {
         map_.spawnPlayer(players_[i], spawnPoints[i].first, spawnPoints[i].second);
 
     /* Launch Game! */
-    spawn(new MultiplayerGameWorld(this, map_, players_));
+    spawn(new MultiplayerGameWorld(this, map_, players_, wins_));
 }
 
 
@@ -85,13 +87,19 @@ void MultiplayerGame::showScore() {
     std::stringstream roundtitle;
     roundtitle << "Round " << (totalRounds_ - nRounds_)
                << " / "    << totalRounds_;
+    std::vector<std::string> msgs = { roundtitle.str() };
+    if (nRounds_ > 0) msgs.push_back("Scores:");
+    else msgs.push_back("Final Scores:");
+    msgs.push_back("");
+    msgs.push_back("");
+    msgs.push_back("Player              Wins               Scrap");
 
-    std::vector<std::string> msgs = {
-        roundtitle.str(),
-        ""
-    };
-
-    //for (auto p : players_) {
+    for (auto p : players_) {
+        std::stringstream playerrow;
+        playerrow << p->getName() << "                     " << wins_[p]
+                                  << "                     " << p->getInventory().getGold();
+        msgs.push_back(playerrow.str());
+    }
 
 
 
