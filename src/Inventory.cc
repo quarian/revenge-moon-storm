@@ -114,7 +114,9 @@ bool Inventory::collect(Item* item) {
 		increaseGold(t->getWorth());
         return true;
 	} else if (Weaponbox* w = dynamic_cast<Weaponbox*>(item)) {
-        addItem(w->generateItem());
+        for (int i = rand()%6; i > 0; i--) {
+            addItem(w->generateItem());
+        }
         return true;
     }
     return false;

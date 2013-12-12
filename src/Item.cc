@@ -157,7 +157,7 @@ CarpetBomb::CarpetBomb(Map& map, MapBlock* mb, int iteration, bool first) :
         first_(first) {
 
     radius_ = 1;
-    power_ = 20;
+    power_ = 25;
     fusetime_ = first ? 1.5f : 0.2f;
 
     if (first)
@@ -331,7 +331,7 @@ void Dustcloud::update(float dt) {
 Flame::Flame(Map& map, MapBlock* location) : Item(map, location, "flame", true, false, Direction::NULLDIR) {
 	fusetime_ = 0.2f;
 	anim_counter = 0;
-	power_ = 1; //one tick per fusetime_, the flame will be up for 1 second
+	power_ = 2; //one tick per fusetime_, the flame will be up for 1 second
 
 	buildSprite(4, "flame.png", fusetime_);
 	sprite_.setLooped(true);
