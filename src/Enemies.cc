@@ -119,7 +119,7 @@ bool ScarabQueen::launchScarabAtNearest(
 }
 
 void ScarabQueen::launchScarab(Actor* a) {
-    launchCooldown_ = 0.5f;
+    launchCooldown_ = 0.36;
     for (auto& s : scarabs_) {
         if (s == 0) {
             s = 5.0f;

@@ -35,7 +35,7 @@ public:
 
 class Scarab : public AIPlayerSeeker {
 public:
-    Scarab(Map&, MapBlock*, Actor*, float=10.0, float=2.0, int=20);
+    Scarab(Map&, MapBlock*, Actor*, float=10.0, float=1.2, int=20);
     void splatter();
     void think();
     void update(float);
