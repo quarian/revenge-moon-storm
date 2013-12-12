@@ -104,13 +104,16 @@ bool Inventory::useItem(std::string item, Map& map, MapBlock* mb, Direction dir,
                 else if (item == "Mine")
                         new Mine(map, mb);
                 else if (item == "Carpet Bomb")
-                        new CarpetBomb(map, mb, 6, true);
+                        new CarpetBomb(map, mb, 9, true);
                 else if (item == "Rocket Launcher") {
                         Rocket* rocket = new Rocket(map, mb->getBlock(dir), dir);
                         map.monsters.insert(rocket);
                     }
                 else if (item == "Health Pack") {
                     player->getActor()->heal(40);
+                }
+                else if (item == "Nuclear Bomb") {
+                    new NormalBomb(map, mb, item);
                 }
 
                return true;

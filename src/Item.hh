@@ -225,6 +225,7 @@ private:
     float fusetime_;
     int anim_counter;
     int power_;
+    float dps_;
 };
 
 

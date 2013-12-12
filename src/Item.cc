@@ -58,7 +58,8 @@ std::vector<std::string> Item::names() {
             "Mine",
             "Carpet Bomb",
             "Rocket Launcher",
-            "Health Pack"
+            "Health Pack",
+            "Nuclear Bomb"
 	};
 	return a;
 }
@@ -88,7 +89,7 @@ std::map<std::string, std::string> Item::descriptions() {
     d["Carpet Bomb"] = "A bomb that jumps unexpectedly around\nwhen it explodes. Can deal high damage\nwith luck.";
     d["Rocket Launcher"] = "A devastating projectile weapon.\nRockets explode on impact.\nNo rocket jumping allowed.";
     d["Health Pack"] = "Restores your health by 40 points.";
-
+    d["Nuclear Bomb"] = "The mother of all bombs. Devastates anything\ncaught in its radius. Can not be defused\neven with a kit.";
 	d["Pickaxe"] = "The moonminers' best tool! Allows you\nto mine blocks faster. Effect stacks.";
 
 	return d;
@@ -110,7 +111,13 @@ NormalBomb::NormalBomb(Map& map, MapBlock* location, std::string name) :
 		fusetime_ = 1.0f;
 
 		buildSprite(5, "bomb_anim.png", fusetime_);
-	}
+	} else if (name == "Nuclear Bomb") {
+        radius_ = 10;
+        power_ = 200;
+        fusetime_ = 3.0f;
+
+        buildSprite(3, "nuclear_anim.png", fusetime_);
+    }
 }
 
 CrucifixBomb::CrucifixBomb(Map& map, MapBlock* location, std::string name) : 
@@ -148,7 +155,7 @@ Mine::Mine(Map& map, MapBlock* mb) :
         armed_(false) {
     radius_ = 1;
     power_ = 65;
-    fusetime_ = 2.0f;
+    fusetime_ = 0.3f;
 
     buildSprite(2, "mine_anim.png", 1.0f); //1 second blink time
     sprite_.update(sf::seconds(0.0f)); //Just to make sure...
@@ -345,6 +352,7 @@ Flame::Flame(Map& map, MapBlock* location) : Item(map, location, "flame", true, 
 	fusetime_ = 0.2f;
 	anim_counter = 0;
 	power_ = 2; //one tick per fusetime_, the flame will be up for 1 second
+    dps_ = 8.0f;
 
 	buildSprite(4, "flame.png", fusetime_);
 	sprite_.setLooped(true);
@@ -352,6 +360,7 @@ Flame::Flame(Map& map, MapBlock* location) : Item(map, location, "flame", true, 
 
 void Flame::update(float dt) {
 	sprite_.update(sf::seconds(dt));
+    location_->takeDamage(dps_*dt);
     if (alive_) {
         fusetime_ -= dt;
         if (fusetime_ <= 0) {
@@ -359,7 +368,6 @@ void Flame::update(float dt) {
         	if (anim_counter++ > 4) {
 	            alive_ = false;
 	        }
-	       	location_->takeDamage(power_);
 	    }
     }
 }
