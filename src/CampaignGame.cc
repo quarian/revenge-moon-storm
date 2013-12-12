@@ -1,8 +1,10 @@
 #include "CampaignGame.hh"
-#include "DummyGameState.hh"
+#include "StoryScreen.hh"
 #include "Store.hh"
 
 #include <iostream>
+#include <vector>
+#include <string>
 
 CampaignGame::CampaignGame(GameState* parent, Player* player) :
         GameState(parent), map_(&game_), player_(player) {}
@@ -12,7 +14,7 @@ CampaignGame::CampaignGame(Game& game, GameState*& stack, Player* player) :
 
 
 void CampaignGame::init() {
-    phase_ = 1;
+    phase_ = 0;
     player_->setLives(3);
     flagVictorious_ = false;
     storeIsNext_ = false;
@@ -23,45 +25,53 @@ void CampaignGame::init() {
 void CampaignGame::resume() {
     std::cout << "Called resume() on CampaignGame, phase is " << phase_ << "\n";
 
-    if (phase_ >= 6) terminate();
+    if (phase_ >= 9) terminate();
     else {
-        /* If the player won the last round, move on to the next phase */
+        /* If victorious, advance */
         if (flagVictorious_) {
             flagVictorious_ = false;
-            phase_ += 1;
-        }
-
-        /* If out of lives, exit */
-        if (player_->getLives() <= 0) {
-            phase_ = 6; // telophase!
-            death();
-            // terminate();
-        }
-        /* If the player has beat all the levels */
-        else if (phase_ == 5) {
             phase_++;
-            victory();
         }
 
-        else if (storeIsNext_) {
+        if (player_->getLives() <= 0) { // Player dead
+            death();
+        }
+        else if (phase_ % 2 == 0) { // Some story phase
+            phase_++;
+            if (phase_ == 1) showStoryMoonbase();
+            else if (phase_ == 3) showStoryMoonbase();
+            else if (phase_ == 5) showStoryMoonbase();
+            else if (phase_ == 7) showStoryMoonbase();
+            else if (phase_ == 9) victory();
+        }
+        else if (storeIsNext_) { // Some store between game levels
             storeIsNext_ = false;
-            spawn(new Store(this, player_)); // TODO: replace with Store
-        } else {
+            spawn(new Store(this, player_));
+        }
+        else { // Actual game phase
             storeIsNext_ = true;
             if (phase_ == 1) launchLevelMoonbase();
-            else if (phase_ == 2) launchLevelTunnels();
-            else if (phase_ == 3) launchLevelCaverns();
-            else if (phase_ == 4) launchLevelBoss();
+            else if (phase_ == 3) launchLevelTunnels();
+            else if (phase_ == 5) launchLevelCaverns();
+            else if (phase_ == 7) launchLevelBoss();
         }
     }
 }
 
 
 void CampaignGame::victory() {
-    spawn(new DummyGameState(this));
+    std::vector<std::string> msg = {
+        "Victory!"
+    };
+    spawn(new StoryScreen(this, msg));
 }
 
 
 void CampaignGame::death() {
-    spawn(new DummyGameState(this));
+    phase_ = 9;
+
+    std::vector<std::string> msg = {
+        "You have died!"
+    };
+    spawn(new StoryScreen(this, msg));
 }

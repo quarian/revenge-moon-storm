@@ -27,7 +27,7 @@ class StoryScreen : public GameState {
 public:
 	//The constructor wants to know who is buying items. 
 	//Only one player accesses the store at a time
-	StoryScreen(GameState*, std::vector<std::string>g);
+	StoryScreen(GameState*, std::vector<std::string>);
 	StoryScreen(Game&, GameState*&, std::vector<std::string>);
 
 	~StoryScreen();

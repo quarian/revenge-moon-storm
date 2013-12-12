@@ -1,13 +1,19 @@
 #include "CampaignGame.hh"
 #include "CampaignGameWorld.hh"
-#include "DummyGameState.hh"
+#include "StoryScreen.hh"
 #include "Fixtures.hh"
 #include "Item.hh"
 
+#include <string>
+#include <vector>
 
-// void CampaignGame::showStoryMoonbase() {
-//     spawn(new DummyGameState(this));
-// }
+
+void CampaignGame::showStoryMoonbase() {
+    std::vector<std::string> msg = {
+        "Story 1"
+    };
+    spawn(new StoryScreen(this, msg));
+}
 
 
 void CampaignGame::launchLevelMoonbase() {

@@ -29,10 +29,10 @@ public:
     void launchLevelCaverns();
     void launchLevelBoss();
 
-    //void showStoryMoonbase();
-    //void showStoryTunnels();
-    //void showStoryCaverns();
-    //void showStoryBoss();
+    void showStoryMoonbase();
+    void showStoryTunnels();
+    void showStoryCaverns();
+    void showStoryBoss();
 
     void victory();
     void death();

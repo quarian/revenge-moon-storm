@@ -1,12 +1,17 @@
 #include "CampaignGame.hh"
 #include "CampaignGameWorld.hh"
-#include "DummyGameState.hh"
+#include "StoryScreen.hh"
 #include "Fixtures.hh"
 
+#include <string>
+#include <vector>
 
-// void CampaignGame::showStoryCaverns() {
-//     spawn(new DummyGameState(this));
-// }
+void CampaignGame::showStoryCaverns() {
+    std::vector<std::string> msg = {
+        "Story 3"
+    };
+    spawn(new StoryScreen(this, msg));
+}
 
 
 void CampaignGame::launchLevelCaverns() {

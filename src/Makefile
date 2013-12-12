@@ -35,6 +35,7 @@ SinglePlayerGame.cc\
 WorldGUI.cc\
 MapUtils.cc\
 MultiplayerGame.cc\
+StoryScreen.cc\
 AIPlayerSeeker.cc\
 Enemies.cc\
 Fixtures.cc\
