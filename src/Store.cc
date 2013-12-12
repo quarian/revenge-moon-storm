@@ -238,6 +238,7 @@ int Store::getPrice(std::string item) const {
     prices["Large Crucifix Bomb"] = 100;
     prices["Flamer"] = 100;
     prices["Mine"] = 100;
+    prices["Carpet Bomb"] = 100;
     prices["Pickaxe"] = 100;
 
     return prices[item];

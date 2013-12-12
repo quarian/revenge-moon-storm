@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <iostream>
 
 /*
  * Contains item implementations
@@ -54,7 +55,8 @@ std::vector<std::string> Item::names() {
             "Crucifix Bomb",
             "Large Crucifix Bomb",
             "Flamer",
-            "Mine"
+            "Mine",
+            "Carpet Bomb"
 	};
 	return a;
 }
@@ -81,7 +83,7 @@ std::map<std::string, std::string> Item::descriptions() {
 	d["Large Crucifix Bomb"] = "Extremely powerful bomb that works\njust like the normal version,\nbut extends into infinity.";
 	d["Flamer"] = "The best ranged weapon for fighting small\nbugs. Leaves burning ground for a while.";
 	d["Mine"] = "Anti-organism trap that arms shortly\nafter being deployed. Deals high\ndamage to close proximity.";
-
+    d["Carpet Bomb"] = "A bomb that jumps unexpectedly around\nwhen it explodes. Can deal high damage\nwith luck.";
 
 	d["Pickaxe"] = "The moonminers' best tool! Allows you\nto mine blocks faster. Effect stacks.";
 
@@ -141,12 +143,25 @@ Mine::Mine(Map& map, MapBlock* mb) :
         Weapon(map, mb, "Mine", true, false, Direction::NULLDIR),
         armed_(false) {
     radius_ = 1;
-    power_ = 30;
+    power_ = 65;
     fusetime_ = 2.0f;
 
     buildSprite(2, "mine_anim.png", 1.0f); //1 second blink time
     sprite_.update(sf::seconds(0.0f)); //Just to make sure...
     sprite_.setLooped(true);
+}
+
+CarpetBomb::CarpetBomb(Map& map, MapBlock* mb, int iteration, bool first) : 
+        Weapon(map, mb, "Carpet Bomb", true, false, Direction::NULLDIR),
+        iteration_(iteration),
+        first_(first) {
+
+    radius_ = 1;
+    power_ = 20;
+    fusetime_ = first ? 1.5f : 0.2f;
+
+    if (first)
+        buildSprite(3, "carpet_anim.png", fusetime_);
 }
 
 //Weapon updates
@@ -211,6 +226,17 @@ void Mine::update(float dt) {
 	}
 }
 
+void CarpetBomb::update(float dt) {
+    sprite_.update(sf::seconds(dt));
+    if (alive_) {
+        fusetime_ -= dt;
+
+        if (fusetime_ <= 0) {
+            explode();
+        }
+    }
+}
+
 //Weapon takeDamages
 
 bool NormalBomb::takeDamage(int) {
@@ -235,6 +261,14 @@ bool Mine::takeDamage(int) {
 		map_.blast(this);
 	}
 	return true;
+}
+
+bool CarpetBomb::takeDamage(int) {
+    if (first_ && alive_) {
+        alive_ = false;
+        explode();
+    }
+    return true;
 }
 
 //Non-weapons
@@ -314,5 +348,25 @@ void Flame::update(float dt) {
 	        }
 	       	location_->takeDamage(power_);
 	    }
+    }
+}
+
+//Other methods
+
+void CarpetBomb::explode() {
+    if (alive_) {
+        alive_ = false;
+        map_.blast(this);
+    }
+    if (iteration_ > 0) {
+
+        int rx, ry = -1;
+        while (map_.getBlock(rx, ry) == nullptr) {
+            rx = rand()%8 + location_->x_ - 4;
+            ry = rand()%8 + location_->y_ - 4;
+        }
+
+
+        new CarpetBomb(map_, map_.getBlock(rx, ry), iteration_ - 1, false);
     }
 }

@@ -155,6 +155,17 @@ private:
 	bool armed_;
 };
 
+class CarpetBomb : public Weapon {
+public:
+	//integer is the iteration, boolean tells if this bomb was the first (to extend the initial blast time)
+	CarpetBomb(Map&, MapBlock*, int, bool);
+	void update(float);
+	bool takeDamage(int);
+	void explode();
+private:
+	int iteration_;
+	bool first_;
+};
 
 /*
  * Item derivates
