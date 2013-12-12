@@ -36,16 +36,17 @@ std::map<std::string, size_t> Inventory::getNonzeroItems() {
 
 std::string Inventory::getNextItem(std::string const& name) const {
     // Try to find nonzero item between the given item and end()...
+    auto pn = Item::passiveNames();
     auto it = items_.find(name);
     if (it != items_.end())
         while (++it != items_.end()) {
-            if (std::find(Item::passiveNames().begin(), Item::passiveNames().end(), it->first) != Item::passiveNames().end()) continue;
+            if (std::find(pn.begin(), pn.end(), it->first) != pn.end()) continue;
             if (it->second > 0) return it->first;
     }
 
     // Try to find nonzero item between begin() and the given item...
     for (it = items_.begin(); it != items_.end(); it++) {
-        if (std::find(Item::passiveNames().begin(), Item::passiveNames().end(), it->first) != Item::passiveNames().end()) continue;
+        if (std::find(pn.begin(), pn.end(), it->first) != pn.end()) continue;
         if (it->second > 0)
             return it->first;
         if (it->first == name)

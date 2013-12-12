@@ -48,7 +48,7 @@ void Item::buildSprite(int frames, std::string filename, float totaltime) {
 //Two global use static methods for inventory and map generation
 
 std::vector<std::string> Item::names() {
-	return std::vector<std::string> {
+	static std::vector<std::string> a = {
             "Small Bomb",
             "Large Bomb",
             "Crucifix Bomb",
@@ -56,12 +56,14 @@ std::vector<std::string> Item::names() {
             "Flamer",
             "Mine"
 	};
+	return a;
 }
 
 std::vector<std::string> Item::passiveNames() {
-	return std::vector<std::string> {
+	static std::vector<std::string> a = {
 		"Pickaxe"
 	};
+	return a;
 }
 //Used mostly in the store.
 std::vector<std::string> Item::allNames() {
