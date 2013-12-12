@@ -127,5 +127,5 @@ bool Inventory::collect(Item* item) {
 }
 
 int Inventory::getExtraMiningPower() {
-    return items_["Pickaxe"]*40;
+    return items_["Pickaxe"]*10;
 }
