@@ -8,7 +8,19 @@
 
 void CampaignGame::showStoryCaverns() {
     std::vector<std::string> msg = {
-        "Story 3"
+        "The despair you felt earlier started to subside when you saw the",
+        "gruesome trail leading to the cavern entrance.",
+        "",
+        "When feelings depart, they leave a hole... and they get replaced by",
+        "something else.",
+        "",
+        "The emptiness starts filling up with anger.",
+        "",
+        "Then rage.",
+        "",
+        "You scream terrifying vow as you pass through into the cavern:",
+        "",
+        player_->getName() + " WILL HAVE REVENGE !!"
     };
     spawn(new StoryScreen(this, msg));
 }

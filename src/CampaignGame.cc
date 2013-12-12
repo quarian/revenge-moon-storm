@@ -39,9 +39,9 @@ void CampaignGame::resume() {
         else if (phase_ % 2 == 0) { // Some story phase
             phase_++;
             if (phase_ == 1) showStoryMoonbase();
-            else if (phase_ == 3) showStoryMoonbase();
-            else if (phase_ == 5) showStoryMoonbase();
-            else if (phase_ == 7) showStoryMoonbase();
+            else if (phase_ == 3) showStoryTunnels();
+            else if (phase_ == 5) showStoryCaverns();
+            else if (phase_ == 7) showStoryBoss();
             else if (phase_ == 9) victory();
         }
         else if (storeIsNext_) { // Some store between game levels
