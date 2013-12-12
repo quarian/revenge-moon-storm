@@ -23,8 +23,10 @@ void SinglePlayerMenu::keySelect() {
 	if (selectPressed_) return;
 	selectPressed_ = true;
 	
-	if (selectionKeys_[selectionIndex_] == "Start")		initPlayers();
-	if (selectionKeys_[selectionIndex_] == "Back" ) 	terminate();
+	if (selectionKeys_[selectionIndex_] == "Start") {
+            initPlayers();
+            start();
+        } else if (selectionKeys_[selectionIndex_] == "Back" ) 	terminate();
 }
 
 void SinglePlayerMenu::keyEscape() {
@@ -47,3 +49,4 @@ void SinglePlayerMenu::start() {
 	background_.setTexture(game_.graphicsManager_.getTexture("background_grid.png"));
     spawn(new CampaignGame(this, players_[0]));
 }
+

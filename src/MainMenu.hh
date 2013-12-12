@@ -20,7 +20,10 @@ public:
     MainMenu(Game&, GameState*&);
 
     void init();
-    void resume() {initKeyboard();}
+    void resume() {
+        std::cout << "Called resume on MainMenu\n";
+        initKeyboard();
+    }
     void keySelect();
     void keyEscape();
     

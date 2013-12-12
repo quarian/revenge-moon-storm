@@ -2,6 +2,8 @@
 #include "DummyGameState.hh"
 #include "Store.hh"
 
+#include <iostream>
+
 CampaignGame::CampaignGame(GameState* parent, Player* player) :
         GameState(parent), map_(&game_), player_(player) {}
 
@@ -19,47 +21,38 @@ void CampaignGame::init() {
 
 
 void CampaignGame::resume() {
-    /* If the player won the last round, move on to the next phase */
-    if (flagVictorious_) {
-        flagVictorious_ = false;
-        phase_ += 1;
-    }
+    std::cout << "Called resume() on CampaignGame, phase is " << phase_ << "\n";
 
-    /* If out of lives, exit */
-    if (player_->getLives() <= 0) {
-        phase_ = 6; // telophase!
-        // death();
-        // terminate();
-    }
-    /* If the player has beat all the levels */
-    else if (phase_ == 5) {
-        phase_++;
-        victory();
-    } else if (phase_ == 6) {
-        terminate();
-    }
+    if (phase_ >= 6) terminate();
+    else {
+        /* If the player won the last round, move on to the next phase */
+        if (flagVictorious_) {
+            flagVictorious_ = false;
+            phase_ += 1;
+        }
 
-    // COMMENTED OUT : Story panels (probably no time for these)
-    //if (phase_ == 2) {
-    //    terminate();
-    //} else if ((phase_ % 2) == 0) {
-    //    phase_++;
+        /* If out of lives, exit */
+        if (player_->getLives() <= 0) {
+            phase_ = 6; // telophase!
+            death();
+            // terminate();
+        }
+        /* If the player has beat all the levels */
+        else if (phase_ == 5) {
+            phase_++;
+            victory();
+        }
 
-    //    if (phase_ == 2) showStoryTunnels();
-    //    else if (phase_ == 4) showStoryCaverns();
-    //    else if (phase_ == 6) showStoryBoss();
-    //    else if (phase_ == 8) victory();
-    //
-    
-    else if (storeIsNext_) {
-        storeIsNext_ = false;
-        spawn(new Store(this, player_)); // TODO: replace with Store
-    } else {
-        storeIsNext_ = true;
-        if (phase_ == 1) launchLevelMoonbase();
-        else if (phase_ == 2) launchLevelTunnels();
-        else if (phase_ == 3) launchLevelCaverns();
-        else if (phase_ == 4) launchLevelBoss();
+        else if (storeIsNext_) {
+            storeIsNext_ = false;
+            spawn(new Store(this, player_)); // TODO: replace with Store
+        } else {
+            storeIsNext_ = true;
+            if (phase_ == 1) launchLevelMoonbase();
+            else if (phase_ == 2) launchLevelTunnels();
+            else if (phase_ == 3) launchLevelCaverns();
+            else if (phase_ == 4) launchLevelBoss();
+        }
     }
 }
 

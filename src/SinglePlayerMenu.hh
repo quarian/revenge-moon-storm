@@ -23,21 +23,21 @@ public:
     /* Ask for player name to save scores, then terminate */
     //void resume();
 
-	void keySelect();
-	void keyEscape();
-	
+    void keySelect();
+    void keyEscape();
+    
     void keySelReleased();
     void keyEscapeReleased();
 
 private:
-	/* Spawns SinglePlayerGame */
-	void start();
-	/* Creates Players */
-	void initPlayers();
-	
-	bool& selectPressed_;
-	bool& escPressed_;
-	
+    /* Spawns SinglePlayerGame */
+    void start();
+    /* Creates Players */
+    void initPlayers();
+    
+    bool& selectPressed_;
+    bool& escPressed_;
+    
 };
 
 #endif

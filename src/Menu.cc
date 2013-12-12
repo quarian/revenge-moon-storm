@@ -1,4 +1,5 @@
 #include "Menu.hh"
+#include <iostream>
 
 Menu::Menu(Game& game, GameState*& stack) : 
             GameState(game, stack),
@@ -29,21 +30,21 @@ void Menu::update(float dt) {
 }
 
 void Menu::resume() {
+    std::cout << "Called resume on Menu\n";
+    initKeyboard();
 
-    if (spawnCountter_<0) {
-        for (auto pl : players_) delete pl;
-        terminate();
-        initKeyboard();
-    }
-    else if    (spawnCountter_==0) {
-        spawnCountter_--;
-        start();
-    }
-    else {
-        spawn(new Store(this,players_[spawnCountter_-1]));
-        spawnCountter_--;
-    }
-    
+    //if (spawnCountter_<0) {
+    //    for (auto pl : players_) delete pl;
+    //    terminate();
+    //}
+    //else if    (spawnCountter_==0) {
+    //    spawnCountter_--;
+    //    start();
+    //}
+    //else {
+    //    spawn(new Store(this,players_[spawnCountter_-1]));
+    //    spawnCountter_--;
+    //}
 }
 
 void Menu::drawMenu() {

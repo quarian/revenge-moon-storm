@@ -18,7 +18,7 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
         std::cout << "Font load from "<<rootPath_+"/fonts/batmanforeveralternate.ttf failed"<<std::endl;
     }
 
-    std::cout<<"Loading textures to textures_[filename.png]"<<std::endl;
+    // std::cout<<"Loading textures to textures_[filename.png]"<<std::endl;
     //Load from /blocks
     loadTexture("Strong.png");
     loadTexture("Medium.png");
@@ -158,7 +158,6 @@ void GraphicsManager::loadTexture(std::string filename) {
         for (size_t i = 0; i!=pathOptions_.size(); i++) {
             std::string path = rootPath_+pathOptions_[i];
             if (texture.loadFromFile(rootPath_+pathOptions_[i]+"/"+filename)) {
-            	std::cout << "Loaded texture:"<<rootPath_+pathOptions_[i]+"/"+filename << std::endl;
                 texture.setSmooth(true);
                 textures_[filename] = texture;
                 return;
@@ -168,8 +167,6 @@ void GraphicsManager::loadTexture(std::string filename) {
             textures_[filename] = texture;
             return;
         }
-        std::cout << "Texture "+filename+"load failed"<<std::endl;
-        std::cout << "Tried from load images from:"<< std::endl << rootPath_ <<std::endl;
         for (auto folder : pathOptions_) {
             std::cout <<rootPath_<<folder<<std::endl;
         }
@@ -192,22 +189,3 @@ sf::Text* GraphicsManager::getText(std::string id) {
         return texts_[id];
     return NULL;
 }
-
-
-/*
-void GraphicsManager::setTexture(sf::Sprite& sprite, std::string name) {
-    sprite.setTexture(textures_[name]);
-}
-
-void GraphicsManager::setSpritePosition(std::string name, int x, int y) {
-    sprites_[name].setPosition(x, y);
-}
-
-void GraphicsManager::setAnimatedSpritePosition(std::string name, int x, int y) {
-    animatedSprites_[name].setPosition(x, y);
-}
-
-void GraphicsManager::setTextPosition(std::string name, int x, int y) {
-    texts_[name].setPosition(x, y);
-}
-*/
