@@ -41,7 +41,7 @@ void CampaignGame::launchLevelMoonbase() {
 
     // Essential elements
     map_.spawnPlayer(player_, 4, 3);
-    new Fixtures::LevelExit(map_, map_.getBlock(1, 14), flagVictorious_, {player_});
+    new Fixtures::LevelExit(map_, map_.getBlock(62, 1), flagVictorious_, {player_});
 
     spawn(new CampaignGameWorld(this, map_, player_, flagVictorious_));
 }
