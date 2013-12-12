@@ -29,7 +29,7 @@ void CampaignGame::launchLevelTunnels() {
 
     // Essential elements
     map_.spawnPlayer(player_, 6, 36);
-    new Fixtures::LevelExit(map_, map_.getBlock(62, 1), flagVictorious_, {player_});
+    new Fixtures::LevelExit(map_, map_.getBlock(62, 1), flagVictorious_, {player_}, "hole_to_light.png");
     
     spawn(new CampaignGameWorld(this, map_, player_, flagVictorious_));
 }

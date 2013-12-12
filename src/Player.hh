@@ -41,6 +41,7 @@ public:
 
     void setLives(size_t lives) { lives_ = lives; }
     ControlledActor* getActor() { return avatar_; }
+    bool exit() { return clearAvatar(); }
 
     /* Creates and returns a new PlayerInterface to this Player. The callee
      * assumes ownership of the dynamically created object.

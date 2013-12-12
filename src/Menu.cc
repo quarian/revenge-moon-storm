@@ -30,7 +30,6 @@ void Menu::update(float dt) {
 }
 
 void Menu::resume() {
-    std::cout << "Called resume on Menu\n";
     initKeyboard();
 
     //if (spawnCountter_<0) {

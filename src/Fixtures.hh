@@ -8,7 +8,7 @@ class Player;
 namespace Fixtures {
     class LevelExit : public Item {
     public:
-        LevelExit(Map&, MapBlock*, bool&, std::vector<Player*>);
+        LevelExit(Map&, MapBlock*, bool&, std::vector<Player*>, std::string="");
         bool takeDamage(int) { return false; }
         void update(float);
         Player* getExiter() const { return exiter_; }

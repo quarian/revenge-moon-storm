@@ -23,8 +23,6 @@ void CampaignGame::init() {
 
 
 void CampaignGame::resume() {
-    std::cout << "Called resume() on CampaignGame, phase is " << phase_ << "\n";
-
     if (phase_ >= 9) terminate();
     else {
         /* If victorious, advance */

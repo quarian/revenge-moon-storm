@@ -27,7 +27,7 @@ CampaignGameWorld::CampaignGameWorld(
 
 
 void CampaignGameWorld::update(float dt) {
-    if (timeToExit_ > -1000) {
+    if (timeToExit_ != -2000) {
         timeToExit_ -= dt;
 
         if (timeToExit_ < 0)
@@ -35,6 +35,8 @@ void CampaignGameWorld::update(float dt) {
 
     } else if (player_->getActor() == nullptr || flagVictorious_) {
         timeToExit_ = 1;
+        if (player_->exit())
+            map_.players.erase(player_);
     }
 
     World::update(dt);

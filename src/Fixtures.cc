@@ -6,14 +6,20 @@ Fixtures::LevelExit::LevelExit(
         Map& map,
         MapBlock* mb,
         bool& flagVictory,
-        std::vector<Player*> players
+        std::vector<Player*> players,
+        std::string animation
     ) :
         Item(map, mb, "Level Exit", true, false, Direction::NULLDIR),
         flagVictory_(flagVictory),
         players_(players),
         exiter_(nullptr)
 {
-    buildSprite(4, "portal_spritesheet.png", 1);
+    if (animation == "") {
+        buildSprite(4, "portal_spritesheet.png", 1);
+    } else {
+        buildSprite(1, animation, 0.3);
+    }
+
     sprite_.setLooped(true);
 }
 

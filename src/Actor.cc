@@ -105,6 +105,9 @@ void Actor::knock(Direction dir) {
     else if (!target_->isPassable()) {
         if (target_->isDiggable() && isDigger()) digging_ = true;
         else target_ = nullptr;
+    } else {
+        if (inventory_)
+            target_->collect(inventory_);
     }
 }
 
@@ -116,8 +119,6 @@ void Actor::proceed() {
     } else {
         target_->enter(this);
         location_->exit(this);
-        if (inventory_)
-            location_->collect(inventory_);
         location_ = target_;
         dPos_ = -facing_ * 0.5;
     }

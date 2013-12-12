@@ -41,7 +41,7 @@ void CampaignGame::launchLevelMoonbase() {
 
     // Essential elements
     map_.spawnPlayer(player_, 4, 3);
-    new Fixtures::LevelExit(map_, map_.getBlock(62, 1), flagVictorious_, {player_});
+    new Fixtures::LevelExit(map_, map_.getBlock(61, 2), flagVictorious_, {player_}, "hole_ladders.png");
 
     spawn(new CampaignGameWorld(this, map_, player_, flagVictorious_));
 }
