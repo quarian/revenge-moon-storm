@@ -469,7 +469,7 @@ An interesting approach is used to make the paths that AI monsters take when "wa
 Basically, when the monster sees no player in range, it cycles through a "move" step and a "sleep" step.
 In the "move" step, the monster picks a reachable map block within a given distance at random,
 then moves to it along the shortest path. (This two-step method is chosen in favor of directly using a random walk because
-itensures that the monster won't saw back and forth between two blocks, which looks really stupid.) 
+it ensures that the monster won't saw back and forth between two blocks, which looks really stupid.) 
 In the "sleep" step, the monster stands still in the same place for a randomized amount of time.
 This is again because the AI movement would look very restless and not at all organic
 if the monsters were <em>always</em> going somewhere.
@@ -484,7 +484,6 @@ With this approach, AI actors have a natural-looking "wander" behavior.
 
 <p>
 <ol>
-    <li> <span class="code">sf::Text</span> leaks memory because the destructor of it chrashes the game. Therefore most of the <span class="code">sf::Text</span> are stored in a map in <span class="code">GraphicsManager</span> to have them all in the same place and to keep them alive, until the game ends. This is a know <a href="#refs">SFML-bug</a>.</li>
     <li>Not strictly a bug, but the editor's code quality is terrible and it lacks features (you might notice that you can't place monsters, for example). This might be fixed by tomorrow.</li>
     <li> <span class="code">sf::Text</span> leaks memory because the destructor of it chrashes the game. Therefore all the <span class="code">sf::Text</span> are stored in a map in <span class="code">GraphicsManager</span> to have them all in the same place and to keep them alive, until the game ends. This is a known <a href="#refs">SFML-bug</a>.</li>
     <li>After a game finishes, the enter key (select menu item function) is sometimes unresponsive (but it works eventually).</li>
