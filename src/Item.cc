@@ -56,7 +56,8 @@ std::vector<std::string> Item::names() {
             "Large Crucifix Bomb",
             "Flamer",
             "Mine",
-            "Carpet Bomb"
+            "Carpet Bomb",
+            "Rocket Launcher"
 	};
 	return a;
 }

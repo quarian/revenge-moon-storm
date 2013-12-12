@@ -1,5 +1,7 @@
 #include "Inventory.hh"
 #include "Item.hh"
+#include "Rocket.hh"
+
 #include <algorithm>
 #include <string>
 
@@ -12,18 +14,16 @@ Inventory::Inventory() {
 
         // TEST LINE -- remove eventually
         items_["Small Bomb"] = 20;
-        items_["Large Bomb"] = 20;
-        items_["Crucifix Bomb"] = 20;
-        items_["Large Crucifix Bomb"] = 20;
+        items_["Large Bomb"] = 10;
+        items_["Crucifix Bomb"] = 6;
+        items_["Large Crucifix Bomb"] = 2;
         items_["Flamer"] = 10;
-        items_["Mine"] = 20;
-        items_["Carpet Bomb"] = 20;
+        items_["Mine"] = 8;
+        items_["Carpet Bomb"] = 5;
+        items_["Rocket Launcher"] = 8;
         items_["Pickaxe"] = 5;
-
-
-
-
 }
+
 Inventory::~Inventory() {}
 
 std::map<std::string, size_t> Inventory::getNonzeroItems() {
@@ -103,6 +103,10 @@ bool Inventory::useItem(std::string item, Map& map, MapBlock* mb, Direction dir)
                         new Mine(map, mb);
                 else if (item == "Carpet Bomb")
                         new CarpetBomb(map, mb, 6, true);
+                else if (item == "Rocket Launcher") {
+                        Rocket* rocket = new Rocket(map, mb->getBlock(dir), dir);
+                        map.monsters.insert(rocket);
+                    }
 
                return true;
 	}

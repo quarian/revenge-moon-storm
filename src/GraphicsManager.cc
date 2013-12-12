@@ -27,6 +27,7 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
     loadTexture("Sand.png");
     loadTexture("fow.png");
     loadTexture("unexplored.png");
+    loadTexture("rocket_anim.png");
     
     //Load from /players
     frontToEnd();
@@ -71,7 +72,7 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
     walkingPlayer.addFrame(sf::IntRect(16,0,16,16));
     walkingPlayer.addFrame(sf::IntRect(16*2,0,16,16));
     animations_["walking_player"] = walkingPlayer;
-    
+
     Animation diggingPlayer;
     diggingPlayer.setSpriteSheet(getTexture("digger_spritesheet.png"));
     diggingPlayer.addFrame(sf::IntRect(0,0,16,16));
@@ -131,6 +132,12 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
     
     animations_["explosion_1"] = explosion1;
     
+    Animation rocket;
+    rocket.setSpriteSheet(getTexture("rocket_anim.png"));
+    rocket.addFrame(sf::IntRect(0,0,16,16));
+    rocket.addFrame(sf::IntRect(16,0,16,16));
+    rocket.addFrame(sf::IntRect(16*2,0,16,16));
+    animations_["rocket"] = rocket;
     
    
     /*sf::Text paused("Paused",font_,50);

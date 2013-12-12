@@ -39,6 +39,7 @@ MapUtils.cc\
 StoryScreen.cc\
 AIPlayerSeeker.cc\
 Enemies.cc\
+Rocket.cc\
 Fixtures.cc\
 CampaignGame.cc\
 CampaignGameWorld.cc\

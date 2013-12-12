@@ -76,7 +76,9 @@ class MapBlock {
 
         std::vector<ControlledActor*> getPlayers();
 
-        bool hasWalkers();
+        /* Are there any walkers here? Optional parameter: are there any walkers
+         * EXCEPT this one here? */
+        bool hasWalkers(Walker* =nullptr);
         
 
     private:

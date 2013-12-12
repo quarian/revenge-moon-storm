@@ -9,28 +9,28 @@ bool MapObjectManager::place(char signifier, Map& map, MapBlock* mb) {
         case 'x': {
             auto bug = new TinyBug(map, mb);
             map.monsters.insert(bug);
-            mb->enter(bug);
+            // mb->enter(bug);
             return true;
             break;
         }
         case 'X': {
             auto bug = new GreenBug(map, mb);
             map.monsters.insert(bug);
-            mb->enter(bug);
+            // mb->enter(bug);
             return true;
             break;
         }
         case 'L': {
             auto lurker = new Lurker(map, mb);
             map.monsters.insert(lurker);
-            mb->enter(lurker);
+            // mb->enter(lurker);
             return true;
             break;
         }
         case 'Q': {
             auto queen = new ScarabQueen(map, mb);
             map.monsters.insert(queen);
-            mb->enter(queen);
+            // mb->enter(queen);
             return true;
             break;
         }

@@ -52,7 +52,7 @@ void StoryScreen::init() {
 void StoryScreen::update(float dt) {
     if (!passed_)
         timer_ += dt;
-    if (timer_ > 1.0f) 
+    if (timer_ > 0.7f) 
         passed_ = true;
 
     draw();
