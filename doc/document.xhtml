@@ -60,7 +60,7 @@ body {
 
 <h3>Last updated: </h3>
 
-<p>2013-12-11</p>
+<p>2013-12-12</p>
 
 
 
@@ -112,7 +112,7 @@ Two game modes are available:
     <tr>
         <td class="tb1"><b>Multiplayer game</b></td>
          <td class="tb2">
-             Two-player hotseat game on a randomly generated map.
+             Two-player hotseat game in a pre-created map or in a randomly generated map.
              Collect the most scrap to win.
          </td>
     </tr>
@@ -223,7 +223,7 @@ The different game states, represented by <span class="code">GameState</span> ob
 form a state stack structure.
 When the game starts, a <span class="code">MainMenu</span> state is pushed onto the stack and starts receiving input.
 Depending on the user's input, it can spawn a number of different states,
-such as <span class="code">CampaignGame</span> and <span class="code">MultiplayerGame</span>.
+such as <span class="code">SinglePlayerMenu</span>, <span class="code">MultiPlayerMenu</span> or <span class="code">MapEditor</span>.
 When such a state is spawned, it gets pushed onto the state stack and becomes the active state.
 It remains active until it either spawns another state and transfers control to it,
 or terminates and returns control to the state that spawned it.
@@ -232,6 +232,17 @@ that is, when the main menu exits, so does the program.
 </p>
 
 <img src="gamestates.svg" width="100%" />
+
+<!--
+<p>Comments</p>
+-->
+
+<h3>Game managers</h3>
+
+<p>
+
+Game managers (<span class="code">EventManager</span>, <span class="code">GraphicsManager</span>, <span class="code">WindowManager</span>) are responsible from the basic SFML related needs of the game. <span class="code">EventManager</span> handles the initialization of <span class="code">KeyInterfaces</span> and transmitting the input data to the current <span class="code">KeyInterface</span>. <span class="code">GraphicsManager</span> handles the graphics initialization such as loading fonts and textures and creating animations. <span class="code">WindowManager</span> adds a modifiable game specific interface to <span class="code">sf::RenderWindow</span>.
+</p>
 
 <h3>The world controller</h3>
 
@@ -377,15 +388,14 @@ program tries to draw a line to every border block and as long as there is nothi
 those blocsk visible. Drawing of the line ends as soon as it hits something impassable.
 )
 </p>
-<!--
-<p>In this chapter you must describe the data structures and algorithms used in your program. Dont't put
-your code here, but describe the data structures and algorithms using natural language (you can also add pictures).</p>
--->
+
 
 <h2>Known bugs</h2>
 
 <p>
-NO. EVERYTHING IS PERFECT.
+<ol>
+    <li> <span class="code">sf::Text</span> leaks memory because the destructor of it chrashes the game. Therefore all the <span class="code">sf::Text</span> are stored in a map in <span class="code">GraphicsManager</span> to have them all in the same place and to keep them alive, until the game ends. This is a know <a href="#refs">SFML-bug</a>.</li>
+</ol>
 </p>
 
 <!--
@@ -431,7 +441,9 @@ decreased. And if your code segfaults, it is even worse and your points will be 
             <span class="code">EventManager</span>,
             <span class="code">GraphicsManager</span>,
             <span class="code">WindowManager</span><br/>
-            Game menus and graphics<br/>
+            <span class="code">Menu</span> and inheriting classes: <span class="code"> MainMenu</span>,<span class="code"> SinglePlayerMenu</span>, <span class="code"> MultiPlayerMenu</span> <br/>
+
+            Game graphics<br/>
         </td>
     </tr>
 </table>
@@ -469,6 +481,7 @@ as opposed to just plopping something on the map and seeing if it does what it o
     <p>Things about maze generation, <a href="http://en.wikipedia.org/wiki/Maze_generation_algorithm">Wikipedia on maze generation</a>, read 11.12.2013</p>
     <p>Ideas on map generation, <a href="http://pcg.wikidot.com/pcg-algorithm:dungeon-generation">Dungeon generation algorithms</a>, read 11.12.2013</p>
     <p>A* pathfinding algorithm, <a href="https://en.wikipedia.org/wiki/A*_search_algorithm">Wikipedia</a>, read 12.12.2013</p>
+    <p>sf::Text issues, <a href="http://en.sfml-dev.org/forums/index.php?topic=6901.0">Forum discussion</a>, <a href="https://github.com/LaurentGomila/SFML/issues/329">SFML issues</a>, read 12.12.2013</p>
 </div>
 
 </body>
