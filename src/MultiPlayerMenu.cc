@@ -6,83 +6,83 @@
 
 
 MultiPlayerMenu::MultiPlayerMenu(Game& game, GameState*& stack, bool& selectPressed, bool& escPressed) : 
-				Menu(game, stack),  
-				playerCount_(2), 
-				selectPressed_(selectPressed), 
-				escPressed_(escPressed), 
-				mapIndex_(0) { }
+                Menu(game, stack),  
+                playerCount_(2), 
+                selectPressed_(selectPressed), 
+                escPressed_(escPressed), 
+                mapIndex_(0) { }
 
 void MultiPlayerMenu::init() {
 
-	mapNames_ = {"random","random maze"};
-	readMapNames();
-	
-	setTitle("Multiplayer ");
+    mapNames_ = {"random","random maze"};
+    readMapNames();
+    
+    setTitle("Multiplayer ");
 
-	addMenuSelection("Start", 30);
-	addMenuSelection("Players", 30);
-	updateText("Players","< Players: " + std::to_string(playerCount_)+" >");
-	addMenuSelection("Map", 30);
-	updateText("Map","< Map: " + mapNames_[mapIndex_]+" >");
-	addMenuSelection("Scarp", 30);
-	updateText("Scarp","< Scarp: " + std::to_string(scarp_) +" >");	
-	
-	addMenuSelection("Back", 30);
-	
-	keySets_.push_back(PlayerInterface::WASD_DVORAK);
-	keySets_.push_back(PlayerInterface::ARROWS);
-	
-	initKeyboard();
-	
+    addMenuSelection("Start", 30);
+    addMenuSelection("Players", 30);
+    updateText("Players","< Players: " + std::to_string(playerCount_)+" >");
+    addMenuSelection("Map", 30);
+    updateText("Map","< Map: " + mapNames_[mapIndex_]+" >");
+    addMenuSelection("Scarp", 30);
+    updateText("Scarp","< Scarp: " + std::to_string(scrap_) +" >");    
+    
+    addMenuSelection("Back", 30);
+    
+    keySets_.push_back(PlayerInterface::WASD_DVORAK);
+    keySets_.push_back(PlayerInterface::ARROWS);
+    
+    initKeyboard();
+    
 }
     
 void MultiPlayerMenu::keySelect() {
-	if (selectPressed_) return;
-	selectPressed_ = true;
+    if (selectPressed_) return;
+    selectPressed_ = true;
 
-	if (selectionKeys_[selectionIndex_] == "Start") 	initPlayers();
-	if (selectionKeys_[selectionIndex_] == "Back" ) 	terminate();
+    if (selectionKeys_[selectionIndex_] == "Start")     initPlayers();
+    if (selectionKeys_[selectionIndex_] == "Back" )     terminate();
 }
 
 void MultiPlayerMenu::keyRight() {
-	if (selectionKeys_[selectionIndex_] == "Players") {
-		if (playerCount_== 4) return;
-		playerCount_++;
-		updateText("Players","< Players: " + std::to_string(playerCount_)+" >");
-	}
-	if (selectionKeys_[selectionIndex_] == "Map") {
-		mapIndex_++;
-		if (mapIndex_== mapNames_.size()) mapIndex_=0;
-		updateText("Map","< Map: "+ mapNames_[mapIndex_] +" >");
-	}
-	if (selectionKeys_[selectionIndex_] == "Scarp") {
-		if (scarp_>=1000000000) return;
-		scarp_+=50;
-		updateText("Scarp","< Scarp: "+ std::to_string(scarp_) +" >");
-	}
+    if (selectionKeys_[selectionIndex_] == "Players") {
+        if (playerCount_== 4) return;
+        playerCount_++;
+        updateText("Players","< Players: " + std::to_string(playerCount_)+" >");
+    }
+    if (selectionKeys_[selectionIndex_] == "Map") {
+        mapIndex_++;
+        if (mapIndex_== mapNames_.size()) mapIndex_=0;
+        updateText("Map","< Map: "+ mapNames_[mapIndex_] +" >");
+    }
+    if (selectionKeys_[selectionIndex_] == "Scarp") {
+        if (scrap_>=1000000000) return;
+        scrap_+=50;
+        updateText("Scarp","< Scarp: "+ std::to_string(scrap_) +" >");
+    }
 }
 void MultiPlayerMenu::keyLeft() {
-	if (selectionKeys_[selectionIndex_] == "Players") {
-		if (playerCount_== 2) return;
-		playerCount_--;
-		updateText("Players","< Players: " + std::to_string(playerCount_)+" >");
-	}
-	if (selectionKeys_[selectionIndex_] == "Map") {
-		if (mapIndex_== 0) mapIndex_ = mapNames_.size();
-		mapIndex_--;
-		updateText("Map","< Map: "+ mapNames_[mapIndex_] +" >");
-	}
-	if (selectionKeys_[selectionIndex_] == "Scarp") {
-		if (scarp_== 0) return;
-		scarp_-=50;
-		updateText("Scarp","< Scarp: "+ std::to_string(scarp_) +" >");
-	}	
+    if (selectionKeys_[selectionIndex_] == "Players") {
+        if (playerCount_== 2) return;
+        playerCount_--;
+        updateText("Players","< Players: " + std::to_string(playerCount_)+" >");
+    }
+    if (selectionKeys_[selectionIndex_] == "Map") {
+        if (mapIndex_== 0) mapIndex_ = mapNames_.size();
+        mapIndex_--;
+        updateText("Map","< Map: "+ mapNames_[mapIndex_] +" >");
+    }
+    if (selectionKeys_[selectionIndex_] == "Scarp") {
+        if (scrap_== 0) return;
+        scrap_-=50;
+        updateText("Scarp","< Scarp: "+ std::to_string(scrap_) +" >");
+    }    
 }
 
 void MultiPlayerMenu::keyEscape() {
-	if (escPressed_) return;
-	escPressed_ = true;
-	terminate();
+    if (escPressed_) return;
+    escPressed_ = true;
+    terminate();
 }
 
 void MultiPlayerMenu::keySelReleased() {selectPressed_ = false;}
@@ -90,18 +90,18 @@ void MultiPlayerMenu::keySelReleased() {selectPressed_ = false;}
 void MultiPlayerMenu::keyEscapeReleased() {escPressed_ = false;}
 
 void MultiPlayerMenu::initPlayers() {
-	size_t j = 0;
-	for (size_t i=0;i!=playerCount_;i++,j++) {
-		if (j==keySets_.size()) j=0;
-		players_.push_back(new Player(std::to_string(i+1),keySets_[i]));
-	}
-	spawnCountter_=playerCount_;
-	resume();
+    size_t j = 0;
+    for (size_t i=0;i!=playerCount_;i++,j++) {
+        if (j==keySets_.size()) j=0;
+        players_.push_back(new Player(std::to_string(i+1),keySets_[i]));
+    }
+    spawnCountter_=playerCount_;
+    resume();
 }
 
 void MultiPlayerMenu::start() {
-	background_.setTexture(game_.graphicsManager_.getTexture("background_grid.png"));
-	spawn(new MultiplayerGame(this, players_,mapNames_[mapIndex_]));
+    background_.setTexture(game_.graphicsManager_.getTexture("background_grid.png"));
+    spawn(new MultiplayerGame(this, players_,mapNames_[mapIndex_]));
 }
 
 void MultiPlayerMenu::readMapNames() {
@@ -111,12 +111,12 @@ void MultiPlayerMenu::readMapNames() {
     if (n < 0) perror("scandir");
     else {
         for(i =0 ; i < n; ++i) {
-        	char *tmp;
-			tmp = dircontent[i]->d_name;
-			std::string str(tmp);
-			if (str.find(".map") != std::string::npos) {
-				mapNames_.push_back(str);
-			}
+            char *tmp;
+            tmp = dircontent[i]->d_name;
+            std::string str(tmp);
+            if (str.find(".map") != std::string::npos) {
+                mapNames_.push_back(str);
+            }
             free(dircontent[i]);
         }
         free(dircontent);

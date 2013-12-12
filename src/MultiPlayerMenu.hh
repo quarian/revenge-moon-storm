@@ -26,31 +26,31 @@ public:
 
     void keyLeft();
     void keyRight();
-	void keySelect();
-	void keyEscape();
-	
+    void keySelect();
+    void keyEscape();
+    
     void keySelReleased();
     void keyEscapeReleased();
     
 private:
 
-	/* Spawns MultiPlayerGame */
-	void start();
-	/* Creates Players */
-	void initPlayers();
-	
-	std::vector<PlayerInterface::KeySet> keySets_;
-	size_t playerCount_;
-	
-	bool& selectPressed_;
-	bool& escPressed_;
+    /* Spawns MultiPlayerGame */
+    void start();
+    /* Creates Players */
+    void initPlayers();
+    
+    std::vector<PlayerInterface::KeySet> keySets_;
+    size_t playerCount_;
+    
+    bool& selectPressed_;
+    bool& escPressed_;
 
-	/* Reads the map names from maps dir to mapNames_ vector */
-	void readMapNames();
-	std::vector<std::string> mapNames_;
-	size_t mapIndex_;
+    /* Reads the map names from maps dir to mapNames_ vector */
+    void readMapNames();
+    std::vector<std::string> mapNames_;
+    size_t mapIndex_;
 
-	
+    
 };
 
 #endif

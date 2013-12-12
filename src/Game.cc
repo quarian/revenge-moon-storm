@@ -16,7 +16,6 @@
 Game::Game() : stack_(nullptr),
                isRunning_(true),
                rootPath_("."),
-               // isPaused_(true),
                editor_(false),
                map_filename_("new.map"),
                eventManager_(window_, isRunning_),
@@ -26,7 +25,6 @@ Game::Game() : stack_(nullptr),
     window_.launchWindow();
     graphicsManager_.initializeGraphics(rootPath_);
     terrainManager_.init("terrain.cfg");
-    // eventManager_.registerInterface(new GlobalGameInterface(this));
     background_.setTexture(graphicsManager_.getTexture("background_grid.png"));
 }
 
@@ -43,7 +41,6 @@ Game::Game(bool editor, std::string map_filename) : stack_(nullptr),
     window_.launchWindow();
     graphicsManager_.initializeGraphics(rootPath_);
     terrainManager_.init("terrain.cfg");
-    // eventManager_.registerInterface(new GlobalGameInterface(this));
     background_.setTexture(graphicsManager_.getTexture("background_grid.png"));
 }
 
@@ -55,22 +52,13 @@ Game::~Game() {
 
 void Game::main() {
     srand(time(NULL)); // Init rand
-	//stack_ = new MainMenu(*this, stack_, fonts_, background_);
+    //stack_ = new MainMenu(*this, stack_, fonts_, background_);
 	
-    //Player* kafka = new Player("Kafka");
-    //Player* dostojevsky = new Player("Dostojevsky", PlayerInterface::WASD_DVORAK);
     if (editor_) {
         stack_ = new MapEditor(*this, stack_, map_filename_);
-    }
-    else
+    } else {
         stack_ = new MainMenu(*this, stack_);
-    //stack_ = new SinglePlayerGame(*this, stack_, kafka);
-    //stack_ = new MultiplayerGame(*this, stack_, {kafka, dostojevsky});
-    //stack_ = new CampaignGame(*this, stack_, kafka);
-    // stack_ = new MultiplayerGame(*this, stack_, {kafka, dostojevsky});
-    //stack_ = new CampaignGame(*this, stack_, kafka);
-    // stack_ = new DummyGameState(*this, stack_);
-    //stack_ = new MainMenu(*this, stack_, fonts_, background_);
+    }
 
     clock_.restart();
     stack_->init();
@@ -91,9 +79,6 @@ void Game::main() {
             window_.display();
         }
     }
-
-    //delete kafka;
-    //delete dostojevsky;
 }
 
 

@@ -20,7 +20,7 @@ public:
     MainMenu(Game&, GameState*&);
 
     void init();
-	void resume() {initKeyboard();}
+    void resume() {initKeyboard();}
     void keySelect();
     void keyEscape();
     
@@ -29,17 +29,17 @@ public:
     void keySelReleased();
     void keyEscReleased();
 
-private:	
-	void singlePlayerSelected();
-	void multiPlayerSelected();
-	void mapEdiorSelected();
-	
-	std::vector<std::string> playerNames_;
-	//std::vector<PlayerInterface::KeySet> keySets_;
-	//std::vector<Player*> players_;
-	//std::map<std::string settingName,int value> gameSettings_;
-	
-	bool selectPressed_;
+private:    
+    void singlePlayerSelected();
+    void multiPlayerSelected();
+    void mapEdiorSelected();
+    
+    std::vector<std::string> playerNames_;
+    //std::vector<PlayerInterface::KeySet> keySets_;
+    //std::vector<Player*> players_;
+    //std::map<std::string settingName,int value> gameSettings_;
+    
+    bool selectPressed_;
     bool escPressed_;
     //bool rightPressed_;
     //bool leftPressed_;

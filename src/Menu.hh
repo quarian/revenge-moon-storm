@@ -18,11 +18,11 @@ class MenuInterface;
 class Menu : public GameState {
 public:
 
-	Menu(Game&, GameState*&);
-	Menu(GameState* stack);
-	
-	virtual ~Menu() {for (Player* pl : players_) delete pl; /*Should also delete all menus sf::Texts*/}
-	
+    Menu(Game&, GameState*&);
+    Menu(GameState* stack);
+    
+    virtual ~Menu() {for (Player* pl : players_) delete pl; /*Should also delete all menus sf::Texts*/}
+    
     /* The update function drives the main functionality of this game state. It
      * takes the elapsed time dt, in seconds, as a parameter.
      */
@@ -43,21 +43,21 @@ public:
     virtual void keyRight() {}
     virtual void keySelect() = 0;
     virtual void keyEscape() {terminate();};
-	
+    
     virtual void keySelReleased() {}//= 0;
     virtual void keyEscReleased() {}//=0;
 
 protected:
-	
-	virtual void updateMenu();
-	virtual void drawMenu();
+    
+    virtual void updateMenu();
+    virtual void drawMenu();
 
-	virtual void setTitle(std::string tittle);
-	virtual void addMenuSelection(std::string selectionName, int FontSize);
-	void updateText(std::string key, std::string NewStr);
+    virtual void setTitle(std::string tittle);
+    virtual void addMenuSelection(std::string selectionName, int FontSize);
+    void updateText(std::string key, std::string NewStr);
 
-	/* Global maps containing all fonts and texts of the game */
-	std::map<std::string, sf::Font>& fonts_;
+    /* Global maps containing all fonts and texts of the game */
+    std::map<std::string, sf::Font>& fonts_;
     std::map<std::string, sf::Text*>& texts_;
     
     /* Pointers to texts which are drawed while in current menu */
@@ -71,7 +71,7 @@ protected:
     void initKeyboard();
     
     std::vector<Player*> players_;
-   	int scarp_;
+       int scrap_;
     /* spawnCounter gets the value of players_.size() after players have been created
      * when 0 resume terminates 
      * when 1 resume() spawn a PlayerGame when more 
