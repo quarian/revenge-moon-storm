@@ -107,15 +107,10 @@ bool Inventory::collect(Item* item) {
 	} else if (Weaponbox* w = dynamic_cast<Weaponbox*>(item)) {
         addItem(w->generateItem());
         return true;
-    } else if (Mine* m = dynamic_cast<Mine*>(item)) {
-        if (m->getArmed()) {
-            m->takeDamage(1);
-            return true;    
-        }
     }
     return false;
 }
 
 int Inventory::getExtraMiningPower() {
-    return items_["Pickaxe"]*40 ;
+    return items_["Pickaxe"]*40;
 }

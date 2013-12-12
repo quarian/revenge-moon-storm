@@ -36,7 +36,7 @@ void Store::init() {
     selx_ = 0;
     sely_ = 0;
     selmax_ = Item::allNames().size();
-    selxmax_ = 2;
+    selxmax_ = 5;
     selymax_ = selmax_ / selxmax_;
 
     storetext_ = new sf::Text();
@@ -98,24 +98,88 @@ void Store::draw() {
     convert << player_->getInventory().getGold();
     storetext_->setString("Scrap: " + convert.str());
     storetext_->setPosition(590, 400);
-    storetext_->setColor(sf::Color::White);
+
+    if (player_->getInventory().getGold() > 0)
+        storetext_->setColor(sf::Color::Yellow);
+    else
+        storetext_->setColor(sf::Color::Red);
+
     game_.draw(*storetext_);
+
+    //Scrap icon
+    sf::Sprite scrap;
+    scrap.setTexture(game_.graphicsManager_.getTexture("scrap_stripped.png"));
+    scrap.setPosition(590 + storetext_->getGlobalBounds().width + 12, 400);
+    game_.draw(scrap);
 
     //clear the string stream for reuse
     convert.str(std::string());
     convert.clear();
 
-    convert << getPrice(getSelection());
+    //Item cost
+    if (selection_ != -1)
+        convert << getPrice(getSelection());
+    else
+        convert << "-";
     storetext_->setString("Cost: " + convert.str());
     storetext_->setPosition(590, 450);
+
+    if (selection_ != -1) 
+        if (getPrice(getSelection()) > player_->getInventory().getGold())
+            storetext_->setColor(sf::Color::Red);
+        else
+            storetext_->setColor(sf::Color::White);
+    else
+        storetext_->setColor(sf::Color::White);
+
     game_.draw(*storetext_);
 
     convert.str(std::string());
     convert.clear();
 
+    //Player text
     convert << player_->getName();
     storetext_->setString("Player: " + convert.str());
     storetext_->setPosition(590, 330);
+    storetext_->setColor(sf::Color::White);
+    game_.draw(*storetext_);
+
+    //Item description
+    convert.str(std::string());
+    convert.clear();
+
+    if (selection_ != -1)
+        convert << Item::descriptions()[getSelection()];
+    else
+        convert << "-";
+
+    storetext_->setString("Description:\n" + convert.str());
+    storetext_->setCharacterSize(20);
+    storetext_->setPosition(240, 520);
+    storetext_->setColor(sf::Color::White);
+    game_.draw(*storetext_);
+
+    //you own:
+    convert.str(std::string());
+    convert.clear();
+
+    if (selection_ != -1) 
+        convert << player_->getInventory().getItemCount(getSelection());
+    else
+        convert << "-";
+
+    storetext_->setString("You own: " + convert.str());
+    storetext_->setCharacterSize(20);
+    storetext_->setPosition(760, 450);
+    if (selection_ != -1) {
+        if (player_->getInventory().getItemCount(getSelection()) == 0){
+            storetext_->setColor(sf::Color::Red);
+        } else {
+            storetext_->setColor(sf::Color::White);
+        }
+    } else {
+        storetext_->setColor(sf::Color::White);
+    }
     game_.draw(*storetext_);
 }
 

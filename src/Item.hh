@@ -37,6 +37,7 @@ public:
 	static std::vector<std::string> names(); //use this to access all the names of the items in the game
 	static std::vector<std::string> passiveNames();
 	static std::vector<std::string> allNames();
+	static std::map<std::string, std::string> descriptions();
 
 	Map& getMap() const { return map_; }
 	MapBlock* getLocation() const { return location_; }

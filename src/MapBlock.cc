@@ -132,3 +132,7 @@ std::vector<ControlledActor*> MapBlock::getPlayers() {
     }
     return vec;
 }
+
+bool MapBlock::hasWalkers() {
+    return walkers_.begin() != walkers_.end();
+}

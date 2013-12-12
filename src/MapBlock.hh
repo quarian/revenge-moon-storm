@@ -75,6 +75,8 @@ class MapBlock {
         sf::Texture const& getTexture() const { return terrain_.type->texture; }
 
         std::vector<ControlledActor*> getPlayers();
+
+        bool hasWalkers();
         
 
     private:

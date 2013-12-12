@@ -73,6 +73,21 @@ std::vector<std::string> Item::allNames() {
 	return a;
 }
 
+std::map<std::string, std::string> Item::descriptions() {
+	std::map<std::string, std::string> d;
+	d["Small Bomb"] = "The most minor piece of weaponry you\nhave to defeat the evil forces.\nHas a low range, low power and low cost!";
+	d["Large Bomb"] = "More powerful than its baby brother.\nEfficient at clearing moonstone.";
+	d["Crucifix Bomb"] = "Explodes in a + shape, extending\nto a small distance and with moderately\nlow power. Stops at metal blocks.";
+	d["Large Crucifix Bomb"] = "Extremely powerful bomb that works\njust like the normal version,\nbut extends into infinity.";
+	d["Flamer"] = "The best ranged weapon for fighting small\nbugs. Leaves burning ground for a while.";
+	d["Mine"] = "Anti-organism trap that arms shortly\nafter being deployed. Deals high\ndamage to close proximity.";
+
+
+	d["Pickaxe"] = "The moonminers' best tool! Allows you\nto mine blocks faster. Effect stacks.";
+
+	return d;
+}
+
 //Weapon constructors
 
 NormalBomb::NormalBomb(Map& map, MapBlock* location, std::string name) : 
@@ -123,7 +138,7 @@ Flamer::Flamer(Map& map, MapBlock* mb, Direction dir, int damage, int spreadChan
 
 
 Mine::Mine(Map& map, MapBlock* mb) : 
-        Weapon(map, mb, "Mine", true, true, Direction::NULLDIR),
+        Weapon(map, mb, "Mine", true, false, Direction::NULLDIR),
         armed_(false) {
     radius_ = 1;
     power_ = 30;
@@ -183,6 +198,11 @@ void Flamer::update(float dt) {
 void Mine::update(float dt) {
 	if (armed_) { //The mine will blink when it is active
 		sprite_.update(sf::seconds(dt));
+
+		if (location_->hasWalkers()) {
+			takeDamage(1);
+		}
+
 	} else {
 		fusetime_ -= dt;
 		if (fusetime_ <= 0) {
