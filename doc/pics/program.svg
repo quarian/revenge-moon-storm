@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="65cm" height="36cm" viewBox="178 140 1284 720" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="783" y="154" width="158" height="75"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="783" y="154" width="158" height="75"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="862" y="195.4">
+      <tspan x="862" y="195.4">Game</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="783" y1="191.5" x2="603.736" y2="192.923"/>
+    <polygon style="fill: #000000" points="596.236,192.982 606.196,187.903 603.736,192.923 606.275,197.903 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="596.236,192.982 606.196,187.903 603.736,192.923 606.275,197.903 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="371" y="142" width="223" height="102"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="371" y="142" width="223" height="102"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="482.5" y="172.9">
+      <tspan x="482.5" y="172.9">Managers</tspan>
+      <tspan x="482.5" y="188.9">-WindowManager</tspan>
+      <tspan x="482.5" y="204.9">-graphicsManager</tspan>
+      <tspan x="482.5" y="220.9">-EventManager</tspan>
+    </text>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="644" y="186">
+    <tspan x="644" y="186">Has ownership of</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="1134" y="148" width="230" height="87"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1134" y="148" width="230" height="87"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1249" y="195.4">
+      <tspan x="1249" y="195.4">GameState</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="941" y1="191.5" x2="1124.26" y2="191.5"/>
+    <polygon style="fill: #000000" points="1131.76,191.5 1121.76,196.5 1124.26,191.5 1121.76,186.5 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1131.76,191.5 1121.76,196.5 1124.26,191.5 1121.76,186.5 "/>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="976" y="182">
+    <tspan x="976" y="182">Manages a stack of</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1249.25" y1="236" x2="1250.94" y2="535.264"/>
+    <polygon style="fill: #000000" points="1250.99,542.764 1245.93,532.792 1250.94,535.264 1255.93,532.736 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1250.99,542.764 1245.93,532.792 1250.94,535.264 1255.93,532.736 "/>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="1137" y="325">
+    <tspan x="1137" y="325">Is superclass of</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1250" y1="295" x2="1282.34" y2="295"/>
+    <polygon style="fill: #000000" points="1289.84,295 1279.84,300 1282.34,295 1279.84,290 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1289.84,295 1279.84,300 1282.34,295 1279.84,290 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="1292.08" y="274" width="143.85" height="42"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1292.08" y="274" width="143.85" height="42"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1364" y="298.9">
+      <tspan x="1364" y="298.9">SinglePlayerGame</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1253" y1="357" x2="1283.58" y2="355.255"/>
+    <polygon style="fill: #000000" points="1291.07,354.827 1281.37,360.389 1283.58,355.255 1280.8,350.405 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1291.07,354.827 1281.37,360.389 1283.58,355.255 1280.8,350.405 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="1293.3" y="333.7" width="143.85" height="42"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1293.3" y="333.7" width="143.85" height="42"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1365.22" y="358.6">
+      <tspan x="1365.22" y="358.6">MultiPlayerGame</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="1292.9" y="393.1" width="143.85" height="42.9"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1292.9" y="393.1" width="143.85" height="42.9"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1364.83" y="418.45">
+      <tspan x="1364.83" y="418.45">World</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1250" y1="414" x2="1283.16" y2="414.425"/>
+    <polygon style="fill: #000000" points="1290.66,414.521 1280.6,419.393 1283.16,414.425 1280.73,409.394 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1290.66,414.521 1280.6,419.393 1283.16,414.425 1280.73,409.394 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1250" y1="473" x2="1283.47" y2="473.62"/>
+    <polygon style="fill: #000000" points="1290.96,473.759 1280.87,478.573 1283.47,473.62 1281.06,468.574 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1290.96,473.759 1280.87,478.573 1283.47,473.62 1281.06,468.574 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="1293.2" y="452.8" width="143.85" height="42"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1293.2" y="452.8" width="143.85" height="42"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1365.12" y="477.7">
+      <tspan x="1365.12" y="477.7">Store</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="790.8" y="298.5" width="160.4" height="54"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="790.8" y="298.5" width="160.4" height="54"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="871" y="321.4">
+      <tspan x="871" y="321.4">Map (and MaUtils)</tspan>
+      <tspan x="871" y="337.4">-also generates maps</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="801" y="474" width="140" height="38"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="801" y="474" width="140" height="38"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="871" y="496.9">
+      <tspan x="871" y="496.9">MapBlock</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="871" y1="352.5" x2="871" y2="464.264"/>
+    <polygon style="fill: #000000" points="871,471.764 866,461.764 871,464.264 876,461.764 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="871,471.764 866,461.764 871,464.264 876,461.764 "/>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="888" y="411">
+    <tspan x="888" y="411">Is made of</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="557" y="304" width="124" height="43"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="557" y="304" width="124" height="43"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="619" y="329.4">
+      <tspan x="619" y="329.4">MapEditor</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="681" y1="325.5" x2="781.064" y2="325.5"/>
+    <polygon style="fill: #000000" points="788.564,325.5 778.564,330.5 781.064,325.5 778.564,320.5 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="788.564,325.5 778.564,330.5 781.064,325.5 778.564,320.5 "/>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="719" y="317">
+    <tspan x="719" y="317">Creates</tspan>
+  </text>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" d="M 954.071 334.803 C 1110,840 1570,546 1436.75,414.55"/>
+    <polygon style="fill: #000000" points="951.859,327.637 959.586,335.717 954.071,334.803 950.031,338.666 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="951.859,327.637 959.586,335.717 954.071,334.803 950.031,338.666 "/>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="1386" y="606">
+    <tspan x="1386" y="606">Has</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="539" y="432" width="110" height="86"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="539" y="432" width="110" height="86"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="594" y="454.9">
+      <tspan x="594" y="454.9">Item</tspan>
+      <tspan x="594" y="470.9">Subclasses:</tspan>
+      <tspan x="594" y="486.9">-Weapon</tspan>
+      <tspan x="594" y="502.9">-Treasure</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" d="M 649.986 475 C 715.324,475 725.462,352.5 781.064,352.5"/>
+    <polygon style="fill: #000000" points="788.564,352.5 778.564,357.5 781.064,352.5 778.564,347.5 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="788.564,352.5 778.564,357.5 781.064,352.5 778.564,347.5 "/>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="653" y="397">
+    <tspan x="653" y="397">Resides in</tspan>
+  </text>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" d="M 649 475 C 762,693 1079.33,494.8 1283.46,494.8"/>
+    <polygon style="fill: #000000" points="1290.96,494.8 1280.96,499.8 1283.46,494.8 1280.96,489.8 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1290.96,494.8 1280.96,499.8 1283.46,494.8 1280.96,489.8 "/>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="810" y="586">
+    <tspan x="810" y="586"></tspan>
+  </text>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="793" y="596">
+    <tspan x="793" y="596">Can be bought from</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="312" y="579" width="98" height="45"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="312" y="579" width="98" height="45"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="361" y="605.4">
+      <tspan x="361" y="605.4">Player</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="307" y="309" width="97" height="42"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="307" y="309" width="97" height="42"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="355.5" y="333.9">
+      <tspan x="355.5" y="333.9">Walker</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="308" y="401" width="100" height="38"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="308" y="401" width="100" height="38"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="358" y="423.9">
+      <tspan x="358" y="423.9">Actor</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="355.5" y1="351" x2="357.514" y2="391.276"/>
+    <polygon style="fill: #000000" points="357.888,398.767 352.395,389.029 357.514,391.276 362.383,388.53 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="357.888,398.767 352.395,389.029 357.514,391.276 362.383,388.53 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="361.813" y1="536.734" x2="361" y2="579"/>
+    <polygon style="fill: #000000" points="361.957,529.236 366.764,539.33 361.813,536.734 356.766,539.138 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="361.957,529.236 366.764,539.33 361.813,536.734 356.766,539.138 "/>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="370" y="373">
+    <tspan x="370" y="373">Is superclass of</tspan>
+  </text>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" d="M 408 401 C 535.09,401 663.71,352.5 781.064,352.5"/>
+    <polygon style="fill: #000000" points="788.564,352.5 778.564,357.5 781.064,352.5 778.564,347.5 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="788.564,352.5 778.564,357.5 781.064,352.5 778.564,347.5 "/>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="506" y="384">
+    <tspan x="506" y="384">Acts in</tspan>
+  </text>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" d="M 410 624 C 444,662 516,565 534.72,526.745"/>
+    <polygon style="fill: #000000" points="538.017,520.008 538.113,531.188 534.72,526.745 529.131,526.793 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="538.017,520.008 538.113,531.188 534.72,526.745 529.131,526.793 "/>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="443" y="566">
+    <tspan x="443" y="566">Can use</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="179" y="487" width="95" height="42"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="179" y="487" width="95" height="42"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="226.5" y="511.9">
+      <tspan x="226.5" y="511.9">AIActor</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="358" y1="439" x2="235.646" y2="483.662"/>
+    <polygon style="fill: #000000" points="228.601,486.233 236.28,478.107 235.646,483.662 239.709,487.501 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="228.601,486.233 236.28,478.107 235.646,483.662 239.709,487.501 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="1021" y="688" width="141" height="49"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1021" y="688" width="141" height="49"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1091.5" y="716.4">
+      <tspan x="1091.5" y="716.4">Interfaces</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="1107.35" y="765.7" width="143.85" height="42"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1107.35" y="765.7" width="143.85" height="42"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1179.27" y="790.6">
+      <tspan x="1179.27" y="790.6">PlayerInterface</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="1098.57" y="817.4" width="143.85" height="42"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1098.57" y="817.4" width="143.85" height="42"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1170.5" y="842.3">
+      <tspan x="1170.5" y="842.3">MenuInterface</tspan>
+    </text>
+  </g>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1056.25" y1="737" x2="1057" y2="845"/>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1056.62" y1="791" x2="1097.64" y2="787.522"/>
+    <polygon style="fill: #000000" points="1105.12,786.889 1095.58,792.716 1097.64,787.522 1094.73,782.752 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1105.12,786.889 1095.58,792.716 1097.64,787.522 1094.73,782.752 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1058" y1="839" x2="1088.84" y2="838.544"/>
+    <polygon style="fill: #000000" points="1096.34,838.433 1086.41,843.58 1088.84,838.544 1086.26,833.581 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1096.34,838.433 1086.41,843.58 1088.84,838.544 1086.26,833.581 "/>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="1179.27" y="786.7">
+    <tspan x="1179.27" y="786.7"></tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="1196" y="545" width="110" height="38"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1196" y="545" width="110" height="38"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1251" y="567.9">
+      <tspan x="1251" y="567.9">Plus more</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" d="M 1162 688 C 1226,697 1120,268 1130.2,243.963"/>
+    <polygon style="fill: #000000" points="1133.13,237.058 1133.82,248.217 1130.2,243.963 1124.62,244.312 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1133.13,237.058 1133.82,248.217 1130.2,243.963 1124.62,244.312 "/>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="1200" y="663">
+    <tspan x="1200" y="663">Used to control</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="301.225" y="489" width="121.55" height="38"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="301.225" y="489" width="121.55" height="38"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="362" y="511.9">
+      <tspan x="362" y="511.9">ControlledActor</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="358" y1="439" x2="361.224" y2="479.295"/>
+    <polygon style="fill: #000000" points="361.822,486.771 356.04,477.202 361.224,479.295 366.008,476.404 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="361.822,486.771 356.04,477.202 361.224,479.295 366.008,476.404 "/>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="297" y="559">
+    <tspan x="297" y="559">Spawns</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="630" y="629" width="146" height="46"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="630" y="629" width="146" height="46"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="703" y="655.9">
+      <tspan x="703" y="655.9">Explosions</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="473" y="632" width="138" height="42"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="473" y="632" width="138" height="42"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="542" y="656.9">
+      <tspan x="542" y="656.9">Map Fixtures</tspan>
+    </text>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="192" y="457">
+    <tspan x="192" y="457">Is superclass of</tspan>
+  </text>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="369" y="467">
+    <tspan x="369" y="467">Is superclass of</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="594" y1="518" x2="546.041" y2="623.142"/>
+    <polygon style="fill: #000000" points="542.928,629.966 542.529,618.792 546.041,623.142 551.627,622.942 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="542.928,629.966 542.529,618.792 546.041,623.142 551.627,622.942 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="594" y1="518" x2="696.178" y2="622.053"/>
+    <polygon style="fill: #000000" points="701.433,627.405 690.859,623.773 696.178,622.053 697.994,616.766 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="701.433,627.405 690.859,623.773 696.178,622.053 697.994,616.766 "/>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="535" y="595">
+    <tspan x="535" y="595">Is superclass of</tspan>
+  </text>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="611" y="570">
+    <tspan x="611" y="570">Is superclass of</tspan>
+  </text>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" d="M 1107.35 765.7 C 473,934.5 576.055,624 321.736,624"/>
+    <polygon style="fill: #000000" points="314.236,624 324.236,619 321.736,624 324.236,629 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="314.236,624 324.236,619 321.736,624 324.236,629 "/>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="562" y="826.75">
+    <tspan x="562" y="826.75">Used to control</tspan>
+  </text>
+</svg>

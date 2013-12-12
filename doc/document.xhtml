@@ -201,6 +201,8 @@ because it has properties characteristic of both of these,
 but since it is conceptually a separate entity, it is here treated as such.
 </p>
 
+<p>Architecture diagram can be found from <a href="pics/program.svg">here</a>.</p>
+
 <h3>The administrative system</h3>
 
 <p>
@@ -455,6 +457,8 @@ With this approach, AI actors have a natural-looking "wander" behavior.
 
 <p>
 <ol>
+    <li> <span class="code">sf::Text</span> leaks memory because the destructor of it chrashes the game. Therefore most of the <span class="code">sf::Text</span> are stored in a map in <span class="code">GraphicsManager</span> to have them all in the same place and to keep them alive, until the game ends. This is a know <a href="#refs">SFML-bug</a>.</li>
+    <li>Not strictly a bug, but the editor's code quality is terrible and it lacks features (you might notice that you can't place monsters, for example). This might be fixed by tomorrow.</li>
     <li> <span class="code">sf::Text</span> leaks memory because the destructor of it chrashes the game. Therefore all the <span class="code">sf::Text</span> are stored in a map in <span class="code">GraphicsManager</span> to have them all in the same place and to keep them alive, until the game ends. This is a known <a href="#refs">SFML-bug</a>.</li>
     <li>After a multiplayer game finishes and a new one is started, the <span class="code">MultiplayerGameMenu</span> creates new players.</li>
     <li>After a game finishes, the enter key (select menu item function) is sometimes unresponsive (but it works eventually).</li>
@@ -477,6 +481,7 @@ decreased. And if your code segfaults, it is even worse and your points will be 
             Map generation (stuff lives in <span class="code">Map</span>)<br/>
             Line of sight (in <span class="code">MapUtils</span>)<br/>
             Map editor (in <span class="code">MapEditor</span> and <span class="code">EditorInterface</span>)<br/>
+            Fixes and additions around the program<br/>
         </td>
     </tr>
     <tr><td class="tb1">Henri</td>
@@ -546,6 +551,16 @@ as opposed to just plopping something on the map and seeing if it does what it o
     <p>A* pathfinding algorithm, <a href="https://en.wikipedia.org/wiki/A*_search_algorithm">Wikipedia</a>, read 12.12.2013</p>
     <p>sf::Text issues, <a href="http://en.sfml-dev.org/forums/index.php?topic=6901.0">Forum discussion</a>, <a href="https://github.com/LaurentGomila/SFML/issues/329">SFML issues</a>, read 12.12.2013</p>
 </div>
+
+<h2>Gameplay pictures</h2>
+<a href="pics/fow.png">Fog of war and line of sight</a><br/>
+<a href="pics/battle.png">Battle!</a><br/>
+<a href="pics/store.png">Store</a><br/>
+<a href="pics/beginning.png">Beginning of campaign</a><br/>
+<a href="pics/chased.png">Hero chased by critters</a><br/>
+<a href="pics/maze_duel.png">Duel in a maze</a><br/>
+<a href="pics/overlap_map.png">Ovelapping random map</a><br/>
+<a href="pics/main_menu.png">Main menu</a><br/>
 
 </body>
 </html>
