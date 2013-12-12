@@ -12,11 +12,14 @@ Fixtures::LevelExit::LevelExit(
         flagVictory_(flagVictory),
         players_(players),
         exiter_(nullptr)
-    {
+{
+    buildSprite(4, "portal_spritesheet.png", 1);
+    sprite_.setLooped(true);
 }
 
 
-void Fixtures::LevelExit::update(float) {
+void Fixtures::LevelExit::update(float dt) {
+    sprite_.update(sf::seconds(dt));
     for (auto p : players_) {
         auto a = p->getActor();
         if (a && a->getLocation() == location_) {
