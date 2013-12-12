@@ -11,7 +11,7 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
     if (!fonts_["sansation"].loadFromFile(rootPath_+"/fonts/sansation.ttf")) {
         std::cout << "Font load from "<<rootPath_+"/fonts/sansation.ttf failed"<<std::endl;
     }
-	if (!fonts_["dark_world"].loadFromFile(rootPath_+"/fonts/dark_world.ttf")) {
+    if (!fonts_["dark_world"].loadFromFile(rootPath_+"/fonts/dark_world.ttf")) {
         std::cout << "Font load from "<<rootPath_+"/fonts/sansation.ttf failed"<<std::endl;
     }
     if (!fonts_["batman"].loadFromFile(rootPath_+"/fonts/batmanforeveralternate.ttf")) {
@@ -27,9 +27,9 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
     loadTexture("Sand.png");
     loadTexture("fow.png");
     loadTexture("unexplored.png");
-	
-	//Load from /players
-	frontToEnd();
+    
+    //Load from /players
+    frontToEnd();
     loadTexture("player_standing.png");
     //loadTexture("player_walking1.png");
     //loadTexture("player_walking2.png");
@@ -39,28 +39,32 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
     loadTexture("medium_bug.png");
     loadTexture("scarab.png");
     loadTexture("green_bug_splat.png");
+    loadTexture("queen.png");
+    loadTexture("queen_splat.png");
+    loadTexture("zombie.png");
+    loadTexture("zombie_splat.png");
     
     //Load from  /items
-	frontToEnd();
+    frontToEnd();
     loadTexture("Goldbar.png");
     loadTexture("explosion_spritesheet.png");
     loadTexture("blood_splatter.png");
     loadTexture("bug_splat.png");
 
     
-	//Load from /misc
-	frontToEnd();
-	loadTexture("wtf.png");
-	loadTexture("background_grid.png");
-	loadTexture("background_menu.png");
+    //Load from /misc
+    frontToEnd();
+    loadTexture("wtf.png");
+    loadTexture("background_grid.png");
+    loadTexture("background_menu.png");
 
-	
-	// Create animations
-	Animation standingPlayer;
-	standingPlayer.setSpriteSheet(getTexture("player_spritesheet.png"));
+    
+    // Create animations
+    Animation standingPlayer;
+    standingPlayer.setSpriteSheet(getTexture("player_spritesheet.png"));
     standingPlayer.addFrame(sf::IntRect(0,0,16,16));
     animations_["standing_player"] = standingPlayer;
-	
+    
     Animation walkingPlayer;
     walkingPlayer.setSpriteSheet(getTexture("player_spritesheet.png"));
     walkingPlayer.addFrame(sf::IntRect(0,0,16,16));
@@ -93,11 +97,27 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
     mediumBug.addFrame(sf::IntRect(16*3,0,16,16));
     animations_["medium_bug"] = mediumBug;
 
-    Animation scarab;;
+    Animation scarab;
     scarab.setSpriteSheet(getTexture("medium_bug.png"));
     scarab.addFrame(sf::IntRect(0,0,16,16));
     scarab.addFrame(sf::IntRect(16,0,16,16));
     animations_["scarab"] = scarab;
+
+    Animation queen;
+    queen.setSpriteSheet(getTexture("queen.png"));
+    queen.addFrame(sf::IntRect(0,0,16,16));
+    queen.addFrame(sf::IntRect(16,0,16,16));
+    queen.addFrame(sf::IntRect(16*2,0,16,16));
+    queen.addFrame(sf::IntRect(16*3,0,16,16));
+    animations_["queen"] = queen;
+
+    Animation zombie;
+    zombie.setSpriteSheet(getTexture("zombie.png"));
+    zombie.addFrame(sf::IntRect(0,0,16,16));
+    zombie.addFrame(sf::IntRect(16,0,16,16));
+    zombie.addFrame(sf::IntRect(16*2,0,16,16));
+    zombie.addFrame(sf::IntRect(16*3,0,16,16));
+    animations_["zombie"] = zombie;
 
     frontToEnd();
     Animation explosion1;
@@ -120,23 +140,23 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
 }
 
 void GraphicsManager::frontToEnd() {
-	pathOptions_.push_back(pathOptions_.front());
-	pathOptions_.pop_front();
+    pathOptions_.push_back(pathOptions_.front());
+    pathOptions_.pop_front();
 }
 
 sf::Color GraphicsManager::getPlayerColor() {
-	    std::vector<sf::Color> playerColors = {
-	    			sf::Color(154,205,50),
-					sf::Color(238,64,0),
-					sf::Color(154,205,50),
-					sf::Color(79,148,205),
-					sf::Color(180,82,205),
-					sf::Color(0,205,205),
-					sf::Color(205,205,0)};
-		if (playerColorsIndex_+1<playerColors.size()) playerColorsIndex_=0; // Looping through the same colors if more than 
-		sf::Color retColor = playerColors[playerColorsIndex_];
-		playerColorsIndex_++;
-		return retColor;
+        std::vector<sf::Color> playerColors = {
+                    sf::Color(154,205,50),
+                    sf::Color(238,64,0),
+                    sf::Color(154,205,50),
+                    sf::Color(79,148,205),
+                    sf::Color(180,82,205),
+                    sf::Color(0,205,205),
+                    sf::Color(205,205,0)};
+        if (playerColorsIndex_+1<playerColors.size()) playerColorsIndex_=0; // Looping through the same colors if more than 
+        sf::Color retColor = playerColors[playerColorsIndex_];
+        playerColorsIndex_++;
+        return retColor;
 }
 
 
@@ -170,18 +190,18 @@ void GraphicsManager::loadTexture(std::string filename) {
         for (auto folder : pathOptions_) {
             std::cout <<rootPath_<<folder<<std::endl;
         }
-    	if (texture.loadFromFile(rootPath_+"/misc/wtf.png")) {
-        	textures_[filename] = texture;
-        	return;
-    	}
-    	else {
-    		throw "WTF: Texture load failed!";
-    	}
+        if (texture.loadFromFile(rootPath_+"/misc/wtf.png")) {
+            textures_[filename] = texture;
+            return;
+        }
+        else {
+            throw "WTF: Texture load failed!";
+        }
         
     }
 }
 Animation const& GraphicsManager::getAnimation(std::string name) {
-	return animations_[name];
+    return animations_[name];
 }
 
 sf::Text* GraphicsManager::getText(std::string id) {

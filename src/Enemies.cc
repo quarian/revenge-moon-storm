@@ -27,7 +27,7 @@ GreenBug::GreenBug(Map& map, MapBlock* mb) :
 
 Lurker::Lurker(Map& map, MapBlock* mb) :
         AIPlayerSeeker(map, mb, 40, 5.2, 120, 20) {
-    initSprite(map.getGame()->graphicsManager_.getAnimation("lurker"), sf::Color::Green);
+    initSprite(map.getGame()->graphicsManager_.getAnimation("zombie"), sf::Color::Green);
     sprite_.setFrameTime(sf::seconds(0.10f));
 }
 
@@ -51,7 +51,7 @@ ScarabQueen::ScarabQueen(Map& map, MapBlock* mb) :
         AIPlayerSeeker(map, mb, 30, 1.7, 100, 15),
         scarabs_({0, 0, 0}),
         launchCooldown_(0) {
-    initSprite(map.getGame()->graphicsManager_.getAnimation("medium_bug"), sf::Color::Green);
+    initSprite(map.getGame()->graphicsManager_.getAnimation("queen"), sf::Color::Green);
     sprite_.setFrameTime(sf::seconds(0.10f));
 }
 
@@ -158,6 +158,6 @@ void ScarabQueen::update(float dt) {
 
 void TinyBug::splatter() { new BugSplat(map_, location_); }
 void GreenBug::splatter() { new BigBugSplat(map_, location_); }
-void Lurker::splatter() { new BugSplat(map_, location_); }
+void Lurker::splatter() { new ZombieSplat(map_, location_); }
 void Scarab::splatter() { /* No splatter, just an explosion */ }
-void ScarabQueen::splatter() { new BugSplat(map_, location_); }
+void ScarabQueen::splatter() { new QueenSplat(map_, location_); }

@@ -197,6 +197,16 @@ public:
     BigBugSplat(Map& map, MapBlock* mb) : BloodSplatter(map, mb, "green_bug_splat.png") {}
 };
 
+class QueenSplat : public BloodSplatter {
+public:
+    QueenSplat(Map& map, MapBlock* mb) : BloodSplatter(map, mb, "queen_splat.png") {}
+};
+
+class ZombieSplat : public BloodSplatter {
+public:
+    ZombieSplat(Map& map, MapBlock* mb) : BloodSplatter(map, mb, "zombie_splat.png") {}
+};
+
 class Dustcloud : public Item {
 public:
 	Dustcloud(Map&, MapBlock*);
