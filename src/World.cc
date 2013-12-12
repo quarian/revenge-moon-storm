@@ -212,7 +212,7 @@ void World::drawGUI() {
         status_text_->setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
         game_.draw(*status_text_);
         y--;
-        x += 25;
+        x += 15;
     }
 
     //    gui_.makePlayerInfo(players_[i], i);

@@ -144,6 +144,16 @@ void Store::draw() {
     storetext_->setColor(sf::Color::White);
     game_.draw(*storetext_);
 
+
+    //Item name
+    convert.str(std::string());
+    convert.clear();
+    storetext_->setString(getSelection());
+    storetext_->setCharacterSize(20);
+    storetext_->setPosition(240, 490);
+    storetext_->setColor(sf::Color::Yellow);
+    game_.draw(*storetext_);
+
     //Item description
     convert.str(std::string());
     convert.clear();
