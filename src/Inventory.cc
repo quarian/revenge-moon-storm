@@ -1,6 +1,7 @@
 #include "Inventory.hh"
 #include "Item.hh"
 #include <algorithm>
+#include <string>
 
 Inventory::Inventory() {
 	//Initializes the inventory map to 0 for each item string
@@ -35,23 +36,28 @@ std::map<std::string, size_t> Inventory::getNonzeroItems() {
 	return r_items;
 }
 
-std::string Inventory::getNextItem(std::string const& name) const {
+std::string Inventory::getNextItem(std::string const& name) {
     // Try to find nonzero item between the given item and end()...
-    auto pn = Item::passiveNames();
-    auto it = items_.find(name);
-    if (it != items_.end())
-        while (++it != items_.end()) {
-            if (std::find(pn.begin(), pn.end(), it->first) != pn.end()) continue;
-            if (it->second > 0) return it->first;
+    std::vector<std::string> items = Item::names();
+
+    std::vector<std::string>::iterator it = std::find(items.begin(), items.end(), name);
+    if (it != items.end()) {
+        while (++it != items.end()) {
+            // if (std::find(pn.begin(), pn.end(), it->first) != pn.end()) continue;
+            if (items_[*it] > 0) {
+                return *it;
+            }
+        }
     }
 
     // Try to find nonzero item between begin() and the given item...
-    for (it = items_.begin(); it != items_.end(); it++) {
-        if (std::find(pn.begin(), pn.end(), it->first) != pn.end()) continue;
-        if (it->second > 0)
-            return it->first;
-        if (it->first == name)
+    for (it = items.begin(); it != items.end(); it++) {
+        // if (std::find(pn.begin(), pn.end(), it->first) != pn.end()) continue;
+        if (items_[*it] > 0) {
+            return *it;
+        } else if (*it == name) {
             return name;
+        }
     }
 
     return name;

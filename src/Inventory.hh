@@ -47,7 +47,7 @@ public:
 	std::map<std::string, size_t> getNonzeroItems();
 
         /* Returns the name of the first nonzero item after the given item */
-        std::string getNextItem(std::string const&) const;
+        std::string getNextItem(std::string const&);
 
 	/* Decreases the gold by the amount given, if possible, and returns a boolean */
 	bool decreaseGold(int);

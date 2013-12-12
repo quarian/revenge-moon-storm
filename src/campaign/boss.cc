@@ -8,9 +8,10 @@
 
 void CampaignGame::showStoryBoss() {
     std::vector<std::string> msg = {
-        "As your hands touch the warm, glowing crystal of the teleporter, you",
-        "hear a deep, dramatic voice -- except that it's not really a voice; the",
-        "words are materializing directly into your head...",
+        "As your hands touch the mystical electric vortex, your skin tingling with",
+        "the strange cold sensation, you hear a deep, dramatic voice -- except",
+        "that it's not really a voice; the words are materializing directly into",
+        "your head...",
         "",
         "\"TRESSSPASSSER ISSS ATT THE THRESSHHHOLLLD...\"",
         "",
