@@ -274,7 +274,16 @@ bool CarpetBomb::takeDamage(int) {
 //Non-weapons
 
 Treasure::Treasure(Map& map, MapBlock* location, std::string name, int worth) : Item(map, location, name, true, true, Direction::NULLDIR), worth_(worth) {
-	buildSprite(1, "Goldbar.png", 1.0f);
+	if (name == "Metal Scrap")
+        buildSprite(1, "scrap_treasure.png", 1.0f);
+    else if (name == "Gunpowder")
+        buildSprite(1, "gunpowder_treasure.png", 1.0f);
+    else if (name == "Explosives")
+        buildSprite(1, "explosives_treasure.png", 1.0f);
+    else if (name == "Crate of IEDs") 
+        buildSprite(1, "idebox_treasure.png", 1.0f);
+    else if (name == "Military Box")
+        buildSprite(1, "armybox_treasure.png", 1.0f);
 }
 void Treasure::update(float) {
 	sprite_.update(sf::seconds(0.0f));
