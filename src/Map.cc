@@ -89,6 +89,7 @@ bool Map::loadFromFile(std::string filename, TerrainManager const& tmgr) {
 }
 
 void Map::generateRandomMap(TerrainManager const& tmgr, bool overlap, int height, int width) {
+    clear();
     generateBorders(tmgr, height, width);
     int features;
     if (overlap)
@@ -102,6 +103,7 @@ void Map::generateRandomMap(TerrainManager const& tmgr, bool overlap, int height
 }
 
 void Map::generateMaze(TerrainManager const& tmgr, int height, int width) {
+    clear();
     generateBorders(tmgr, height, width);
     divide(tmgr, 1, width - 1, 1, height - 1);
     addItems(20);
