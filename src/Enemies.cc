@@ -47,13 +47,23 @@ Scarab::Scarab(Map& map,
 }
 
 
-ScarabQueen::ScarabQueen(Map& map, MapBlock* mb) :
-        AIPlayerSeeker(map, mb, 30, 1.7, 100, 15),
+ScarabQueen::ScarabQueen(Map& map, MapBlock* mb, float dps, float speed, int health, int los) :
+        AIPlayerSeeker(map, mb, dps, speed, health, los),
         scarabs_({0, 0, 0}),
         launchCooldown_(0) {
     initSprite(map.getGame()->graphicsManager_.getAnimation("queen"), sf::Color::Green);
     sprite_.setFrameTime(sf::seconds(0.10f));
 }
+
+
+
+MoonKing::MoonKing(Map& map, MapBlock* mb, bool& flagVictory) :
+        ScarabQueen(map, mb, 50, 2.4, 200, 20), flagVictory_(flagVictory) {
+    initSprite(map.getGame()->graphicsManager_.getAnimation("boss"), sf::Color::Red);
+    sprite_.setFrameTime(sf::seconds(0.20f));
+}
+
+
 
 /*
      *********
@@ -150,6 +160,13 @@ void ScarabQueen::update(float dt) {
 }
 
 
+bool MoonKing::takeDamage(float dmg) {
+    bool res = ScarabQueen::takeDamage(dmg);
+    if (!isAlive()) flagVictory_ = true;
+    return res;
+}
+
+
 /*
      ************
      * SPLATTER *
@@ -161,3 +178,4 @@ void GreenBug::splatter() { new BigBugSplat(map_, location_); }
 void Lurker::splatter() { new ZombieSplat(map_, location_); }
 void Scarab::splatter() { /* No splatter, just an explosion */ }
 void ScarabQueen::splatter() { new QueenSplat(map_, location_); }
+void MoonKing::splatter() { new BigBugSplat(map_, location_); }

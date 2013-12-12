@@ -59,7 +59,20 @@ void CampaignGame::resume() {
 
 void CampaignGame::victory() {
     std::vector<std::string> msg = {
-        "Victory!"
+        "VICTORY.",
+        "",
+        "You have slain horrific lunar menace, psychic abomination, the terrible",
+        "Moon King monster! Your last bomb separates its head from its body.",
+        "",
+        "All monsters everywhere feel a great disturbance in the evil, as if",
+        "thousands of tiny mean bugs had cried out and been suddenly squished.",
+        "",
+        "They now know the price you pay for messing with " + player_->getName(),
+        "...",
+        "",
+        "...",
+        "",
+        player_->getName() + " collects your fucking head."
     };
     spawn(new StoryScreen(this, msg));
 }

@@ -2,6 +2,7 @@
 #include "CampaignGameWorld.hh"
 #include "StoryScreen.hh"
 #include "Fixtures.hh"
+#include "Enemies.hh"
 
 #include <string>
 #include <vector>
@@ -31,6 +32,10 @@ void CampaignGame::launchLevelBoss() {
     map_.loadFromFile("./maps/campaign/boss.map", game_.terrainManager_);
 
     map_.spawnPlayer(player_, 7, 12);
+
+    /* Spawn boss */
+    MoonKing* mk = new MoonKing(map_, map_.getBlock(42, 32), flagVictorious_);
+    map_.monsters.insert(mk);
     
     spawn(new CampaignGameWorld(this, map_, player_, flagVictorious_));
 }

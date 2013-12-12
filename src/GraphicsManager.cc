@@ -44,6 +44,7 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
     loadTexture("queen_splat.png");
     loadTexture("zombie.png");
     loadTexture("zombie_splat.png");
+    loadTexture("big_monster_spritesheet.png");
     
     //Load from  /items
     frontToEnd();
@@ -119,6 +120,14 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
     zombie.addFrame(sf::IntRect(16*2,0,16,16));
     zombie.addFrame(sf::IntRect(16*3,0,16,16));
     animations_["zombie"] = zombie;
+
+    Animation boss;
+    boss.setSpriteSheet(getTexture("big_monster_spritesheet.png"));
+    boss.addFrame(sf::IntRect(0,0,16,16));
+    boss.addFrame(sf::IntRect(16,0,16,16));
+    boss.addFrame(sf::IntRect(16*2,0,16,16));
+    boss.addFrame(sf::IntRect(16*3,0,16,16));
+    animations_["boss"] = boss;
 
     frontToEnd();
     Animation explosion1;

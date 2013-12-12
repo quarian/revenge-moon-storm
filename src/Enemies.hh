@@ -50,7 +50,7 @@ private:
 
 class ScarabQueen : public AIPlayerSeeker {
 public:
-    ScarabQueen(Map&, MapBlock*);
+    ScarabQueen(Map&, MapBlock*, float=30, float=1.7, int=100, int=15);
     void splatter();
     void think();
     void update(float);
@@ -61,6 +61,19 @@ private:
     bool launchScarabAtNearest(std::vector<std::pair<float, Actor*>>);
     void launchScarab(Actor*);
 };
+
+
+class MoonKing : public ScarabQueen {
+public:
+    MoonKing(Map&, MapBlock*, bool&);
+    bool takeDamage(float);
+    void splatter();
+
+private:
+    bool& flagVictory_;
+};
+
+
 
 
 #endif
