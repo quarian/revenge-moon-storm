@@ -20,7 +20,8 @@ Item::Item(Map& map,
         passable_(passable),
         collectible_(collectible),
         alive_(true),
-        direction_(direction) {
+        direction_(direction),
+        trap_(false) {
     // Register the item with the map and block.
     // The map object takes care of initializing this item's sprite.
     map.pushItem(this);
@@ -52,7 +53,8 @@ std::vector<std::string> Item::names() {
             "Large Bomb",
             "Crucifix Bomb",
             "Large Crucifix Bomb",
-            "Flamer"
+            "Flamer",
+            "Mine"
 	};
 }
 
@@ -65,7 +67,8 @@ std::vector<std::string> Item::treasureNames() {
 
 //Weapon constructors
 
-NormalBomb::NormalBomb(Map& map, MapBlock* location, std::string name) : Weapon(map, location, name, false, Direction::NULLDIR) {
+NormalBomb::NormalBomb(Map& map, MapBlock* location, std::string name) : 
+		Weapon(map, location, name, false, false, Direction::NULLDIR) {
 	if (name == "Small Bomb") {
 		radius_ = 1;
 		power_ = 25;
@@ -81,7 +84,8 @@ NormalBomb::NormalBomb(Map& map, MapBlock* location, std::string name) : Weapon(
 	}
 }
 
-CrucifixBomb::CrucifixBomb(Map& map, MapBlock* location, std::string name) : Weapon(map, location, name, false, Direction::NULLDIR) {
+CrucifixBomb::CrucifixBomb(Map& map, MapBlock* location, std::string name) : 
+		Weapon(map, location, name, false, false, Direction::NULLDIR) {
 	if (name == "Crucifix Bomb") {
 		radius_ = 5;
 		power_ = 40;
@@ -107,6 +111,19 @@ Flamer::Flamer(Map& map, MapBlock* mb, Direction dir, int damage, int spreadChan
         lifetime_(spreadSpeed) {
     new Flame(map, mb);
     mb->takeDamage(damage);
+}
+
+
+Mine::Mine(Map& map, MapBlock* mb) : 
+        Weapon(map, mb, "Mine", true, true, Direction::NULLDIR),
+        armed_(false) {
+    radius_ = 1;
+    power_ = 30;
+    fusetime_ = 2.0f;
+
+    buildSprite(2, "mine_anim.png", 1.0f); //1 second blink time
+    sprite_.update(sf::seconds(0.0f)); //Just to make sure...
+    sprite_.setLooped(true);
 }
 
 //Weapon updates
@@ -155,6 +172,17 @@ void Flamer::update(float dt) {
     }
 }
 
+void Mine::update(float dt) {
+	if (armed_) { //The mine will blink when it is active
+		sprite_.update(sf::seconds(dt));
+	} else {
+		fusetime_ -= dt;
+		if (fusetime_ <= 0) {
+			armed_ = true;
+		}
+	}
+}
+
 //Weapon takeDamages
 
 bool NormalBomb::takeDamage(int) {
@@ -169,6 +197,14 @@ bool CrucifixBomb::takeDamage(int) {
 	if (alive_) {
 		alive_ = false;
 		map_.crossblast(this);
+	}
+	return true;
+}
+
+bool Mine::takeDamage(int) {
+	if (alive_) {
+		alive_ = false;
+		map_.blast(this);
 	}
 	return true;
 }

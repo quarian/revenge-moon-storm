@@ -44,6 +44,7 @@ public:
 	bool getCollectible() const { return collectible_; }
 	bool getAlive() const { return alive_; }
 	Direction getDirection() const { return direction_; }
+	bool isTrap() const { return trap_; }
 
     AnimatedSprite& getSprite() { return sprite_; }
 
@@ -57,6 +58,7 @@ protected:
 	bool collectible_;
 	bool alive_;
 	Direction direction_;
+	bool trap_;
 
 	Animation anim_; //The animation, which can be set as a static, single frame animation
 	AnimatedSprite sprite_; //the drawable sprite image
@@ -79,7 +81,8 @@ private:
 //Abstract base class for weapons
 class Weapon : public Item {
 public:
-	Weapon(Map& map, MapBlock* location, std::string name, bool passable, Direction dir = Direction::NULLDIR) : Item(map, location, name, passable, false, dir) {};
+	Weapon(Map& map, MapBlock* location, std::string name, bool passable, bool collectible, Direction dir = Direction::NULLDIR) : 
+		Item(map, location, name, passable, collectible, dir) {};
 
 	virtual void update(float) = 0;
 	//all weapons get instantly destroyed as a consequence of an explosion or other source of damage
@@ -138,6 +141,16 @@ private:
     int spreadSpeed_;
     int damage_;
     float lifetime_;
+};
+
+class Mine : public Weapon {
+public:
+	Mine(Map&, MapBlock*);
+	void update(float);
+	bool takeDamage(int);
+	bool getArmed() const { return armed_; }
+private:
+	bool armed_;
 };
 
 

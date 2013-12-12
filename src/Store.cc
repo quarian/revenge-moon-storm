@@ -93,7 +93,7 @@ void Store::draw() {
     //TEXT
 
     //player scrap amount
-    
+    storetext_->setCharacterSize(20);
     std::stringstream convert;
     convert << player_->getInventory().getGold();
     storetext_->setString("Scrap: " + convert.str());
@@ -108,6 +108,14 @@ void Store::draw() {
     convert << getPrice(getSelection());
     storetext_->setString("Cost: " + convert.str());
     storetext_->setPosition(590, 450);
+    game_.draw(*storetext_);
+
+    convert.str(std::string());
+    convert.clear();
+
+    convert << player_->getName();
+    storetext_->setString("Player: " + convert.str());
+    storetext_->setPosition(590, 330);
     game_.draw(*storetext_);
 }
 
@@ -165,6 +173,7 @@ int Store::getPrice(std::string item) const {
     prices["Crucifix Bomb"] = 100;
     prices["Large Crucifix Bomb"] = 100;
     prices["Flamer"] = 100;
+    prices["Mine"] = 100;
 
     return prices[item];
 }

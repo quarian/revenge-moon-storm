@@ -99,8 +99,8 @@ void MapBlock::collect(Inventory* inventory) {
     std::vector<Item*> deadItems;
     for (auto item : items_) {
         if (item->getCollectible()) {
-            inventory->collect(item);
-            deadItems.push_back(item);
+            if (inventory->collect(item)) //returns true if the item was picked up
+                deadItems.push_back(item);
         }
     }
     for (Item* i : deadItems) {

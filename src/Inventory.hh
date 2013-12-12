@@ -59,7 +59,7 @@ public:
 	/* Decreases the item count in the inventory, if possible, and returns a boolean */
 	bool useItem(std::string, Map&, MapBlock*, Direction);
 	//An item is picked up by an actor and given to the inventory to parse
-	void collect(Item*);
+	bool collect(Item*);
 
 private:
 	std::map<std::string, size_t> items_;

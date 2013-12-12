@@ -14,6 +14,7 @@ Inventory::Inventory() {
         items_["Crucifix Bomb"] = 20;
         items_["Large Crucifix Bomb"] = 20;
         items_["Flamer"] = 10;
+        items_["Mine"] = 20;
 }
 Inventory::~Inventory() {}
 
@@ -81,16 +82,26 @@ bool Inventory::useItem(std::string item, Map& map, MapBlock* mb, Direction dir)
                         new CrucifixBomb(map, mb, item);
                 else if (item == "Flamer")
                         new Flamer(map, mb->getBlock(dir), dir);
+                else if (item == "Mine")
+                        new Mine(map, mb);
 
                return true;
 	}
 	return false;
 }
 
-void Inventory::collect(Item* item) {
+bool Inventory::collect(Item* item) {
 	if (Treasure* t = dynamic_cast<Treasure*>(item)) {
 		increaseGold(t->getWorth());
+        return true;
 	} else if (Weaponbox* w = dynamic_cast<Weaponbox*>(item)) {
         addItem(w->generateItem());
+        return true;
+    } else if (Mine* m = dynamic_cast<Mine*>(item)) {
+        if (m->getArmed()) {
+            m->takeDamage(1);
+            return true;    
+        }
     }
+    return false;
 }

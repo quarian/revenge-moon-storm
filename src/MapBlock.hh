@@ -57,7 +57,7 @@ class MapBlock {
         void pushItem(Item* item) { items_.insert(item); }
         void popItem(Item* item) { items_.erase(item); }
 
-        void collect(Inventory* inventory);
+        void collect(Inventory*);
         
         /* Methods related to digging.
          *
