@@ -58,11 +58,17 @@ std::vector<std::string> Item::names() {
 	};
 }
 
-
-std::vector<std::string> Item::treasureNames() {
+std::vector<std::string> Item::passiveNames() {
 	return std::vector<std::string> {
-		"Gold Bar"
+		"Pickaxe"
 	};
+}
+//Used mostly in the store.
+std::vector<std::string> Item::allNames() {
+	std::vector<std::string> a = Item::names();
+	std::vector<std::string> b = Item::passiveNames();
+	a.insert(a.end(), b.begin(), b.end());
+	return a;
 }
 
 //Weapon constructors

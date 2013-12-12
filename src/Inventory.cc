@@ -1,9 +1,10 @@
 #include "Inventory.hh"
 #include "Item.hh"
+#include <algorithm>
 
 Inventory::Inventory() {
 	//Initializes the inventory map to 0 for each item string
-	for (auto i : Item::names()) {
+	for (auto i : Item::allNames()) {
 		items_[i] = 0;
 	}
 	gold_ = 0;
@@ -15,6 +16,11 @@ Inventory::Inventory() {
         items_["Large Crucifix Bomb"] = 20;
         items_["Flamer"] = 10;
         items_["Mine"] = 20;
+        items_["Pickaxe"] = 5;
+
+
+
+
 }
 Inventory::~Inventory() {}
 
@@ -32,11 +38,14 @@ std::string Inventory::getNextItem(std::string const& name) const {
     // Try to find nonzero item between the given item and end()...
     auto it = items_.find(name);
     if (it != items_.end())
-        while (++it != items_.end())
+        while (++it != items_.end()) {
+            if (std::find(Item::passiveNames().begin(), Item::passiveNames().end(), it->first) != Item::passiveNames().end()) continue;
             if (it->second > 0) return it->first;
+    }
 
     // Try to find nonzero item between begin() and the given item...
     for (it = items_.begin(); it != items_.end(); it++) {
+        if (std::find(Item::passiveNames().begin(), Item::passiveNames().end(), it->first) != Item::passiveNames().end()) continue;
         if (it->second > 0)
             return it->first;
         if (it->first == name)
@@ -104,4 +113,8 @@ bool Inventory::collect(Item* item) {
         }
     }
     return false;
+}
+
+int Inventory::getExtraMiningPower() {
+    return items_["Pickaxe"]*40 ;
 }

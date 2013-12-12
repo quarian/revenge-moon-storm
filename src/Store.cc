@@ -35,7 +35,7 @@ void Store::init() {
     selection_ = 0;
     selx_ = 0;
     sely_ = 0;
-    selmax_ = Item::names().size();
+    selmax_ = Item::allNames().size();
     selxmax_ = 2;
     selymax_ = selmax_ / selxmax_;
 
@@ -78,7 +78,7 @@ void Store::draw() {
     game_.draw(sel_rect);
 
     sf::Sprite icon;
-    auto items = Item::names();
+    auto items = Item::allNames();
     for (unsigned int i = 0; i < items.size(); i++) {
         icon.setTexture(game_.graphicsManager_.getTexture(items[i] + "_icon.png"));
         icon.setPosition(3*64 + (i%selxmax_)*64 + 8, 260+(i/selxmax_)*64 + 8);
@@ -174,12 +174,13 @@ int Store::getPrice(std::string item) const {
     prices["Large Crucifix Bomb"] = 100;
     prices["Flamer"] = 100;
     prices["Mine"] = 100;
+    prices["Pickaxe"] = 100;
 
     return prices[item];
 }
 
 std::string Store::getSelection() const {
     if (selection_ >= 0)
-        return Item::names()[selection_];
+        return Item::allNames()[selection_];
     return "";
 }

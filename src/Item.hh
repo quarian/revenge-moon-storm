@@ -35,7 +35,8 @@ public:
 	virtual bool takeDamage(int) = 0;
 
 	static std::vector<std::string> names(); //use this to access all the names of the items in the game
-	static std::vector<std::string> treasureNames();
+	static std::vector<std::string> passiveNames();
+	static std::vector<std::string> allNames();
 
 	Map& getMap() const { return map_; }
 	MapBlock* getLocation() const { return location_; }
@@ -155,7 +156,7 @@ private:
 
 
 /*
- * For convenience, explosions are treated like items.
+ * Item derivates
  */
 class Explosion : public Item {
 public:

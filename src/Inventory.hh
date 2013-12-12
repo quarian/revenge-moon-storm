@@ -60,6 +60,8 @@ public:
 	bool useItem(std::string, Map&, MapBlock*, Direction);
 	//An item is picked up by an actor and given to the inventory to parse
 	bool collect(Item*);
+	
+	int getExtraMiningPower();
 
 private:
 	std::map<std::string, size_t> items_;
