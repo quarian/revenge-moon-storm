@@ -9,12 +9,13 @@ void CreditsMenu::init() {
 	// use addMenuSelection third parameter to get vertical offset from default position
 	addMenuSelection("",10);
 	/*quarian, hegemege, alcedine, rsa*/
-    addMenuSelection("Miro Nurmela", 40);
+
     addMenuSelection("Henri Niva", 40);
+    addMenuSelection("Miro Nurmela", 40);
     addMenuSelection("Joonas Lipping", 40);
     addMenuSelection("Roope Savolainen", 40);
-    addMenuSelection("Aalto-university", 30,200);
-    addMenuSelection("press any key to exit",20,350);
+    addMenuSelection("Aalto-university 		2013", 30,185);
+    addMenuSelection("press RETURN or ESC to exit",20,350);
 
     initKeyboard();
 }
