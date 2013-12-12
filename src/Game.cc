@@ -51,6 +51,9 @@ Game::~Game() {
 
 
 void Game::main() {
+
+    window_.setTitle("Revenge of the Moon: The Gathering Storm");
+
     srand(time(NULL)); // Init rand
     //stack_ = new MainMenu(*this, stack_, fonts_, background_);
 	
