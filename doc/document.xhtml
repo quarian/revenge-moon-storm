@@ -339,6 +339,18 @@ but the map's set of walkers needs to be "garbage collected" by another routine.
 
 <h2>Data structures and algorithms</h2>
 
+<h3>General data structures</h3>
+
+<p>
+The project uses a standard associative container <span class="code">std::map</span>
+as well as <span class="code">std:;vector</span> in many places.
+In <span class="code">Map</span> and <span class="code">MapBlock</span>
+objects, however, the walkers and items that they contain are represented as a <span class="code">std::set</span>.
+The set provides logarithmic inserts, erases and lookups, which is perfect for the use case.
+Paths of <span class="code">MapBlock</span>s are represented as <span class="code">deque</span>s.
+</p>
+
+
 <h3>Map generation algorithms</h3>
 
 RotM sports two kinds of random map generation algorithms - one that creates random rooms and one that
@@ -390,6 +402,52 @@ be the case of some view lines if we were to use the original Bresenham's algori
 program tries to draw a line to every border block and as long as there is nothing on the way, it marks
 those blocsk visible. Drawing of the line ends as soon as it hits something impassable.
 )
+</p>
+
+<h3>A* pathfinding algorithm</h3>
+
+<p>
+<span class="code">A*</span> is a widely used graph search algorithm.
+In this case, it is being used to find paths for AI purposes,
+in order to plot courses from monster to player (and possibly some other tasks).
+The nodes of the "graph" are the <span class="code">MapBlock</span>s, and the edge weights are
+determined by the passability of the blocks (moving into a passable block has a cost of 1).
+</p>
+
+<p>
+The algorithm treats each map block as a node with a given "projected cost" value,
+which is path "already traveled distance" cost and part heuristic (minimum cost to destination).
+The algorithm is based around a priority queue of these nodes.
+On each iterative step, the node with the lowest projected cost is popped from the priority queue.
+If it is the goal node, the algorithm is finished.
+If not, all its hitherto unvisited neighbors are pushed onto the priority queue.
+</p>
+
+<p>
+Both pushes and pops are O(log n) operations, due to the heaplike structure of the priority queue.
+If the nodes in the priority queue run out, then there is no path from source to destination.
+Otherwise, as long as the heuristic satisfies one elementary condition
+(namely, the projected cost with the heuristic must never be so large that it is possible for
+a path with a smaller actually confirmed cost to exist),
+the first time that the goal node is popped is guaranteed to represent the <em>shortest</em>
+possible path, given the constraints.
+</p>
+
+<h3>AI monster animations</h3>
+
+<p>
+An interesting approach is used to make the paths that AI monsters take when "wandering" look natural.
+Basically, when the monster sees no player in range, it cycles through a "move" step and a "sleep" step.
+In the "move" step, the monster picks a reachable map block within a given distance at random,
+then moves to it along the shortest path. (This two-step method is chosen in favor of directly using a random walk because
+itensures that the monster won't saw back and forth between two blocks, which looks really stupid.) 
+In the "sleep" step, the monster stands still in the same place for a randomized amount of time.
+This is again because the AI movement would look very restless and not at all organic
+if the monsters were <em>always</em> going somewhere.
+</p>
+
+<p>
+With this approach, AI actors have a natural-looking "wander" behavior.
 </p>
 
 
