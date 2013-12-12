@@ -24,7 +24,8 @@ bool EditorInterface::parse(sf::Event& event) {
         if (event.key.code == sf::Keyboard::X) editor_.setBrush('s');
         if (event.key.code == sf::Keyboard::C) editor_.setBrush('S');
         if (event.key.code == sf::Keyboard::V) editor_.setBrush('W');
-        if (event.key.code == sf::Keyboard::B) editor_.setBrush('#');;
+        if (event.key.code == sf::Keyboard::B) editor_.setBrush('#');
+        if (event.key.code == sf::Keyboard::I) editor_.addItems();
         if (event.key.code == sf::Keyboard::S) editor_.saveMap();
     }
     return false;
