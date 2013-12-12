@@ -21,7 +21,7 @@ StoryScreen::StoryScreen(
         std::vector<std::string> story) :
         GameState(parent),
         story_(story),
-        storyfont_(parent->getGame().graphicsManager_.fonts_["dark_world"]) {
+        storyfont_(parent->getGame().graphicsManager_.fonts_["batman"]) {
     passed_ = false;
 }
 
@@ -32,7 +32,7 @@ StoryScreen::StoryScreen(
         std::vector<std::string> story ) :
         GameState(game, stack),
         story_(story),
-        storyfont_(game.graphicsManager_.fonts_["dark_world"]) {
+        storyfont_(game.graphicsManager_.fonts_["batman"]) {
     passed_ = false;
 }
 
@@ -61,7 +61,7 @@ void StoryScreen::update(float dt) {
 void StoryScreen::draw() {
 
     //The story, line by line, lines centered
-    storytext_->setCharacterSize(20);
+    storytext_->setCharacterSize(18);
     int y = 0;
     for (auto line : story_) {
         storytext_->setString(line);
