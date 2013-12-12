@@ -1,21 +1,24 @@
 #include "MultiplayerGame.hh"
 #include "StoryScreen.hh"
 #include "Store.hh"
-#include "World.hh"
+#include "MultiplayerGameWorld.hh"
 
 #include <vector>
+#include <string>
+#include <iostream>
 
 
 MultiplayerGame::MultiplayerGame(
         GameState* parent,
         std::vector<Player*> players, 
         std::string mapName,
-        size_t nRounds) :
+        int nRounds) :
       GameState(parent),
       map_(&game_),
       players_(players),
       mapName_(mapName),
       nRounds_(nRounds),
+      totalRounds_(nRounds),
       phase_(0) {}
 
 
@@ -24,12 +27,13 @@ MultiplayerGame::MultiplayerGame(
         GameState*& stack,
         std::vector<Player*> players, 
         std::string mapName,
-        size_t nRounds) :
+        int nRounds) :
       GameState(game, stack),
       map_(&game_),
       players_(players),
       mapName_(mapName),
       nRounds_(nRounds),
+      totalRounds_(nRounds),
       phase_(0) {}
 
 
@@ -39,19 +43,18 @@ void MultiplayerGame::init() {
 
 
 void MultiplayerGame::resume() {
-    if (nRounds_ > 0) {
+    if (phase_ == -1) {
+        phase_++;
+        showScore();
+    } else if (nRounds_ > 0) {
         if (phase_ < players_.size()) {
             phase_++;
             spawn(new Store(this, players_[phase_ - 1]));
         } else {
-            phase_ = 0;
+            phase_ = -1;
             nRounds_--;
             playRound();
         }
-    } else if (nRounds_ == 0) {
-        nRounds_--;
-        spawn(new StoryScreen(this, {"Scores:","","Nothing yet :("}));
-
     } else terminate();
 }
 
@@ -74,7 +77,25 @@ void MultiplayerGame::playRound() {
         map_.spawnPlayer(players_[i], spawnPoints[i].first, spawnPoints[i].second);
 
     /* Launch Game! */
-    spawn(new World(this, map_, players_ ));
+    spawn(new MultiplayerGameWorld(this, map_, players_));
+}
+
+
+void MultiplayerGame::showScore() {
+    std::stringstream roundtitle;
+    roundtitle << "Round " << (totalRounds_ - nRounds_)
+               << " / "    << totalRounds_;
+
+    std::vector<std::string> msgs = {
+        roundtitle.str(),
+        ""
+    };
+
+    //for (auto p : players_) {
+
+
+
+    spawn(new StoryScreen(this, msgs));
 }
 
 

@@ -33,6 +33,7 @@ GameState.cc\
 World.cc\
 SinglePlayerGame.cc\
 MultiplayerGame.cc\
+MultiplayerGameWorld.cc\
 WorldGUI.cc\
 MapUtils.cc\
 StoryScreen.cc\

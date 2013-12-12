@@ -24,12 +24,12 @@ public:
      MultiplayerGame(GameState*,
                      std::vector<Player*>,
                      std::string mapName_,
-                     size_t nRounds);
+                     int nRounds);
 
      MultiplayerGame(Game&, GameState*&,
                      std::vector<Player*>,
                      std::string mapName,
-                     size_t nRounds);
+                     int nRounds);
 
     /* The update function drives the main functionality of this game state. It
      * takes the elapsed time dt, in seconds, as a parameter.
@@ -48,10 +48,12 @@ private:
     Map map_;
     std::vector<Player*> players_;
     std::string mapName_;
-    size_t nRounds_;
-    size_t phase_;
+    int nRounds_;
+    int totalRounds_;
+    int phase_;
 
     void playRound();
+    void showScore();
 };
 
 #endif

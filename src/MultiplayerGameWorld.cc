@@ -1,4 +1,5 @@
 #include "MultiplayerGameWorld.hh"
+#include <iostream>
 
 
 MultiplayerGameWorld::MultiplayerGameWorld(
