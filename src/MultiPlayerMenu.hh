@@ -49,6 +49,7 @@ private:
     void readMapNames();
     std::vector<std::string> mapNames_;
     size_t mapIndex_;
+    size_t rounds_;
 
     
 };

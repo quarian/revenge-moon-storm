@@ -40,6 +40,7 @@ public:
 
 	/* Accessors for the gold and quantity of items */
 	int getGold() const { return gold_; }
+	void setGold(int gold) {gold_ = gold;} 
 	size_t getItemCount(std::string);
 
 	/* Returns all non-zero items in the inventory */
