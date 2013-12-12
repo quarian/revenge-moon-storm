@@ -51,6 +51,7 @@ protected:
     void updateAll(float);
     void drawMapObjects();
     void drawGUI();
+    sf::Text* status_text_;
 
     void initKeyboard();
 };

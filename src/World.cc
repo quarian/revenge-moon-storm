@@ -12,7 +12,10 @@ World::World(
         : GameState(parent),
           map_(map),
           players_(players),
-          interface_(new GlobalGameInterface(this)) {}
+          interface_(new GlobalGameInterface(this))
+{
+    status_text_ = new sf::Text("", game_.graphicsManager_.fonts_["batman"], 16u);
+}
           //gui_(WorldGUI(*map.getGame(), 0, 704))  {}
 
 World::World(
@@ -23,7 +26,10 @@ World::World(
         : GameState(game, stack),
           map_(map),
           players_(players),
-          interface_(new GlobalGameInterface(this)) {}
+          interface_(new GlobalGameInterface(this))
+{
+    status_text_ = new sf::Text("", game_.graphicsManager_.fonts_["batman"]);
+}
           //gui_(WorldGUI(*map.getGame()))  {}
 
 
@@ -139,6 +145,8 @@ void World::drawMapObjects() {
             game_.draw(blockSprite);
         }
     }
+    
+    drawGUI();
 
     for (Item* i : map_.items)
         if (i->getLocation()->visible_)
@@ -158,7 +166,52 @@ void World::drawMapObjects() {
 
 void World::drawGUI() {
     //gui_.clear();
-    //for (size_t i=0; i < players_.size(); i++)
+    //
+    int y = 44;
+    int x = 3;
+    std::vector<std::string> item_names = Item::names();
+    sf::Sprite icon;
+    for (size_t i=0; i < players_.size(); i++) {
+        status_text_->setString(players_[i]->getName());
+        status_text_->setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
+        status_text_->setColor(sf::Color::White);
+        game_.draw(*status_text_);
+        y++;
+        for (auto iter = item_names.begin(); iter != item_names.end(); iter++) {
+            icon.setTexture(game_.graphicsManager_.getTexture(*iter + "_icon.png"));
+            icon.setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
+            icon.setScale(0.3, 0.3);
+            game_.draw(icon);
+            y++;
+            std::ostringstream ostr;
+            ostr << players_[i]->getInventory().getItemCount(*iter);
+            if (!(*iter).compare(players_[i]->getCurrentItem()))
+                status_text_->setColor(sf::Color::Red);
+            else
+                status_text_->setColor(sf::Color::White);
+            status_text_->setString(ostr.str());
+            status_text_->setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
+            game_.draw(*status_text_);
+            x += 2;
+            y--;
+        }
+        y--;
+        status_text_->setColor(sf::Color::White);
+        status_text_->setString("Health");
+        status_text_->setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
+        game_.draw(*status_text_);
+        y++;
+        x++;
+        std::ostringstream ostr;
+        ostr << players_[i]->getActor()->getHealth();
+        status_text_->setString(ostr.str());
+        status_text_->setColor(sf::Color::White);
+        status_text_->setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
+        game_.draw(*status_text_);
+        y--;
+        x += 25;
+    }
+
     //    gui_.makePlayerInfo(players_[i], i);
     //gui_.draw();
 }
