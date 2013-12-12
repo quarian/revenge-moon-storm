@@ -44,7 +44,7 @@ void Player::changeWeapon() {
 
 void Player::useItem() {
     if (avatar_)
-        inventory_.useItem(currentItem_, avatar_->getLocation()->getMap(), avatar_->getLocation(), avatar_->getDirection() );
+        inventory_.useItem(currentItem_, avatar_->getLocation()->getMap(), avatar_->getLocation(), avatar_->getDirection(), this );
 }
 
 

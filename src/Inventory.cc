@@ -1,6 +1,7 @@
 #include "Inventory.hh"
 #include "Item.hh"
 #include "Rocket.hh"
+#include "Player.hh"
 
 #include <algorithm>
 #include <string>
@@ -21,6 +22,7 @@ Inventory::Inventory() {
         items_["Mine"] = 8;
         items_["Carpet Bomb"] = 5;
         items_["Rocket Launcher"] = 8;
+        items_["Health Pack"] = 5;
         items_["Pickaxe"] = 5;
 }
 
@@ -85,7 +87,7 @@ void Inventory::sellItem(std::string item) {
     items_[item] -= 1;
 }
 
-bool Inventory::useItem(std::string item, Map& map, MapBlock* mb, Direction dir) {
+bool Inventory::useItem(std::string item, Map& map, MapBlock* mb, Direction dir, Player* player) {
 	if (items_[item] > 0) {
 		items_[item] -= 1;
 
@@ -107,6 +109,9 @@ bool Inventory::useItem(std::string item, Map& map, MapBlock* mb, Direction dir)
                         Rocket* rocket = new Rocket(map, mb->getBlock(dir), dir);
                         map.monsters.insert(rocket);
                     }
+                else if (item == "Health Pack") {
+                    player->getActor()->heal(40);
+                }
 
                return true;
 	}

@@ -232,14 +232,15 @@ void Store::sellItem() {
 int Store::getPrice(std::string item) const {
     std::map<std::string, int> prices;
     prices[""] = 0;
-    prices["Small Bomb"] = 25; //TODO CHANGE THESE
-    prices["Large Bomb"] = 150;
-    prices["Crucifix Bomb"] = 125;
-    prices["Large Crucifix Bomb"] = 300;
+    prices["Small Bomb"] = 15; //TODO CHANGE THESE
+    prices["Large Bomb"] = 100;
+    prices["Crucifix Bomb"] = 100;
+    prices["Large Crucifix Bomb"] = 250;
     prices["Flamer"] = 20;
-    prices["Mine"] = 125;
+    prices["Mine"] = 100;
     prices["Carpet Bomb"] = 75;
     prices["Rocket Launcher"] = 125;
+    prices["Health Pack"] = 250;
     prices["Pickaxe"] = 200;
 
     return prices[item];

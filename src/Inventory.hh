@@ -10,6 +10,7 @@
 class Map;
 class MapBlock;
 class Item;
+class Player;
 
 /*
  * A simple class that handles the player's items and gold
@@ -58,7 +59,7 @@ public:
 	// Decreases the given item's quantity by 1. Gold is added in the caller function in Store
 	void sellItem(std::string);
 	/* Decreases the item count in the inventory, if possible, and returns a boolean */
-	bool useItem(std::string, Map&, MapBlock*, Direction);
+	bool useItem(std::string, Map&, MapBlock*, Direction, Player*);
 	//An item is picked up by an actor and given to the inventory to parse
 	bool collect(Item*);
 	
