@@ -3,18 +3,18 @@
 
 Menu::Menu(Game& game, GameState*& stack) : 
             GameState(game, stack),
-              fonts_(game_.graphicsManager_.fonts_),
-              texts_(game_.graphicsManager_.texts_),
-              background_(game_.background_),
-              selectionIndex_(0), 
+            fonts_(game_.graphicsManager_.fonts_),
+            texts_(game_.graphicsManager_.texts_),
+            background_(game_.background_),
+            selectionIndex_(0), 
             spawnCountter_(0),
             scrap_(100) { }
               
 Menu::Menu(GameState* stack) : 
             GameState(stack),
-              fonts_(game_.graphicsManager_.fonts_),
-              texts_(game_.graphicsManager_.texts_),
-              background_(game_.background_), 
+            fonts_(game_.graphicsManager_.fonts_),
+            texts_(game_.graphicsManager_.texts_),
+            background_(game_.background_), 
             spawnCountter_(0),
             scrap_(100) { }    
               
@@ -30,6 +30,7 @@ void Menu::update(float dt) {
 }
 
 void Menu::resume() {
+    background_.setTexture(game_.graphicsManager_.getTexture("background_menu.png"));
     initKeyboard();
 
     //if (spawnCountter_<0) {
@@ -73,9 +74,9 @@ void Menu::setTitle(std::string tittle) {
     menuTexts_.push_back(texts_[tittle]);
 }
 
-void Menu::addMenuSelection(std::string selectionName, int FontSize) {
+void Menu::addMenuSelection(std::string selectionName, int FontSize, int verticalPos) {
     selectionKeys_.push_back(selectionName);
-    sf::Vector2f pos(512,FontSize*2*(1+selectionKeys_.size()));
+    sf::Vector2f pos(512,verticalPos+FontSize*2*(1+selectionKeys_.size()));
     texts_[selectionName] = new sf::Text(selectionName, fonts_["batman"],FontSize);
     sf::FloatRect dim = texts_[selectionName]->getLocalBounds();
     texts_[selectionName]->setOrigin(dim.width/2, dim.height/2);

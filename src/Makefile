@@ -52,6 +52,7 @@ MainMenu.cc\
 SinglePlayerMenu.cc\
 MultiPlayerMenu.cc\
 EditorInterface.cc\
+CreditsMenu.cc\
 MapEditor.cc
 EDITOR=EditorMain.cc
 MAIN=main.cc

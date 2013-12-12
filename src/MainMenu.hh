@@ -4,6 +4,7 @@
 #include "Menu.hh"
 #include "SinglePlayerMenu.hh"
 #include "MultiPlayerMenu.hh"
+#include "CreditsMenu.hh"
 #include "MapEditor.hh"
 #include <map>
 
@@ -21,16 +22,16 @@ public:
 
     void init();
     void resume() {
-        std::cout << "Called resume on MainMenu\n";
         initKeyboard();
+        if (close_) terminate();	//Close after showing credits
     }
     void keySelect();
     void keyEscape();
     
-    //void keyRightReleased() {rightPressed_ = false}
-    //void keyLeftReleased() {leftPressed_ = false}
     void keySelReleased();
     void keyEscReleased();
+    
+    bool close_;	//Close after showing credits
 
 private:    
     void singlePlayerSelected();

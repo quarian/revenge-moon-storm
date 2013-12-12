@@ -7,7 +7,7 @@ SinglePlayerMenu::SinglePlayerMenu(Game& game, GameState*& stack, bool& selectPr
 				escPressed_(escPressed) { }
 
 void SinglePlayerMenu::init() {
-
+	background_.setTexture(game_.graphicsManager_.getTexture("background_menu.png"));
 	setTitle("Singleplayer ");
 
 	addMenuSelection("Start", 40);

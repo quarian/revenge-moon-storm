@@ -146,14 +146,14 @@ void GraphicsManager::frontToEnd() {
 
 sf::Color GraphicsManager::getPlayerColor() {
         std::vector<sf::Color> playerColors = {
+                    sf::Color(180,82,205),
                     sf::Color(154,205,50),
                     sf::Color(238,64,0),
                     sf::Color(154,205,50),
                     sf::Color(79,148,205),
-                    sf::Color(180,82,205),
                     sf::Color(0,205,205),
                     sf::Color(205,205,0)};
-        if (playerColorsIndex_+1<playerColors.size()) playerColorsIndex_=0; // Looping through the same colors if more than 
+        if (playerColorsIndex_==playerColors.size()) playerColorsIndex_=0; // Looping through the same colors if more than 
         sf::Color retColor = playerColors[playerColorsIndex_];
         playerColorsIndex_++;
         return retColor;

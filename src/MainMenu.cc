@@ -2,10 +2,10 @@
 
 
 
-MainMenu::MainMenu(Game& game, GameState*& stack) : Menu(game, stack), selectPressed_(false), escPressed_(false) { }
+MainMenu::MainMenu(Game& game, GameState*& stack) : Menu(game, stack), selectPressed_(false), escPressed_(false), close_(false) { }
 
 void MainMenu::init() {
-    //background_.setTexture(game_.graphicsManager_.getTexture("background_menu.png"));
+    background_.setTexture(game_.graphicsManager_.getTexture("background_menu.png"));
     
     texts_["main_title1"] = new sf::Text("Revenge of the Moon ", fonts_["batman"],60);
     sf::FloatRect dim1 = texts_["main_title1"]->getLocalBounds();
@@ -48,7 +48,9 @@ void MainMenu::keySelect() {
     } else if (selectionKeys_[selectionIndex_] == "Map Editor") {
         mapEdiorSelected();
     } else if (selectionKeys_[selectionIndex_] == "Exit" ) {
-        terminate();
+        close_=true;
+        spawn(new CreditsMenu(game_, stack_));
+        /*terminate();*/
     }
 }
 

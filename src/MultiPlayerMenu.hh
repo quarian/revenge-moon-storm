@@ -33,13 +33,23 @@ public:
     void keyEscapeReleased();
     
 private:
-
+	/* A MultiPlayerMenu specific selection adder */
+	void addSelection(std::string key);
+	/* Updates keyset selectors to match playerCount_ */
+	void updateKeySetSelectors();
+	
     /* Spawns MultiPlayerGame */
     void start();
     /* Creates Players */
     void initPlayers();
     
+    /* Contains descriptive names for each key set */
+    std::vector<std::string> keySetName_;
+    /* Contains choosable KeySets */
     std::vector<PlayerInterface::KeySet> keySets_;
+    /* Contains the current KeySet selection for each player */
+    std::vector<size_t> keySetIndex_;
+
     size_t playerCount_;
     
     bool& selectPressed_;
@@ -50,6 +60,8 @@ private:
     std::vector<std::string> mapNames_;
     size_t mapIndex_;
     size_t rounds_;
+    
+    void playerKeySetRight();
 
     
 };

@@ -62,11 +62,9 @@ void MultiplayerGame::resume() {
 
 
 void MultiplayerGame::playRound() {
-    /* Load map... */
-    if (mapName_=="random") {
-        bool overlap = rand() % 2 == 0;
-        map_.generateRandomMap(game_.terrainManager_, overlap);
-    }
+    /* Load map...  random (w/ overlap), random (w/o overlap), random maze;*/
+    if (mapName_=="random (w/ overlap)") map_.generateRandomMap(game_.terrainManager_);
+    else if (mapName_=="random (w/o overlap)") map_.generateRandomMap(game_.terrainManager_,false,44,64);
     else if (mapName_=="random maze") map_.generateMaze(game_.terrainManager_);
     else map_.loadFromFile("./maps/"+mapName_, game_.terrainManager_);
 

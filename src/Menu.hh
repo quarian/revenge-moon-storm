@@ -9,8 +9,7 @@
 
 /* Menu
  * ================
- * 
- * 
+ * An abstract base class fot all menus
  * 
  */
 class MenuInterface;
@@ -37,8 +36,8 @@ public:
     //void terminate();
     virtual void start() {}
     
-    void keyDown();
-    void keyUp();
+    virtual void keyDown();
+    virtual void keyUp();
     virtual void keyLeft() {}
     virtual void keyRight() {}
     virtual void keySelect() = 0;
@@ -53,7 +52,7 @@ protected:
     virtual void drawMenu();
 
     virtual void setTitle(std::string tittle);
-    virtual void addMenuSelection(std::string selectionName, int FontSize);
+    virtual void addMenuSelection(std::string selectionName, int FontSize, int verticalOffset=0);
     void updateText(std::string key, std::string NewStr);
 
     /* Global maps containing all fonts and texts of the game */
@@ -71,7 +70,9 @@ protected:
     void initKeyboard();
     
     std::vector<Player*> players_;
-       int scrap_;
+    /*Player initial scarp */
+    int scrap_;
+    
     /* spawnCounter gets the value of players_.size() after players have been created
      * when 0 resume terminates 
      * when 1 resume() spawn a PlayerGame when more 
