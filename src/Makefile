@@ -61,7 +61,7 @@ SOURCES_O=$(TMP:.cpp=.o)
 MAIN_O=$(MAIN:.cc=.o)
 EDITOR_O=$(EDITOR:.cc=.o)
 TESTS_O=$(TESTS:.cc=.o)
-EXECUTABLE=minebombers
+EXECUTABLE=revenge
 EDITOR_EXECUTABLE=editor
 TEST_EXECUTABLE=tests
 
