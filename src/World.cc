@@ -203,7 +203,10 @@ void World::drawGUI() {
         y++;
         x++;
         std::ostringstream ostr;
-        ostr << players_[i]->getActor()->getHealth();
+        if (players_[i]->getActor())
+            ostr << players_[i]->getActor()->getHealth();
+        else
+            ostr << 0;
         status_text_->setString(ostr.str());
         status_text_->setColor(sf::Color::White);
         status_text_->setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
