@@ -32,9 +32,9 @@ MapObjectManager.cc\
 GameState.cc\
 World.cc\
 SinglePlayerGame.cc\
+MultiplayerGame.cc\
 WorldGUI.cc\
 MapUtils.cc\
-MultiplayerGame.cc\
 StoryScreen.cc\
 AIPlayerSeeker.cc\
 Enemies.cc\

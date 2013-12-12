@@ -1,5 +1,5 @@
-#ifndef MB2_NPGAME_HH
-#define MB2_NPGAME_HH
+#ifndef MB2_MULTIPLAYERGAME_HH
+#define MB2_MULTIPLAYERGAME_HH
 
 #include <vector>
 #include <set>
@@ -21,8 +21,15 @@
 
 class MultiplayerGame : public GameState {
 public:
-     MultiplayerGame(GameState*, std::vector<Player*>, std::string mapName_);
-     MultiplayerGame(Game&, GameState*&, std::vector<Player*>, std::string mapName);
+     MultiplayerGame(GameState*,
+                     std::vector<Player*>,
+                     std::string mapName_,
+                     size_t nRounds);
+
+     MultiplayerGame(Game&, GameState*&,
+                     std::vector<Player*>,
+                     std::string mapName,
+                     size_t nRounds);
 
     /* The update function drives the main functionality of this game state. It
      * takes the elapsed time dt, in seconds, as a parameter.
@@ -41,6 +48,10 @@ private:
     Map map_;
     std::vector<Player*> players_;
     std::string mapName_;
+    size_t nRounds_;
+    size_t phase_;
+
+    void playRound();
 };
 
 #endif
