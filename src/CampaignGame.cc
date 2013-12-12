@@ -11,6 +11,7 @@ CampaignGame::CampaignGame(Game& game, GameState*& stack, Player* player) :
 
 void CampaignGame::init() {
     phase_ = 1;
+    player_->setLives(3);
     flagVictorious_ = false;
     storeIsNext_ = false;
     resume();
@@ -24,8 +25,14 @@ void CampaignGame::resume() {
         phase_ += 1;
     }
 
+    /* If out of lives, exit */
+    if (player_->getLives() <= 0) {
+        phase_ = 6; // telophase!
+        // death();
+        // terminate();
+    }
     /* If the player has beat all the levels */
-    if (phase_ == 5) {
+    else if (phase_ == 5) {
         phase_++;
         victory();
     } else if (phase_ == 6) {
@@ -58,5 +65,10 @@ void CampaignGame::resume() {
 
 
 void CampaignGame::victory() {
+    spawn(new DummyGameState(this));
+}
+
+
+void CampaignGame::death() {
     spawn(new DummyGameState(this));
 }

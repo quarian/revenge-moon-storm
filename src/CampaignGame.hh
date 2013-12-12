@@ -35,6 +35,7 @@ public:
     //void showStoryBoss();
 
     void victory();
+    void death();
 
 private:
     Map map_;
