@@ -8,7 +8,8 @@ CampaignGameWorld::CampaignGameWorld(
             bool& flagVictorious) :
         World(parent, map, {player}),
         player_(player),
-        flagVictorious_(flagVictorious) {
+        flagVictorious_(flagVictorious),
+        timeToExit_(-2000) {
 }
 
 
@@ -20,15 +21,21 @@ CampaignGameWorld::CampaignGameWorld(
             bool& flagVictorious) :
         World(game, stack, map, {player}),
         player_(player),
-        flagVictorious_(flagVictorious) {
+        flagVictorious_(flagVictorious),
+        timeToExit_(-2000) {
 }
 
 
 void CampaignGameWorld::update(float dt) {
-    /* If player is dead or victorious, terminate the world */
-    if (player_->getActor() == nullptr || flagVictorious_)
-        terminate();
+    if (timeToExit_ > -1000) {
+        timeToExit_ -= dt;
 
-    /* If nothing special has happened, just carry on as normal. */
+        if (timeToExit_ < 0)
+            terminate();
+
+    } else if (player_->getActor() == nullptr || flagVictorious_) {
+        timeToExit_ = 1;
+    }
+
     World::update(dt);
 }

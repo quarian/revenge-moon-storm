@@ -19,6 +19,7 @@ private:
 
      int countAlivePlayers();
      std::map<Player*, int>& wins_;
+     float timeToExit_;
 };
 
 #endif

@@ -15,6 +15,7 @@ public:
 private:
      Player* player_;
      bool& flagVictorious_;
+     float timeToExit_;
 };
 
 #endif

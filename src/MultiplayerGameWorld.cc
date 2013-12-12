@@ -9,7 +9,8 @@ MultiplayerGameWorld::MultiplayerGameWorld(
             std::map<Player*, int>& wins) :
         World(parent, map, players),
         players_(players),
-        wins_(wins) {
+        wins_(wins),
+        timeToExit_(-2000) {
 }
 
 
@@ -21,23 +22,28 @@ MultiplayerGameWorld::MultiplayerGameWorld(
             std::map<Player*, int>& wins) :
         World(game, stack, map, players),
         players_(players),
-        wins_(wins) {
+        wins_(wins),
+        timeToExit_(-2000) {
 }
 
 
 void MultiplayerGameWorld::update(float dt) {
-    /* If player is dead or victorious, terminate the world */
-    if (countAlivePlayers() <= 1) {
+    if (timeToExit_ > -1000) {
+        timeToExit_ -= dt;
+
+        if (timeToExit_ < 0)
+            terminate();
+
+    } else if (countAlivePlayers() <= 1) {
         for (auto p : players_) {
             if (p->getActor()) {
                 p->getInventory().increaseGold(1000); // Last man standing prize
                 wins_[p]++;
             }
         }
-        terminate();
+        timeToExit_ = 1;
     }
 
-    /* If nothing special has happened, just carry on as normal. */
     World::update(dt);
 }
 
