@@ -32,7 +32,7 @@ void MultiPlayerMenu::init() {
     
     addMenuSelection("Back", 30);
     
-    keySets_.push_back(PlayerInterface::WASD_DVORAK);
+    keySets_.push_back(PlayerInterface::WASD);
     keySets_.push_back(PlayerInterface::ARROWS);
     
     initKeyboard();
@@ -107,6 +107,10 @@ void MultiPlayerMenu::keySelReleased() {selectPressed_ = false;}
 void MultiPlayerMenu::keyEscapeReleased() {escPressed_ = false;}
 
 void MultiPlayerMenu::initPlayers() {
+    for (auto p : players_) {
+        delete p;
+    }
+    players_.clear();
     size_t j = 0;
     std::string p = "Player ";
     for (size_t i=0;i!=playerCount_;i++,j++) {
