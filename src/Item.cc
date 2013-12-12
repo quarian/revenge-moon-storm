@@ -87,7 +87,7 @@ std::map<std::string, std::string> Item::descriptions() {
 	d["Mine"] = "Anti-organism trap that arms shortly\nafter being deployed. Deals high\ndamage to close proximity.";
     d["Carpet Bomb"] = "A bomb that jumps unexpectedly around\nwhen it explodes. Can deal high damage\nwith luck.";
     d["Rocket Launcher"] = "A devastating projectile weapon.\nRockets explode on impact.\nNo rocket jumping allowed.";
-    d["Health Pack"] = "Restores your health";
+    d["Health Pack"] = "Restores your health by 40 points.";
 
 	d["Pickaxe"] = "The moonminers' best tool! Allows you\nto mine blocks faster. Effect stacks.";
 
