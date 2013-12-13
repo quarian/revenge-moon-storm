@@ -126,7 +126,6 @@ void GraphicsManager::initializeGraphics(std::string rootPath) {
     boss.addFrame(sf::IntRect(0,0,16,16));
     boss.addFrame(sf::IntRect(16,0,16,16));
     boss.addFrame(sf::IntRect(16*2,0,16,16));
-    boss.addFrame(sf::IntRect(16*3,0,16,16));
     animations_["boss"] = boss;
 
     frontToEnd();
