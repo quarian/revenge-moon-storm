@@ -66,3 +66,7 @@ bool Player::clearAvatar() {
 PlayerInterface* Player::getInterface() {
     return &interface_;
 }
+
+void Player::resetInventory() {
+    inventory_.reset();
+}

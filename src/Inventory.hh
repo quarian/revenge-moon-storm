@@ -44,6 +44,8 @@ public:
 	void setGold(int gold) {gold_ = gold;} 
 	size_t getItemCount(std::string);
 
+	void reset();
+
 	/* Returns all non-zero items in the inventory */
 	std::map<std::string, size_t> getNonzeroItems();
 

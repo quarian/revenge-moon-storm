@@ -84,5 +84,8 @@ void CampaignGame::death() {
     std::vector<std::string> msg = {
         "You have died!"
     };
+    
+    player_->resetInventory();
+
     spawn(new StoryScreen(this, msg));
 }

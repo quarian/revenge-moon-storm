@@ -13,17 +13,9 @@ Inventory::Inventory() {
 	}
 	gold_ = 0;
 
+    reset();
         // TEST LINE -- remove eventually
-        items_["Small Bomb"] = 20;
-        items_["Large Bomb"] = 10;
-        items_["Crucifix Bomb"] = 6;
-        items_["Large Crucifix Bomb"] = 2;
-        items_["Flamer"] = 10;
-        items_["Mine"] = 8;
-        items_["Carpet Bomb"] = 5;
-        items_["Rocket Launcher"] = 8;
-        items_["Health Pack"] = 5;
-        items_["Pickaxe"] = 5;
+
 }
 
 Inventory::~Inventory() {}
@@ -136,4 +128,20 @@ bool Inventory::collect(Item* item) {
 
 int Inventory::getExtraMiningPower() {
     return items_["Pickaxe"]*10;
+}
+
+void Inventory::reset() {
+    items_["Small Bomb"] = 20;
+    items_["Large Bomb"] = 10;
+    items_["Crucifix Bomb"] = 6;
+    items_["Large Crucifix Bomb"] = 2;
+    items_["Flamer"] = 15;
+    items_["Mine"] = 8;
+    items_["Carpet Bomb"] = 5;
+    items_["Rocket Launcher"] = 8;
+    items_["Health Pack"] = 5;
+    items_["Nuclear Bomb"] = 0;
+    items_["Pickaxe"] = 5;
+
+    gold_ = 0;
 }

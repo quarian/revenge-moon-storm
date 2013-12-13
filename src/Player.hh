@@ -39,6 +39,8 @@ public:
     std::string getCurrentItem() const { return currentItem_; }
     Inventory& getInventory() { return inventory_; }
 
+    void resetInventory();
+
     void setLives(size_t lives) { lives_ = lives; }
     ControlledActor* getActor() { return avatar_; }
     bool exit() { return clearAvatar(); }

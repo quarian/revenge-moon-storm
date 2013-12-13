@@ -178,6 +178,12 @@ void World::drawGUI() {
 
         if (players_.size() > 1)
             game_.draw(*status_text_);
+        else {
+            std::ostringstream convert;
+            convert << players_[i]->getLives();
+            status_text_->setString("Lives: " + convert.str());
+            game_.draw(*status_text_);
+        }
         y++;
         for (auto iter = item_names.begin(); iter != item_names.end(); iter++) {
             icon.setTexture(game_.graphicsManager_.getTexture(*iter + "_icon.png"));
