@@ -51,7 +51,7 @@ ScarabQueen::ScarabQueen(Map& map, MapBlock* mb, float dps, float speed, int hea
         AIPlayerSeeker(map, mb, dps, speed, health, los),
         scarabs_({0, 0, 0}),
         launchCooldown_(0) {
-    initSprite(map.getGame()->graphicsManager_.getAnimation("queen"), sf::Color::Green);
+    initSprite(map.getGame()->graphicsManager_.getAnimation("queen"), sf::Color::Magenta);
     sprite_.setFrameTime(sf::seconds(0.10f));
 }
 
