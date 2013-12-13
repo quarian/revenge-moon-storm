@@ -14,7 +14,7 @@ MultiPlayerMenu::MultiPlayerMenu(Game& game, GameState*& stack, bool& selectPres
                 rounds_(2) { }
 
 void MultiPlayerMenu::init() {
-	background_.setTexture(game_.graphicsManager_.getTexture("background_menu.png"));
+    background_.setTexture(game_.graphicsManager_.getTexture("background_menu.png"));
     mapNames_ = {"random (w/ overlap)","random (w/o overlap)","random maze"};
     keySetName_ = {"Arrows R_Ctrl R_Shft","WSDA Space L_Alt","Arrows Space L_Alt",".AEO Space L_Alt"};
     keySets_ = {PlayerInterface::ARROWS,PlayerInterface::WASD,PlayerInterface::ARROWS_WIDE,PlayerInterface::WASD_DVORAK};
@@ -30,11 +30,11 @@ void MultiPlayerMenu::init() {
     addSelection("Rounds");
     updateText("Rounds","< Rounds: " + std::to_string(rounds_) +" >");
     
-	for (size_t plIndex=0; plIndex!=playerCount_; plIndex++) keySetIndex_.push_back(0);
+    for (size_t plIndex=0; plIndex!=playerCount_; plIndex++) keySetIndex_.push_back(0);
     updateKeySetSelectors();
 
-	/*
-	plIndex++;
+    /*
+    plIndex++;
     addSelection("Keyset2");
     keySetIndex_[plIndex]=1;
     updateText("Keyset2","< Player 2 KeySet: " + keySetName_[keySetIndex_[plIndex]] +" >");
@@ -52,25 +52,25 @@ void MultiPlayerMenu::init() {
 }
 
 void MultiPlayerMenu::updateKeySetSelectors() {
-	// Take care that there is as much keySetSelection_ as there is players 
-	if (keySetIndex_.size()<playerCount_) {
-		while (keySetIndex_.size()==playerCount_)
-			keySetIndex_.push_back(0);
-	}
+    // Take care that there is as much keySetSelection_ as there is players 
+    if (keySetIndex_.size()<playerCount_) {
+        while (keySetIndex_.size()==playerCount_)
+            keySetIndex_.push_back(0);
+    }
     
     for (size_t plIndex=0; plIndex!=playerCount_; plIndex++) {
-    	std::string n(std::to_string(plIndex+1));
-    	std::string key("Keyset"+n);
-    	keySetIndex_[plIndex]=plIndex;
-    	addSelection(key);
-    	std::string str("< Player"+n+" KeySet: " + keySetName_[keySetIndex_[plIndex]] +" >");
-    	updateText(key,str);
+        std::string n(std::to_string(plIndex+1));
+        std::string key("Keyset"+n);
+        keySetIndex_[plIndex]=plIndex;
+        addSelection(key);
+        std::string str("< Player"+n+" KeySet: " + keySetName_[keySetIndex_[plIndex]] +" >");
+        updateText(key,str);
     }
 }
 
 void MultiPlayerMenu::addSelection(std::string key) {
-	int verticalOffset = 130;
-	int fontSize = 20;
+    int verticalOffset = 130;
+    int fontSize = 20;
     addMenuSelection(key,fontSize,verticalOffset);
 }
     
@@ -89,15 +89,15 @@ void MultiPlayerMenu::keySelect() {
 // Should never be called if playerCount is more then keySetIndex_.size()
 /*void MultiPlayerMenu::playerKeySetRight() {
 
-	for (size_t plIndex=0; plIndex!=playerCount_; plIndex++) {
-		std::string n(std::to_string(plIndex+1));
-		std::string key("Keyset"+n);
-		
-		if (selectionKeys_[selectionIndex_] == key) {
-		    keySetIndex_[plIndex]++;
-		    if (keySetIndex_[plIndex]== keySetName_.size()) keySetIndex_[plIndex]=0;
-		    updateText(v,"< Player 1 KeySet: "+ keySetName_[keySetIndex_[plIndex]] +" >");
-		}
+    for (size_t plIndex=0; plIndex!=playerCount_; plIndex++) {
+        std::string n(std::to_string(plIndex+1));
+        std::string key("Keyset"+n);
+        
+        if (selectionKeys_[selectionIndex_] == key) {
+            keySetIndex_[plIndex]++;
+            if (keySetIndex_[plIndex]== keySetName_.size()) keySetIndex_[plIndex]=0;
+            updateText(v,"< Player 1 KeySet: "+ keySetName_[keySetIndex_[plIndex]] +" >");
+        }
     }
 }*/
 
@@ -195,7 +195,6 @@ void MultiPlayerMenu::initPlayers() {
     }
     for (auto pl : players_) {pl->getInventory().setGold(scrap_);}
     spawnCountter_=playerCount_;
-    resume();
 }
 
 void MultiPlayerMenu::start() {
@@ -220,4 +219,11 @@ void MultiPlayerMenu::readMapNames() {
         }
         free(dircontent);
     }
+}
+
+
+void MultiPlayerMenu::resume() {
+    for (auto p : players_) delete p;
+    players_.clear();
+    Menu::resume();
 }

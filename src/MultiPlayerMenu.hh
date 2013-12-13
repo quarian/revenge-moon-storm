@@ -21,7 +21,7 @@ public:
     void init();
     
     /* Ask for player name to save scores, then terminate */
-    //void resume();
+    void resume();
     //void terminate();
 
     void keyLeft();
@@ -33,11 +33,11 @@ public:
     void keyEscapeReleased();
     
 private:
-	/* A MultiPlayerMenu specific selection adder */
-	void addSelection(std::string key);
-	/* Updates keyset selectors to match playerCount_ */
-	void updateKeySetSelectors();
-	
+    /* A MultiPlayerMenu specific selection adder */
+    void addSelection(std::string key);
+    /* Updates keyset selectors to match playerCount_ */
+    void updateKeySetSelectors();
+    
     /* Spawns MultiPlayerGame */
     void start();
     /* Creates Players */
