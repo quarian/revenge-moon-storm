@@ -58,7 +58,7 @@ ScarabQueen::ScarabQueen(Map& map, MapBlock* mb, float dps, float speed, int hea
 
 
 MoonKing::MoonKing(Map& map, MapBlock* mb, bool& flagVictory) :
-        ScarabQueen(map, mb, 50, 2.4, 200, 20), flagVictory_(flagVictory) {
+        ScarabQueen(map, mb, 50, 2.4, 500, 20), flagVictory_(flagVictory) {
     initSprite(map.getGame()->graphicsManager_.getAnimation("boss"), sf::Color::Red);
     sprite_.setFrameTime(sf::seconds(0.20f));
 }
