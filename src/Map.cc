@@ -309,12 +309,12 @@ std::vector<std::vector<MapBlock*>>* Map::getGrid() {
     return &grid_;
 }
 
-void Map::spawnPlayer(Player* player, int x, int y) {
+void Map::spawnPlayer(Player* player, int x, int y, bool cycleColor) {
     player->spawn(*this, getBlock(x, y));
     player->getActor()->initSprite(
             game_->graphicsManager_.getAnimation("walking_player"),
             game_->graphicsManager_.getAnimation("digging_player"),
-            game_->graphicsManager_.getPlayerColor());
+            game_->graphicsManager_.getPlayerColor(cycleColor ? -1 : 1));
     players.insert(player);
 }
 

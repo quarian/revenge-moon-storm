@@ -31,7 +31,7 @@ void CampaignGame::showStoryBoss() {
 void CampaignGame::launchLevelBoss() {
     map_.loadFromFile("./maps/campaign/boss.map", game_.terrainManager_);
 
-    map_.spawnPlayer(player_, 7, 12);
+    map_.spawnPlayer(player_, 7, 12, false);
 
     /* Spawn boss */
     MoonKing* mk = new MoonKing(map_, map_.getBlock(42, 32), flagVictorious_);

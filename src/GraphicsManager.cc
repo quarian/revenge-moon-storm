@@ -159,7 +159,7 @@ void GraphicsManager::frontToEnd() {
     pathOptions_.pop_front();
 }
 
-sf::Color GraphicsManager::getPlayerColor() {
+sf::Color GraphicsManager::getPlayerColor(int i) {
         std::vector<sf::Color> playerColors = {
                     sf::Color(180,82,205),
                     sf::Color(154,205,50),
@@ -169,8 +169,13 @@ sf::Color GraphicsManager::getPlayerColor() {
                     sf::Color(0,205,205),
                     sf::Color(205,205,0)};
         if (playerColorsIndex_==playerColors.size()) playerColorsIndex_=0; // Looping through the same colors if more than 
-        sf::Color retColor = playerColors[playerColorsIndex_];
-        playerColorsIndex_++;
+        sf::Color retColor;
+        if (i == -1) { // Random color
+            retColor = playerColors[playerColorsIndex_];
+            playerColorsIndex_++;
+        } else { // Specific color
+            retColor = playerColors[i];
+        }
         return retColor;
 }
 

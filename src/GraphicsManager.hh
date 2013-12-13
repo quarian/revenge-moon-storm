@@ -32,7 +32,7 @@ public:
     Animation const& getAnimation(std::string name);
     
     // Returns new color for each player
-    sf::Color getPlayerColor();
+    sf::Color getPlayerColor(int=-1);
     
     void setTextPosition(std::string name, int x, int y);
     

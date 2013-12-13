@@ -29,7 +29,7 @@ void CampaignGame::showStoryCaverns() {
 void CampaignGame::launchLevelCaverns() {
     map_.loadFromFile("./maps/campaign/caverns.map", game_.terrainManager_);
 
-    map_.spawnPlayer(player_, 1, 42);
+    map_.spawnPlayer(player_, 1, 42, false);
     new Fixtures::LevelExit(map_, map_.getBlock(59, 12), flagVictorious_, {player_});
     
     spawn(new CampaignGameWorld(this, map_, player_, flagVictorious_));

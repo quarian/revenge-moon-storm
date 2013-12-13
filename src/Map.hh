@@ -67,7 +67,7 @@ class Map {
         void save(std::string path);
 
 
-        void spawnPlayer(Player*, int, int);
+        void spawnPlayer(Player*, int, int, bool=true);
 
         void pushItem(Item* item) { items.insert(item); }
         void popItem(Item* item) { items.erase(item); }

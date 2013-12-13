@@ -28,7 +28,7 @@ void CampaignGame::launchLevelTunnels() {
     map_.loadFromFile("./maps/campaign/tunnels.map", game_.terrainManager_);
 
     // Essential elements
-    map_.spawnPlayer(player_, 6, 36);
+    map_.spawnPlayer(player_, 6, 36, false);
     new Fixtures::LevelExit(map_, map_.getBlock(62, 1), flagVictorious_, {player_}, "hole_to_light.png");
     
     spawn(new CampaignGameWorld(this, map_, player_, flagVictorious_));
