@@ -615,7 +615,6 @@ early-grade, half-baked material that does not quite do what we wanted.
     <li>Not strictly a bug, but the editor's code quality is terrible and it lacks features (you might notice that you can't place monsters, for example). This might be fixed by tomorrow.</li>
     <li> <span class="code">sf::Text</span> leaks memory because the destructor of it chrashes the game. Therefore all the <span class="code">sf::Text</span> are stored in a map in <span class="code">GraphicsManager</span> to have them all in the same place and to keep them alive, until the game ends. This is a known <a href="#refs">SFML-bug</a>.</li>
     <li>After a game finishes, the enter key (select menu item function) is sometimes unresponsive (but it works eventually).</li>
-    <li>The final level of the campaign is not yet finished. The boss character has not been made, and there is no victory condition.</li>
     <li>On some machines, story screens have gotten stuck if the window is not in focus (mouse is elsewhere etc.) when the story screen is shown.
         If you encounter this problem, klick the screen before you navigate to "Single Player" and "Start" to ensure that the window has focus.</li>
     <li>There are some rare simultaneous death conditions (e.g., bug and player at the same time) that cause the game to segfault.
