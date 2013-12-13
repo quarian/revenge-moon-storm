@@ -175,7 +175,9 @@ void World::drawGUI() {
         status_text_->setString(players_[i]->getName());
         status_text_->setPosition(x*game_.blockSize_.x, y*game_.blockSize_.y);
         status_text_->setColor(sf::Color::White);
-        game_.draw(*status_text_);
+
+        if (players_.size() > 1)
+            game_.draw(*status_text_);
         y++;
         for (auto iter = item_names.begin(); iter != item_names.end(); iter++) {
             icon.setTexture(game_.graphicsManager_.getTexture(*iter + "_icon.png"));
