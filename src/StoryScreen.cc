@@ -21,6 +21,7 @@ StoryScreen::StoryScreen(
         std::vector<std::string> story) :
         GameState(parent),
         story_(story),
+        timer_(0.0f),
         storyfont_(parent->getGame().graphicsManager_.fonts_["batman"]) {
     passed_ = false;
 }
